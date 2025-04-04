@@ -97,6 +97,11 @@ message("Generate results...\n")
 # extract relevant methylation values, copy number values and probe annotations
 # from the GenomicRatioSet object
 
+# set up output file names
+m_value_file <- paste0(dataset, "-methylation-methyl-m-values.rds")
+beta_value_file <- paste0(dataset, "-methylation-methyl-beta-values.rds")
+cn_value_file <- paste0(dataset, "-methylation-methyl-cn-values.rds")
+
 # get methylation m-values
 message("- Writing m-values matrix to file...\n")
 GRset %>% minfi::getM() %>% as.data.frame() %>% 
