@@ -106,19 +106,19 @@ cn_value_file <- paste0(dataset, "-methylation-methyl-cn-values.rds")
 message("- Writing m-values matrix to file...\n")
 GRset %>% minfi::getM() %>% as.data.frame() %>% 
   tibble::rownames_to_column("Probe_ID") %>% tibble::as_tibble() %>% 
-  readr::write_rds("methylation-methyl-m-values.rds")
+  readr::write_rds(m_value_file)
 
 # get methylation beta-values
 message("- Writing beta-values matrix to file...\n")
 GRset %>% minfi::getBeta() %>% as.data.frame() %>% 
   tibble::rownames_to_column("Probe_ID") %>% tibble::as_tibble() %>% 
-  readr::write_rds("methylation-methyl-beta-values.rds")
+  readr::write_rds(beta_value_file)
 
 # get copy number values
 message("- Writing cn-values matrix to file...\n")
 GRset %>% minfi::getCN() %>% as.data.frame() %>% 
   tibble::rownames_to_column("Probe_ID") %>% tibble::as_tibble() %>% 
-  readr::write_rds("methylation-methyl-cn-values.rds")
+  readr::write_rds(cn_value_file)
 
 # delete GenomicRatioSet object to free memory
 rm(GRset)
