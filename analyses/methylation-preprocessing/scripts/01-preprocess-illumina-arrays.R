@@ -21,7 +21,9 @@ option_list <- list(
               help = "The absolute path of the base directory containing sample 
               array IDAT files.",
               metavar = "character"),
-  
+  make_option(manifest_file = "--manifest_file", type = "character",
+              help = "Input manifest file with 'file_name' and
+              'Bioassay_ID' columns"),
   make_option(opt_str = "--controls_present", action = "store_true", 
               default = TRUE,
               help = "preprocesses the Illumina methylation arrays using one of
@@ -47,6 +49,11 @@ opt <- parse_args(OptionParser(option_list = option_list))
 base_dir <- opt$base_dir
 controls_present <- opt$controls_present
 snp_filter <- opt$snp_filter
+
+# read manifest file_name and get Bioassay_ID columns
+man_df <- read.table(file = opt$manifest_file, sep = '\t', header = TRUE)
+man_df %>% select(file_name, Bioassay_ID) %>%
+  filter(!grepl("_Red.", file_name))
 
 # get analysis cancer type from arrays base_dir
 dataset <- basename(base_dir)
@@ -105,19 +112,25 @@ cn_value_file <- paste0(dataset, "-methylation-methyl-cn-values.rds")
 # get methylation m-values
 message("- Writing m-values matrix to file...\n")
 GRset %>% minfi::getM() %>% as.data.frame() %>% 
-  tibble::rownames_to_column("Probe_ID") %>% tibble::as_tibble() %>% 
+  tibble::rownames_to_column("Probe_ID") %>%
+  rename(setNames(man_df$file_name, man_df$Bioassay_ID)) %>%
+  tibble::as_tibble() %>% 
   readr::write_rds(m_value_file)
 
 # get methylation beta-values
 message("- Writing beta-values matrix to file...\n")
 GRset %>% minfi::getBeta() %>% as.data.frame() %>% 
-  tibble::rownames_to_column("Probe_ID") %>% tibble::as_tibble() %>% 
+  tibble::rownames_to_column("Probe_ID") %>%
+  rename(setNames(man_df$file_name, man_df$Bioassay_ID)) %>%
+  tibble::as_tibble() %>% 
   readr::write_rds(beta_value_file)
 
 # get copy number values
 message("- Writing cn-values matrix to file...\n")
 GRset %>% minfi::getCN() %>% as.data.frame() %>% 
-  tibble::rownames_to_column("Probe_ID") %>% tibble::as_tibble() %>% 
+  tibble::rownames_to_column("Probe_ID") %>%
+  rename(setNames(man_df$file_name, man_df$Bioassay_ID)) %>%
+  tibble::as_tibble() %>% 
   readr::write_rds(cn_value_file)
 
 # delete GenomicRatioSet object to free memory
