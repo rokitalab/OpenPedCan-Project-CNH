@@ -51,11 +51,10 @@ controls_present <- opt$controls_present
 snp_filter <- opt$snp_filter
 
 # read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
-man_df <- read.table(file = opt$manifest_file, sep = '\t', header = TRUE)
-man_df <- man_df %>% select(all_of(c("file_name", "Bioassay_ID"))) %>%
-  filter(!grepl("_Red.", file_name))
-man_df$file_name <- gsub("_Grn.idat", "", man_df$file_name)
-man_df$file_name <- gsub(".gz", "", man_df$file_name)
+man_df <- read_tsv(file = opt$manifest_file) %>% 
+  select(file_name, Bioassay_ID) %>%
+  dplyr::mutate(file_name = gsub("(_Red|_Grn).*", "", file_name)) %>%
+  unique()
 
 # get analysis cancer type from arrays base_dir
 dataset <- basename(base_dir)
