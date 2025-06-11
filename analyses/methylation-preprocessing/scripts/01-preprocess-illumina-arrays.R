@@ -21,7 +21,9 @@ option_list <- list(
               help = "The absolute path of the base directory containing sample 
               array IDAT files.",
               metavar = "character"),
-  
+  make_option(opt_str = "--manifest_file", type = "character",
+              help = "Input manifest file with 'file_name' and
+              'Bioassay_ID' columns"),
   make_option(opt_str = "--controls_present", action = "store_true", 
               default = TRUE,
               help = "preprocesses the Illumina methylation arrays using one of
@@ -47,6 +49,12 @@ opt <- parse_args(OptionParser(option_list = option_list))
 base_dir <- opt$base_dir
 controls_present <- opt$controls_present
 snp_filter <- opt$snp_filter
+
+# read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
+man_df <- read_tsv(file = opt$manifest_file) %>% 
+  select(file_name, Bioassay_ID) %>%
+  dplyr::mutate(file_name = gsub("(_Red|_Grn).*", "", file_name)) %>%
+  unique()
 
 # get analysis cancer type from arrays base_dir
 dataset <- basename(base_dir)
@@ -102,23 +110,34 @@ m_value_file <- paste0(dataset, "-methylation-methyl-m-values.rds")
 beta_value_file <- paste0(dataset, "-methylation-methyl-beta-values.rds")
 cn_value_file <- paste0(dataset, "-methylation-methyl-cn-values.rds")
 
-# get methylation m-values
-message("- Writing m-values matrix to file...\n")
-GRset %>% minfi::getM() %>% as.data.frame() %>% 
-  tibble::rownames_to_column("Probe_ID") %>% tibble::as_tibble() %>% 
-  readr::write_rds(m_value_file)
+message("Extracting m values")
 
-# get methylation beta-values
-message("- Writing beta-values matrix to file...\n")
-GRset %>% minfi::getBeta() %>% as.data.frame() %>% 
-  tibble::rownames_to_column("Probe_ID") %>% tibble::as_tibble() %>% 
-  readr::write_rds(beta_value_file)
+# extract m values
+m_value <- GRset %>% minfi::getM() %>% as.data.frame() %>%
+  tibble::rownames_to_column("Probe_ID")
 
-# get copy number values
-message("- Writing cn-values matrix to file...\n")
-GRset %>% minfi::getCN() %>% as.data.frame() %>% 
-  tibble::rownames_to_column("Probe_ID") %>% tibble::as_tibble() %>% 
-  readr::write_rds(cn_value_file)
+m_value <- data.table::setnames(m_value, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
+
+# write output file
+readr::write_rds(m_value, m_value_file)
+
+message("Extracting beta-values")
+beta_value <- GRset %>% minfi::getBeta() %>% as.data.frame() %>%
+  tibble::rownames_to_column("Probe_ID")
+
+beta_value <- data.table::setnames(beta_value, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
+
+# write output file
+readr::write_rds(beta_value, beta_value_file)
+
+message("Extracting copy number values")
+cn_value <- GRset %>% minfi::getCN() %>% as.data.frame() %>%
+  tibble::rownames_to_column("Probe_ID")
+
+cn_value <- data.table::setnames(cn_value, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
+
+# write output file
+readr::write_rds(cn_value, cn_value_file)
 
 # delete GenomicRatioSet object to free memory
 rm(GRset)
