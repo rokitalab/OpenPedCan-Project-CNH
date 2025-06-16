@@ -57,6 +57,6 @@ steps:
       snp_filter: snp_filter
       ram: ram
       cores: cores
-    out: [beta_values, m_values_masked, m_values_unmasked cn_values]
+    out: [beta_values, m_values_masked, m_values_unmasked, cn_values]
   
 
