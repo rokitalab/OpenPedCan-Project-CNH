@@ -85,6 +85,12 @@ if (controls_present) {
     minfi::preprocessQuantile(fixOutliers = TRUE,  quantileNormalize = TRUE, 
                               stratified = TRUE, mergeManifest = TRUE, sex = NULL)
 }
+
+######################## Calculate detection p-values #########################
+message("\nCalculating detection p-values...\n")
+
+detP <- minfi::detectionP(RGset)
+
 # delete RGChannelSet object to free memory
 rm(RGset)
 
@@ -99,10 +105,6 @@ if (snp_filter) {
     minfi::dropLociWithSnps(snps=c("SBE","CpG"), maf=0)
 }
 
-######################## Calculate detection p-values #########################
-message("\nCalculating detection p-values...\n")
-
-detP <- minfi::detectionP(GRset)
 
 
 
