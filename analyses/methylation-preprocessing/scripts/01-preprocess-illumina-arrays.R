@@ -125,18 +125,22 @@ cn_value_file <- paste0(dataset, "-methylation-methyl-cn-values.rds")
 message("Extracting m values")
 
 # extract m values
-m_value <- GRset %>% minfi::getM() %>% as.data.frame() %>%
+m_value_unmasked <- GRset %>% minfi::getM() %>% as.data.frame() %>%
   tibble::rownames_to_column("Probe_ID")
 
-m_value <- data.table::setnames(m_value, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
+m_value_unmasked <- data.table::setnames(m_value_unmasked, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
+
+
+
 
 # write output file
-readr::write_rds(m_value, m_value_file)
+readr::write_rds(m_value_unmasked, m_value_file)
 
 ##masking is optional for m values -- can generate masked and unmasked matrices
 
-m_value_masked <- m_value
-m_value_masked[detP > 0.05] <- NA  ##this p value threshold could be added as an option later, but 0.05 is standard 
+# extract m values
+m_value_masked <- GRset %>% minfi::getM() %>% { .[detP > 0.05] <- NA; . } %>% as.data.frame() %>%
+  tibble::rownames_to_column("Probe_ID")
 
 m_value_masked <- data.table::setnames(m_value_masked, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
 
@@ -145,13 +149,19 @@ readr::write_rds(m_value_masked, m_value_file_masked)
 
 message("Extracting beta-values")
 
-beta_value <- GRset %>% minfi::getBeta() %>% as.data.frame() %>%
+#beta_value <- GRset %>% minfi::getBeta() %>% as.data.frame() %>%
+  #tibble::rownames_to_column("Probe_ID")
+
+
+beta_values_masked <- GRset %>% 
+  minfi::getBeta() %>%
+  { .[detP > 0.05] <- NA; . } %>%
+  as.data.frame() %>%
   tibble::rownames_to_column("Probe_ID")
 
-
 # apply masking -- #should ALWAYS be done for B values 
-beta_values_masked <- beta_values
-beta_values_masked[detP > 0.05] <- NA
+#beta_values_masked <- beta_values
+#beta_values_masked[detP > 0.05] <- NA
 beta_values_masked <- data.table::setnames(beta_values_masked, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
 
 # write output file
