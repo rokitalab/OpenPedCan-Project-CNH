@@ -42,7 +42,7 @@ outputs:
   m_values_unmasked:
     type: File
     outputBinding:
-      glob: '-methylation-methyl-m-values-unmasked.rds'
+      glob: '*-methylation-methyl-m-values-unmasked.rds'
   m_values_masked:
     type: File
     outputBinding:
