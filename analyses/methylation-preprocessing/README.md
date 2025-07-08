@@ -104,6 +104,7 @@ Methylation array datasets are avaliable on the CHOP HPC `Isilon` sever (locatio
 
 ## Results
 Result files of methylation `beta-values`, `M-values` , `cn-values` are too large to upload to this repository and available on OpenPedCan data release s3 Bucket.
+- `results/methyl-beta-values.rds`
 - `results/methyl-beta-values-masked.rds`
 - `results/methyl-m-values-unmasked.rds`
 - `results/methyl-m-values-masked.rds`
