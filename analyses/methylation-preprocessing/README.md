@@ -22,7 +22,7 @@ The [Children's Brain Tumor Network (CBTN)](https://cbtn.org/) `Infinium HumanMe
 
 - The TARGET Illumina methylation analysis results available on the [TARGET project website](https://ocg.cancer.gov/programs/target/target-methods) were preprocessed with different methylation software packages, including `minfi` (AML), `BeadStudio` (CCSK and WT), `methylumi` (NBL), and `Lumi+BMIQ` (OS). We have preprocessed all the TARGET and CBTN cancer types with Illumina arrays and using the updated version of [minfi Bioconductor package](https://academic.oup.com/bioinformatics/article/33/4/558/2666344). We utilized and `preprocessFunnorm` preprocessing method when an array dataset has control samples (i.e., normal and tumor samples) or multiple OpenPedcan cancer groups and `preprocessQuantile` when an array dataset has only tumor samples from a single OpenPedcan cancer group to estimate usable methylation measurements (Beta and M values) and copy number (cn-values) for OpenPedCan.
 
-
+- Masking is applied using two different methods. Firstly, probes with known SNPs are removed. Secondly, the p-value for each sample is computed by comparing the signal of methylated and unmethylated probes against the background signal. Probes with p-values > 0.05 are filtered out.
 
 ## General usage of scripts
 
@@ -105,7 +105,9 @@ Methylation array datasets are avaliable on the CHOP HPC `Isilon` sever (locatio
 ## Results
 Result files of methylation `beta-values`, `M-values` , `cn-values` are too large to upload to this repository and available on OpenPedCan data release s3 Bucket.
 - `results/methyl-beta-values.rds`
-- `results/methyl-m-values.rds`
+- `results/methyl-beta-values-masked.rds`
+- `results/methyl-m-values-unmasked.rds`
+- `results/methyl-m-values-masked.rds`
 - `results/methyl-cn-values.rds`
 
 
