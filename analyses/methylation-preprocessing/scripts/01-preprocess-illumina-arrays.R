@@ -137,6 +137,8 @@ m_value_unmasked <- data.table::setnames(m_value_unmasked, man_df$file_name, man
 readr::write_rds(m_value_unmasked, m_value_file)
 
 ##masking is optional for m values -- can generate masked and unmasked matrices
+# Align detection p-values with features in GRset
+detP <- detP[featureNames(GRset), ]
 
 # extract m values
 m_value_masked <- GRset %>% minfi::getM() %>% { .[detP > 0.05] <- NA; . } %>% as.data.frame() %>%

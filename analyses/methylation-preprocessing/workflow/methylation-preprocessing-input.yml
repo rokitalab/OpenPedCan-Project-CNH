@@ -1,0 +1,15 @@
+input_idats_dir:
+  class: Directory
+  path: ../data/methyl-liquid-biopsy/source/LiquidBiopsy/Methylation/EPN/RawData/Normal_Cortex/450k_methylation/
+manifest_file:
+  class: File
+  path: ../methyl_manifest_20250314_IDs_assigned.tsv
+controls_present: true
+snp_filter: true
+ram: 32
+cores: 16
+
+
+# input_idats_dir: data/methyl-liquid-biopsy/source/LiquidBiopsy/Methylation/EPN/RawData/
+# data/methyl-liquid-biopsy/source/LiquidBiopsy/Methylation/EPN/RawData/Normal_Cortex/450k_methylation/GSE205661_normal_cortex_450k_methylation
+# data/methyl-liquid-biopsy/source/LiquidBiopsy/Methylation/EPN/RawData/Normal_CSF/850k_children_normal_CSF/

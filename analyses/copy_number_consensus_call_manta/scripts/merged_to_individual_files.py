@@ -50,33 +50,66 @@ parser.add_argument('--histologies', required = True,
 
 args = parser.parse_args()
 
+print("Starting CNV file processing...")
+print(f"Input files: manta={args.manta}, cnvkit={args.cnvkit}, freec={args.freec}")
 
 ## Pandas load/read files in
-histologies = pd.read_csv(args.histologies, sep="\t",dtype=str )
-merged_manta = pd.read_csv(args.manta, delimiter='\t', dtype=str   )
-merged_cnvkit = pd.read_csv(args.cnvkit, delimiter='\t', dtype=str )
-merged_freec = pd.read_csv(args.freec, delimiter='\t', dtype=str )
+print("Step 1: Loading input files...")
 
+# First, get sample list from other files to know which samples we need
+print("  Loading histologies file...")
+histologies = pd.read_csv(args.histologies, sep="\t", dtype=str)
+print(f"  ✓ Loaded histologies: {len(histologies)} records")
 
+print("  Loading cnvkit file...")
+merged_cnvkit = pd.read_csv(args.cnvkit, delimiter='\t', dtype=str)
+print(f"  ✓ Loaded cnvkit: {len(merged_cnvkit)} records")
 
-## Extract the samples for each files to merge them all together. This takes into account uneven
-## numbers of samples per file
-manta_samples = set(merged_manta[MANTA_ID_HEADER])
+print("  Loading freec file...")
+merged_freec = pd.read_csv(args.freec, delimiter='\t', dtype=str)
+print(f"  ✓ Loaded freec: {len(merged_freec)} records")
+
 cnvkit_samples = set(merged_cnvkit[CNVKIT_ID_HEADER])
 freec_samples = set(merged_freec[FREEC_ID_HEADER])
+print(f"  Found {len(cnvkit_samples)} cnvkit samples, {len(freec_samples)} freec samples")
 
 # Filtering for WGS samples 
 WGS_all_samples = set(histologies[(histologies["experimental_strategy"] == "WGS") & (histologies["sample_type"] == "Tumor")]['Kids_First_Biospecimen_ID'])
-print(len(WGS_all_samples))
+print(f"  Found {len(WGS_all_samples)} WGS tumor samples")
 
-## Merged and take the unique samples. Any method without a certain sample will get an empty file
-## for of that sample.
-all_samples = sorted(manta_samples | cnvkit_samples | freec_samples) # set union
+print("Step 2: Processing manta file in chunks...")
+# Process manta file in chunks instead of loading entirely
+manta_samples = set()
+sample_data = {}  # Store data for each sample
 
-## Intersect WGS DNA samples with all_samples to run cnv consensus
+chunk_size = 500000  # Adjust based on available memory
+chunk_count = 0
+for chunk in pd.read_csv(args.manta, delimiter='\t', dtype=str, chunksize=chunk_size):
+    chunk_count += 1
+    if chunk_count % 10 == 0:  # Progress update every 10 chunks
+        print(f"  Processing chunk {chunk_count}...")
+    
+    # Get samples from this chunk
+    chunk_samples = set(chunk[MANTA_ID_HEADER])
+    manta_samples.update(chunk_samples)
+    
+    # Process samples we're interested in
+    for sample in chunk_samples.intersection(WGS_all_samples):
+        sample_chunk = chunk[chunk[MANTA_ID_HEADER] == sample]
+        if sample in sample_data:
+            sample_data[sample] = pd.concat([sample_data[sample], sample_chunk])
+        else:
+            sample_data[sample] = sample_chunk
+
+print(f"  ✓ Processed {chunk_count} chunks from manta file")
+print(f"  ✓ Found {len(manta_samples)} manta samples, {len(sample_data)} WGS samples with manta data")
+
+# Now continue with the rest of the processing using sample_data instead of merged_manta
+all_samples = sorted(manta_samples | cnvkit_samples | freec_samples)
 WGS_all_samples_to_run = WGS_all_samples.intersection(all_samples)
-print(len(WGS_all_samples_to_run))
+print(f"  ✓ Total samples to process: {len(WGS_all_samples_to_run)}")
 
+print("Step 3: Creating output directories...")
 ## Define and create assumed directories
 scratch_d = args.scratch
 manta_d = os.path.join(scratch_d, 'manta_manta')
@@ -88,25 +121,28 @@ if not os.path.exists(cnvkit_d):
     os.makedirs(cnvkit_d)
 if not os.path.exists(freec_d):
     os.makedirs(freec_d)
+print(f"  ✓ Created directories: {manta_d}, {cnvkit_d}, {freec_d}")
 
-
-
+print("Step 4: Processing individual samples...")
 bad_calls = []
+processed_count = 0
 
 ## Loop through each sample, search for that sample in each of the three dataframes,
 ## and create a file of the sample in each directory
 for sample in WGS_all_samples_to_run:
-
-    ## Pull out the CNVs with that sample name
-    manta_export = merged_manta.loc[merged_manta[MANTA_ID_HEADER] == sample]
-
-    ## Write cnvs to file if less than maxcnvs / otherwise empty file and add to bad_calls list
+    processed_count += 1
+    if processed_count % 100 == 0:  # Progress update every 100 samples
+        print(f"  Processed {processed_count}/{len(WGS_all_samples_to_run)} samples...")
+    
+    # Use pre-processed data instead of querying the full dataframe
+    manta_export = sample_data.get(sample, pd.DataFrame())
+    
     with open(os.path.join(manta_d, sample + MANTA_EXT), 'w') as file_out:
-        if manta_export.shape[0] <= args.maxcnvs and manta_export.shape[0] > 0:
+        if len(manta_export) <= args.maxcnvs and len(manta_export) > 0:
             manta_export.to_csv(file_out, sep='\t', index=False)
         else:
             bad_calls.append(sample + "\tmanta\n")
-
+    
     cnvkit_export = merged_cnvkit.loc[merged_cnvkit[CNVKIT_ID_HEADER] == sample]
     with open(os.path.join(cnvkit_d, sample + CNVKIT_EXT), 'w') as file_out:
         if cnvkit_export.shape[0] <= args.maxcnvs and cnvkit_export.shape[0] > 0:
@@ -121,7 +157,9 @@ for sample in WGS_all_samples_to_run:
         else:
             bad_calls.append(sample + "\tfreec\n")
 
+print(f"  ✓ Processed all {processed_count} samples")
 
+print("Step 5: Creating Snakemake config file...")
 ## Make the Snakemake config file. Write all of the sample names into the config file
 with open(args.snake, 'w') as file:
     file.write('samples:' + '\n')
@@ -141,8 +179,14 @@ with open(args.snake, 'w') as file:
     file.write('size_cutoff: ' + str(args.cnvsize) + '\n')
     file.write('freec_pval: ' + str(args.freecp) + '\n')
 
+print(f"  ✓ Created Snakemake config: {args.snake}")
+
+print("Step 6: Writing uncalled samples file...")
 ## Write out the bad calls file
 bad_calls.sort()
 with open(args.uncalled, 'w') as file:
     file.write("sample\tcaller\n")
     file.writelines(bad_calls)
+
+print(f"  ✓ Created uncalled samples file: {args.uncalled} ({len(bad_calls)} bad calls)")
+print("✓ Script completed successfully!")

@@ -27,3 +27,7 @@ analyses/molecular-subtyping*/*subset/*rsem-tpm*
 
 # vs code
 .vscode/
+
+# Ignore the data and outputs of the methylation preprocessing
+analyses/methylation-preprocessing/data/*
+analyses/methylation-preprocessing/outputs/*
