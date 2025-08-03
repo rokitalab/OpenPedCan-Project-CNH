@@ -7,10 +7,18 @@ library(cowplot)
 setwd("./")
 
 
-#key findings: group3 is most significantly different from WNT, group2, and SHH for immune fraction. I tested both
-#total and looked at particular celltype such as monocytes. I generated distributions of all 6 combinations, performed
-#non parametric stats tests and volcano plots comparing celltype fraction enrichment for group3 vs every other type.
-#Distribution and volcano plots generated in plots/ subdirectory.
+# key findings: group3 is most significantly different from WNT, group2, and SHH for immune fraction. I tested both
+# total and looked at particular celltype such as monocytes. I generated distributions of all 6 combinations, performed
+# non parametric stats tests and volcano plots comparing celltype fraction enrichment for group3 vs every other type.
+# Distribution and volcano plots generated in plots/ subdirectory:
+#
+# distributions_immune_cell_subtype_medulloblastoma.png - pairwise distribution comparison total immune cell fraction
+# distributions_monocyte_cell_subtype_medulloblastoma.png - pairwise distribution comparison monocyte fraction
+# heatmap_immune_cell_subtype_medulloblastoma.png - heatmap of mann whitney u and ks pairwise test for total immune 
+# volcano_group3_vs_rest_immune_cell_type.png - pval vs logFC for group3 vs all three (rest) for all celltypes
+# volcano_group3_vs_group4_immune_cell_type.png - pval vs logFC for group3 vs group4 for all celltypes
+# volcano_group3_vs_SHH_immune_cell_type.png - pval vs logFC for group3 vs SHH for all celltypes
+# volcano_group3_vs_WNT_immune_cell_type.png - pval vs logFC for group3 vs WNT for all celltypes
 
 # ---- load and filter tumor file ----
 #extract xcell based deconvolution of celltypes
