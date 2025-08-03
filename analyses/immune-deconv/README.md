@@ -41,10 +41,15 @@ data/histologies.tsv
 
 This script deconvolutes immune cell types using the method of choice, either `xCell` or `quanTIseq`. Since `xCell` uses the variability among the samples for a linear transformation of the output score, we split the expression matrix into individual `cohorts + cancer_group` or `cohort + gtex_group` and deconvolute them separately. Once processed, all data is combined into a single rds file which can be used to do comparisons across various groups.
 
+Further downstream analysis on absolute immune cell fraction comparison for SHH, WNT, group3, and group4 for 
+medulloblastoma performed.
+
 3. Output: 
 
 ```
 results/{deconv_method}_output.rds
+plots/distributions*.png
+plots/volcano*png
 ```
 
 For `xCell`, the results in the rds file are predicted immune scores per cell type per input sample. These scores are not actual cell fractions but arbitrary scores representing enrichment of the cell types which can be compared across various cancer/gtex groups. The `quanTIseq` results, in contrast, provide an absolute score that can be interpreted as a cell fraction and the results in the rds file are the absolute scores per cell type per input sample. Depending on the user requirements, the output can also be used to create various visualizations. 
@@ -56,3 +61,12 @@ The following script will run the full analysis using either of the two methods 
 ```
 bash run-immune-deconv.sh
 ```
+
+Further downstream analysis comparing immune cell fraction across medulloblastoma subtypes add
+
+```
+Rscript immune_cell_medulloblastoma_analysis.R
+```
+
+
+
