@@ -1,3 +1,30 @@
+# ============================================================================================================
+# Script Name: immune_cell_medulloblastoma_analysis.R
+# Purpose: Generate immune cell comparison between medulloblastoma subtypes
+# Author: Daniel Emerson
+# Date: 2025-08-02
+#
+# Summary:
+# Group3 is most significantly different from WNT, group2, and SHH for immune fraction. 
+# I tested both total and looked at particular celltype such as monocytes. I generated distributions 
+# of all 6 combinations, performed non parametric stats tests and volcano plots comparing celltype 
+# fraction enrichment for group3 vs every other type. I used quantiseq, which provides absolute fraction
+# as opposed to an arbitrary enrichment score.  Caveat: not able to characterize as many celltypes which
+# are lost as "uncharacterized" with less sensitivity, which may impact analysis.
+# 
+# Output files:
+# distributions_immune_cell_subtype_medulloblastoma.png - pairwise distribution comparison total immune fraction
+# distributions_monocyte_cell_subtype_medulloblastoma.png - pairwise distribution comparison monocyte fraction
+# heatmap_immune_cell_subtype_medulloblastoma.png - heatmap of mann whitney u and ks pairwise for total immune 
+# volcano_group3_vs_rest_immune_cell_type.png - pval vs logFC for group3 vs all three (rest) for all celltypes
+# volcano_group3_vs_group4_immune_cell_type.png - pval vs logFC for group3 vs group4 for all celltypes
+# volcano_group3_vs_SHH_immune_cell_type.png - pval vs logFC for group3 vs SHH for all celltypes
+# volcano_group3_vs_WNT_immune_cell_type.png - pval vs logFC for group3 vs WNT for all celltypes
+# ============================================================================================================
+
+
+# ---- Load Libraries ----
+
 library(ggplot2)
 library(dplyr)
 library(pheatmap)
@@ -6,19 +33,6 @@ library(cowplot)
 
 setwd("./")
 
-
-# key findings: group3 is most significantly different from WNT, group2, and SHH for immune fraction. I tested both
-# total and looked at particular celltype such as monocytes. I generated distributions of all 6 combinations, performed
-# non parametric stats tests and volcano plots comparing celltype fraction enrichment for group3 vs every other type.
-# Distribution and volcano plots generated in plots/ subdirectory:
-#
-# distributions_immune_cell_subtype_medulloblastoma.png - pairwise distribution comparison total immune cell fraction
-# distributions_monocyte_cell_subtype_medulloblastoma.png - pairwise distribution comparison monocyte fraction
-# heatmap_immune_cell_subtype_medulloblastoma.png - heatmap of mann whitney u and ks pairwise test for total immune 
-# volcano_group3_vs_rest_immune_cell_type.png - pval vs logFC for group3 vs all three (rest) for all celltypes
-# volcano_group3_vs_group4_immune_cell_type.png - pval vs logFC for group3 vs group4 for all celltypes
-# volcano_group3_vs_SHH_immune_cell_type.png - pval vs logFC for group3 vs SHH for all celltypes
-# volcano_group3_vs_WNT_immune_cell_type.png - pval vs logFC for group3 vs WNT for all celltypes
 
 # ---- load and filter tumor file ----
 #extract xcell based deconvolution of celltypes
