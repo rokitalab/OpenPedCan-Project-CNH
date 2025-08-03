@@ -6,6 +6,12 @@ library(cowplot)
 
 setwd("./")
 
+
+#key findings: group3 is most significantly different from WNT, group2, and SHH for immune fraction. I tested both
+#total and looked at particular celltype such as monocytes. I generated distributions of all 6 combinations, performed
+#non parametric stats tests and volcano plots comparing celltype fraction enrichment for group3 vs every other type.
+#Distribution and volcano plots generated in plots/ subdirectory.
+
 # ---- load and filter tumor file ----
 #extract xcell based deconvolution of celltypes
 #deconv_xcell_df <- readRDS("results/xcell_output.rds")
@@ -38,7 +44,7 @@ MB_WNT_df <- total_frac_immune_df[total_frac_immune_df$cancer_group == "Medullob
 
 
 
-# ---- statistical tests  ----
+# ---- pairwise statistical tests for total immune cell fraction by type  ----
 # perform pairwise test (6 total) comparing total immune cell fractions distribution for 4 conditions
 # (WNT, group4,group3,SHH) using non-parametric tests Mann-Whitney U and KS
 
@@ -60,7 +66,7 @@ group3_v_SHH_ks <- ks.test(MB_group3_df$fraction,MB_SHH_df$fraction, alternative
 group4_v_SHH <- wilcox.test(MB_group4_df$fraction,MB_SHH_df$fraction,alternative = "two.sided")
 group4_v_SHH_ks <- ks.test(MB_group4_df$fraction,MB_SHH_df$fraction, alternative = "two.sided")
 
-# ---- Table of pvalues ----
+# ---- table of pairwise pvalues for total immune cell fraction ----
 
 sig_df <- data.frame(
   mwu = c(WNT_v_group4$p.value, WNT_v_group3$p.value, WNT_v_SHH$p.value, 
@@ -84,7 +90,7 @@ heatmap <- pheatmap(as.matrix(-log10(sig_df)),
 
 ggsave("plots/heatmap_immune_cell_subtype_medulloblastoma.png", plot = heatmap,width = 8, height = 6, units = "in", dpi = 300)
 
-# ---- plot immune cell distributions per subtype ---- 
+# ---- plot total immune cell distributions per subtype ---- 
 
 comparisons <- new.env()
 comparisons[["WNT_v_group4"]] <- c("MB, WNT","MB, Group4")
@@ -128,7 +134,7 @@ for (comparison in names(comparisons)){
               color = "black", size = 3) +
     xlim(0, 0.75) +
     ylim(0, 6) +
-    labs(x = "immune cell fraction", y = "frequency") +
+    labs(x = "total immune cell fraction", y = "frequency") +
     theme_minimal() + 
     theme(
       axis.line = element_line(color = "black"),
@@ -153,6 +159,9 @@ for (cell_type in unique(deconv_quantiseq_output_df$cell_type)){
   cell_type_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$cell_type == cell_type,]
   group3_cell_type_df <- cell_type_df[cell_type_df$molecular_subtype == "MB, Group3",]
   other_cell_type_df <-  cell_type_df[cell_type_df$molecular_subtype != "MB, Group3",]
+  #other_cell_type_df <-  cell_type_df[cell_type_df$molecular_subtype == "MB, WNT",]
+  #other_cell_type_df <-  cell_type_df[cell_type_df$molecular_subtype == "MB, Group4",]
+  #other_cell_type_df <-  cell_type_df[cell_type_df$molecular_subtype == "MB, SHH",]
   
   group3_v_other_wmu <- wilcox.test(group3_cell_type_df$fraction,other_cell_type_df$fraction,alternative = "two.sided")
   pval_cell_types  <- c(pval_cell_types,-log10(group3_v_other_wmu$p.value))
@@ -172,12 +181,105 @@ volcano_df <- data.frame(
 volcplot <- ggplot(volcano_df, aes(x = log2FC, y = pvalue)) +
   geom_point(aes(color = 'red')) +
   geom_text(data = volcano_df,aes(label = cell_type),size = 4) +
-  xlim(-5, 5) +
-  labs(title = "group 3 immune cell fraction change vs rest",x = "log2 (group3_fraction/rest_fraction)", y = "-log10(p-value)") +
+  #xlim(-5, 5) +
+  #labs(title = "group 3 immune cell fraction change vs rest",x = "log2(mean(group3_fraction)/mean(rest_fraction))", y = "-log10(p-value)") +
+  #labs(title = "group 3 immune cell fraction change vs WNT",x = "log2(mean(group3_fraction)/mean(rest_fraction))", y = "-log10(p-value)") +
+  #labs(title = "group 3 immune cell fraction change vs group4",x = "log2(mean(group3_fraction)/mean(rest_fraction))", y = "-log10(p-value)") +
+  labs(title = "group 3 immune cell fraction change vs SHH",x = "log2(mean(group3_fraction)/mean(rest_fraction))", y = "-log10(p-value)") +
   theme(legend.position = "none")
 
 ggsave("plots/volcano_group3_vs_rest_immune_cell_type.png", plot = volcplot,width = 8, height = 6, units = "in", dpi = 300)
+#ggsave("plots/volcano_group3_vs_WNT_immune_cell_type.png", plot = volcplot,width = 8, height = 6, units = "in", dpi = 300)
+#ggsave("plots/volcano_group3_vs_group4_immune_cell_type.png", plot = volcplot,width = 8, height = 6, units = "in", dpi = 300)
+#ggsave("plots/volcano_group3_vs_SHH_immune_cell_type.png", plot = volcplot,width = 8, height = 6, units = "in", dpi = 300)
 
 #There appears to be an upregulation in Tcells (CD8 and CD4) and Monocytes and downregulation in rest of cells
 #based on fraction of celltype found
+
+
+# ---- extra pairwise statistical test for Monocyte change ----
+MB_group3_monoctye_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$molecular_subtype == 'MB, Group3' &
+                             deconv_quantiseq_output_df$cell_type == "Monocyte",]       
+MB_group4_monoctye_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$molecular_subtype == 'MB, Group4' &
+                             deconv_quantiseq_output_df$cell_type == "Monocyte",]   
+MB_WNT_monoctye_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$molecular_subtype == 'MB, WNT' &
+                                                      deconv_quantiseq_output_df$cell_type == "Monocyte",]
+MB_SHH_monoctye_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$molecular_subtype == 'MB, SHH' &
+                                                      deconv_quantiseq_output_df$cell_type == "Monocyte",]
+
+WNT_v_group4_monocyte <- wilcox.test(MB_WNT_monoctye_df$fraction,MB_group4_monoctye_df$fraction,
+                                     alternative = "two.sided")
+WNT_v_group3_monocyte <- wilcox.test(MB_WNT_monoctye_df$fraction,MB_group3_monoctye_df$fraction,
+                                     alternative = "two.sided")
+WNT_v_SHH_monocyte <- wilcox.test(MB_WNT_monoctye_df$fraction,MB_SHH_monoctye_df$fraction,
+                                     alternative = "two.sided")
+group3_v_group4_monocyte <- wilcox.test(MB_group3_monoctye_df$fraction,MB_group4_monoctye_df$fraction,
+                                  alternative = "two.sided")
+group3_v_SHH_monocyte <- wilcox.test(MB_group3_monoctye_df$fraction,MB_SHH_monoctye_df$fraction,
+                                        alternative = "two.sided")
+group4_v_SHH_monocyte <- wilcox.test(MB_group4_monoctye_df$fraction,MB_SHH_monoctye_df$fraction,
+                                     alternative = "two.sided")
+
+sig_df <- data.frame(
+  mwu = c(WNT_v_group4_monocyte$p.value, WNT_v_group3_monocyte$p.value, WNT_v_SHH_monocyte$p.value, 
+          group3_v_group4_monocyte$p.value, group3_v_SHH_monocyte$p.value,group4_v_SHH_monocyte$p.value)
+)
+
+rownames(sig_df) <- c("WNT_v_group4", "WNT_v_group3", "WNT_v_SHH","group3_v_group4",
+                      "group3_v_SHH","group4_v_SHH")
+
+# ---- plot monocyte distributions per subtype ----
+
+comparisons <- new.env()
+comparisons[["WNT_v_group4"]] <- c("MB, WNT","MB, Group4")
+comparisons[["WNT_v_group3"]] =  c("MB, WNT","MB, Group3")
+comparisons[["WNT_v_SHH"]] = c("MB, WNT","MB, SHH")
+comparisons[["group3_v_group4"]] = c("MB, Group3","MB, Group4")
+comparisons[["group3_v_SHH"]] = c("MB, Group3","MB, SHH")
+comparisons[["group4_v_SHH"]] = c("MB, Group4","MB, SHH")
+
+
+plots <- list()
+for (comparison in names(comparisons)){
+  
+  deconv_quantiseq_output_monocyte_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$cell_type == "Monocyte",]
+  comparison_immune_df <- deconv_quantiseq_output_monocyte_df %>% 
+    filter(molecular_subtype %in% comparisons[[comparison]])
+  
+  #adding medians for each comparison to plots
+  group_medians <- comparison_immune_df %>%
+    group_by(molecular_subtype) %>%
+    summarise(median_val = median(fraction))
+  
+  molecular_subtype_instances <- unique(comparison_immune_df$molecular_subtype)
+  
+  plots[[length(plots) + 1]]  <- ggplot(comparison_immune_df, 
+                                        aes(x = fraction, fill = molecular_subtype)) +
+    geom_histogram(position = "identity", alpha = 0.5, binwidth = 0.005) +
+    geom_vline(data = group_medians, 
+               aes(xintercept = median_val),
+               linetype = "solid", size = 1) +
+    scale_fill_manual(values = color_dict[molecular_subtype_instances]) +
+    geom_text(x = group_medians$median_val[1]+0.02, y = 5, label = paste0("median: ",signif(group_medians$median_val[1],4)),
+              color = color_dict[group_medians$molecular_subtype[1]], size = 2) +
+    geom_text(x = group_medians$median_val[2]+0.02, y = 4, label = paste0("median: ",signif(group_medians$median_val[2],4)),
+              color = color_dict[group_medians$molecular_subtype[2]], size = 2) +
+    geom_text(x = 0.5, y = 5, label = paste0("p-value: ",signif(sig_df[rownames(sig_df) == comparison,][1],6)),
+              color = "black", size = 3) +
+    xlim(0, 0.75) +
+    ylim(0, 6) +
+    labs(x = "monocyte cell fraction", y = "frequency") +
+    theme_minimal() + 
+    theme(
+      axis.line = element_line(color = "black"),
+      axis.ticks = element_line(color = "black"),
+      panel.background = element_rect(fill = "white", color = NA)
+    )
+  
+}
+
+immune_distributions <- do.call(plot_grid, c(plots, ncol = 1, align = "v"))
+ggsave("plots/distributions_monocyte_cell_subtype_medulloblastoma.png", plot = immune_distributions,width = 8, height = 6, units = "in", dpi = 300)
+
+
 
