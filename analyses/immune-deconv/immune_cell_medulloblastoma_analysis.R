@@ -72,6 +72,8 @@ MB_WNT_df <- total_frac_immune_df[total_frac_immune_df$cancer_group == "Medullob
 # ---- pairwise statistical tests for total immune cell fraction by type  ----
 # perform pairwise test (6 total) comparing total immune cell fractions distribution for 4 conditions
 # (WNT, group4,group3,SHH) using non-parametric tests Mann-Whitney U and KS
+# I performed KS and Mann Whitney U as non parametric rank based tests (no assumptions about
+# distribution type/parameters).  I looked for consistancy in trends. 
 
 WNT_v_group4 <- wilcox.test(MB_WNT_df$fraction,MB_group4_df$fraction,alternative = "two.sided")
 WNT_v_group4_ks <- ks.test(MB_WNT_df$fraction,MB_group4_df$fraction, alternative = "two.sided")
@@ -223,6 +225,10 @@ ggsave("plots/volcano_group3_vs_rest_immune_cell_type.png", plot = volcplot,widt
 
 
 # ---- extra pairwise statistical test for Monocyte change ----
+# A valid criticism of above total sum  approach is that certain immune celltypes may upregulate and downregulate.
+# Thus, there maybe a cancellation effect not caught by total sum. I chose a test focused on celltype monocyt.
+# This gave largely same trends.
+
 MB_group3_monoctye_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$molecular_subtype == 'MB, Group3' &
                              deconv_quantiseq_output_df$cell_type == "Monocyte",]       
 MB_group4_monoctye_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$molecular_subtype == 'MB, Group4' &
