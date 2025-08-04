@@ -9,7 +9,7 @@
 # (smallest pvalue comparison (both Mann Whitney and KS test on both total immune fraction and cell
 # subtypes (e.g. monocytes). Greatest shift in median of distribution).
 #
-# I tested both total (sum of celltypes and all separately) and looked at particular celltype such as monocytes.
+# I tested both total (sum of celltypes and all separately) and looked at particular celltype alone such as monocytes.
 # I generated distributions of all 6 combinations, performed non parametric stats tests and volcano plots 
 #  comparing celltype fraction enrichment for group3 vs every other type. I used quantiseq, which provides 
 # absolute fraction as opposed to an arbitrary enrichment score.  Caveat: not able to characterize as many celltypes 
