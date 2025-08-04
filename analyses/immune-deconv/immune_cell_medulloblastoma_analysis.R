@@ -9,11 +9,11 @@
 # (smallest pvalue comparison (both Mann Whitney and KS test on both total immune fraction and cell
 # subtypes (e.g. monocytes). Greatest shift in median of distribution).
 #
-# I tested both total and looked at particular celltype such as monocytes. I generated distributions 
-# of all 6 combinations, performed non parametric stats tests and volcano plots comparing celltype 
-# fraction enrichment for group3 vs every other type. I used quantiseq, which provides absolute fraction
-# as opposed to an arbitrary enrichment score.  Caveat: not able to characterize as many celltypes which
-# are lost as "uncharacterized" with less sensitivity, which may impact analysis.
+# I tested both total (sum of celltypes and all separately) and looked at particular celltype such as monocytes.
+# I generated distributions of all 6 combinations, performed non parametric stats tests and volcano plots 
+#  comparing celltype fraction enrichment for group3 vs every other type. I used quantiseq, which provides 
+# absolute fraction as opposed to an arbitrary enrichment score.  Caveat: not able to characterize as many celltypes 
+# which are lost as "uncharacterized" with less sensitivity, which may impact analysis.
 # 
 # Output files:
 # distributions_immune_cell_subtype_medulloblastoma.png - pairwise distribution comparison total immune fraction
@@ -55,18 +55,32 @@ total_frac_immune_df <- unique(total_frac_immune_df)
 
 
 #filter for Medulloblastoma tumor and subtype
+
+#went with total fraction sum since zero fraction for cell types distorts outcome of distribution
+
 MB_group4_df <- total_frac_immune_df[total_frac_immune_df$cancer_group == "Medulloblastoma" & 
                                        total_frac_immune_df$molecular_subtype == "MB, Group4",]
 
-MB_group3_df <- total_frac_immune_df[total_frac_immune_df$cancer_group == "Medulloblastoma" & 
-                                       total_frac_immune_df$molecular_subtype == "MB, Group3",]
+#MB_group4_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$cancer_group == "Medulloblastoma" &
+#                                             deconv_quantiseq_output_df$molecular_subtype == "MB, Group4",]
 
-MB_SHH_df <- total_frac_immune_df[total_frac_immune_df$cancer_group == "Medulloblastoma" & 
+MB_group3_df <- total_frac_immune_df[total_frac_immune_df$cancer_group == "Medulloblastoma" & 
+                                      total_frac_immune_df$molecular_subtype == "MB, Group3",]
+
+#MB_group3_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$cancer_group == "Medulloblastoma" &
+#                                             deconv_quantiseq_output_df$molecular_subtype == "MB, Group3",]
+
+MB_SHH_df <- total_frac_immune_df[total_frac_immune_df$cancer_group == "Medulloblastoma" &      
                                     total_frac_immune_df$molecular_subtype == "MB, SHH",]
+
+#MB_SHH_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$cancer_group == "Medulloblastoma" & 
+#                                          deconv_quantiseq_output_df$molecular_subtype == "MB, SHH",]
 
 MB_WNT_df <- total_frac_immune_df[total_frac_immune_df$cancer_group == "Medulloblastoma" & 
                                     total_frac_immune_df$molecular_subtype == "MB, WNT",]
 
+#MB_WNT_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$cancer_group == "Medulloblastoma" & 
+#                                          deconv_quantiseq_output_df$molecular_subtype == "MB, WNT",]
 
 
 # ---- pairwise statistical tests for total immune cell fraction by type  ----
@@ -138,7 +152,8 @@ color_dict <- c(
 for (comparison in names(comparisons)){
 
   comparison_immune_df <- total_frac_immune_df %>% filter(molecular_subtype %in% comparisons[[comparison]])
-
+  #comparison_immune_df <- deconv_quantiseq_output_df %>% filter(molecular_subtype %in% comparisons[[comparison]])
+  
   #adding medians for each comparison to plots
   group_medians <- comparison_immune_df %>%
     group_by(molecular_subtype) %>%
