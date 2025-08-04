@@ -56,29 +56,34 @@ total_frac_immune_df <- unique(total_frac_immune_df)
 
 #filter for Medulloblastoma tumor and subtype
 
-#went with total fraction sum since zero fraction for cell types distorts outcome of distribution
+#went with total fraction sum since massive zero fraction for cell types distorts outcome of distribution
+# and corresponding medians.  Medians became close to zero as a result.
 
 MB_group4_df <- total_frac_immune_df[total_frac_immune_df$cancer_group == "Medulloblastoma" & 
                                        total_frac_immune_df$molecular_subtype == "MB, Group4",]
 
+#alternative test with each type seprate in total distribution
 #MB_group4_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$cancer_group == "Medulloblastoma" &
 #                                             deconv_quantiseq_output_df$molecular_subtype == "MB, Group4",]
 
 MB_group3_df <- total_frac_immune_df[total_frac_immune_df$cancer_group == "Medulloblastoma" & 
                                       total_frac_immune_df$molecular_subtype == "MB, Group3",]
 
+#alternative test with each type seprate in total distribution
 #MB_group3_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$cancer_group == "Medulloblastoma" &
 #                                             deconv_quantiseq_output_df$molecular_subtype == "MB, Group3",]
 
 MB_SHH_df <- total_frac_immune_df[total_frac_immune_df$cancer_group == "Medulloblastoma" &      
                                     total_frac_immune_df$molecular_subtype == "MB, SHH",]
 
+#alternative test with each type seprate in total distribution
 #MB_SHH_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$cancer_group == "Medulloblastoma" & 
 #                                          deconv_quantiseq_output_df$molecular_subtype == "MB, SHH",]
 
 MB_WNT_df <- total_frac_immune_df[total_frac_immune_df$cancer_group == "Medulloblastoma" & 
                                     total_frac_immune_df$molecular_subtype == "MB, WNT",]
 
+#alternative test with each type seprate in total distribution
 #MB_WNT_df <- deconv_quantiseq_output_df[deconv_quantiseq_output_df$cancer_group == "Medulloblastoma" & 
 #                                          deconv_quantiseq_output_df$molecular_subtype == "MB, WNT",]
 
