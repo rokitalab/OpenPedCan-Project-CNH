@@ -7,8 +7,10 @@
 # Summary:
 # Group3 is most significantly different from WNT, group2, and SHH for immune fraction.
 # (smallest pvalue comparison (both Mann Whitney and KS test on both total immune fraction and cell
-# subtypes (e.g. monocytes). Greatest shift in median of distribution).
-#
+# subtypes (e.g. monocytes). Greatest shift in median (largest value for total immune) of distribution).
+# Similarly, when looking at up regulation and down regulation of certain cell types, shifts were also
+# large in terms of fold changes in group3.  Largest increase in cell fraction either monocytes or T-cell CD8
+
 # I tested both total (sum of celltypes and all separately) and looked at particular celltype alone such as monocytes.
 # I generated distributions of all 6 combinations, performed non parametric stats tests and volcano plots 
 #  comparing celltype fraction enrichment for group3 vs every other type. I used quantiseq, which provides 
