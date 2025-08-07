@@ -63,7 +63,7 @@ def read_input_file(input_file):
             stripped_content = [line.rstrip() for line in file.readlines()]
 
             ## Split each line up by any white space between columns
-            fin_input_content = [re.split('\s+',line) for line in stripped_content]
+            fin_input_content = [re.split(r'\s+', line) for line in stripped_content]
 
             ## Create a list of unique keys/chromosome
             dict_key = []
