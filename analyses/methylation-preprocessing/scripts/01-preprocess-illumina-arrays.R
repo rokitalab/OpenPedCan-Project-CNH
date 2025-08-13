@@ -54,6 +54,7 @@ snp_filter <- opt$snp_filter
 man_df <- read_tsv(file = opt$manifest_file) %>% 
   select(file_name, Bioassay_ID) %>%
   dplyr::mutate(file_name = gsub("(_Red|_Grn).*", "", file_name)) %>%
+  dplyr::mutate(file_name = basename(file_name)) %>%
   unique()
 
 # get analysis cancer type from arrays base_dir
