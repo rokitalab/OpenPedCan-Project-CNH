@@ -242,6 +242,7 @@ RUN R -e 'BiocManager::install(c( \
   "rtracklayer", \
   "Rtsne", \
   "RUVSeq", \
+  "qs2", \
   "spatial", \
   "survival", \
   "survminer", \
