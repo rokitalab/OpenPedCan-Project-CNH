@@ -8,6 +8,7 @@
 # Load libraries:
 suppressPackageStartupMessages(library(optparse))
 suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(qs))
 suppressWarnings(
   suppressPackageStartupMessages(library(minfi))
 )
@@ -119,10 +120,10 @@ message("Generate results...\n")
 # from the GenomicRatioSet object
 
 # set up output file names
-m_value_file <- paste0(dataset, "-methyl-m-values-unmasked.rds")
-m_value_file_masked <- paste0(dataset, "-methyl-m-values-masked.rds")
-beta_value_file <- paste0(dataset, "-methyl-beta-values-masked.rds")
-cn_value_file <- paste0(dataset, "-methyl-cn-values.rds")
+m_value_file <- paste0(dataset, "-methyl-m-values-unmasked.qs")
+m_value_file_masked <- paste0(dataset, "-methyl-m-values-masked.qs")
+beta_value_file <- paste0(dataset, "-methyl-beta-values-masked.qs")
+cn_value_file <- paste0(dataset, "-methyl-cn-values.qs")
 
 message("Extracting m values")
 
@@ -137,7 +138,7 @@ m_value_unmasked <- data.table::setnames(m_value_unmasked, man_df$file_name, man
 
 # write output file
 
-saveRDS(m_value_unmasked, file = m_value_file)
+qsave(m_value_unmasked, m_value_file)
 ##masking is optional for m values -- can generate masked and unmasked matrices
 
 # extract m values
@@ -148,7 +149,7 @@ m_value_masked <- data.table::setnames(m_value_masked, man_df$file_name, man_df$
 
 # write output file
 
-saveRDS(m_value_masked, file = m_value_file_masked)
+qsave(m_value_masked, m_value_file_masked)
 message("Extracting beta-values")
 
 #beta_value <- GRset %>% minfi::getBeta() %>% as.data.frame() %>%
@@ -168,7 +169,7 @@ beta_values_masked <- data.table::setnames(beta_values_masked, man_df$file_name,
 
 # write output file
 
-saveRDS(beta_values_masked, file = beta_value_file)
+qsave(beta_values_masked, beta_value_file)
 message("Extracting copy number values")
 cn_value <- GRset %>% minfi::getCN() %>% as.data.frame() %>%
   tibble::rownames_to_column("Probe_ID")
@@ -177,6 +178,6 @@ cn_value <- data.table::setnames(cn_value, man_df$file_name, man_df$Bioassay_ID,
 
 # write output file
 
-saveRDS(cn_value, file = cn_value_file)
+qsave(cn_value, cn_value_file)
 # delete GenomicRatioSet object to free memory
 rm(GRset)
