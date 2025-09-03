@@ -335,6 +335,11 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 RUN sudo wget -qO /usr/local/bin/dasel "https://github.com/TomWright/dasel/releases/download/v2.1.1/dasel_linux_amd64" && \
     sudo chmod a+x /usr/local/bin/dasel
 
+# Install minfi and it's requirements
+RUN ${R_HOME}/site-library/littler/examples/installBioc.r minfi IlluminaHumanMethylation27kmanifest IlluminaHumanMethylation450kmanifest IlluminaHumanMethylationEPICmanifest IlluminaHumanMethylation27kanno.ilmn12.hg19 IlluminaHumanMethylation450kanno.ilmn12.hg19 IlluminaHumanMethylationEPICanno.ilm10b4.hg19
+
+RUN Rscript -e 'BiocManager::install("preprocessCore", configure.args="--disable-threading", force = TRUE)' 
+
 # Reset the frontend variable for interactive
 ENV DEBIAN_FRONTEND=
 
