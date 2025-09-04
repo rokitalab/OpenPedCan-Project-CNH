@@ -170,6 +170,9 @@ RUN wget http://genometools.org/pub/genometools-1.6.2.tar.gz  && \
     make prefix=/usr/local cairo=no install && \
     cd .. && rm -rf genometools-1.6.2
 
+# Needed for minfi
+RUN ${R_HOME}/site-library/littler/examples/installBioc.r minfi IlluminaHumanMethylation27kmanifest IlluminaHumanMethylation450kmanifest IlluminaHumanMethylationEPICmanifest IlluminaHumanMethylation27kanno.ilmn12.hg19 IlluminaHumanMethylation450kanno.ilmn12.hg19 IlluminaHumanMethylationEPICanno.ilm10b4.hg19
+
 #### R packages
 ###############
 
@@ -334,11 +337,6 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 # Install Desal latest release (v2.1.1)- converter for JSON, TOML, YAML, XML and CSV data formats
 RUN sudo wget -qO /usr/local/bin/dasel "https://github.com/TomWright/dasel/releases/download/v2.1.1/dasel_linux_amd64" && \
     sudo chmod a+x /usr/local/bin/dasel
-
-# Install minfi and it's requirements
-RUN ${R_HOME}/site-library/littler/examples/installBioc.r minfi IlluminaHumanMethylation27kmanifest IlluminaHumanMethylation450kmanifest IlluminaHumanMethylationEPICmanifest IlluminaHumanMethylation27kanno.ilmn12.hg19 IlluminaHumanMethylation450kanno.ilmn12.hg19 IlluminaHumanMethylationEPICanno.ilm10b4.hg19
-
-RUN Rscript -e 'BiocManager::install("preprocessCore", configure.args="--disable-threading", force = TRUE)' 
 
 # Reset the frontend variable for interactive
 ENV DEBIAN_FRONTEND=
