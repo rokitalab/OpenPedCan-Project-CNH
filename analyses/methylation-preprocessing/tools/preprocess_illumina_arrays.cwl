@@ -38,16 +38,16 @@ outputs:
   beta_values:
     type: File
     outputBinding:
-      glob: '*-methyl-beta-values-masked.qs'
+      glob: '*-methyl-beta-values-masked.qs2'
   m_values_unmasked:
     type: File
     outputBinding:
-      glob: '*-methyl-m-values-unmasked.qs'
+      glob: '*-methyl-m-values-unmasked.qs2'
   m_values_masked:
     type: File
     outputBinding:
-      glob: '*-methyl-m-values-masked.qs'
+      glob: '*-methyl-m-values-masked.qs2'
   cn_values:
     type: File
     outputBinding:
-      glob: '*-methyl-cn-values.qs'
+      glob: '*-methyl-cn-values.qs2'
