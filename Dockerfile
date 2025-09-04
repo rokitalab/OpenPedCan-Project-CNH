@@ -170,6 +170,9 @@ RUN wget http://genometools.org/pub/genometools-1.6.2.tar.gz  && \
     make prefix=/usr/local cairo=no install && \
     cd .. && rm -rf genometools-1.6.2
 
+# Needed for minfi
+RUN ${R_HOME}/site-library/littler/examples/installBioc.r minfi IlluminaHumanMethylation27kmanifest IlluminaHumanMethylation450kmanifest IlluminaHumanMethylationEPICmanifest IlluminaHumanMethylation27kanno.ilmn12.hg19 IlluminaHumanMethylation450kanno.ilmn12.hg19 IlluminaHumanMethylationEPICanno.ilm10b4.hg19
+
 #### R packages
 ###############
 
