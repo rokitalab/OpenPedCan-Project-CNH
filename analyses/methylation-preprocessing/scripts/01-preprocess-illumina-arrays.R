@@ -53,8 +53,10 @@ snp_filter <- opt$snp_filter
 
 # read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
 man_df <- read_tsv(file = opt$manifest_file) %>% 
-  select(file_name, Bioassay_ID) %>%
+  select(file_name, Bioassay_ID, gender) %>%
   dplyr::mutate(file_name = gsub("(_Red|_Grn).*", "", file_name)) %>%
+  dplyr::mutate(gender = gsub("Male", "M", gender)) %>%
+  dplyr::mutate(gender = gsub("Female", "F", gender)) %>%
   dplyr::mutate(file_name = basename(file_name)) %>%
   unique()
 
@@ -72,6 +74,10 @@ RGset <- suppressWarnings(
   minfi::read.metharray.exp(base = base_dir, verbose = TRUE, force = TRUE, recursive = TRUE)
 )
 
+# get sampleName sex from manifest
+sexes <- man_df$gender[match(colnames(RGset), man_df$file_name)]
+message(sexes)
+
 ####################### Pre-processing and normalization ########################
 message("\nPre-processing and normalizing...\n")
 
@@ -79,13 +85,13 @@ message("\nPre-processing and normalizing...\n")
 if (controls_present) {
   # preprocessFunnorm
   GRset <- RGset %>% 
-    minfi::preprocessFunnorm(nPCs=2, sex = NULL, bgCorr = TRUE, dyeCorr = TRUE, 
+    minfi::preprocessFunnorm(nPCs=2, sex = sexes, bgCorr = TRUE, dyeCorr = TRUE,
                              keepCN = TRUE, ratioConvert = TRUE, verbose = TRUE)
 } else { 
   # processQuantile
   GRset <- RGset %>%  
-    minfi::preprocessQuantile(fixOutliers = TRUE,  quantileNormalize = TRUE, 
-                              stratified = TRUE, mergeManifest = TRUE, sex = NULL)
+    minfi::preprocessQuantile(fixOutliers = TRUE,  quantileNormalize = TRUE,
+                              stratified = TRUE, mergeManifest = TRUE, sex = sexes)
 }
 
 ######################## Calculate detection p-values #########################
@@ -100,7 +106,7 @@ if (snp_filter) {
   ########################## Remove probes with SNPs ############################
   message("\nRemoving probes with SNPs...\n")
   
-  # removing probes with SNPs inside the probe body 
+  # removing probes with SNPs inside the probe body
   # or at the nucleotide extension
   GRset <- GRset %>% 
     minfi::addSnpInfo() %>% 
