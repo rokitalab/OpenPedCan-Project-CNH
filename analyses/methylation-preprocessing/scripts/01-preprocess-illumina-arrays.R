@@ -25,7 +25,7 @@ option_list <- list(
   make_option(opt_str = "--manifest_file", type = "character",
               help = "Input manifest file with 'file_name' and
               'Bioassay_ID' columns"),
-  make_option(opt_str = "--controls_present", action = "store_true", 
+  make_option(opt_str = "--funnorm", action = "store_true", 
               default = TRUE,
               help = "preprocesses the Illumina methylation arrays using one of
               the following minfi normalization methods: 
@@ -48,7 +48,7 @@ option_list <- list(
 # parse parameter options
 opt <- parse_args(OptionParser(option_list = option_list))
 base_dir <- opt$base_dir
-controls_present <- opt$controls_present
+use_funnorm <- opt$funnorm
 snp_filter <- opt$snp_filter
 
 # read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
@@ -82,7 +82,7 @@ message(sexes)
 message("\nPre-processing and normalizing...\n")
 
 # process data into a GenomicRatioSet object
-if (controls_present) {
+if (use_funnorm) {
   # preprocessFunnorm
   GRset <- RGset %>% 
     minfi::preprocessFunnorm(nPCs=2, sex = sexes, bgCorr = TRUE, dyeCorr = TRUE,

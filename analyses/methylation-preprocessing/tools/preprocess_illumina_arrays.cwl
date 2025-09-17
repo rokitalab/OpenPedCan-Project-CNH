@@ -30,7 +30,7 @@ arguments:
 inputs:
   input_idats_dir: { type: Directory, loadListing: shallow_listing, inputBinding: { prefix: "--base_dir", position: 1 }, doc: "Directory containing the IDATs to process." }
   manifest_file: {type: File, inputBinding: { prefix: "--manifest_file", position: 1 }, doc: "Manifest file containing 'file_name' and 'Bioassay_ID' columns"}
-  controls_present: { type: 'boolean?', inputBinding: { prefix: "--controls_present", position: 1 }, doc: "If set, preprocesses the Illumina methylation array dataset assuming presence of either normal and tumor samples or samples of mutiple cancer groups or both." }
+  funnorm: { type: 'boolean?', inputBinding: { prefix: "--funnorm", position: 1 }, doc: "If set, use funnorm for normalization" }
   snp_filter: { type: 'boolean?', inputBinding: { prefix: "--snp_filter", position: 1 }, doc: "If set, drops the probes that contain either a SNP at the CpG interrogation or at the single nucleotide extension." }
   ram: { type: 'int?', default: 32, doc: "GB of RAM to allocate to the task." }
   cores: { type: 'int?', default: 16, doc: "Minimum reserved number of CPU cores for the task." }
