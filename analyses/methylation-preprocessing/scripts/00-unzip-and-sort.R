@@ -60,17 +60,27 @@ suppressWarnings(
 }
 
 # set up optparse options
-option_list <- list(make_option(
-    opt_str = "--base_dir",
-    type = "character", default = NULL,
-    help = "The absolute path of the base directory containing sample array IDAT files.",
-    metavar = "character"
-))
-
+option_list <- list(
+    make_option(
+        opt_str = "--base_dir",
+        type = "character", default = NULL,
+        help = "The absolute path of the base directory containing sample array IDAT files.",
+        metavar = "character"
+    ),
+    make_option(
+        opt_str = "--manifest_file", type = "character",
+        help = "Input manifest file with 'file_name' and
+              'Bioassay_ID' columns"
+    )
+)
 
 # parse parameter options
 opt <- parse_args(OptionParser(option_list = option_list))
 base_dir <- opt$base_dir
+
+man_df <- read_tsv(file = opt$manifest_file) %>%
+    select(file_name, Bioassay_ID) %>%
+    unique()
 
 message("Finding IDAT files in ", base_dir)
 
@@ -81,6 +91,15 @@ idat_files <- list.files(
     recursive = TRUE
 )
 
+# compare idat_files to man_df$file_name
+not_in_folder <- setdiff(basename(idat_files), basename(man_df$file_name))
+not_in_manifest <- setdiff(basename(man_df$file_name), basename(idat_files))
+
+writeLines(not_in_manifest, file.path("output_dir", "additional_files.txt"))
+
+if (length(not_in_folder) > 0) {
+    stop(paste("Error: Can't find the following files in base_dir:",not_in_folder, sep = "\n"))
+}
 
 message("Unzipping IDAT files")
 
