@@ -38,4 +38,4 @@ outputs:
   additional_files:
     type: 'File'
     outputBinding:
-      glob: 'output_dir/additional_files.txt'
+      glob: 'additional_files.txt'

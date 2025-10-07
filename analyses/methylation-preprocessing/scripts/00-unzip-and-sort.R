@@ -11,6 +11,7 @@
 # 04/03/2025
 
 suppressPackageStartupMessages(library(optparse))
+suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(R.utils))
 suppressPackageStartupMessages(library(illuminaio))
 suppressPackageStartupMessages(library(BiocParallel))
@@ -91,14 +92,17 @@ idat_files <- list.files(
     recursive = TRUE
 )
 
-# compare idat_files to man_df$file_name
-not_in_folder <- setdiff(basename(idat_files), basename(man_df$file_name))
-not_in_manifest <- setdiff(basename(man_df$file_name), basename(idat_files))
+dir.create("output_dir")
 
-writeLines(not_in_manifest, file.path("output_dir", "additional_files.txt"))
+# compare idat_files to man_df$file_name
+not_in_manifest <- setdiff(basename(idat_files), basename(man_df$file_name))
+not_in_folder <- setdiff(basename(man_df$file_name), basename(idat_files))
+
+writeLines(not_in_manifest, file.path("additional_files.txt"))
 
 if (length(not_in_folder) > 0) {
-    stop(paste("Error: Can't find the following files in base_dir:",not_in_folder, sep = "\n"))
+    message("Error: Can't find the following files in base_dir:")
+    stop(paste(not_in_folder, sep = "\n"))
 }
 
 message("Unzipping IDAT files")
@@ -128,8 +132,6 @@ all_n_probes <- vapply(all_quants, nrow, integer(1L))
 array_types <- cbind(do.call(rbind, lapply(all_n_probes, .guessArrayTypes)),
     size = all_n_probes
 )
-
-dir.create("output_dir")
 
 unique_array_types <- unique(array_types[, "array"])
 for (array_type in unique_array_types) {
