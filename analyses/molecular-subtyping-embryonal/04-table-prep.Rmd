@@ -101,7 +101,7 @@ fusion_file <- file.path(file.path(data_dir,
 # subset files
 manta_file <- file.path(subset_dir, "embryonal_manta_sv.tsv")
 exp_file <- file.path(subset_dir, "embryonal_zscored_exp.rds")
-
+dicer_file <- file.path(subset_dir, "dicer1_mutations.tsv")
 # file that contains the biospecimen IDs that met criteria for subtyping
 biospecimen_file <- file.path(results_dir, 
                               "biospecimen_ids_embryonal_subtyping.tsv")
@@ -139,6 +139,9 @@ biospecimen_ids <- read_tsv(biospecimen_file) %>%
 # cleaned chr19 amplification data
 chr19_cn_df <- read_tsv(chr19_file)
 
+
+#dicer 1 data 
+dicer_df <- read_tsv(dicer_file)
 # we'll filter to only the relevant biospecimens for the copy number alteration
 # data that is committed to the repository
 consensus_sex_chr <- read_tsv(sex_chr_consensus) %>%
@@ -314,7 +317,9 @@ emb_dna <- relevant_clinical_data %>%
   select(Kids_First_Biospecimen_ID, match_id) %>%
   # add dna molecular data
   left_join(chr19_cn_df, by = "Kids_First_Biospecimen_ID") %>% 
-  rename(Kids_First_Biospecimen_ID_DNA = Kids_First_Biospecimen_ID)
+  # join with DICER1 mutation data
+  left_join(dicer_df, by = "Kids_First_Biospecimen_ID") %>% rename(Kids_First_Biospecimen_ID_DNA = Kids_First_Biospecimen_ID)
+  #)
 
 # get relevant embyronal rna clinical metadata
 emb_rna <- relevant_clinical_data %>%
@@ -395,16 +400,22 @@ etmr_c19mc_df <- all_data_df %>%
   mutate(molecular_subtype = "ETMR, C19MC-altered")
 ```
 
-For now, we will call the sample with a _LIN28A_ z-score > 3 that has no _TTYH1_ fusion and no copy number data ETMR, NOS.
 
+
+For now, we will call the sample with a _LIN28A_ z-score > 3 that has no _TTYH1_ fusion and no copy number data ETMR, NOS.
+Have added in option for DICER 1s
 ```{r}
 # TODO: is this the correct call or should this be a CNS Embryonal, NOS call?
 etmr_nos_df <- all_data_df %>%
   filter(!match_id %in% etmr_c19mc_df$match_id,
          (pathology_diagnosis == "Embryonal Tumor with Multilayered Rosettes (ETMR)" | grepl("etmr|ETMRembryonal tumor with abundant neuropil and true rosettes|embryonal tumor with multilayer rosettes", pathology_free_text_diagnosis)) |
          (LIN28A > 3 & TTYH1_fusions == "None")) %>%
-  select(contains("ID")) %>%
-  mutate(molecular_subtype = "ETMR, NOS")
+  select(contains("ID"), `DICER-1_Mutation`) %>%
+  mutate(
+    molecular_subtype = if_else(
+      !is.na(`DICER-1_Mutation`),
+      "ETMR, DICER-1",
+      "ETMR, NOS"))
 ```
 
 ### CNS HGNET-MN1

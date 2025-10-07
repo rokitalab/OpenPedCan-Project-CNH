@@ -6,6 +6,8 @@
 # conditions outlined in that notebook, will be included here.
 
 library(tidyverse)
+library(readr)
+library(dplyr)
 
 #### Directories ---------------------------------------------------------------
 
@@ -78,3 +80,51 @@ filter_process_expression(rnaseq_collapsed) %>%
 manta_sv_df %>%
   filter(Kids.First.Biospecimen.ID.Tumor %in% subset_id) %>%
   write_tsv(file.path(subset_dir, "embryonal_manta_sv.tsv"))
+
+rm(manta_sv_df)
+
+#### SNV analysis
+
+ 
+
+
+
+
+# Storage list for collected chunks
+chunks <- list()
+
+# read in dicer 1 mutants that have tumor sample barcode in subset id
+callback <- function(x, pos) {
+  chunks[[length(chunks) + 1]] <<- x %>%
+    filter(
+      Hugo_Symbol == "DICER1",
+      Tumor_Sample_Barcode %in% subset_id,
+
+    )
+}
+
+
+read_tsv_chunked(
+  file.path(data_dir, "snv-consensus-plus-hotspots.maf.tsv.gz"),
+  callback = DataFrameCallback$new(callback),
+  chunk_size = 50000
+)
+
+# combine all chunks into one tibble
+dicer1_mut <- bind_rows(chunks)
+#filter variants to only deliterious, and write only the biospecimen id and the HGVsc to output file 
+dicer1_mut %>%
+  filter(
+    Variant_Classification %in% c(
+      "Missense_Mutation",
+      "Nonsense_Mutation",
+      "Frame_Shift_Ins",
+      "Frame_Shift_Del"
+    )
+  ) %>%
+  select(
+    `Kids_First_Biospecimen_ID` = Tumor_Sample_Barcode,
+    `DICER-1_Mutation` = HGVSc
+  ) %>%
+  write_tsv(file.path(subset_dir, "dicer1_mutations.tsv"))
+
