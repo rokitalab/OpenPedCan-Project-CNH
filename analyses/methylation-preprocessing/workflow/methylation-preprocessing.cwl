@@ -33,6 +33,7 @@ inputs:
   cores: { type: 'int?', default: 16, doc: "Minimum reserved number of CPU cores for the task." }
 
 outputs:
+  additional_files: {type: 'File', outputSource: unzip_and_sort_files/additional_files}
   beta_values: {type: 'File[]', outputSource: preprocess_illumina_arrays/beta_values }
   m_values_unmasked: {type: 'File[]', outputSource: preprocess_illumina_arrays/m_values_unmasked }
   m_values_masked: {type: 'File[]', outputSource: preprocess_illumina_arrays/m_values_masked }
@@ -45,7 +46,8 @@ steps:
       input_idats_dir: input_idats_dir
       ram: ram
       cores: cores
-    out: [array_dirs]
+      manifest_file: manifest_file
+    out: [array_dirs, additional_files]
   
   preprocess_illumina_arrays:
     run: ../tools/preprocess_illumina_arrays.cwl
