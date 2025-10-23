@@ -102,7 +102,8 @@ writeLines(not_in_manifest, file.path("additional_files.txt"))
 
 if (length(not_in_folder) > 0) {
     message("Error: Can't find the following files in base_dir:")
-    stop(paste(not_in_folder, sep = "\n"))
+    message(paste(not_in_folder, sep = "\n"))
+    stop()
 }
 
 message("Unzipping IDAT files")
