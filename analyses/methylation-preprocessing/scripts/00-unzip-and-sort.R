@@ -106,6 +106,9 @@ if (length(not_in_folder) > 0) {
     stop()
 }
 
+# remove idats that aren't in manifest
+idat_files <- idat_files[!basename(idat_files) %in% not_in_manifest]
+
 message("Unzipping IDAT files")
 
 BPREDO <- list()
