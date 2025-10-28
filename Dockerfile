@@ -259,6 +259,8 @@ RUN R -e 'BiocManager::install(c( \
   "IlluminaHumanMethylation27kmanifest", \
   "IlluminaHumanMethylation450kmanifest", \
   "IlluminaHumanMethylationEPICmanifest", \
+  "IlluminaHumanMethylationEPICv2manifest", \
+  "IlluminaHumanMethylation27kmanifest", \
   "IlluminaHumanMethylation27kanno.ilmn12.hg19", \
   "IlluminaHumanMethylation450kanno.ilmn12.hg19", \
   "IlluminaHumanMethylationEPICanno.ilm10b4.hg19" \
