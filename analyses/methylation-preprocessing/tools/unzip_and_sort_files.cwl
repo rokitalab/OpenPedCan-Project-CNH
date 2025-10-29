@@ -8,7 +8,7 @@ requirements:
 - class: InlineJavascriptRequirement
 - class: ShellCommandRequirement
 - class: DockerRequirement
-  dockerPull: dmiller15/minfi:4.2.0
+  dockerPull: pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
 - class: ResourceRequirement
   ramMin: $(inputs.ram * 1000)
   coresMin: $(inputs.cores)
@@ -27,6 +27,7 @@ arguments:
     1>&2
 inputs:
   input_idats_dir: { type: Directory, loadListing: shallow_listing, inputBinding: { prefix: "--base_dir", position: 1 }, doc: "Directory containing the IDATs to process." }
+  manifest_file: {type: File, inputBinding: { prefix: "--manifest_file", position: 1 }, doc: "Manifest file containing 'file_name' and 'Bioassay_ID' columns"}
   ram: { type: 'int?', default: 32, doc: "GB of RAM to allocate to the task." }
   cores: { type: 'int?', default: 16, doc: "Minimum reserved number of CPU cores for the task." }
 outputs:
@@ -34,3 +35,7 @@ outputs:
     type: 'Directory[]'
     outputBinding:
       glob: 'output_dir/*'
+  additional_files:
+    type: 'File'
+    outputBinding:
+      glob: 'additional_files.txt'

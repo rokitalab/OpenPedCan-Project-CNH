@@ -27,12 +27,13 @@ requirements:
 inputs:
   input_idats_dir: { type: Directory, doc: "Directory containing the IDAT files to process." }
   manifest_file: {type: File, doc: "Manifest file containing 'file_name' and 'Bioassay_ID' columns"}
-  controls_present: { type: 'boolean?', doc: "If set, preprocesses the Illumina methylation array dataset assuming presence of either normal and tumor samples or samples of mutiple cancer groups or both." }
+  funnorm: { type: 'boolean?', doc: "If set, use funnorm for normalization" }
   snp_filter: { type: 'boolean?', doc: "If set, drops the probes that contain either a SNP at the CpG interrogation or at the single nucleotide extension." }
   ram: { type: 'int?', default: 32, doc: "GB of RAM to allocate to the task." }
   cores: { type: 'int?', default: 16, doc: "Minimum reserved number of CPU cores for the task." }
 
 outputs:
+  additional_files: {type: 'File', outputSource: unzip_and_sort_files/additional_files}
   beta_values: {type: 'File[]', outputSource: preprocess_illumina_arrays/beta_values }
   m_values_unmasked: {type: 'File[]', outputSource: preprocess_illumina_arrays/m_values_unmasked }
   m_values_masked: {type: 'File[]', outputSource: preprocess_illumina_arrays/m_values_masked }
@@ -45,7 +46,8 @@ steps:
       input_idats_dir: input_idats_dir
       ram: ram
       cores: cores
-    out: [array_dirs]
+      manifest_file: manifest_file
+    out: [array_dirs, additional_files]
   
   preprocess_illumina_arrays:
     run: ../tools/preprocess_illumina_arrays.cwl
@@ -53,7 +55,7 @@ steps:
     in:
       input_idats_dir: unzip_and_sort_files/array_dirs
       manifest_file: manifest_file
-      controls_present: controls_present
+      funnorm: funnorm
       snp_filter: snp_filter
       ram: ram
       cores: cores

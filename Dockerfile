@@ -242,7 +242,6 @@ RUN R -e 'BiocManager::install(c( \
   "rtracklayer", \
   "Rtsne", \
   "RUVSeq", \
-  "qs2", \
   "spatial", \
   "survival", \
   "survminer", \
@@ -255,13 +254,23 @@ RUN R -e 'BiocManager::install(c( \
   "uwot", \
   "VennDiagram", \
   "viridis", \
-  "vroom" \
-  ))'
+  "vroom", \
+  "minfi", \
+  "IlluminaHumanMethylation27kmanifest", \
+  "IlluminaHumanMethylation450kmanifest", \
+  "IlluminaHumanMethylationEPICmanifest", \
+  "IlluminaHumanMethylationEPICv2manifest", \
+  "IlluminaHumanMethylation27kmanifest", \
+  "IlluminaHumanMethylation27kanno.ilmn12.hg19", \
+  "IlluminaHumanMethylation450kanno.ilmn12.hg19", \
+  "IlluminaHumanMethylationEPICanno.ilm10b4.hg19" \
+  ), configure.args = c(preprocessCore = "--disable-threading"))'
 
 
-# package required for immune deconvolution
-RUN R -e "remotes::install_github('omnideconv/immunedeconv', ref = '9fe55153b12777e31c1ef67f7cd4609b861cb327', dependencies = TRUE)"
+# qs2 package for serializing data
+RUN R -e "remotes::install_github('qsbase/qs2', ref = '6f835e54eb7d10123051f44894ee1001566094fb', dependencies = TRUE)"
 
+# package ggupset
 RUN R -e "remotes::install_github('const-ae/ggupset', ref = '7a33263cc5fafdd72a5bfcbebe5185fafe050c73', dependencies = TRUE)"
 
 # Need this package to make plots colorblind friendly
@@ -275,6 +284,9 @@ RUN R -e "remotes::install_github('jokergoo/circlize', ref = 'b7d86409d7f893e881
 
 # signature.tools.lib needed for mutational-signatures 
 RUN R -e "remotes::install_github('Nik-Zainal-Group/signature.tools.lib', ref = '59a3a3236f16f0c1383d0ab125fec8a251d7f42d', dependencies = TRUE)"
+
+# package required for immune deconvolution
+RUN R -e "remotes::install_github('omnideconv/immunedeconv', ref = '9fe55153b12777e31c1ef67f7cd4609b861cb327', dependencies = TRUE)"
 
 # Molecular subtyping MB
 RUN R -e "remotes::install_github('d3b-center/medullo-classifier-package', ref = 'e3d12f64e2e4e00f5ea884f3353eb8c4b612abe8', dependencies = TRUE, upgrade = FALSE)"  
@@ -331,6 +343,9 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 # Install Desal latest release (v2.1.1)- converter for JSON, TOML, YAML, XML and CSV data formats
 RUN sudo wget -qO /usr/local/bin/dasel "https://github.com/TomWright/dasel/releases/download/v2.1.1/dasel_linux_amd64" && \
     sudo chmod a+x /usr/local/bin/dasel
+
+# Needed for minfi
+RUN ${R_HOME}/site-library/littler/examples/installBioc.r
 
 # Reset the frontend variable for interactive
 ENV DEBIAN_FRONTEND=

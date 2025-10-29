@@ -8,6 +8,7 @@
 # Load libraries:
 suppressPackageStartupMessages(library(optparse))
 suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(qs2))
 suppressWarnings(
   suppressPackageStartupMessages(library(minfi))
 )
@@ -24,7 +25,7 @@ option_list <- list(
   make_option(opt_str = "--manifest_file", type = "character",
               help = "Input manifest file with 'file_name' and
               'Bioassay_ID' columns"),
-  make_option(opt_str = "--controls_present", action = "store_true", 
+  make_option(opt_str = "--funnorm", action = "store_true", 
               default = TRUE,
               help = "preprocesses the Illumina methylation arrays using one of
               the following minfi normalization methods: 
@@ -47,13 +48,14 @@ option_list <- list(
 # parse parameter options
 opt <- parse_args(OptionParser(option_list = option_list))
 base_dir <- opt$base_dir
-controls_present <- opt$controls_present
+use_funnorm <- opt$funnorm
 snp_filter <- opt$snp_filter
 
 # read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
 man_df <- read_tsv(file = opt$manifest_file) %>% 
   select(file_name, Bioassay_ID) %>%
   dplyr::mutate(file_name = gsub("(_Red|_Grn).*", "", file_name)) %>%
+  dplyr::mutate(file_name = basename(file_name)) %>%
   unique()
 
 # get analysis cancer type from arrays base_dir
@@ -70,19 +72,20 @@ RGset <- suppressWarnings(
   minfi::read.metharray.exp(base = base_dir, verbose = TRUE, force = TRUE, recursive = TRUE)
 )
 
+
 ####################### Pre-processing and normalization ########################
 message("\nPre-processing and normalizing...\n")
 
 # process data into a GenomicRatioSet object
-if (controls_present) {
+if (use_funnorm) {
   # preprocessFunnorm
   GRset <- RGset %>% 
-    minfi::preprocessFunnorm(nPCs=2, sex = NULL, bgCorr = TRUE, dyeCorr = TRUE, 
+    minfi::preprocessFunnorm(nPCs=2, sex = NULL, bgCorr = TRUE, dyeCorr = TRUE,
                              keepCN = TRUE, ratioConvert = TRUE, verbose = TRUE)
 } else { 
   # processQuantile
   GRset <- RGset %>%  
-    minfi::preprocessQuantile(fixOutliers = TRUE,  quantileNormalize = TRUE, 
+    minfi::preprocessQuantile(fixOutliers = TRUE,  quantileNormalize = TRUE,
                               stratified = TRUE, mergeManifest = TRUE, sex = NULL)
 }
 
@@ -98,7 +101,7 @@ if (snp_filter) {
   ########################## Remove probes with SNPs ############################
   message("\nRemoving probes with SNPs...\n")
   
-  # removing probes with SNPs inside the probe body 
+  # removing probes with SNPs inside the probe body
   # or at the nucleotide extension
   GRset <- GRset %>% 
     minfi::addSnpInfo() %>% 
@@ -118,10 +121,10 @@ message("Generate results...\n")
 # from the GenomicRatioSet object
 
 # set up output file names
-m_value_file <- paste0(dataset, "-methyl-m-values-unmasked.rds")
-m_value_file_masked <- paste0(dataset, "-methyl-m-values-masked.rds")
-beta_value_file <- paste0(dataset, "-methyl-beta-values-masked.rds")
-cn_value_file <- paste0(dataset, "-methyl-cn-values.rds")
+m_value_file <- paste0(dataset, "-methyl-m-values-unmasked.qs2")
+m_value_file_masked <- paste0(dataset, "-methyl-m-values-masked.qs2")
+beta_value_file <- paste0(dataset, "-methyl-beta-values-masked.qs2")
+cn_value_file <- paste0(dataset, "-methyl-cn-values.qs2")
 
 message("Extracting m values")
 
@@ -136,7 +139,7 @@ m_value_unmasked <- data.table::setnames(m_value_unmasked, man_df$file_name, man
 
 # write output file
 
-saveRDS(m_value_unmasked, file = m_value_file)
+qs_save(m_value_unmasked, m_value_file)
 ##masking is optional for m values -- can generate masked and unmasked matrices
 
 # extract m values
@@ -147,7 +150,7 @@ m_value_masked <- data.table::setnames(m_value_masked, man_df$file_name, man_df$
 
 # write output file
 
-saveRDS(m_value_masked, file = m_value_file_masked)
+qs_save(m_value_masked, m_value_file_masked)
 message("Extracting beta-values")
 
 #beta_value <- GRset %>% minfi::getBeta() %>% as.data.frame() %>%
@@ -167,7 +170,7 @@ beta_values_masked <- data.table::setnames(beta_values_masked, man_df$file_name,
 
 # write output file
 
-saveRDS(beta_values_masked, file = beta_value_file)
+qs_save(beta_values_masked, beta_value_file)
 message("Extracting copy number values")
 cn_value <- GRset %>% minfi::getCN() %>% as.data.frame() %>%
   tibble::rownames_to_column("Probe_ID")
@@ -176,6 +179,6 @@ cn_value <- data.table::setnames(cn_value, man_df$file_name, man_df$Bioassay_ID,
 
 # write output file
 
-saveRDS(cn_value, file = cn_value_file)
+qs_save(cn_value, cn_value_file)
 # delete GenomicRatioSet object to free memory
 rm(GRset)
