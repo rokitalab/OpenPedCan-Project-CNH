@@ -7,15 +7,24 @@ on:
   pull_request:
 
 jobs:
-  build_only:
-    name: Build Only
+  cleanup:
+    name: Cleanup
     runs-on: ubuntu-latest
     steps:
+      - name: Remove unused Docker images
+        run: docker system prune -af
+      
+      - name: Clean up temporary files
+        run: sudo rm -rf /tmp/*
+        
+  setup:
+    name: Setup Buildx and Metadata
+    runs-on: ubuntu-latest
+    needs: cleanup
+    steps:
       - uses: actions/checkout@v4
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
@@ -23,23 +32,30 @@ jobs:
           images: pgc-images.sbgenomics.com/rokita-lab/openpedcanverse
           tags: |
             type=raw,value=analysisjob
-            # Only tag the image with latest if we're building on the default
-            # branch (e.g., main).
             type=raw,value=analysisjob,enable={{is_default_branch}}
+      - name: Upload meta outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: meta
+          path: meta.json
 
+build_only:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
       - name: Login to CAVATICA Docker registry
         uses: docker/login-action@v3
         with:
           registry: pgc-images.sbgenomics.com
           username: ${{ secrets.CAVATICA_USERNAME }}
           password: ${{ secrets.CAVATICA_TOKEN }}
-
       - name: Build
         uses: docker/build-push-action@v3
         with:
           context: .
           push: false
-          tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           secrets: |
