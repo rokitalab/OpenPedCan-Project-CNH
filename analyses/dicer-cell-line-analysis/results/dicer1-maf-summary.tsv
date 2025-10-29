@@ -1,0 +1,17 @@
+label	gene	composition	cell_line_composition	cell_line_passage	VAF
+ATRX_p.E1984K	TRUE	Derived Cell Line	Serum-based	8	0.0649350649350649
+KRAS_p.Q61H	TRUE	Derived Cell Line	Serum-based	4	0.0674157303370786
+KRAS_p.Q61H	TRUE	Derived Cell Line	Serum-free	10	0.483516483516484
+KRAS_p.Q61H	TRUE	Derived Cell Line	Serum-free	14	0.504761904761905
+KRAS_p.Q61H	TRUE	Solid Tissue	NA	NA	0.559701492537313
+PBRM1_p.P29L	TRUE	Derived Cell Line	Serum-based	4	0.072463768115942
+PBRM1_p.P29L	TRUE	Derived Cell Line	Serum-free	10	0.448275862068966
+PBRM1_p.P29L	TRUE	Derived Cell Line	Serum-free	14	0.44
+PBRM1_p.P29L	TRUE	Solid Tissue	NA	NA	0.3
+PIK3C2G_p.T752I	TRUE	Derived Cell Line	Serum-free	10	0.508064516129032
+PIK3C2G_p.T752I	TRUE	Derived Cell Line	Serum-free	14	0.558333333333333
+PIK3C2G_p.T752I	TRUE	Solid Tissue	NA	NA	0.508196721311475
+TP53_p.Y163C	TRUE	Derived Cell Line	Serum-based	4	0.0851063829787234
+TP53_p.Y163C	TRUE	Derived Cell Line	Serum-free	10	0.89010989010989
+TP53_p.Y163C	TRUE	Derived Cell Line	Serum-free	14	0.988888888888889
+TP53_p.Y163C	TRUE	Solid Tissue	NA	NA	0.976470588235294
