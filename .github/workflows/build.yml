@@ -39,7 +39,7 @@ jobs:
           name: meta
           path: meta.json
 
-build_only:
+  build_only:
     name: Build Docker Image
     runs-on: ubuntu-latest
     needs: setup
