@@ -260,7 +260,7 @@ RUN R -e 'BiocManager::install(c( \
 
 
 # package required for immune deconvolution
-RUN R -e "remotes::install_github('omnideconv/immunedeconv', ref = 'a7e4ee9993aa94f268e862263eaf226a251514f9', dependencies = TRUE)"
+RUN R -e "remotes::install_github('omnideconv/immunedeconv', ref = '9fe55153b12777e31c1ef67f7cd4609b861cb327', dependencies = TRUE)"
 
 RUN R -e "remotes::install_github('const-ae/ggupset', ref = '7a33263cc5fafdd72a5bfcbebe5185fafe050c73', dependencies = TRUE)"
 
