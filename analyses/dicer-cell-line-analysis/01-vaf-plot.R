@@ -164,3 +164,40 @@ p <- ggplot(maf_plot, aes(
 pdf(file = file.path('plots', "dicer-vaf.pdf"), width = 10, height = 8)
 print(p)
 dev.off()
+
+cor_data <- maf_summary %>%
+  select(label, composition, cell_line_composition, cell_line_passage, VAF) %>%
+  mutate(sample_id = case_when(
+    composition == "Solid Tissue" ~ "Tumor",
+    composition == "Derived Cell Line" ~ paste(cell_line_composition, "P", cell_line_passage, sep="_")
+  )) %>%
+  select(label, sample_id, VAF) %>%
+  pivot_wider(names_from = sample_id, values_from = VAF, values_fill = 0)
+
+# Remove the label column for correlation
+vaf_matrix <- cor_data %>% select(-label)
+
+# Compute correlation matrix
+cor_matrix <- cor(vaf_matrix, use = "pairwise.complete.obs")
+
+
+library(corrplot)
+
+# Open PDF device
+pdf("plots/vaf_correlation_plot.pdf", width = 8, height = 6)  # width and height in inches
+
+# Generate the corrplot
+corrplot(
+  cor_matrix, 
+  method = "color", 
+  type = "upper",
+  addCoef.col = "black", 
+  tl.col = "black", 
+  tl.srt = 45,
+  number.cex = 0.7, 
+  diag = FALSE,
+  col = colorRampPalette(c("white", "skyblue", "steelblue4"))(200)
+)
+
+# Close the PDF device
+dev.off()
