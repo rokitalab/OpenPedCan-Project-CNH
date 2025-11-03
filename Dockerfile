@@ -286,7 +286,7 @@ RUN R -e "remotes::install_github('jokergoo/circlize', ref = 'b7d86409d7f893e881
 RUN R -e "remotes::install_github('Nik-Zainal-Group/signature.tools.lib', ref = '59a3a3236f16f0c1383d0ab125fec8a251d7f42d', dependencies = TRUE)"
 
 # package required for immune deconvolution
-RUN R -e "remotes::install_github('omnideconv/immunedeconv', ref = 'a7e4ee9993aa94f268e862263eaf226a251514f9', dependencies = TRUE)"
+# RUN R -e "remotes::install_github('omnideconv/immunedeconv', ref = 'a7e4ee9993aa94f268e862263eaf226a251514f9', dependencies = TRUE)"
 
 # Molecular subtyping MB
 RUN R -e "remotes::install_github('d3b-center/medullo-classifier-package', ref = 'e3d12f64e2e4e00f5ea884f3353eb8c4b612abe8', dependencies = TRUE, upgrade = FALSE)"  
