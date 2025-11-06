@@ -10,7 +10,7 @@ requirements:
 - class: InlineJavascriptRequirement
 - class: ShellCommandRequirement
 - class: DockerRequirement
-  dockerPull: pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
+  dockerPull: pgc-images.sbgenomics.com/sicklera/openpedcanverse:latest
 - class: ResourceRequirement
   ramMin: $(inputs.ram * 1000)
   coresMin: $(inputs.cores)
