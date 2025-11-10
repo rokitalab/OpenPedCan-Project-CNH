@@ -264,7 +264,10 @@ RUN R -e 'BiocManager::install(c( \
   "IlluminaHumanMethylation27kanno", \
   "IlluminaHumanMethylation450kanno", \
   "IlluminaHumanMethylationEPICanno", \
-  "IlluminaHumanMethylationEPICv2anno.20a1.hg38" \
+  "IlluminaHumanMethylationEPICv2anno.20a1.hg38", \
+  "IlluminaHumanMethylation450kanno.ilmn12.hg19", \
+  "IlluminaHumanMethylation27kanno.ilmn12.hg19", \
+  "IlluminaHumanMethylationEPICanno.ilm10b4.hg19" \
   ), configure.args = c(preprocessCore = "--disable-threading"))'
 
 
