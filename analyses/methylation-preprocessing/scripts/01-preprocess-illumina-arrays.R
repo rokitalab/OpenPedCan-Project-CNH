@@ -74,13 +74,20 @@ RGset <- suppressWarnings(
 ###################### Check for MAD=0 samples and skip them ####################
 message("\nChecking for samples with zero MAD in control probes...\n")
 
+
+
+
+
 # Extract raw intensities from RGset
 green <- minfi::getGreen(RGset)
 red   <- minfi::getRed(RGset)
 
+#get control probes
+controls_info <- minfi::getProbeInfo(RGset, type = "Control")
+control_idx <- rownames(green) %in% controls_info$Address
 # Combine both channels into one matrix for MAD calculation
-ctrl_matrix <- rbind(green, red)
 
+ctrl_matrix <- rbind(green[control_idx, ], red[control_idx, ])
 # Compute MAD per sample (column)
 control_mad <- apply(ctrl_matrix, 2, mad, na.rm = TRUE)
 
