@@ -73,6 +73,30 @@ RGset <- suppressWarnings(
 )
 
 
+###################### Check for MAD=0 samples and skip them ####################
+message("\nChecking for samples with zero MAD in control probes...\n")
+
+# Compute MAD per sample using control probes
+control_mad <- apply(minfi::getControlAddress(RGset), 2, mad, na.rm = TRUE)
+
+# Identify problematic samples
+bad_samples <- names(control_mad[control_mad == 0])
+
+if (length(bad_samples) > 0) {
+  message("Samples with MAD = 0 (will be skipped):")
+  print(bad_samples)
+  
+  # print file paths for easier debugging
+  message("\nAssociated IDAT file paths:")
+  print(basename(minfi::getPaths(RGset)[bad_samples]))
+  
+  # Filter out bad samples
+  RGset <- RGset[, control_mad > 0]
+} else {
+  message("No samples with MAD = 0 detected.")
+}
+
+
 ####################### Pre-processing and normalization ########################
 message("\nPre-processing and normalizing...\n")
 
