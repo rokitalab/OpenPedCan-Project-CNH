@@ -24,6 +24,8 @@ The [Children's Brain Tumor Network (CBTN)](https://cbtn.org/) `Infinium HumanMe
 
 - Masking is applied using two different methods. Firstly, probes with known SNPs are removed. Secondly, the p-value for each sample is computed by comparing the signal of methylated and unmethylated probes against the background signal. Probes with p-values > 0.05 are filtered out.
 
+- In order to do funnorm normalization, a set of control probes must be correctly identified, and Median Absolute Deviation must be above 0 across these control probes. We had been seeing some errors for EPICv2 probes where MAD = 0, causing funnorm to fail, and have added and inspection and filtering step to check for MAD > 0 on the control probes, and skip and print out samples where MAD = 0. This filtering step only takes place if use_funnorm is TRUE (default). 
+
 ## General usage of scripts
 
 
