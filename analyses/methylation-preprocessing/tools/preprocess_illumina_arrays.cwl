@@ -33,7 +33,7 @@ inputs:
   funnorm: { type: 'boolean?', inputBinding: { prefix: "--funnorm", position: 1 }, doc: "If set, use funnorm for normalization" }
   snp_filter: { type: 'boolean?', inputBinding: { prefix: "--snp_filter", position: 1 }, doc: "If set, drops the probes that contain either a SNP at the CpG interrogation or at the single nucleotide extension." }
   ram: { type: 'int?', default: 32, doc: "GB of RAM to allocate to the task." }
-  cores: { type: 'int?', default: 16, doc: "Minimum reserved number of CPU cores for the task." }
+  cores: { type: 'int?', default: 16, inputBinding: { prefix: "--n_cores", position: 1 }, doc: "Minimum reserved number of CPU cores for the task." }
 outputs:
   beta_values:
     type: File
