@@ -56,11 +56,11 @@ manifest_file <- opt$manifest_file
 n_cores <- opt$n_cores
 
 
-base_dir <- 'inputs'
-snp_filter <- TRUE
-use_funnorm <- TRUE
-manifest_file <- 'inputs/epicv2-test.tsv'
-n_cores <- 4 
+#base_dir <- 'inputs'
+#snp_filter <- TRUE
+#use_funnorm <- TRUE
+#manifest_file <- 'inputs/epicv2-test.tsv'
+#n_cores <- 4 
 
 # read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
 man_df <- read_tsv(file = manifest_file) %>% 
