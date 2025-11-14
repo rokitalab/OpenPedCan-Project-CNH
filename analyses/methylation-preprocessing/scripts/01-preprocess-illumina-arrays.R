@@ -56,11 +56,11 @@ manifest_file <- opt$manifest_file
 n_cores <- opt$n_cores
 
 
-#base_dir <- 'inputs'
-#snp_filter <- TRUE
-#use_funnorm <- TRUE
-#manifest_file <- 'inputs/epicv2-test.tsv'
-#n_cores <- 4 
+base_dir <- 'inputs'
+snp_filter <- TRUE
+use_funnorm <- TRUE
+manifest_file <- 'inputs/epicv2-test.tsv'
+n_cores <- 4 
 
 # read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
 man_df <- read_tsv(file = manifest_file) %>% 
@@ -145,7 +145,7 @@ if (use_funnorm) {
 ######################## Calculate detection p-values #########################
 message("\nsetting parallel processing options...\n")
 library(BiocParallel)
-BiocParallel::register(BiocParallel::MulticoreParam(workers = 4)) #UP THIS ON BIGGER MACHINE!!!
+BiocParallel::register(BiocParallel::MulticoreParam(workers = n_cores)) #UP THIS ON BIGGER MACHINE!!!
 message("\nCalculating detection p-values...\n")
 
 
@@ -163,6 +163,7 @@ if (n_cores > 1) {
   
   # run detectionP in parallel on each chunk
   det_list <- bplapply(chunks, function(idx) {
+    message(sprintf("Processing chunk %d / %d ", idx, length(chunks)))
     minfi::detectionP(RGset[, idx])
   }, BPPARAM = MulticoreParam(n_cores))
   
