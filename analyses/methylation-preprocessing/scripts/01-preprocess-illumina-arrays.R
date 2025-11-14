@@ -111,12 +111,6 @@ if (use_funnorm) {
     message("Samples with MAD = 0 (will be skipped):")
     print(bad_samples)
     
-    # Optionally show file paths
-    if (!is.null(minfi::getPaths(RGset))) {
-      message("\nAssociated IDAT file paths:")
-      print(basename(minfi::getPaths(RGset)[bad_samples]))
-    }
-    
     # Filter out bad samples
     RGset <- RGset[, control_mad > 0]
     
