@@ -261,8 +261,12 @@ RUN R -e 'BiocManager::install(c( \
   "IlluminaHumanMethylationEPICmanifest", \
   "IlluminaHumanMethylationEPICv2manifest", \
   "IlluminaHumanMethylation27kmanifest", \
-  "IlluminaHumanMethylation27kanno.ilmn12.hg19", \
+  "IlluminaHumanMethylation27kanno", \
+  "IlluminaHumanMethylation450kanno", \
+  "IlluminaHumanMethylationEPICanno", \
+  "IlluminaHumanMethylationEPICv2anno.20a1.hg38", \
   "IlluminaHumanMethylation450kanno.ilmn12.hg19", \
+  "IlluminaHumanMethylation27kanno.ilmn12.hg19", \
   "IlluminaHumanMethylationEPICanno.ilm10b4.hg19" \
   ), configure.args = c(preprocessCore = "--disable-threading"))'
 
@@ -343,9 +347,6 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 # Install Desal latest release (v2.1.1)- converter for JSON, TOML, YAML, XML and CSV data formats
 RUN sudo wget -qO /usr/local/bin/dasel "https://github.com/TomWright/dasel/releases/download/v2.1.1/dasel_linux_amd64" && \
     sudo chmod a+x /usr/local/bin/dasel
-
-# Needed for minfi
-RUN ${R_HOME}/site-library/littler/examples/installBioc.r
 
 # Reset the frontend variable for interactive
 ENV DEBIAN_FRONTEND=
