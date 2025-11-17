@@ -41,7 +41,9 @@ option_list <- list(
               help = "If TRUE, drops the probes that contain either a SNP at
               the CpG interrogation or at the single nucleotide extension.
               Default is TRUE",
-              metavar = "character")
+              metavar = "character"),
+  make_option(opt_str = "--n_cores", type = 'integer',
+              default=1, help="number of cores for parallelisation of minfi::detectionP. Default is 1")
 )
 
 
@@ -50,6 +52,15 @@ opt <- parse_args(OptionParser(option_list = option_list))
 base_dir <- opt$base_dir
 use_funnorm <- opt$funnorm
 snp_filter <- opt$snp_filter
+manifest_file <- opt$manifest_file
+n_cores <- opt$n_cores
+
+
+#base_dir <- 'inputs'
+#snp_filter <- TRUE
+#use_funnorm <- TRUE
+#manifest_file <- 'inputs/epicv2-test.tsv'
+#n_cores <- 4 
 
 # read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
 man_df <- read_tsv(file = opt$manifest_file, show_col_types = FALSE) %>% 
@@ -99,27 +110,59 @@ gc()
 # Identify problematic samples
 bad_samples <- names(control_mad[control_mad == 0])
 
-if (length(bad_samples) > 0) {
-  message("Samples with MAD = 0 (will be skipped):")
-  print(bad_samples)
+if (use_funnorm) {
   
-  # Optionally show file paths
-  if (!is.null(minfi::getPaths(RGset))) {
-    message("\nAssociated IDAT file paths:")
-    print(basename(minfi::getPaths(RGset)[bad_samples]))
+  if (length(bad_samples) > 0) {
+    message("Samples with MAD = 0 (will be skipped):")
+    print(bad_samples)
+    
+    # Filter out bad samples
+    RGset <- RGset[, control_mad > 0]
+    
+  } else {
+    message("No samples with MAD = 0 detected.")
   }
   
-  # Filter out bad samples
-  RGset <- RGset[, control_mad > 0]
-} else {
-  message("No samples with MAD = 0 detected.")
 }
 
 ######################## Calculate detection p-values #########################
+message("\nsetting parallel processing options...\n")
+library(BiocParallel)
+BiocParallel::register(BiocParallel::MulticoreParam(workers = n_cores)) #UP THIS ON BIGGER MACHINE!!!
 message("\nCalculating detection p-values...\n")
 
-# Calculate detP BEFORE creating GRset to reduce peak RAM usage
-detP <- minfi::detectionP(RGset)
+
+
+
+if (n_cores > 1) {
+  message(sprintf("Running detectionP in parallel with %d cores...", n_cores))
+  
+  # register parallel backend
+  register(MulticoreParam(workers = n_cores))
+  
+  # split sample indices into chunks
+  n <- ncol(RGset)
+  chunks <- split(seq_len(n), ceiling(seq_len(n)/500))
+  
+  # run detectionP in parallel on each chunk
+  det_list <- bplapply(chunks, function(idx) {
+    message(sprintf("Processing chunk %d / %d ", idx, length(chunks)))
+    minfi::detectionP(RGset[, idx])
+  }, BPPARAM = MulticoreParam(n_cores))
+  
+  # combine results
+  detP <- do.call(cbind, det_list)
+  
+  # reset to single-core for safety
+  register(SerialParam())
+  
+} else {
+  message("Running detectionP serially on 1 core...")
+  detP <- minfi::detectionP(RGset)
+}
+
+
+register(SerialParam())
 
 ####################### Pre-processing and normalization ########################
 message("\nPre-processing and normalizing...\n")
