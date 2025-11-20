@@ -63,7 +63,7 @@ n_cores <- opt$n_cores
 #n_cores <- 4 
 
 # read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
-man_df <- read_tsv(file = manifest_file) %>% 
+man_df <- read_tsv(file = opt$manifest_file, show_col_types = FALSE) %>% 
   select(file_name, Bioassay_ID) %>%
   dplyr::mutate(file_name = gsub("(_Red|_Grn).*", "", file_name)) %>%
   dplyr::mutate(file_name = basename(file_name)) %>%
@@ -96,11 +96,16 @@ red   <- minfi::getRed(RGset)
 #get control probes
 controls_info <- minfi::getProbeInfo(RGset, type = "Control")
 control_idx <- rownames(green) %in% controls_info$Address
-# Combine both channels into one matrix for MAD calculation
 
-ctrl_matrix <- rbind(green[control_idx, ], red[control_idx, ])
-# Compute MAD per sample (column)
-control_mad <- apply(ctrl_matrix, 2, mad, na.rm = TRUE)
+# Compute MAD per sample by combining channels on the fly (avoids creating large stacked matrix)
+control_mad <- sapply(seq_len(ncol(green)), function(i) {
+  mad(c(green[control_idx, i], red[control_idx, i]), na.rm = TRUE)
+})
+names(control_mad) <- colnames(green)
+
+# Free memory from large intermediate objects
+rm(green, red, controls_info)
+gc()
 
 # Identify problematic samples
 bad_samples <- names(control_mad[control_mad == 0])
@@ -118,22 +123,6 @@ if (use_funnorm) {
     message("No samples with MAD = 0 detected.")
   }
   
-}
-
-####################### Pre-processing and normalization ########################
-message("\nPre-processing and normalizing...\n")
-
-# process data into a GenomicRatioSet object
-if (use_funnorm) {
-  # preprocessFunnorm
-  GRset <- RGset %>% 
-    minfi::preprocessFunnorm(nPCs=2, sex = NULL, bgCorr = TRUE, dyeCorr = TRUE,
-                             keepCN = TRUE, ratioConvert = TRUE, verbose = TRUE)
-} else { 
-  # processQuantile
-  GRset <- RGset %>%  
-    minfi::preprocessQuantile(fixOutliers = TRUE,  quantileNormalize = TRUE,
-                              stratified = TRUE, mergeManifest = TRUE, sex = NULL)
 }
 
 ######################## Calculate detection p-values #########################
@@ -175,8 +164,25 @@ if (n_cores > 1) {
 
 register(SerialParam())
 
-# delete RGChannelSet object to free memory
+####################### Pre-processing and normalization ########################
+message("\nPre-processing and normalizing...\n")
+
+# process data into a GenomicRatioSet object
+if (use_funnorm) {
+  # preprocessFunnorm
+  GRset <- RGset %>% 
+    minfi::preprocessFunnorm(nPCs=2, sex = NULL, bgCorr = TRUE, dyeCorr = TRUE,
+                             keepCN = TRUE, ratioConvert = TRUE, verbose = TRUE)
+} else { 
+  # processQuantile
+  GRset <- RGset %>%  
+    minfi::preprocessQuantile(fixOutliers = TRUE,  quantileNormalize = TRUE,
+                              stratified = TRUE, mergeManifest = TRUE, sex = NULL)
+}
+
+# delete RGChannelSet object immediately to free memory
 rm(RGset)
+gc()
 
 if (snp_filter) {
   ########################## Remove probes with SNPs ############################
@@ -209,40 +215,49 @@ cn_value_file <- paste0(dataset, "-methyl-cn-values.qs2")
 
 message("Extracting m values")
 
-# extract m values
-m_value_unmasked <- GRset %>% minfi::getM() %>% as.data.frame() %>%
+# extract m values (compute once, use for both masked and unmasked)
+m_values <- minfi::getM(GRset)
+
+# Create unmasked version
+m_value_unmasked <- m_values %>% as.data.frame() %>%
   tibble::rownames_to_column("Probe_ID")
 
 m_value_unmasked <- data.table::setnames(m_value_unmasked, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
 
-
-
-
 # write output file
-
 qs_save(m_value_unmasked, m_value_file)
+
+# Free memory
+rm(m_value_unmasked)
+gc()
+
 ##masking is optional for m values -- can generate masked and unmasked matrices
 
-# extract m values
-m_value_masked <- GRset %>% minfi::getM() %>% { .[detP > 0.05] <- NA; . } %>% as.data.frame() %>%
+# Create masked version from the same m_values matrix
+m_values[detP > 0.05] <- NA
+m_value_masked <- m_values %>% as.data.frame() %>%
   tibble::rownames_to_column("Probe_ID")
 
 m_value_masked <- data.table::setnames(m_value_masked, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
 
 # write output file
-
 qs_save(m_value_masked, m_value_file_masked)
+
+# Free memory
+rm(m_values, m_value_masked)
+gc()
+
 message("Extracting beta-values")
 
-#beta_value <- GRset %>% minfi::getBeta() %>% as.data.frame() %>%
-  #tibble::rownames_to_column("Probe_ID")
-
-
-beta_values_masked <- GRset %>% 
-  minfi::getBeta() %>%
-  { .[detP > 0.05] <- NA; . } %>%
-  as.data.frame() %>%
+# Extract beta values and apply masking
+beta_values <- minfi::getBeta(GRset)
+beta_values[detP > 0.05] <- NA
+beta_values_masked <- beta_values %>% as.data.frame() %>%
   tibble::rownames_to_column("Probe_ID")
+
+# Free beta_values matrix
+rm(beta_values)
+gc()
 
 # apply masking -- #should ALWAYS be done for B values 
 #beta_values_masked <- beta_values
@@ -252,6 +267,11 @@ beta_values_masked <- data.table::setnames(beta_values_masked, man_df$file_name,
 # write output file
 
 qs_save(beta_values_masked, beta_value_file)
+
+# Free memory
+rm(detP, beta_values_masked)
+gc()
+
 message("Extracting copy number values")
 cn_value <- GRset %>% minfi::getCN() %>% as.data.frame() %>%
   tibble::rownames_to_column("Probe_ID")
@@ -263,3 +283,4 @@ cn_value <- data.table::setnames(cn_value, man_df$file_name, man_df$Bioassay_ID,
 qs_save(cn_value, cn_value_file)
 # delete GenomicRatioSet object to free memory
 rm(GRset)
+gc()
