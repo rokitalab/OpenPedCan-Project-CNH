@@ -41,7 +41,9 @@ option_list <- list(
               help = "If TRUE, drops the probes that contain either a SNP at
               the CpG interrogation or at the single nucleotide extension.
               Default is TRUE",
-              metavar = "character")
+              metavar = "character"),
+  make_option(opt_str = "--n_cores", type = 'integer',
+              default=1, help="number of cores for parallelisation of minfi::detectionP. Default is 1")
 )
 
 
@@ -50,9 +52,18 @@ opt <- parse_args(OptionParser(option_list = option_list))
 base_dir <- opt$base_dir
 use_funnorm <- opt$funnorm
 snp_filter <- opt$snp_filter
+manifest_file <- opt$manifest_file
+n_cores <- opt$n_cores
+
+
+#base_dir <- 'inputs'
+#snp_filter <- TRUE
+#use_funnorm <- TRUE
+#manifest_file <- 'inputs/epicv2-test.tsv'
+#n_cores <- 4 
 
 # read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
-man_df <- read_tsv(file = opt$manifest_file) %>% 
+man_df <- read_tsv(file = opt$manifest_file, show_col_types = FALSE) %>% 
   select(file_name, Bioassay_ID) %>%
   dplyr::mutate(file_name = gsub("(_Red|_Grn).*", "", file_name)) %>%
   dplyr::mutate(file_name = basename(file_name)) %>%
@@ -71,7 +82,87 @@ message("Reading sample array data files...\n")
 RGset <- suppressWarnings(
   minfi::read.metharray.exp(base = base_dir, verbose = TRUE, force = TRUE, recursive = TRUE)
 )
+###################### Check for MAD=0 samples and skip them ####################
+message("\nChecking for samples with zero MAD in control probes...\n")
 
+
+
+
+
+# Extract raw intensities from RGset
+green <- minfi::getGreen(RGset)
+red   <- minfi::getRed(RGset)
+
+#get control probes
+controls_info <- minfi::getProbeInfo(RGset, type = "Control")
+control_idx <- rownames(green) %in% controls_info$Address
+
+# Compute MAD per sample by combining channels on the fly (avoids creating large stacked matrix)
+control_mad <- sapply(seq_len(ncol(green)), function(i) {
+  mad(c(green[control_idx, i], red[control_idx, i]), na.rm = TRUE)
+})
+names(control_mad) <- colnames(green)
+
+# Free memory from large intermediate objects
+rm(green, red, controls_info)
+gc()
+
+# Identify problematic samples
+bad_samples <- names(control_mad[control_mad == 0])
+
+if (use_funnorm) {
+  
+  if (length(bad_samples) > 0) {
+    message("Samples with MAD = 0 (will be skipped):")
+    print(bad_samples)
+    
+    # Filter out bad samples
+    RGset <- RGset[, control_mad > 0]
+    
+  } else {
+    message("No samples with MAD = 0 detected.")
+  }
+  
+}
+
+######################## Calculate detection p-values #########################
+message("\nsetting parallel processing options...\n")
+library(BiocParallel)
+BiocParallel::register(BiocParallel::MulticoreParam(workers = n_cores)) #UP THIS ON BIGGER MACHINE!!!
+message("\nCalculating detection p-values...\n")
+
+
+
+
+if (n_cores > 1) {
+  message(sprintf("Running detectionP in parallel with %d cores...", n_cores))
+  
+  # register parallel backend
+  register(MulticoreParam(workers = n_cores))
+  
+  # split sample indices into chunks
+  n <- ncol(RGset)
+  chunks <- split(seq_len(n), ceiling(seq_len(n)/500))
+  
+  # run detectionP in parallel on each chunk
+  det_list <- bplapply(chunks, function(idx) {
+    message(sprintf("Processing chunk %d / %d ", idx, length(chunks)))
+    minfi::detectionP(RGset[, idx])
+  }, BPPARAM = MulticoreParam(n_cores))
+  
+  # combine results
+  detP <- do.call(cbind, det_list)
+  
+  # reset to single-core for safety
+  register(SerialParam())
+  
+} else {
+  message("Running detectionP serially on 1 core...")
+  detP <- minfi::detectionP(RGset)
+}
+
+
+register(SerialParam())
 
 ####################### Pre-processing and normalization ########################
 message("\nPre-processing and normalizing...\n")
@@ -89,13 +180,9 @@ if (use_funnorm) {
                               stratified = TRUE, mergeManifest = TRUE, sex = NULL)
 }
 
-######################## Calculate detection p-values #########################
-message("\nCalculating detection p-values...\n")
-
-detP <- minfi::detectionP(RGset)
-
-# delete RGChannelSet object to free memory
+# delete RGChannelSet object immediately to free memory
 rm(RGset)
+gc()
 
 if (snp_filter) {
   ########################## Remove probes with SNPs ############################
@@ -128,40 +215,49 @@ cn_value_file <- paste0(dataset, "-methyl-cn-values.qs2")
 
 message("Extracting m values")
 
-# extract m values
-m_value_unmasked <- GRset %>% minfi::getM() %>% as.data.frame() %>%
+# extract m values (compute once, use for both masked and unmasked)
+m_values <- minfi::getM(GRset)
+
+# Create unmasked version
+m_value_unmasked <- m_values %>% as.data.frame() %>%
   tibble::rownames_to_column("Probe_ID")
 
 m_value_unmasked <- data.table::setnames(m_value_unmasked, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
 
-
-
-
 # write output file
-
 qs_save(m_value_unmasked, m_value_file)
+
+# Free memory
+rm(m_value_unmasked)
+gc()
+
 ##masking is optional for m values -- can generate masked and unmasked matrices
 
-# extract m values
-m_value_masked <- GRset %>% minfi::getM() %>% { .[detP > 0.05] <- NA; . } %>% as.data.frame() %>%
+# Create masked version from the same m_values matrix
+m_values[detP > 0.05] <- NA
+m_value_masked <- m_values %>% as.data.frame() %>%
   tibble::rownames_to_column("Probe_ID")
 
 m_value_masked <- data.table::setnames(m_value_masked, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
 
 # write output file
-
 qs_save(m_value_masked, m_value_file_masked)
+
+# Free memory
+rm(m_values, m_value_masked)
+gc()
+
 message("Extracting beta-values")
 
-#beta_value <- GRset %>% minfi::getBeta() %>% as.data.frame() %>%
-  #tibble::rownames_to_column("Probe_ID")
-
-
-beta_values_masked <- GRset %>% 
-  minfi::getBeta() %>%
-  { .[detP > 0.05] <- NA; . } %>%
-  as.data.frame() %>%
+# Extract beta values and apply masking
+beta_values <- minfi::getBeta(GRset)
+beta_values[detP > 0.05] <- NA
+beta_values_masked <- beta_values %>% as.data.frame() %>%
   tibble::rownames_to_column("Probe_ID")
+
+# Free beta_values matrix
+rm(beta_values)
+gc()
 
 # apply masking -- #should ALWAYS be done for B values 
 #beta_values_masked <- beta_values
@@ -171,6 +267,11 @@ beta_values_masked <- data.table::setnames(beta_values_masked, man_df$file_name,
 # write output file
 
 qs_save(beta_values_masked, beta_value_file)
+
+# Free memory
+rm(detP, beta_values_masked)
+gc()
+
 message("Extracting copy number values")
 cn_value <- GRset %>% minfi::getCN() %>% as.data.frame() %>%
   tibble::rownames_to_column("Probe_ID")
@@ -182,3 +283,4 @@ cn_value <- data.table::setnames(cn_value, man_df$file_name, man_df$Bioassay_ID,
 qs_save(cn_value, cn_value_file)
 # delete GenomicRatioSet object to free memory
 rm(GRset)
+gc()
