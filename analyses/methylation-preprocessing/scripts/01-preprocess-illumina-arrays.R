@@ -25,6 +25,12 @@ option_list <- list(
   make_option(opt_str = "--manifest_file", type = "character",
               help = "Input manifest file with 'file_name' and
               'Bioassay_ID' columns"),
+  make_option(
+        opt_str = "-output_basename",
+        type = "character", default = NULL,
+        help = "The absolute path of the base directory containing sample array IDAT files.",
+        metavar = "character"
+    ),
   make_option(opt_str = "--funnorm", action = "store_true", 
               default = TRUE,
               help = "preprocesses the Illumina methylation arrays using one of
@@ -54,6 +60,7 @@ use_funnorm <- opt$funnorm
 snp_filter <- opt$snp_filter
 manifest_file <- opt$manifest_file
 n_cores <- opt$n_cores
+out_base <- opt$output_basename
 
 
 #base_dir <- 'inputs'
@@ -114,6 +121,10 @@ if (use_funnorm) {
   
   if (length(bad_samples) > 0) {
     message("Samples with MAD = 0 (will be skipped):")
+    zero_mad_samples <- paste0(out_base, "-", dataset, "zero-mad.txt")
+    fileConn <- file(zero_mad_samples)
+    writeLines(bad_samples, fileConn)
+    close(fileConn)
     print(bad_samples)
     
     # Filter out bad samples
@@ -208,10 +219,10 @@ message("Generate results...\n")
 # from the GenomicRatioSet object
 
 # set up output file names
-m_value_file <- paste0(dataset, "-methyl-m-values-unmasked.qs2")
-m_value_file_masked <- paste0(dataset, "-methyl-m-values-masked.qs2")
-beta_value_file <- paste0(dataset, "-methyl-beta-values-masked.qs2")
-cn_value_file <- paste0(dataset, "-methyl-cn-values.qs2")
+m_value_file <- paste0(out_base, "-", dataset, "-methyl-m-values-unmasked.qs2")
+m_value_file_masked <- paste0(out_base, "-", dataset, "-methyl-m-values-masked.qs2")
+beta_value_file <- paste0(out_base, "-", dataset, "-methyl-beta-values-masked.qs2")
+cn_value_file <- paste0(out_base, "-", dataset, "-methyl-cn-values.qs2")
 
 message("Extracting m values")
 
