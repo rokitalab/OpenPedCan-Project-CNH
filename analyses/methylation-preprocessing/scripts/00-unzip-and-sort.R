@@ -69,6 +69,12 @@ option_list <- list(
         metavar = "character"
     ),
     make_option(
+        opt_str = "-output_basename",
+        type = "character", default = NULL,
+        help = "The absolute path of the base directory containing sample array IDAT files.",
+        metavar = "character"
+    ),
+    make_option(
         opt_str = "--manifest_file", type = "character",
         help = "Input manifest file with 'file_name' and
               'Bioassay_ID' columns"
@@ -78,6 +84,7 @@ option_list <- list(
 # parse parameter options
 opt <- parse_args(OptionParser(option_list = option_list))
 base_dir <- opt$base_dir
+out_base <- opt$output_basename
 
 man_df <- read_tsv(file = opt$manifest_file) %>%
     select(file_name, Bioassay_ID) %>%
@@ -92,13 +99,15 @@ idat_files <- list.files(
     recursive = TRUE
 )
 
-dir.create("output_dir")
+out_dir <- paste0(out_base, "_output_dir")
+dir.create(out_dir)
 
 # compare idat_files to man_df$file_name
 not_in_manifest <- setdiff(basename(idat_files), basename(man_df$file_name))
 not_in_folder <- setdiff(basename(man_df$file_name), basename(idat_files))
 
-writeLines(not_in_manifest, file.path("additional_files.txt"))
+out_file = paste0(out_base, "_additional_files.txt")
+writeLines(not_in_manifest, file.path(out_file))
 
 if (length(not_in_folder) > 0) {
     message("Error: Can't find the following files in base_dir:")
@@ -141,7 +150,7 @@ unique_array_types <- unique(array_types[, "array"])
 for (array_type in unique_array_types) {
     message("Sorting ", array_type, " IDAT files")
     array_type_files <- idat_files[array_types[, "array"] == array_type]
-    array_type_dir <- file.path("output_dir", array_type)
+    array_type_dir <- file.path(out_dir, array_type)
     if (!dir.exists(array_type_dir)) {
         dir.create(array_type_dir)
     }

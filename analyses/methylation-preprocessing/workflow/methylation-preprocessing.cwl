@@ -4,7 +4,9 @@ id: methylation-preprocessing
 label: Methylation Preprocessing
 doc: |-
   # Methylation Preprocessing
-  
+
+  This workflow is deprecated. The tools in this workflow should be run individually.
+
   Prepocess raw Illumina Infinium
   intensities using minfi into usable methylation measurements (Beta and M values)
   and copy number (cn-values) for OpenPedCan.
@@ -29,6 +31,7 @@ inputs:
   manifest_file: {type: File, doc: "Manifest file containing 'file_name' and 'Bioassay_ID' columns"}
   funnorm: { type: 'boolean?', doc: "If set, use funnorm for normalization" }
   snp_filter: { type: 'boolean?', doc: "If set, drops the probes that contain either a SNP at the CpG interrogation or at the single nucleotide extension." }
+  output_basename: {type: string, doc: "String to use as the base for output filenames"}
   ram: { type: 'int?', default: 32, doc: "GB of RAM to allocate to the task." }
   cores: { type: 'int?', default: 16, doc: "Minimum reserved number of CPU cores for the task." }
 
@@ -47,6 +50,7 @@ steps:
       ram: ram
       cores: cores
       manifest_file: manifest_file
+      output_basename: output_basename
     out: [array_dirs, additional_files]
   
   preprocess_illumina_arrays:
@@ -57,6 +61,7 @@ steps:
       manifest_file: manifest_file
       funnorm: funnorm
       snp_filter: snp_filter
+      output_basename: output_basename
       ram: ram
       cores: cores
     out: [beta_values, m_values_masked, m_values_unmasked, cn_values]
