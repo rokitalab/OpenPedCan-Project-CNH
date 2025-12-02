@@ -70,7 +70,4 @@ jobs:
           docker buildx prune -af || true
           # Comprehensive Docker cleanup
           docker system prune -af --volumes || true
-          # Clean any remaining build cache
-          sudo rm -rf /tmp/* || true
-          sudo rm -rf ~/.cache || true
           echo "Disk usage after post-build cleanup:" && df -h
