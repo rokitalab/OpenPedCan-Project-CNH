@@ -2,7 +2,7 @@
 FROM pgc-images.sbgenomics.com/rokita-lab/openpedcanverse-base:2025-12-01
 
 LABEL maintainer="jrokita@childrensnational.org" \
-      org.opencontainers.image.title="openpedcanverse-top" \
+      org.opencontainers.image.title="openpedcanverse" \
       org.opencontainers.image.description="Project-specific image layered on openpedcanverse-base"
 
 # Recommended: set working dir for your project code
