@@ -69,7 +69,7 @@ option_list <- list(
         metavar = "character"
     ),
     make_option(
-        opt_str = "-output_basename",
+        opt_str = "--output_basename",
         type = "character", default = NULL,
         help = "The absolute path of the base directory containing sample array IDAT files.",
         metavar = "character"

@@ -29,7 +29,7 @@ arguments:
     1>&2
 inputs:
   input_idats_dir: { type: Directory, loadListing: shallow_listing, inputBinding: { prefix: "--base_dir", position: 1 }, doc: "Directory containing the IDATs to process." }
-  output_basename: { type: 'string', doc: "Prefix string for output file name.", inputBinding: { position: 1, prefix: "-output_basename"} }
+  output_basename: { type: 'string', doc: "Prefix string for output file name.", inputBinding: { position: 1, prefix: "--output_basename"} }
   manifest_file: {type: File, inputBinding: { prefix: "--manifest_file", position: 1 }, doc: "Manifest file containing 'file_name' and 'Bioassay_ID' columns"}
   funnorm: { type: 'boolean?', inputBinding: { prefix: "--funnorm", position: 1 }, doc: "If set, use funnorm for normalization" }
   snp_filter: { type: 'boolean?', inputBinding: { prefix: "--snp_filter", position: 1 }, doc: "If set, drops the probes that contain either a SNP at the CpG interrogation or at the single nucleotide extension." }
