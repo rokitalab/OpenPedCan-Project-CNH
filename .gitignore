@@ -31,3 +31,4 @@ analyses/molecular-subtyping*/*subset/*rsem-tpm*
 # Ignore the data and outputs of the methylation preprocessing
 analyses/methylation-preprocessing/data/*
 analyses/methylation-preprocessing/outputs/*
+analyses/methylation-preprocessing/*.sh
