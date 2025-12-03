@@ -13,6 +13,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Free disk space (pre-build)
+        run: |
+          echo "Disk usage before cleanup:" && df -h
+          # Remove pre-installed tools and caches that are rarely needed
+          sudo rm -rf /usr/share/dotnet || true
+          sudo rm -rf /opt/ghc || true
+          sudo rm -rf /usr/local/share/boost || true
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY" || true
+          # Clean apt cache
+          sudo apt-get clean || true
+          # Docker cleanup
+          docker system prune -af || true
+          echo "Disk usage after cleanup:" && df -h
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -20,7 +34,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: pgc-images.sbgenomics.com/rokita-lab/openpedcanverse
+          images: pgc-images.sbgenomics.com/rokita-lab/openpedcanverse-top
           tags: |
             type=raw,value=analysisjob
             # Only tag the image with latest if we're building on the default
@@ -44,3 +58,16 @@ jobs:
           cache-to: type=gha,mode=max
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Free disk space (post-build)
+        run: |
+          echo "Disk usage before post-build cleanup:" && df -h
+          # Remove built images by tags
+          for tag in ${{ steps.meta.outputs.tags }}; do
+            docker rmi -f "$tag" || true
+          done
+          # Remove Buildx builder cache
+          docker buildx prune -af || true
+          # Comprehensive Docker cleanup
+          docker system prune -af --volumes || true
+          echo "Disk usage after post-build cleanup:" && df -h
