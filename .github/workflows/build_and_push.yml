@@ -34,11 +34,11 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Docker meta (openpedcanverse-top)
+      - name: Docker meta (openpedcanverse)
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: pgc-images.sbgenomics.com/rokita-lab/openpedcanverse-top
+          images: pgc-images.sbgenomics.com/rokita-lab/openpedcanverse
           tags: |
             # Latest tag on default branch
             type=raw,value=latest,enable={{is_default_branch}}
@@ -52,7 +52,7 @@ jobs:
           username: ${{ secrets.CAVATICA_USERNAME }}
           password: ${{ secrets.CAVATICA_TOKEN }}
 
-      - name: Build and push openpedcanverse-top
+      - name: Build and push openpedcanverse
         uses: docker/build-push-action@v3
         with:
           context: .
