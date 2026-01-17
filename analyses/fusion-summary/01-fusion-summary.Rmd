@@ -83,7 +83,7 @@ annot <- read.delim(system.file("extdata", "genelistreference.txt", package = "a
 #' The putative oncogenic fusion file is what we'll use to check for the #' presence or absence of the fusions.
 #' However, some biospecimens are not represented in this filtered, prioritized
 #' file but have been assayed - we will gather those from the histology file
-hist <- read_tsv(file.path(dataDir, "histologies-base.tsv"))
+hist <- read_tsv(file.path(dataDir, "/testing/histologies-base.tsv"))
 
 # This needs to come from the data directory when running in CI
 if ( params$ci_run == 1 ){
@@ -91,7 +91,7 @@ putativeOncogenicDF <-
   read_tsv(file.path(fusDir, "fusion-putative-oncogenic.tsv"))
 } else{
 putativeOncogenicDF <- 
-  read_tsv(file.path(dataDir, "fusion-putative-oncogenic.tsv"))
+  read_tsv(file.path(dataDir, "/testing/fusion-putative-oncogenic.tsv"))
 }
 
 
@@ -100,7 +100,7 @@ putativeOncogenicDF <-
 ### Read in DGD and arrange as fusion filtering df 
 ```{r}
 # read in DGD data 
-dgd_fusion <- readr::read_tsv(file.path(dataDir, "fusion-dgd.tsv.gz"))
+dgd_fusion <- readr::read_tsv(file.path(dataDir, "/testing/fusion-dgd.tsv.gz"))
 
 # combine the two dataframes
 putativeOncogenicDF <- bind_rows(putativeOncogenicDF, dgd_fusion)
