@@ -1513,7 +1513,7 @@ window.initializeCodeFolding = function(show) {
     $(this).detach().appendTo(div);
 
     // add a show code button right above
-    var showCodeText = $('<span>' + (showThis ? 'Hide' : 'Code') + '</span>');
+    var showCodeText = $('<span>' + (showThis ? 'Hide' : 'Show') + '</span>');
     var showCodeButton = $('<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm code-folding-btn pull-right float-right"></button>');
     showCodeButton.append(showCodeText);
     showCodeButton
@@ -1539,7 +1539,7 @@ window.initializeCodeFolding = function(show) {
     //   * Change text
     //   * add a class for intermediate states styling
     div.on('hide.bs.collapse', function () {
-      showCodeText.text('Code');
+      showCodeText.text('Show');
       showCodeButton.addClass('btn-collapsing');
     });
     div.on('hidden.bs.collapse', function () {
@@ -1777,14 +1777,14 @@ MYBL1 fusion</p></li>
 <!-- rnb-source-begin eyJkYXRhIjoibGlicmFyeSh0aWR5dmVyc2UpIn0= -->
 <pre class="r"><code>library(tidyverse)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-message-begin eyJkYXRhIjoi4pSA4pSAIEF0dGFjaGluZyBjb3JlIHRpZHl2ZXJzZSBwYWNrYWdlcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlIDIuMC4wIOKUgOKUgFxu4pyUIGRwbHlyICAgICAxLjEuMSAgICAg4pyUIHJlYWRyICAgICAyLjEuNFxu4pyUIGZvcmNhdHMgICAxLjAuMCAgICAg4pyUIHN0cmluZ3IgICAxLjUuMFxu4pyUIGdncGxvdDIgICAzLjQuMiAgICAg4pyUIHRpYmJsZSAgICAzLjIuMVxu4pyUIGx1YnJpZGF0ZSAxLjkuMiAgICAg4pyUIHRpZHlyICAgICAxLjMuMFxu4pyUIHB1cnJyICAgICAxLjAuMSAgICAgXG7ilIDilIAgQ29uZmxpY3RzIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCB0aWR5dmVyc2VfY29uZmxpY3RzKCkg4pSA4pSAXG7inJYgZHBseXI6OmZpbHRlcigpIG1hc2tzIHN0YXRzOjpmaWx0ZXIoKVxu4pyWIGRwbHlyOjpsYWcoKSAgICBtYXNrcyBzdGF0czo6bGFnKClcbuKEuSBVc2UgdGhlIGNvbmZsaWN0ZWQgcGFja2FnZSAoPGh0dHA6Ly9jb25mbGljdGVkLnItbGliLm9yZy8+KSB0byBmb3JjZSBhbGwgY29uZmxpY3RzIHRvIGJlY29tZSBlcnJvcnNcbiJ9 -->
-<pre><code>── Attaching core tidyverse packages ─────────────────────────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.1     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.1     
-── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<!-- rnb-message-begin eyJkYXRhIjoi4pSA4pSAIEF0dGFjaGluZyBjb3JlIHRpZHl2ZXJzZSBwYWNrYWdlcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlIDIuMC4wIOKUgOKUgFxu4pyUIGRwbHlyICAgICAxLjEuNCAgICAg4pyUIHJlYWRyICAgICAyLjEuNVxu4pyUIGZvcmNhdHMgICAxLjAuMCAgICAg4pyUIHN0cmluZ3IgICAxLjUuMVxu4pyUIGdncGxvdDIgICAzLjUuMSAgICAg4pyUIHRpYmJsZSAgICAzLjIuMVxu4pyUIGx1YnJpZGF0ZSAxLjkuMyAgICAg4pyUIHRpZHlyICAgICAxLjMuMVxu4pyUIHB1cnJyICAgICAxLjAuMiAgICAgXG7ilIDilIAgQ29uZmxpY3RzIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCB0aWR5dmVyc2VfY29uZmxpY3RzKCkg4pSA4pSAXG7inJYgZHBseXI6OmZpbHRlcigpIG1hc2tzIHN0YXRzOjpmaWx0ZXIoKVxu4pyWIGRwbHlyOjpsYWcoKSAgICBtYXNrcyBzdGF0czo6bGFnKClcbuKEuSBVc2UgdGhlIGNvbmZsaWN0ZWQgcGFja2FnZSAoPGh0dHA6Ly9jb25mbGljdGVkLnItbGliLm9yZy8+KSB0byBmb3JjZSBhbGwgY29uZmxpY3RzIHRvIGJlY29tZSBlcnJvcnNcbiJ9 -->
+<pre><code>── Attaching core tidyverse packages ─────────────────────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
@@ -1833,9 +1833,9 @@ fusions.</li>
 <!-- rnb-source-begin eyJkYXRhIjoibGdhdF9zcGVjaW1lbnNfZGY8LXJlYWRfdHN2KGZpbGUucGF0aChzdWJzZXRfZGlyLCBcImxnYXRfbWV0YWRhdGEudHN2XCIpKSJ9 -->
 <pre class="r"><code>lgat_specimens_df&lt;-read_tsv(file.path(subset_dir, &quot;lgat_metadata.tsv&quot;))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-message-begin eyJkYXRhIjoiUm93czogMjA5MiBDb2x1bW5zOiA2NFxu4pSA4pSAIENvbHVtbiBzcGVjaWZpY2F0aW9uIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuRGVsaW1pdGVyOiBcIlxcdFwiXG5jaHIgKDMwKTogS2lkc19GaXJzdF9QYXJ0aWNpcGFudF9JRCwgS2lkc19GaXJzdF9CaW9zcGVjaW1lbl9JRCwgc2FtcGxlX2lkLCBhLi4uXG5kYmwgKDExKTogY2VsbF9saW5lX3Bhc3NhZ2UsIE9TX2RheXMsIEVGU19kYXlzLCBhZ2VfYXRfZGlhZ25vc2lzX2RheXMsIGFnZV9hLi4uXG5sZ2wgKDIzKTogbW9sZWN1bGFyX3N1YnR5cGUsIGludGVncmF0ZWRfZGlhZ25vc2lzLCBoYXJtb25pemVkX2RpYWdub3NpcywgTm90Li4uXG5cbuKEuSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbuKEuSBTcGVjaWZ5IHRoZSBjb2x1bW4gdHlwZXMgb3Igc2V0IGBzaG93X2NvbF90eXBlcyA9IEZBTFNFYCB0byBxdWlldCB0aGlzIG1lc3NhZ2UuXG4ifQ== -->
+<!-- rnb-message-begin eyJkYXRhIjoiUm93czogMjA5MiBDb2x1bW5zOiA2NFxu4pSA4pSAIENvbHVtbiBzcGVjaWZpY2F0aW9uIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuRGVsaW1pdGVyOiBcIlxcdFwiXG5jaHIgKDMwKTogS2lkc19GaXJzdF9QYXJ0aWNpcGFudF9JRCwgS2lkc19GaXJzdF9CaW9zcGVjaW1lbl9JRCwgc2FtcGxlX2lkLCBhLi4uXG5kYmwgKDExKTogY2VsbF9saW5lX3Bhc3NhZ2UsIE9TX2RheXMsIEVGU19kYXlzLCBhZ2VfYXRfZGlhZ25vc2lzX2RheXMsIGFnZV9hLi4uXG5sZ2wgKDIzKTogbW9sZWN1bGFyX3N1YnR5cGUsIGludGVncmF0ZWRfZGlhZ25vc2lzLCBoYXJtb25pemVkX2RpYWdub3NpcywgTm90Li4uXG5cbuKEuSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbuKEuSBTcGVjaWZ5IHRoZSBjb2x1bW4gdHlwZXMgb3Igc2V0IGBzaG93X2NvbF90eXBlcyA9IEZBTFNFYCB0byBxdWlldCB0aGlzIG1lc3NhZ2UuXG4ifQ== -->
 <pre><code>Rows: 2092 Columns: 64
-── Column specification ───────────────────────────────────────────────────────────────────────────
+── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
 chr (30): Kids_First_Participant_ID, Kids_First_Biospecimen_ID, sample_id, a...
 dbl (11): cell_line_passage, OS_days, EFS_days, age_at_diagnosis_days, age_a...
@@ -1862,9 +1862,9 @@ putativeFusion &lt;- readr::read_tsv(file.path(root_dir,
   # filter to keep only LGAT RNA 
   dplyr::filter(!is.na(&quot;match_id&quot;))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-message-begin eyJkYXRhIjoiUm93czogNTU2MiBDb2x1bW5zOiA0MTRcbuKUgOKUgCBDb2x1bW4gc3BlY2lmaWNhdGlvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbkRlbGltaXRlcjogXCJcXHRcIlxuY2hyICAgKDEpOiBLaWRzX0ZpcnN0X0Jpb3NwZWNpbWVuX0lEXG5kYmwgKDQxMyk6IEFGQVAxLS1OVFJLMiwgQUdBUDMtLUJSQUYsIEFHSy0tQlJBRiwgQUxLLS1BTEssIEFMSy0tQVJIR0VGMywgQUxLLi4uXG5cbuKEuSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbuKEuSBTcGVjaWZ5IHRoZSBjb2x1bW4gdHlwZXMgb3Igc2V0IGBzaG93X2NvbF90eXBlcyA9IEZBTFNFYCB0byBxdWlldCB0aGlzIG1lc3NhZ2UuXG4ifQ== -->
+<!-- rnb-message-begin eyJkYXRhIjoiUm93czogNTU2MiBDb2x1bW5zOiA0MTRcbuKUgOKUgCBDb2x1bW4gc3BlY2lmaWNhdGlvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbkRlbGltaXRlcjogXCJcXHRcIlxuY2hyICAgKDEpOiBLaWRzX0ZpcnN0X0Jpb3NwZWNpbWVuX0lEXG5kYmwgKDQxMyk6IEFGQVAxLS1OVFJLMiwgQUdBUDMtLUJSQUYsIEFHSy0tQlJBRiwgQUxLLS1BTEssIEFMSy0tQVJIR0VGMywgQUxLLi4uXG5cbuKEuSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbuKEuSBTcGVjaWZ5IHRoZSBjb2x1bW4gdHlwZXMgb3Igc2V0IGBzaG93X2NvbF90eXBlcyA9IEZBTFNFYCB0byBxdWlldCB0aGlzIG1lc3NhZ2UuXG4ifQ== -->
 <pre><code>Rows: 5562 Columns: 414
-── Column specification ───────────────────────────────────────────────────────────────────────────
+── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
 chr   (1): Kids_First_Biospecimen_ID
 dbl (413): AFAP1--NTRK2, AGAP3--BRAF, AGK--BRAF, ALK--ALK, ALK--ARHGEF3, ALK...
@@ -1960,14 +1960,14 @@ write_tsv(subsetFusion,file.path(subset_dir, &quot;LGAT_fusion_subset.tsv&quot;)
 <!-- rnb-source-begin eyJkYXRhIjoic2Vzc2lvbkluZm8oKSJ9 -->
 <pre class="r"><code>sessionInfo()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUiB2ZXJzaW9uIDQuMi4zICgyMDIzLTAzLTE1KVxuUGxhdGZvcm06IHg4Nl82NC1wYy1saW51eC1nbnUgKDY0LWJpdClcblJ1bm5pbmcgdW5kZXI6IFVidW50dSAyMi4wNC4yIExUU1xuXG5NYXRyaXggcHJvZHVjdHM6IGRlZmF1bHRcbkJMQVM6ICAgL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9vcGVuYmxhcy1wdGhyZWFkL2xpYmJsYXMuc28uM1xuTEFQQUNLOiAvdXNyL2xpYi94ODZfNjQtbGludXgtZ251L29wZW5ibGFzLXB0aHJlYWQvbGlib3BlbmJsYXNwLXIwLjMuMjAuc29cblxubG9jYWxlOlxuIFsxXSBMQ19DVFlQRT1lbl9VUy5VVEYtOCAgICAgICBMQ19OVU1FUklDPUMgICAgICAgICAgICAgIFxuIFszXSBMQ19USU1FPWVuX1VTLlVURi04ICAgICAgICBMQ19DT0xMQVRFPWVuX1VTLlVURi04ICAgIFxuIFs1XSBMQ19NT05FVEFSWT1lbl9VUy5VVEYtOCAgICBMQ19NRVNTQUdFUz1lbl9VUy5VVEYtOCAgIFxuIFs3XSBMQ19QQVBFUj1lbl9VUy5VVEYtOCAgICAgICBMQ19OQU1FPUMgICAgICAgICAgICAgICAgIFxuIFs5XSBMQ19BRERSRVNTPUMgICAgICAgICAgICAgICBMQ19URUxFUEhPTkU9QyAgICAgICAgICAgIFxuWzExXSBMQ19NRUFTVVJFTUVOVD1lbl9VUy5VVEYtOCBMQ19JREVOVElGSUNBVElPTj1DICAgICAgIFxuXG5hdHRhY2hlZCBiYXNlIHBhY2thZ2VzOlxuWzFdIHN0YXRzICAgICBncmFwaGljcyAgZ3JEZXZpY2VzIHV0aWxzICAgICBkYXRhc2V0cyAgbWV0aG9kcyAgIGJhc2UgICAgIFxuXG5vdGhlciBhdHRhY2hlZCBwYWNrYWdlczpcbiBbMV0gbHVicmlkYXRlXzEuOS4yIGZvcmNhdHNfMS4wLjAgICBzdHJpbmdyXzEuNS4wICAgZHBseXJfMS4xLjEgICAgXG4gWzVdIHB1cnJyXzEuMC4xICAgICByZWFkcl8yLjEuNCAgICAgdGlkeXJfMS4zLjAgICAgIHRpYmJsZV8zLjIuMSAgIFxuIFs5XSBnZ3Bsb3QyXzMuNC4yICAgdGlkeXZlcnNlXzIuMC4wXG5cbmxvYWRlZCB2aWEgYSBuYW1lc3BhY2UgKGFuZCBub3QgYXR0YWNoZWQpOlxuIFsxXSBic2xpYl8wLjQuMiAgICAgIGNvbXBpbGVyXzQuMi4zICAgcGlsbGFyXzEuOS4wICAgICBqcXVlcnlsaWJfMC4xLjQgXG4gWzVdIHRvb2xzXzQuMi4zICAgICAgYml0XzQuMC41ICAgICAgICBkaWdlc3RfMC42LjMxICAgIHRpbWVjaGFuZ2VfMC4yLjBcbiBbOV0ganNvbmxpdGVfMS44LjQgICBldmFsdWF0ZV8wLjIwICAgIGxpZmVjeWNsZV8xLjAuMyAgZ3RhYmxlXzAuMy4zICAgIFxuWzEzXSBwa2djb25maWdfMi4wLjMgIHJsYW5nXzEuMS4wICAgICAgY2xpXzMuNi4xICAgICAgICBwYXJhbGxlbF80LjIuMyAgXG5bMTddIHlhbWxfMi4zLjcgICAgICAgeGZ1bl8wLjM4ICAgICAgICBmYXN0bWFwXzEuMS4xICAgIHdpdGhyXzIuNS4wICAgICBcblsyMV0ga25pdHJfMS40MiAgICAgICBnZW5lcmljc18wLjEuMyAgIHZjdHJzXzAuNi4yICAgICAgc2Fzc18wLjQuNSAgICAgIFxuWzI1XSBobXNfMS4xLjMgICAgICAgIGJpdDY0XzQuMC41ICAgICAgcnByb2pyb290XzIuMC4zICBncmlkXzQuMi4zICAgICAgXG5bMjldIHRpZHlzZWxlY3RfMS4yLjAgZ2x1ZV8xLjYuMiAgICAgICBSNl8yLjUuMSAgICAgICAgIGZhbnNpXzEuMC40ICAgICBcblszM10gdnJvb21fMS42LjEgICAgICBybWFya2Rvd25fMi4yMSAgIHR6ZGJfMC4zLjAgICAgICAgbWFncml0dHJfMi4wLjMgIFxuWzM3XSBzY2FsZXNfMS4yLjEgICAgIGh0bWx0b29sc18wLjUuNSAgY29sb3JzcGFjZV8yLjEtMCB1dGY4XzEuMi4zICAgICAgXG5bNDFdIHN0cmluZ2lfMS43LjEyICAgbXVuc2VsbF8wLjUuMCAgICBjYWNoZW1fMS4wLjcgICAgIGNyYXlvbl8xLjUuMiAgICBcbiJ9 -->
-<pre><code>R version 4.2.3 (2023-03-15)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 22.04.2 LTS
+<!-- rnb-output-begin eyJkYXRhIjoiUiB2ZXJzaW9uIDQuNC4wICgyMDI0LTA0LTI0KVxuUGxhdGZvcm06IHg4Nl82NC1wYy1saW51eC1nbnVcblJ1bm5pbmcgdW5kZXI6IFVidW50dSAyMi4wNC40IExUU1xuXG5NYXRyaXggcHJvZHVjdHM6IGRlZmF1bHRcbkJMQVM6ICAgL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9vcGVuYmxhcy1wdGhyZWFkL2xpYmJsYXMuc28uMyBcbkxBUEFDSzogL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9vcGVuYmxhcy1wdGhyZWFkL2xpYm9wZW5ibGFzcC1yMC4zLjIwLnNvOyAgTEFQQUNLIHZlcnNpb24gMy4xMC4wXG5cbmxvY2FsZTpcbiBbMV0gTENfQ1RZUEU9ZW5fVVMuVVRGLTggICAgICAgTENfTlVNRVJJQz1DICAgICAgICAgICAgICBcbiBbM10gTENfVElNRT1lbl9VUy5VVEYtOCAgICAgICAgTENfQ09MTEFURT1lbl9VUy5VVEYtOCAgICBcbiBbNV0gTENfTU9ORVRBUlk9ZW5fVVMuVVRGLTggICAgTENfTUVTU0FHRVM9ZW5fVVMuVVRGLTggICBcbiBbN10gTENfUEFQRVI9ZW5fVVMuVVRGLTggICAgICAgTENfTkFNRT1DICAgICAgICAgICAgICAgICBcbiBbOV0gTENfQUREUkVTUz1DICAgICAgICAgICAgICAgTENfVEVMRVBIT05FPUMgICAgICAgICAgICBcblsxMV0gTENfTUVBU1VSRU1FTlQ9ZW5fVVMuVVRGLTggTENfSURFTlRJRklDQVRJT049QyAgICAgICBcblxudGltZSB6b25lOiBFdGMvVVRDXG50emNvZGUgc291cmNlOiBzeXN0ZW0gKGdsaWJjKVxuXG5hdHRhY2hlZCBiYXNlIHBhY2thZ2VzOlxuWzFdIHN0YXRzICAgICBncmFwaGljcyAgZ3JEZXZpY2VzIHV0aWxzICAgICBkYXRhc2V0cyAgbWV0aG9kcyAgIGJhc2UgICAgIFxuXG5vdGhlciBhdHRhY2hlZCBwYWNrYWdlczpcbiBbMV0gbHVicmlkYXRlXzEuOS4zIGZvcmNhdHNfMS4wLjAgICBzdHJpbmdyXzEuNS4xICAgZHBseXJfMS4xLjQgICAgXG4gWzVdIHB1cnJyXzEuMC4yICAgICByZWFkcl8yLjEuNSAgICAgdGlkeXJfMS4zLjEgICAgIHRpYmJsZV8zLjIuMSAgIFxuIFs5XSBnZ3Bsb3QyXzMuNS4xICAgdGlkeXZlcnNlXzIuMC4wXG5cbmxvYWRlZCB2aWEgYSBuYW1lc3BhY2UgKGFuZCBub3QgYXR0YWNoZWQpOlxuIFsxXSBiaXRfNC4wLjUgICAgICAgICBndGFibGVfMC4zLjUgICAgICBqc29ubGl0ZV8xLjguOCAgICBjcmF5b25fMS41LjIgICAgIFxuIFs1XSBjb21waWxlcl80LjQuMCAgICB0aWR5c2VsZWN0XzEuMi4xICBwYXJhbGxlbF80LjQuMCAgICBqcXVlcnlsaWJfMC4xLjQgIFxuIFs5XSBzY2FsZXNfMS4zLjAgICAgICB5YW1sXzIuMy44ICAgICAgICBmYXN0bWFwXzEuMi4wICAgICBSNl8yLjUuMSAgICAgICAgIFxuWzEzXSBnZW5lcmljc18wLjEuMyAgICBrbml0cl8xLjQ3ICAgICAgICBycHJvanJvb3RfMi4wLjQgICBtdW5zZWxsXzAuNS4xICAgIFxuWzE3XSBic2xpYl8wLjcuMCAgICAgICBwaWxsYXJfMS45LjAgICAgICB0emRiXzAuNC4wICAgICAgICBybGFuZ18xLjEuNCAgICAgIFxuWzIxXSB1dGY4XzEuMi40ICAgICAgICBzdHJpbmdpXzEuOC40ICAgICBjYWNoZW1fMS4xLjAgICAgICB4ZnVuXzAuNDQgICAgICAgIFxuWzI1XSBzYXNzXzAuNC45ICAgICAgICBiaXQ2NF80LjAuNSAgICAgICB0aW1lY2hhbmdlXzAuMy4wICBjbGlfMy42LjIgICAgICAgIFxuWzI5XSB3aXRocl8zLjAuMCAgICAgICBtYWdyaXR0cl8yLjAuMyAgICBkaWdlc3RfMC42LjM1ICAgICBncmlkXzQuNC4wICAgICAgIFxuWzMzXSB2cm9vbV8xLjYuNSAgICAgICBobXNfMS4xLjMgICAgICAgICBsaWZlY3ljbGVfMS4wLjQgICB2Y3Ryc18wLjYuNSAgICAgIFxuWzM3XSBldmFsdWF0ZV8wLjI0LjAgICBnbHVlXzEuNy4wICAgICAgICBmYW5zaV8xLjAuNiAgICAgICBjb2xvcnNwYWNlXzIuMS0wIFxuWzQxXSBybWFya2Rvd25fMi4yNyAgICB0b29sc180LjQuMCAgICAgICBwa2djb25maWdfMi4wLjMgICBodG1sdG9vbHNfMC41LjguMVxuIn0= -->
+<pre><code>R version 4.4.0 (2024-04-24)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 22.04.4 LTS
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -1977,26 +1977,29 @@ locale:
  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
+time zone: Etc/UTC
+tzcode source: system (glibc)
+
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] lubridate_1.9.2 forcats_1.0.0   stringr_1.5.0   dplyr_1.1.1    
- [5] purrr_1.0.1     readr_2.1.4     tidyr_1.3.0     tibble_3.2.1   
- [9] ggplot2_3.4.2   tidyverse_2.0.0
+ [1] lubridate_1.9.3 forcats_1.0.0   stringr_1.5.1   dplyr_1.1.4    
+ [5] purrr_1.0.2     readr_2.1.5     tidyr_1.3.1     tibble_3.2.1   
+ [9] ggplot2_3.5.1   tidyverse_2.0.0
 
 loaded via a namespace (and not attached):
- [1] bslib_0.4.2      compiler_4.2.3   pillar_1.9.0     jquerylib_0.1.4 
- [5] tools_4.2.3      bit_4.0.5        digest_0.6.31    timechange_0.2.0
- [9] jsonlite_1.8.4   evaluate_0.20    lifecycle_1.0.3  gtable_0.3.3    
-[13] pkgconfig_2.0.3  rlang_1.1.0      cli_3.6.1        parallel_4.2.3  
-[17] yaml_2.3.7       xfun_0.38        fastmap_1.1.1    withr_2.5.0     
-[21] knitr_1.42       generics_0.1.3   vctrs_0.6.2      sass_0.4.5      
-[25] hms_1.1.3        bit64_4.0.5      rprojroot_2.0.3  grid_4.2.3      
-[29] tidyselect_1.2.0 glue_1.6.2       R6_2.5.1         fansi_1.0.4     
-[33] vroom_1.6.1      rmarkdown_2.21   tzdb_0.3.0       magrittr_2.0.3  
-[37] scales_1.2.1     htmltools_0.5.5  colorspace_2.1-0 utf8_1.2.3      
-[41] stringi_1.7.12   munsell_0.5.0    cachem_1.0.7     crayon_1.5.2    </code></pre>
+ [1] bit_4.0.5         gtable_0.3.5      jsonlite_1.8.8    crayon_1.5.2     
+ [5] compiler_4.4.0    tidyselect_1.2.1  parallel_4.4.0    jquerylib_0.1.4  
+ [9] scales_1.3.0      yaml_2.3.8        fastmap_1.2.0     R6_2.5.1         
+[13] generics_0.1.3    knitr_1.47        rprojroot_2.0.4   munsell_0.5.1    
+[17] bslib_0.7.0       pillar_1.9.0      tzdb_0.4.0        rlang_1.1.4      
+[21] utf8_1.2.4        stringi_1.8.4     cachem_1.1.0      xfun_0.44        
+[25] sass_0.4.9        bit64_4.0.5       timechange_0.3.0  cli_3.6.2        
+[29] withr_3.0.0       magrittr_2.0.3    digest_0.6.35     grid_4.4.0       
+[33] vroom_1.6.5       hms_1.1.3         lifecycle_1.0.4   vctrs_0.6.5      
+[37] evaluate_0.24.0   glue_1.7.0        fansi_1.0.6       colorspace_2.1-0 
+[41] rmarkdown_2.27    tools_4.4.0       pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 </div>

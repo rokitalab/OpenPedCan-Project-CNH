@@ -10,24 +10,44 @@
             "canonical": "p.V600E"
         }
     ],
-    "FGFR": [
-        {
-            "hotspot": 577,
-            "gene": "FGFR1"
-        },
-        {
-            "hotspot": 687,
-            "gene": "FGFR1"
-        },
-        {
-            "gene": "FGFR1",
-            "canonical": "p.N546K"
-        },
-        {
-            "gene": "FGFR1",
-            "canonical": "p.K656E"
-        }
-    ],
+  "FGFR": [
+  {
+    "hotspot": 577,
+    "gene": "FGFR1"
+  },
+  {
+    "hotspot": 687,
+    "gene": "FGFR1"
+  },
+  {
+    "gene": "FGFR1",
+    "canonical": "p.N546K"
+  },
+  {
+    "gene": "FGFR1",
+    "canonical": "p.K656E"
+  },
+  {
+    "gene": "FGFR1",
+    "canonical": "p.K654D"
+  },
+  {
+    "gene": "FGFR1",
+    "canonical": "p.K654E"
+  },
+  {
+    "gene": "FGFR1",
+    "canonical": "p.N544K"
+  },
+  {
+    "gene": "FGFR1",
+    "canonical": "p.V559M"
+  },
+  {
+    "gene": "FGFR1",
+    "canonical": "p.R659L"
+  }
+],
     "MAPK": [
         {
             "gene": "KRAS"
