@@ -14,7 +14,7 @@ In this analysis we subtype LGAT samples according to the presence/absence of mo
   - contains _KIAA1549-BRAF_ fusion
 
 - **LGG, BRAF V600E**
-  - contains BRAF V600E or V599 SNV or non-canonical _BRAF_ alterations such as p.V600ins or p.D594N within the kiinase (PK_Tyr_Ser-Thr) domain.
+  - contains BRAF V600E or V599 SNV or non-canonical _BRAF_ alterations such as p.V600ins or p.D594N within the kinase (PK_Tyr_Ser-Thr) domain.
 
 - **LGG, other MAPK**
   - contains non-canonical _BRAF_ fusion other than _KIAA1549-BRAF_ **or**
@@ -28,7 +28,7 @@ In this analysis we subtype LGAT samples according to the presence/absence of mo
   - harbors a _PDGFRA_ SNV or fusion
 
 - **LGG, FGFR**
-  - harbors _FGFR1_ p.N546K, p.K656E, p.N577, or p. K687 hotspot mutations **or** 
+  - harbors _FGFR1_ p.N546K, p.K656E, p.K654D, p.N544K, p.V559M, p.R659L, or mutations at amino acid hotspots 577 or 687 **or** 
   - harbors _FGFR1_ TKD (tyrosine kinase domain tandem duplication) **or**
   - harbors _FGFR1-TACC1_ fusion **or**
   - harbors _FGFR1_ or _FGFR2_ fusions
