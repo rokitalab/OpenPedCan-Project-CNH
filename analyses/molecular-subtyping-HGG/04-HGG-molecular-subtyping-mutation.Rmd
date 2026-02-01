@@ -55,7 +55,7 @@ if (!dir.exists(results_dir)) {
 ### Read in Files
 
 ```{r message=FALSE}
-# CDS bed file, to be used to filter the consensus MAF file
+# CDS bed file, to be used to filter the consensus MAF file; NOTE: tmb-calculation module must be run to generate this
 bed_file <- file.path(root_dir, 
                       "scratch", 
                       "gencode.v39.primary_assembly.annotation.bed")

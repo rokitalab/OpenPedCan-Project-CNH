@@ -49,6 +49,36 @@ IHG_path_free_path_dx <- histo %>%
   pull(pathology_free_text_diagnosis) %>%
   unique() 
 
+# add include methylation terms
+include_methyl <- c(
+  "A_IDH_HG",
+  "DHG_G34",
+  "DMG_EGFR",
+  "DMG_K27",
+  "GBM_MES_ATYP",
+  "GBM_CBM",
+  "GBM_MES_TYP",
+  "GBM_RTK1",
+  "GBM_PNC",
+  "GBM_RTK2",
+  "HGAP",
+  "HGG_B",
+  "HGG_E",
+  "HGG_F",
+  "pedHGG_A",
+  "pedHGG_B",
+  "pedHGG_MYCN",
+  "pedHGG_RTK1A",
+  "pedHGG_RTK1C",
+  "pedHGG_RTK2A",
+  "pedHGG_RTK1B",
+  "pedHGG_RTK2B",
+  "A_IDH_HG",
+  "IHG",
+  "O_IDH",
+  "OLIGOSARC_IDH"
+)
+
 # create an exclude list - LCH has BRAF V600E, so may come in by mistake
 exclude_dx <- c("Langerhans Cell histiocytosis")
 
@@ -56,7 +86,8 @@ exclude_dx <- c("Langerhans Cell histiocytosis")
 terms_list <- list(exact_path_dx = exact_path_dx,
                    path_free_text_exact = path_free_text_exact, 
                    IHG_path_free_path_dx = IHG_path_free_path_dx,
-                   exclude_path_dx = exclude_dx)
+                   exclude_path_dx = exclude_dx,
+                   include_methyl = include_methyl)
 
 
 #Save this list as JSON.
