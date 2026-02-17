@@ -117,6 +117,7 @@ ependFile <- file.path(resultsDir, "fusion_summary_ependymoma_foi.tsv")
 embryFile <- file.path(resultsDir, "fusion_summary_embryonal_foi.tsv")
 ewingsFile <- file.path(resultsDir, "fusion_summary_ewings_foi.tsv")
 lgg_hggFile <- file.path(resultsDir, "fusion_summary_lgg_hgg_foi.tsv")
+rareCNSFile <- file.path(resultsDir, "fusion_summary_rare_cns_foi.tsv")
 ```
 
 ## Fusions and genes of interest
@@ -181,7 +182,33 @@ lgghggGenes <- c(
   "RAF1", 
   "MET"
 )
-
+#' 5: Exact match a list of Rare CNS tumors fusionsgenes of interest
+rareCNSFuses <- c(
+  "MN1--BEND2",
+  "MN1--CXXC5",
+  "BRD4--LEUTX",
+  "PAX3--FOXO1",
+  "PAX7--FOXO1",
+  "FUS--TFCP2",
+  "EWSR1--TFCP2",
+  "FUS--ETV4",
+  "FET--CREB" 
+)
+rareCNSGenes <- c(
+  "PLAG",
+  "MN1",
+  "PLAGL",
+  "CXXC5",
+  "BCOR",
+  "PATZ1",
+  "EWSR1",
+  "TFCP2",
+  "PAX3",
+  "PAX7",
+  "CREB1",
+  "ATF1",
+  "CREM" 
+)
 ```
 
 ### Filter putative oncogenic fusions list
@@ -198,6 +225,9 @@ allFuseEwing <- filterFusion(df = putativeOncogenicDF,
 allFuseLGGHGG <- filterFusion(df = putativeOncogenicDF,
                              fuses = lggFuses,
                              genes = lgghggGenes)
+allFuseRareCNS <- filterFusion(df = putativeOncogenicDF,
+                               fuses = rareCNSFuses,
+                               genes = rareCNSGenes)
 
 ```
 
@@ -381,6 +411,22 @@ subsetFuseLGGHGG[, missingLGGFusion] <- 0
 subsetFuseLGGHGG %>%
   arrange(Kids_First_Biospecimen_ID) %>%
   write_tsv(lgg_hggFile)
+```
+#### Write rare CNS tumor fusions to file
+```{r}
+
+allFuseRareCNS <- allFuseRareCNS %>%
+  prepareOutput(specimensUnion)
+
+# Which fusions of interest are not present in any samples?
+missingRareCNSFusion <- setdiff(rareCNSFuses, colnames(allFuseRareCNS)[-1])
+# For the fusions that are not present, fill those columns with 0
+allFuseRareCNS[, missingRareCNSFusion] <- 0
+
+allFuseRareCNS %>%
+  arrange(Kids_First_Biospecimen_ID) %>%
+  write_tsv(rareCNSFile)  
+
 ```
 
 ## Session Info
