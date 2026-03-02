@@ -6,10 +6,9 @@
 library(tidyverse)
 library(rprojroot)
 
-# Detect project root
+# project root
 root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
 
-# Update this path to the real methylation annotation file once confirmed
 methyl_file <- file.path(
   root_dir,
   "analyses",
@@ -47,14 +46,10 @@ output_file <- file.path(
 )
 # Read inputs
 
-
 methyl_df <- readr::read_tsv(methyl_file, show_col_types = FALSE)
 subtype_map <- readr::read_tsv(subtype_map_file, show_col_types = FALSE)
 independent_methyl <- readr::read_tsv(independent_methyl_file, show_col_types = FALSE)
 histologies <- readr::read_tsv(histology_file, show_col_types = FALSE)
-
-
-# Basic checks
 
 
 required_map_cols <- c(
@@ -71,7 +66,6 @@ if (length(missing_map_cols) > 0) {
   )
 }
 
-# You may need to adjust these column names once you confirm the methyl file
 required_methyl_cols <- c(
   "Kids_First_Biospecimen_ID",
   "dkfz_v12_methylation_subclass",
@@ -87,9 +81,7 @@ if (length(missing_methyl_cols) > 0) {
   )
 }
 
-
 # Filter to Rare CNS methylation classes with high-confidence scores
-
 
 rare_cns_methyl <- methyl_df %>%
   rename(
@@ -99,18 +91,13 @@ rare_cns_methyl <- methyl_df %>%
   filter(dkfz_v12_methylation_subclass_score >= 0.8)
 
 
-# Restrict to independent methyl specimens
-
-
-# This assumes both files use Kids_First_Biospecimen_ID.
-# If independent-specimens file uses a different ID column, update here.
 if ("Kids_First_Biospecimen_ID" %in% colnames(independent_methyl)) {
   rare_cns_methyl <- rare_cns_methyl %>%
     semi_join(independent_methyl, by = "Kids_First_Biospecimen_ID")
 }
 
 
-# Add histology metadata when available
+# Add histology 
 
 
 if ("Kids_First_Biospecimen_ID" %in% colnames(histologies)) {
@@ -119,7 +106,7 @@ if ("Kids_First_Biospecimen_ID" %in% colnames(histologies)) {
 }
 
 
-# Arrange and write output
+# write output
 
 
 rare_cns_methyl <- rare_cns_methyl %>%
