@@ -1,0 +1,295 @@
+# Aylar Babaei for OpenPedCan 2026
+#
+# In this script, we compile Rare CNS subtyping results from methylation,
+# fusion, and CNV evidence into final subtype tables.
+#
+# Precedence used in this updated pass:
+# 1. Exact fusion-defined classes
+# 2. High-confidence methylation subtype
+# 3. Rare CNS, To be classified
+#
+# CNV support is retained for review but is not used as a direct final
+# subtype assignment in this version because MYCN amplification alone was
+# too broad.
+#
+# USAGE: Rscript --vanilla 04-Rare-CNS-compile-subtypes.R
+
+library(tidyverse)
+
+# Look for git root folder
+root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
+
+# Paths
+subset_dir <- file.path(
+  root_dir,
+  "analyses",
+  "molecular-subtyping-Rare-CNS",
+  "rare-cns-subset"
+)
+
+results_dir <- file.path(
+  root_dir,
+  "analyses",
+  "molecular-subtyping-Rare-CNS",
+  "results"
+)
+
+if (!dir.exists(results_dir)) {
+  dir.create(results_dir, recursive = TRUE)
+}
+
+# Inputs
+rare_cns_metadata <- readr::read_tsv(
+  file.path(subset_dir, "rare_cns_metadata.tsv"),
+  show_col_types = FALSE
+)
+
+rare_cns_methyl <- readr::read_tsv(
+  file.path(subset_dir, "RareCNS_methyl_subtypes.tsv"),
+  show_col_types = FALSE
+)
+
+rare_cns_fusion <- readr::read_tsv(
+  file.path(subset_dir, "RareCNS_fusion_subset.tsv"),
+  show_col_types = FALSE
+)
+
+rare_cns_cnv <- readr::read_tsv(
+  file.path(subset_dir, "RareCNS_cnv_subset.tsv"),
+  show_col_types = FALSE
+)
+
+# Build manifest-like matched table from metadata
+rare_cns_manifest <- rare_cns_metadata %>%
+  dplyr::select(
+    Kids_First_Biospecimen_ID,
+    Kids_First_Participant_ID,
+    match_id,
+    sample_id,
+    tumor_descriptor,
+    composition,
+    experimental_strategy,
+    RNA_library,
+    pathology_diagnosis,
+    pathology_free_text_diagnosis
+  ) %>%
+  dplyr::distinct()
+
+rare_cns_dna <- rare_cns_manifest %>%
+  dplyr::filter(
+    experimental_strategy %in% c("WGS", "WXS", "Targeted Sequencing"),
+    is.na(RNA_library)
+  ) %>%
+  dplyr::select(
+    Kids_First_Biospecimen_ID,
+    Kids_First_Participant_ID,
+    match_id,
+    sample_id,
+    pathology_diagnosis,
+    pathology_free_text_diagnosis
+  ) %>%
+  dplyr::distinct()
+
+rare_cns_rna <- rare_cns_manifest %>%
+  dplyr::filter(
+    experimental_strategy == "RNA-Seq" |
+      (experimental_strategy == "Targeted Sequencing" & !is.na(RNA_library))
+  ) %>%
+  dplyr::select(
+    Kids_First_Biospecimen_ID,
+    Kids_First_Participant_ID,
+    match_id,
+    sample_id,
+    pathology_diagnosis,
+    pathology_free_text_diagnosis
+  ) %>%
+  dplyr::distinct()
+
+all_rare_cns_matched <- full_join(
+  rare_cns_dna,
+  rare_cns_rna,
+  by = c(
+    "Kids_First_Participant_ID",
+    "match_id",
+    "sample_id",
+    "pathology_diagnosis",
+    "pathology_free_text_diagnosis"
+  ),
+  suffix = c("_DNA", "_RNA")
+) %>%
+  dplyr::group_by(
+    Kids_First_Participant_ID,
+    sample_id,
+    match_id,
+    pathology_diagnosis,
+    pathology_free_text_diagnosis
+  ) %>%
+  dplyr::summarise(
+    Kids_First_Biospecimen_ID_DNA = toString(unique(Kids_First_Biospecimen_ID_DNA)),
+    Kids_First_Biospecimen_ID_RNA = toString(unique(Kids_First_Biospecimen_ID_RNA)),
+    .groups = "drop"
+  )
+
+# Prepare methylation table
+methyl_bsids <- rare_cns_methyl %>%
+  dplyr::pull(Kids_First_Biospecimen_ID_Methyl) %>%
+  unique()
+
+methyl_subtyped <- rare_cns_methyl %>%
+  dplyr::select(
+    Kids_First_Participant_ID,
+    Kids_First_Biospecimen_ID_Methyl,
+    match_id,
+    molecular_subtype_methyl
+  ) %>%
+  dplyr::distinct() %>%
+  dplyr::group_by(
+    Kids_First_Participant_ID,
+    match_id,
+    molecular_subtype_methyl
+  ) %>%
+  dplyr::summarise(
+    Kids_First_Biospecimen_ID_Methyl = toString(unique(Kids_First_Biospecimen_ID_Methyl)),
+    .groups = "drop"
+  )
+
+# Fusion-derived subtype calls
+fusion_subtypes <- rare_cns_fusion %>%
+  dplyr::mutate(
+    molecular_subtype_fusion = dplyr::case_when(
+      MN1_BEND2_fus == "Yes" ~ "Rare CNS, MN1::BEND2",
+      MN1_CXXC5_fus == "Yes" ~ "Rare CNS, MN1::CXXC5",
+      PATZ1_fus == "Yes" ~ "Rare CNS, PATZ1-fused",
+      PLAGL1_fus == "Yes" ~ "Rare CNS, PLAGL1-fused",
+      BRD4_LEUTX_fus == "Yes" ~ "Rare CNS, BRD4::LEUTX",
+      CIC_fus == "Yes" ~ "Rare CNS, CIC SARC",
+      BCOR_fus == "Yes" ~ "Rare CNS, BCOR-fused",
+      EWS_fus == "Yes" ~ "Rare CNS, EWS",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  dplyr::filter(!is.na(molecular_subtype_fusion)) %>%
+  dplyr::select(match_id, molecular_subtype_fusion) %>%
+  dplyr::distinct() %>%
+  dplyr::group_by(match_id) %>%
+  dplyr::summarise(
+    molecular_subtype_fusion = toString(unique(molecular_subtype_fusion)),
+    .groups = "drop"
+  )
+
+# CNV-derived support only
+cnv_support <- rare_cns_cnv %>%
+  dplyr::mutate(
+    molecular_subtype_cnv = dplyr::case_when(
+      MYCN_amp == "Yes" ~ "Rare CNS, MYCN NBL",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  dplyr::filter(!is.na(molecular_subtype_cnv)) %>%
+  dplyr::select(match_id, molecular_subtype_cnv) %>%
+  dplyr::distinct() %>%
+  dplyr::group_by(match_id) %>%
+  dplyr::summarise(
+    molecular_subtype_cnv = toString(unique(molecular_subtype_cnv)),
+    .groups = "drop"
+  )
+
+# Match IDs with actual Rare CNS evidence
+match_ids_with_evidence <- dplyr::bind_rows(
+  fusion_subtypes %>% dplyr::select(match_id),
+  methyl_subtyped %>% dplyr::select(match_id),
+  cnv_support %>% dplyr::select(match_id)
+) %>%
+  dplyr::distinct()
+
+# Compile matched-level subtype assignments
+all_subtype_with_methyl <- all_rare_cns_matched %>%
+  dplyr::semi_join(match_ids_with_evidence, by = "match_id") %>%
+  dplyr::left_join(fusion_subtypes, by = "match_id") %>%
+  dplyr::left_join(
+    methyl_subtyped %>%
+      dplyr::select(
+        match_id,
+        molecular_subtype_methyl,
+        Kids_First_Biospecimen_ID_Methyl
+      ) %>%
+      dplyr::distinct(),
+    by = "match_id"
+  ) %>%
+  dplyr::left_join(cnv_support, by = "match_id") %>%
+  dplyr::mutate(
+    molecular_subtype = dplyr::case_when(
+      !is.na(molecular_subtype_fusion) ~ molecular_subtype_fusion,
+      !is.na(molecular_subtype_methyl) ~ molecular_subtype_methyl,
+      TRUE ~ "Rare CNS, To be classified"
+    )
+  ) %>%
+  dplyr::mutate(
+    molecular_subtype = dplyr::case_when(
+      is.na(molecular_subtype) ~ "Rare CNS, To be classified",
+      TRUE ~ molecular_subtype
+    )
+  ) %>%
+  dplyr::select(
+    Kids_First_Participant_ID,
+    sample_id,
+    match_id,
+    Kids_First_Biospecimen_ID_DNA,
+    Kids_First_Biospecimen_ID_RNA,
+    Kids_First_Biospecimen_ID_Methyl,
+    molecular_subtype,
+    molecular_subtype_methyl,
+    molecular_subtype_fusion,
+    molecular_subtype_cnv
+  ) %>%
+  dplyr::distinct()
+
+# Expand final subtype calls back only to biospecimens with supported match IDs
+all_bs_ids <- rare_cns_manifest %>%
+  dplyr::semi_join(match_ids_with_evidence, by = "match_id") %>%
+  dplyr::left_join(
+    all_subtype_with_methyl %>%
+      dplyr::select(
+        match_id,
+        molecular_subtype,
+        molecular_subtype_methyl
+      ) %>%
+      dplyr::distinct(),
+    by = "match_id"
+  ) %>%
+  dplyr::mutate(
+    molecular_subtype = dplyr::case_when(
+      is.na(molecular_subtype) ~ "Rare CNS, To be classified",
+      TRUE ~ molecular_subtype
+    )
+  ) %>%
+  dplyr::select(
+    Kids_First_Participant_ID,
+    Kids_First_Biospecimen_ID,
+    sample_id,
+    match_id,
+    molecular_subtype,
+    molecular_subtype_methyl
+  ) %>%
+  dplyr::arrange(Kids_First_Biospecimen_ID) %>%
+  dplyr::distinct()
+
+# Save matched summary table
+readr::write_tsv(
+  all_subtype_with_methyl,
+  file.path(results_dir, "rare_cns_subtyping_matched.tsv")
+)
+
+# Save final biospecimen-level subtype table
+readr::write_tsv(
+  all_bs_ids,
+  file.path(results_dir, "rare_cns_subtyping.tsv")
+)
+
+message("Rare CNS final subtype counts:")
+print(
+  all_bs_ids %>%
+    dplyr::count(molecular_subtype, sort = TRUE)
+)
+
+message("Done.")
