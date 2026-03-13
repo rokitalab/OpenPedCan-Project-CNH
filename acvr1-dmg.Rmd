@@ -1,0 +1,376 @@
+---
+title: "Exploring the Frequency of _ACVR1_ mutations in DMG"
+author: "Jo Lynne Rokita"
+date: "2026-03-12"
+output: html_document
+---
+# Load packages
+
+```{r load_packages, echo = FALSE}
+# load libraries
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(scales))
+suppressPackageStartupMessages(library(readr))
+suppressPackageStartupMessages(library(forcats))
+suppressPackageStartupMessages(library(maftools))
+suppressPackageStartupMessages(library(janitor))
+suppressPackageStartupMessages(library(DT))
+suppressPackageStartupMessages(library(writexl))
+```
+
+# Set directories; add function
+```{r est base dir}
+# establish base dir 
+root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
+data_dir <- file.path(root_dir, "data")
+
+## add function
+assign_age_group <- function(age_years) {
+  case_when(
+    is.na(age_years) ~ NA_character_,
+    age_years < 12 ~ "<12",
+    age_years >= 12 & age_years <= 18 ~ "12-18",
+    age_years > 18 ~ ">18"
+  )
+}
+```
+
+# Read in histologies, clean data
+```{r read histology, summarize}
+hist <- read_tsv(file.path(data_dir, "histologies.tsv"))
+
+remove_samples <- c("PT_8J4EYY40", # LGG, not DIPG
+                    "PT_0MXPTTM3", # pnoc IDH, not DIPG
+                    "PT_A0STSHYB", # mioncoseq grade II
+                    "PT_BT43XECV" # mioncoseq questionable
+                    )
+
+dmg_samples <- hist %>%
+  filter(
+    !Kids_First_Participant_ID %in% remove_samples,
+    cancer_group %in% c("Diffuse midline glioma", "Diffuse intrinsic pontine glioma") |
+      pathology_diagnosis == "Brainstem glioma- Diffuse intrinsic pontine glioma"
+  ) %>%
+  filter(experimental_strategy %in% c("WGS", "WXS", "Targeted Panel"),
+         !is.na(age_at_diagnosis_days))
+
+dmg_patient_n <- dmg_samples %>%
+  distinct(Kids_First_Participant_ID) %>%
+  nrow()
+```
+# Read in mafs, remove intronic and silent variants
+```{r read mafs}
+maf_to <- read_tsv(file.path(data_dir, "snv-mutect2-tumor-only-plus-hotspots.maf.tsv.gz")) %>%
+  filter(
+    Tumor_Sample_Barcode %in% dmg_samples$Kids_First_Biospecimen_ID,
+    Hugo_Symbol == "ACVR1"
+  ) %>%
+  mutate(VAF = t_alt_count/(t_alt_count+t_ref_count)) %>%
+  select(
+    Tumor_Sample_Barcode, Hugo_Symbol, Variant_Classification,
+    Chromosome, Start_Position, End_Position,
+    Reference_Allele, Tumor_Seq_Allele2, Variant_Type,
+    HGVSg, HGVSc, HGVSp, VAF, PolyPhen, SIFT, HotSpotAllele
+  )
+
+maf_tn <- read_tsv(file.path(data_dir, "snv-consensus-plus-hotspots.maf.tsv.gz")) %>%
+  filter(
+    Tumor_Sample_Barcode %in% dmg_samples$Kids_First_Biospecimen_ID,
+    Hugo_Symbol == "ACVR1"
+  ) %>%
+  mutate(VAF = t_alt_count/(t_alt_count+t_ref_count)) %>%
+  select(
+    Tumor_Sample_Barcode, Hugo_Symbol, Variant_Classification,
+    Chromosome, Start_Position, End_Position,
+    Reference_Allele, Tumor_Seq_Allele2, Variant_Type,
+    HGVSg, HGVSc, HGVSp, VAF, PolyPhen, SIFT, HotSpotAllele
+  )
+
+maf_cat <- bind_rows(maf_to, maf_tn) %>%
+  filter(!Variant_Classification %in% c("Silent", "Intron"))
+
+# subset maf_cat for hotspots or predicted damaging variants
+maf_hotspots <- maf_cat %>%
+  filter(HotSpotAllele == 1 | grepl("deleterious", SIFT) | grepl("probably_damaging", PolyPhen))
+
+```
+# Join maf + clinical data
+```{r add metadata}
+hist_meta <- dmg_samples %>%
+  select(
+    Kids_First_Participant_ID,
+    Kids_First_Biospecimen_ID,
+    sample_id,
+    age_at_event_days,
+    tumor_descriptor,
+    sub_cohort
+  ) %>%
+  distinct()
+
+maf_clin <- maf_hotspots %>%
+  rename(Kids_First_Biospecimen_ID = Tumor_Sample_Barcode) %>%
+  left_join(hist_meta, by = "Kids_First_Biospecimen_ID") %>%
+  mutate(age_at_event_years = age_at_event_days/365.25) %>%
+  filter(!is.na(HGVSp))
+
+```
+
+# Create patient tables
+```{r patient tables}
+maf_by_patient <- maf_clin %>%
+  group_by(Kids_First_Participant_ID) %>%
+  summarise(
+    n_biospecimens = n_distinct(Kids_First_Biospecimen_ID),
+    tumor_descriptors = paste(
+      sort(unique(tumor_descriptor[!is.na(tumor_descriptor)])),
+      collapse="; "
+    ),
+    variants = list(
+      distinct(
+        pick(
+          Kids_First_Biospecimen_ID,
+          tumor_descriptor,
+          Variant_Classification,
+          HGVSg,
+          HGVSc,
+          HGVSp,
+          VAF,
+          HotSpotAllele,
+          PolyPhen, 
+          SIFT, 
+          age_at_event_years
+        )
+      )
+    ),
+    .groups="drop"
+  )
+
+maf_by_patient
+
+
+```
+
+# Summary of ACVR1 mutation frequency by tumor descriptor - one event per patient, prioritizing initial tumors
+```{r summary by event}
+# priority order for one descriptor per participant
+descriptor_priority <- c(
+  "Initial CNS Tumor",
+  "Progressive",
+  "Recurrence",
+  "Progressive Disease Post-Mortem",
+  "Deceased"
+)
+
+age_group_levels <- c("<12", "12-18", ">18")
+
+# one tumor descriptor per participant
+dmg_patient_one_descriptor <- dmg_samples %>%
+  select(Kids_First_Participant_ID, tumor_descriptor, age_at_event_days) %>%
+  distinct() %>%
+  filter(!is.na(tumor_descriptor)) %>%
+  mutate(
+    tumor_descriptor = factor(tumor_descriptor, levels = descriptor_priority)
+  ) %>%
+  arrange(Kids_First_Participant_ID, tumor_descriptor, age_at_event_days) %>%
+  group_by(Kids_First_Participant_ID) %>%
+  slice(1) %>%
+  ungroup() %>%
+  mutate(
+    age_years = age_at_event_days / 365.25,
+    age_group = assign_age_group(age_years),
+    age_group = factor(age_group, levels = c("<12", "12-18", ">18")),
+    age_group = factor(age_group, levels = age_group_levels)
+  )
+
+acvr1_mut_patient_descriptor <- maf_clin %>%
+  select(Kids_First_Participant_ID, tumor_descriptor) %>%
+  distinct() %>%
+  filter(!is.na(tumor_descriptor)) %>%
+  mutate(
+    tumor_descriptor = factor(tumor_descriptor, levels = descriptor_priority)
+  ) %>%
+  arrange(Kids_First_Participant_ID, tumor_descriptor) %>%
+  group_by(Kids_First_Participant_ID) %>%
+  slice(1) %>%
+  ungroup() %>%
+  mutate(ACVR1_mut = TRUE)
+
+acvr1_age_summary_by_descriptor <- dmg_patient_one_descriptor %>%
+  left_join(
+    acvr1_mut_patient_descriptor,
+    by = c("Kids_First_Participant_ID", "tumor_descriptor")
+  ) %>%
+  mutate(ACVR1_mut = coalesce(ACVR1_mut, FALSE)) %>%
+  group_by(tumor_descriptor, age_group) %>%
+  summarise(
+    n_acvr1_mut_pts = sum(ACVR1_mut),
+    n_dmg_pts = n(),
+    .groups = "drop"
+  ) %>%
+  complete(
+    tumor_descriptor = factor(descriptor_priority, levels = descriptor_priority),
+    age_group = factor(age_group_levels, levels = age_group_levels),
+    fill = list(n_acvr1_mut_pts = 0, n_dmg_pts = 0)
+  ) %>%
+  mutate(
+    acvr1_mut_freq = if_else(n_dmg_pts > 0, n_acvr1_mut_pts / n_dmg_pts, NA_real_),
+    summary = if_else(
+      n_dmg_pts > 0,
+      paste0(
+        n_acvr1_mut_pts, "/", n_dmg_pts,
+        " (", percent(acvr1_mut_freq, accuracy = 0.1), ")"
+      ),
+      "0/0"
+    )
+  ) %>%
+  arrange(tumor_descriptor, age_group)
+
+# manuscript-style wide table with age-group columns, Total row, and All column
+acvr1_age_summary_table <- acvr1_age_summary_by_descriptor %>%
+  select(tumor_descriptor, age_group, n_acvr1_mut_pts, n_dmg_pts) %>%
+  bind_rows(
+    # All column within each descriptor
+    acvr1_age_summary_by_descriptor %>%
+      group_by(tumor_descriptor) %>%
+      summarise(
+        age_group = "All",
+        n_acvr1_mut_pts = sum(n_acvr1_mut_pts),
+        n_dmg_pts = sum(n_dmg_pts),
+        .groups = "drop"
+      )
+  ) %>%
+  bind_rows(
+    # Total row for each age group
+    acvr1_age_summary_by_descriptor %>%
+      group_by(age_group) %>%
+      summarise(
+        tumor_descriptor = "Total",
+        n_acvr1_mut_pts = sum(n_acvr1_mut_pts),
+        n_dmg_pts = sum(n_dmg_pts),
+        .groups = "drop"
+      )
+  ) %>%
+  bind_rows(
+    # Grand total
+    acvr1_age_summary_by_descriptor %>%
+      summarise(
+        tumor_descriptor = "Total",
+        age_group = "All",
+        n_acvr1_mut_pts = sum(n_acvr1_mut_pts),
+        n_dmg_pts = sum(n_dmg_pts)
+      )
+  ) %>%
+  mutate(
+    tumor_descriptor = factor(
+      tumor_descriptor,
+      levels = c(descriptor_priority, "Total")
+    ),
+    age_group = factor(
+      age_group,
+      levels = c(age_group_levels, "All")
+    ),
+    acvr1_mut_freq = if_else(n_dmg_pts > 0, n_acvr1_mut_pts / n_dmg_pts, NA_real_),
+  summary = paste0(
+    n_acvr1_mut_pts, "/", n_dmg_pts,
+    " (", percent(acvr1_mut_freq, accuracy = 0.1), ")"
+  )) %>%
+  arrange(tumor_descriptor, age_group) %>%
+  select(tumor_descriptor, age_group, summary) %>%
+  pivot_wider(
+    names_from = age_group,
+    values_from = summary
+  )
+
+# summary table for ACVR1 mutations by age 
+datatable(
+  acvr1_age_summary_table,
+  rownames = FALSE,
+  filter = "none",
+  extensions = "Buttons",
+  options = list(
+    pageLength = 25,
+    scrollX = TRUE,
+    dom = "Bfrtip",
+    buttons = c("copy", "csv", "excel")
+  )
+)
+
+write_xlsx(
+  acvr1_age_summary_table,
+  file.path(root_dir, "dmg_pts_acvr1_freq.xlsx"))
+```
+
+# export table with all patients and variant info
+```{r export table}
+acvr1_mutation_table <- maf_clin %>%
+  filter(!is.na(tumor_descriptor)) %>%
+  distinct(
+    Kids_First_Participant_ID,
+    Kids_First_Biospecimen_ID,
+    sample_id,
+    tumor_descriptor,
+    sub_cohort,
+    age_at_event_days,
+    Variant_Classification,
+    HGVSg,
+    HGVSc,
+    HGVSp,
+    HotSpotAllele,
+    PolyPhen,
+    SIFT,
+    VAF
+  ) %>%
+  full_join(dmg_samples %>% 
+             select(Kids_First_Participant_ID, Kids_First_Biospecimen_ID, sample_id, tumor_descriptor,
+                                 sub_cohort, age_at_event_days)) %>%
+  mutate(
+    age_years = age_at_event_days / 365.25,
+    age_group = assign_age_group(age_years),
+    age_group = factor(age_group, levels = c("<12", "12-18", ">18")),
+  ) %>%
+  mutate(
+    tumor_descriptor = fct_relevel(
+      tumor_descriptor,
+      "Initial CNS Tumor",
+      "Progressive",
+      "Recurrence",
+      "Progressive Disease Post-Mortem",
+      "Deceased"
+    )
+  ) %>%
+  arrange(
+    Kids_First_Participant_ID,
+    tumor_descriptor
+  )
+
+# full dataset
+datatable(
+  acvr1_mutation_table,
+  rownames = FALSE,
+  filter = "top",
+  extensions = "Buttons",
+  options = list(
+    pageLength = 25,
+    scrollX = TRUE,
+    dom = "Bfrtip",
+    buttons = c("copy", "csv", "excel")
+  )
+)
+
+write_xlsx(
+  acvr1_mutation_table,
+  file.path(root_dir, "dmg_pts_acvr1_status.xlsx")
+)
+
+acvr1_mutation_table %>%
+  select(Kids_First_Participant_ID) %>%
+  unique() %>%
+  nrow()
+
+```
+
+# Session info
+
+```{r session info}
+sessionInfo()
+```
