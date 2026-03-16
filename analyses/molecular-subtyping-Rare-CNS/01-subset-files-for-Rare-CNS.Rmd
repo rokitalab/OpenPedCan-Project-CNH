@@ -1,0 +1,209 @@
+---
+title: "Subset files for Rare CNS subtyping"
+output: html_notebook
+author: "Aylar Babaei"
+date: 2026
+---
+
+In this PR, we identify candidate Rare CNS biospecimens from `histologies-base.tsv` and gather high-confidence methylation subtype calls for downstream Rare CNS subtyping.
+
+As per issue [#114](https://github.com/rokitalab/OpenPedCan-Project-CNH/issues/114), Rare CNS subtyping is primarily based on high-confidence methylation subclassifications with `dkfz_v12_methylation_subclass_score >= 0.8`. Hallmark lesion evidence will be added in downstream scripts.
+
+The following Rare CNS methylation classes are included in this step:
+
+- Rare CNS, MN1::BEND2
+- Rare CNS, ANTCON
+- Rare CNS, ARMS
+- Rare CNS, BCOR-fused
+- Rare CNS, BCOR ITD
+- Rare CNS, FOXR2 NBL
+- Rare CNS, CIC SARC
+- Rare CNS, DICER1 SARC
+- Rare CNS, ERMS
+- Rare CNS, BRD4::LEUTX
+- Rare CNS, PLAG AMP
+- Rare CNS, EWS
+- Rare CNS, MYCN NBL
+- Rare CNS, TMM NEG NBL
+- Rare CNS, TMM POS NBL
+- Rare CNS, MN1::CXXC5
+- Rare CNS, PATZ1-fused
+- Rare CNS, PLAGL1-fused
+- Rare CNS, MYOD1 RMS
+
+### Setup
+
+```{r}
+library(tidyverse)
+
+root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
+
+subset_dir <- file.path(
+  root_dir,
+  "analyses",
+  "molecular-subtyping-Rare-CNS",
+  "rare-cns-subset"
+)
+```
+
+## Input
+
+```{r}
+# File from 00-Rare-CNS-select-pathology-dx.R that is used for pathology
+# diagnosis inclusion, exclusion criteria and Rare CNS methylation mapping
+path_dx_list <- jsonlite::fromJSON(
+  file.path(subset_dir, "rare_cns_subtyping_path_dx_strings.json")
+)
+
+# Clinical file
+clinical <- readr::read_tsv(
+  file.path(root_dir, "data", "histologies-base.tsv"),
+  guess_max = 100000
+)
+```
+
+## pathology-subset 
+
+```{r}
+# Candidate Rare CNS tumor specimens based on pathology diagnosis
+rare_cns_specimens_df <- clinical %>%
+  dplyr::filter(
+    stringr::str_detect(
+      stringr::str_to_lower(pathology_diagnosis),
+      paste(path_dx_list$include_path_dx, collapse = "|")
+    ),
+    stringr::str_detect(
+      stringr::str_to_lower(pathology_diagnosis),
+      paste(path_dx_list$exclude_path_dx, collapse = "|"),
+      negate = TRUE
+    ),
+    sample_type == "Tumor"
+  ) %>%
+  dplyr::distinct()
+
+# Write intermediate metadata file for inspection and downstream use
+readr::write_tsv(
+  rare_cns_specimens_df,
+  file.path(subset_dir, "rare_cns_metadata.tsv")
+)
+```
+
+## assay-specific biospecimens
+
+```{r}
+# Subset candidate Rare CNS specimens by experimental strategy 
+rare_cns_dna_df <- rare_cns_specimens_df %>%
+  dplyr::filter(
+    experimental_strategy %in% c("WGS", "WXS", "Targeted Sequencing"),
+    is.na(RNA_library)
+  ) %>%
+  dplyr::select(
+    Kids_First_Biospecimen_ID,
+    Kids_First_Participant_ID,
+    sample_id,
+    match_id
+  ) %>%
+  dplyr::distinct()
+
+rare_cns_rna_df <- rare_cns_specimens_df %>%
+  dplyr::filter(
+    experimental_strategy == "RNA-Seq" |
+      (experimental_strategy == "Targeted Sequencing" & !is.na(RNA_library))
+  ) %>%
+  dplyr::select(
+    Kids_First_Biospecimen_ID,
+    Kids_First_Participant_ID,
+    sample_id,
+    match_id
+  ) %>%
+  dplyr::distinct()
+
+rare_cns_methyl_df <- clinical %>%
+  dplyr::filter(
+    experimental_strategy == "Methylation",
+    sample_type == "Tumor"
+  ) %>%
+  dplyr::select(
+    Kids_First_Biospecimen_ID,
+    Kids_First_Participant_ID,
+    sample_id,
+    match_id,
+    dkfz_v12_methylation_subclass,
+    dkfz_v12_methylation_subclass_score
+  ) %>%
+  dplyr::distinct()
+
+readr::write_tsv(
+  rare_cns_dna_df,
+  file.path(subset_dir, "RareCNS_dna_biospecimen.tsv")
+)
+
+readr::write_tsv(
+  rare_cns_rna_df,
+  file.path(subset_dir, "RareCNS_rna_biospecimen.tsv")
+)
+
+readr::write_tsv(
+  rare_cns_methyl_df,
+  file.path(subset_dir, "RareCNS_methyl_biospecimen.tsv")
+)
+```
+
+## methylation-subtypes
+
+```{r}
+
+# High-confidence methylation subtypes
+methyl_subtype_map <- path_dx_list$methyl_subtype_map %>%
+  tibble::as_tibble()
+
+rare_cns_methyl_subtyped <- clinical %>%
+  dplyr::filter(
+    experimental_strategy == "Methylation",
+    sample_type == "Tumor",
+    dkfz_v12_methylation_subclass_score >= 0.8
+  ) %>%
+  dplyr::left_join(
+    methyl_subtype_map,
+    by = c("dkfz_v12_methylation_subclass" = "dkfz_Abbreviation")
+  ) %>%
+  dplyr::filter(!is.na(OPC_molecular_subtype)) %>%
+  dplyr::select(
+    Kids_First_Biospecimen_ID,
+    Kids_First_Participant_ID,
+    sample_id,
+    match_id,
+    pathology_diagnosis,
+    pathology_free_text_diagnosis,
+    dkfz_v12_methylation_subclass,
+    dkfz_v12_methylation_subclass_score,
+    Abbreviation_internal_NIH,
+    OPC_molecular_subtype
+  ) %>%
+  dplyr::rename(
+    Kids_First_Biospecimen_ID_Methyl = Kids_First_Biospecimen_ID,
+    molecular_subtype_methyl = OPC_molecular_subtype
+  ) %>%
+  dplyr::distinct()
+
+readr::write_tsv(
+  rare_cns_methyl_subtyped,
+  file.path(subset_dir, "RareCNS_methyl_subtypes.tsv")
+)
+```
+
+## summary
+
+```{r}
+message("Candidate Rare CNS specimens by experimental strategy:")
+print(rare_cns_specimens_df %>% dplyr::count(experimental_strategy))
+
+message("Rare CNS methylation subtype counts:")
+print(rare_cns_methyl_subtyped %>% dplyr::count(molecular_subtype_methyl, sort = TRUE))
+```
+
+## Session Info
+
+```{r}
+sessionInfo()
+```
