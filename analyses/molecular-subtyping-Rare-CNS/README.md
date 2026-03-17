@@ -25,10 +25,10 @@ The Rare CNS subtyping workflow is organized into the following scripts:
 
 This PR includes only:
 
-- `02-subset-cnv-files-Rare-CNS.Rmd`
-- `02-subset-cnv-files-Rare-CNS.nb.html` 
-- `rare-cns-subset/RareCNS_cnv_details.tsv` 
-- `rare-cns-subset/RareCNS_cnv_subset.tsv`
+- `04-Rare-CNS-compile-subtypes.Rmd`
+- `04-Rare-CNS-compile-subtypes.nb.html`
+- `results/rare_cns_subtyping.tsv`
+- `results/rare_cns_subtyping_matched.tsv`
 - this README
 
 Downstream steps will be added in stacked follow-up pull requests.
@@ -41,7 +41,9 @@ Downstream steps will be added in stacked follow-up pull requests.
 
 `02-subset-fusion-files-Rare-CNS.nb.Rmd` gathers hallmark fusions from the putative oncogenic fusion table for Rare CNS RNA biospecimens.
 
-`03-subset-cnv-files-Rare-CNS.Rmd` Add MYCN amplification CNV evidence for Rare CNS subtyping
+`03-subset-cnv-files-Rare-CNS.Rmd` add MYCN amplification CNV evidence for Rare CNS subtyping
+
+`04-Rare-CNS-compile-subtypes.Rmd` compile final Rare CNS subtype assignments from methylation, fusion, and CNV evidence
 
 ### Outputs
 
@@ -55,6 +57,8 @@ Downstream steps will be added in stacked follow-up pull requests.
 - `rare-cns-subset/RareCNS_fusion_subset.tsv`
 - `rare-cns-subset/RareCNS_cnv_details.tsv`
 - `rare-cns-subset/RareCNS_cnv_subset.tsv`
+- `results/rare_cns_subtyping.tsv`
+- `results/rare_cns_subtyping_matched.tsv`
 
 
 ### Usage
@@ -65,3 +69,5 @@ From within this directory:
 Rscript --vanilla 00-Rare-CNS-select-pathology-dx.R
 Rscript --vanilla 01-subset-files-for-Rare-CNS.Rmd
 Rscript --vanilla 02-subset-fusion-files-Rare-CNS.Rmd
+Rscript --vanilla 03-subset-cnv-files-Rare-CNS.Rmd
+Rscript --vanilla 04-Rare-CNS-compile-subtypes.Rmd 
