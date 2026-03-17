@@ -1,0 +1,179 @@
+---
+title: "Subset fusion files for Rare CNS"
+output: html_notebook
+author: "Aylar Babaei"
+date: 2026
+---
+### Setup
+
+```{r}
+library(tidyverse)
+
+# Look for git root folder
+root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
+
+# Get subset folder
+subset_dir <- file.path(
+  root_dir,
+  "analyses",
+  "molecular-subtyping-Rare-CNS",
+  "rare-cns-subset"
+)
+```
+
+### Input
+
+```{r}
+# Load Rare CNS RNA biospecimens identified in 01
+rare_cns_rna_df <- readr::read_tsv(
+  file.path(subset_dir, "RareCNS_rna_biospecimen.tsv"),
+  show_col_types = FALSE
+)
+
+# Load putative oncogenic fusion table
+fusion_tbl <- readr::read_tsv(
+  file.path(root_dir, "data", "fusion-putative-oncogenic.tsv"),
+  show_col_types = FALSE
+)
+```
+
+## filtering fusion table for Rare CNS RNA biospecimens
+```{r}
+# Keep only Rare CNS RNA biospecimens
+
+rare_cns_fusions <- fusion_tbl %>%
+  dplyr::left_join(
+    rare_cns_rna_df %>% dplyr::select(Kids_First_Biospecimen_ID, match_id),
+    by = c("Sample" = "Kids_First_Biospecimen_ID")
+  ) %>%
+  dplyr::filter(!is.na(match_id))
+
+
+# Create a column with all genes involved in the fusion
+
+fusion_genes <- function(df) {
+  df %>%
+    dplyr::mutate(
+      all_genes = purrr::pmap_chr(
+        list(Gene1A, Gene2A, Gene1B, Gene2B),
+        ~ paste(stats::na.omit(c(...)), collapse = "|")
+      )
+    )
+}
+
+rare_cns_fusions <- fusion_genes(rare_cns_fusions)
+
+#Flag hallmark Rare CNS fusion classes
+
+rare_cns_fusion_subset <- rare_cns_fusions %>%
+  dplyr::mutate(
+    MN1_BEND2_fus = dplyr::case_when(
+      stringr::str_detect(all_genes, "\\bMN1\\b") &
+        stringr::str_detect(all_genes, "\\bBEND2\\b") ~ "Yes",
+      TRUE ~ "No"
+    ),
+    MN1_CXXC5_fus = dplyr::case_when(
+      stringr::str_detect(all_genes, "\\bMN1\\b") &
+        stringr::str_detect(all_genes, "\\bCXXC5\\b") ~ "Yes",
+      TRUE ~ "No"
+    ),
+    BCOR_fus = dplyr::case_when(
+      stringr::str_detect(all_genes, "\\bBCOR\\b") ~ "Yes",
+      TRUE ~ "No"
+    ),
+    CIC_fus = dplyr::case_when(
+      stringr::str_detect(all_genes, "\\bCIC\\b") ~ "Yes",
+      TRUE ~ "No"
+    ),
+    PATZ1_fus = dplyr::case_when(
+      stringr::str_detect(all_genes, "\\bPATZ1\\b") ~ "Yes",
+      TRUE ~ "No"
+    ),
+    PLAGL1_fus = dplyr::case_when(
+      stringr::str_detect(all_genes, "\\bPLAGL1\\b") ~ "Yes",
+      TRUE ~ "No"
+    ),
+    BRD4_LEUTX_fus = dplyr::case_when(
+      stringr::str_detect(all_genes, "\\bBRD4\\b") &
+        stringr::str_detect(all_genes, "\\bLEUTX\\b") ~ "Yes",
+      TRUE ~ "No"
+    ),
+    EWS_fus = dplyr::case_when(
+      FusionName %in% c("EWSR1--FLI1", "FLI1--EWSR1") ~ "Yes",
+      TRUE ~ "No"
+    )
+  ) %>%
+  dplyr::select(
+    Sample,
+    match_id,
+    FusionName,
+    Gene1A, Gene2A, Gene1B, Gene2B,
+    Fusion_Type,
+    CalledBy,
+    caller.count,
+    reciprocal_exists,
+    MN1_BEND2_fus,
+    MN1_CXXC5_fus,
+    BCOR_fus,
+    CIC_fus,
+    PATZ1_fus,
+    PLAGL1_fus,
+    BRD4_LEUTX_fus,
+    EWS_fus
+  ) %>%
+  dplyr::rename(Kids_First_Biospecimen_ID = Sample)
+
+# one row per biospecimen
+
+rare_cns_fusion_summary <- rare_cns_fusion_subset %>%
+  dplyr::group_by(Kids_First_Biospecimen_ID, match_id) %>%
+  dplyr::summarise(
+    MN1_BEND2_fus = if_else(any(MN1_BEND2_fus == "Yes"), "Yes", "No"),
+    MN1_CXXC5_fus = if_else(any(MN1_CXXC5_fus == "Yes"), "Yes", "No"),
+    BCOR_fus = if_else(any(BCOR_fus == "Yes"), "Yes", "No"),
+    CIC_fus = if_else(any(CIC_fus == "Yes"), "Yes", "No"),
+    PATZ1_fus = if_else(any(PATZ1_fus == "Yes"), "Yes", "No"),
+    PLAGL1_fus = if_else(any(PLAGL1_fus == "Yes"), "Yes", "No"),
+    BRD4_LEUTX_fus = if_else(any(BRD4_LEUTX_fus == "Yes"), "Yes", "No"),
+    EWS_fus = if_else(any(EWS_fus == "Yes"), "Yes", "No"),
+    .groups = "drop"
+  )
+
+```
+## Write outputs
+```{r}
+# Save detailed fusion rows
+readr::write_tsv(
+  rare_cns_fusion_subset,
+  file.path(subset_dir, "RareCNS_fusion_details.tsv")
+)
+
+# Save biospecimen-level fusion summary
+readr::write_tsv(
+  rare_cns_fusion_summary,
+  file.path(subset_dir, "RareCNS_fusion_subset.tsv")
+)
+```
+
+## Summary
+
+```{r}
+rare_cns_fusion_summary %>%
+  dplyr::summarise(
+    MN1_BEND2_fus = sum(MN1_BEND2_fus == "Yes"),
+    MN1_CXXC5_fus = sum(MN1_CXXC5_fus == "Yes"),
+    BCOR_fus = sum(BCOR_fus == "Yes"),
+    CIC_fus = sum(CIC_fus == "Yes"),
+    PATZ1_fus = sum(PATZ1_fus == "Yes"),
+    PLAGL1_fus = sum(PLAGL1_fus == "Yes"),
+    BRD4_LEUTX_fus = sum(BRD4_LEUTX_fus == "Yes"),
+    EWS_fus = sum(EWS_fus == "Yes")
+  )
+
+```
+
+## Session Info
+
+```{r}
+sessionInfo()
+```
