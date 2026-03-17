@@ -1,0 +1,121 @@
+---
+title: "Subset CNV files for Rare CNS"
+output: html_notebook
+author: "Aylar Babaei"
+date: 2026
+---
+In this notebook, we gather Rare CNS hallmark CNV evidence for Rare CNS DNA biospecimens.
+
+This first pass captures `MYCN` amplification from the gene-level consensus CNV annotation table.
+
+### Setup
+
+```{r}
+library(tidyverse)
+
+# Look for git root folder
+root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
+
+# Get subset folder
+subset_dir <- file.path(
+  root_dir,
+  "analyses",
+  "molecular-subtyping-Rare-CNS",
+  "rare-cns-subset"
+)
+```
+
+## Input
+
+```{r}
+# Load Rare CNS DNA biospecimens identified in 01
+rare_cns_dna_df <- readr::read_tsv(
+  file.path(subset_dir, "RareCNS_dna_biospecimen.tsv"),
+  show_col_types = FALSE
+)
+
+# Load gene-level consensus CNV annotation table
+cnv_anno <- readr::read_tsv(
+  file.path(
+    root_dir,
+    "data",
+    "consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only.tsv.gz"
+  ),
+  show_col_types = FALSE
+)
+
+message("CNV annotation columns:")
+print(names(cnv_anno))
+```
+## Filter CNV table for Rare CNS DNA biospecimens
+
+```{r}
+# Keep only Rare CNS DNA biospecimens
+rare_cns_cnv <- cnv_anno %>%
+  dplyr::left_join(
+    rare_cns_dna_df %>% dplyr::select(Kids_First_Biospecimen_ID, match_id),
+    by = c("biospecimen_id" = "Kids_First_Biospecimen_ID")
+  ) %>%
+  dplyr::filter(!is.na(match_id))
+
+# MYCN amplification
+# We assume higher copy number indicates amplification; threshold can be refined.
+mycn_subset <- rare_cns_cnv %>%
+  dplyr::filter(gene_symbol == "MYCN") %>%
+  dplyr::mutate(
+    MYCN_amp = dplyr::case_when(
+      copy_number >= 4 ~ "Yes",
+      TRUE ~ "No"
+    )
+  ) %>%
+  dplyr::select(
+    biospecimen_id,
+    match_id,
+    gene_symbol,
+    copy_number,
+    ploidy,
+    MYCN_amp
+  ) %>%
+  dplyr::distinct()
+
+# Collapse to one row per biospecimen
+rare_cns_cnv_subset <- rare_cns_dna_df %>%
+  dplyr::select(Kids_First_Biospecimen_ID, match_id) %>%
+  dplyr::left_join(
+    mycn_subset %>%
+      dplyr::group_by(biospecimen_id, match_id) %>%
+      dplyr::summarise(
+        MYCN_amp = if_else(any(MYCN_amp == "Yes"), "Yes", "No"),
+        .groups = "drop"
+      ),
+    by = c("Kids_First_Biospecimen_ID" = "biospecimen_id", "match_id")
+  ) %>%
+  tidyr::replace_na(list(MYCN_amp = "No"))
+```
+## Write outputs
+
+```{r}
+# Save detailed MYCN rows
+readr::write_tsv(
+  mycn_subset,
+  file.path(subset_dir, "RareCNS_cnv_details.tsv")
+)
+
+# Save biospecimen-level CNV subset
+readr::write_tsv(
+  rare_cns_cnv_subset,
+  file.path(subset_dir, "RareCNS_cnv_subset.tsv")
+)
+```
+## Summary
+```{r}
+rare_cns_cnv_subset %>%
+  dplyr::summarise(
+    MYCN_amp = sum(MYCN_amp == "Yes")
+  )
+```
+## Session Info
+
+```{r}
+sessionInfo()
+```
