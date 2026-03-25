@@ -85,14 +85,17 @@ path_dx_list <- jsonlite::fromJSON(
 
 # Samples included on the basis of the pathology diagnosis fields
 hgg_only_meta <- metadata %>%
-  # Inclusion on the basis of CBTTC harmonized pathology diagnoses
+  # Inclusion on the basis of CBTN harmonized pathology diagnoses
   filter(pathology_diagnosis %in% path_dx_list$exact_path_dx |
          # Inclusion based on pathology free text diagnosis
          pathology_free_text_diagnosis %in% path_dx_list$path_free_text_exact |
          # Inclusion based on pathology free text diagnosis for IHG
          pathology_free_text_diagnosis %in% path_dx_list$IHG_path_free_path_dx |
-           # include HGG high-conf methyl classifications
-           (dkfz_v12_methylation_subclass %in% path_dx_list$include_methyl & dkfz_v12_methylation_subclass_score >= 0.8))
+           # include HGG high-conf methyl classifications from DKFZ and NIH
+           (dkfz_v12_methylation_subclass %in% path_dx_list$include_methyl_dkfz & dkfz_v12_methylation_subclass_score >= 0.8) |
+           (NIH_v2_methylation_Class %in% path_dx_list$include_methyl_nih & NIH_v2_methylation_Superfamily_mean_score >= 0.9 & NIH_v2_methylation_Class_mean_score >= 0.9)) %>%
+  # remove LGG PXAs
+  filter(!(pathology_diagnosis == "Low-grade glioma/astrocytoma (WHO grade I/II)" & NIH_v2_methylation_Class == "PXA"))
 
 dna_bsids <- hgg_only_meta %>%
   filter(!is.na(pathology_diagnosis),

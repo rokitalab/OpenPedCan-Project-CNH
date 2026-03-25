@@ -50,7 +50,7 @@ IHG_path_free_path_dx <- histo %>%
   unique() 
 
 # add include methylation terms
-include_methyl <- c(
+include_methyl_dkfz <- c(
   "A_IDH_HG",
   "DHG_G34",
   "DMG_EGFR",
@@ -76,7 +76,36 @@ include_methyl <- c(
   "A_IDH_HG",
   "IHG",
   "O_IDH",
-  "OLIGOSARC_IDH"
+  "OLIGOSARC_IDH",
+  "PXA"
+)
+
+include_methyl_nih <- c(
+  # nih
+  "GBM_THAL(K27)",
+  "GBM_IDH",
+  "GBM_G34",
+  "DMG_K27",
+  "GBM_CBM",
+  "GBM_MES_NOS",
+  "GBM_MES",
+  "HGNET_NOS1",
+  "GBM_RTK1",
+  "GBM_RTK2",
+  "AAP",
+  "HGNET_NOS2",
+  "HGNET_NOS5",
+  "HGNET_NOS6",
+  "IHG",
+  "HGG_chr6CTX_A",
+  "HGG_chr6CTX_B",
+  "GBM_pedMYCN",
+  "GBM_pedRTK1a",
+  "GBM_pedRTK1b",
+  "GBM_pedRTK1c",
+  "GBM_pedRTK2",
+  "GBM_pedRTK2b",
+  "PXA"
 )
 
 # create an exclude list - LCH has BRAF V600E, so may come in by mistake
@@ -87,7 +116,8 @@ terms_list <- list(exact_path_dx = exact_path_dx,
                    path_free_text_exact = path_free_text_exact, 
                    IHG_path_free_path_dx = IHG_path_free_path_dx,
                    exclude_path_dx = exclude_dx,
-                   include_methyl = include_methyl)
+                   include_methyl_dkfz = include_methyl_dkfz,
+                   include_methyl_nih = include_methyl_nih)
 
 
 #Save this list as JSON.

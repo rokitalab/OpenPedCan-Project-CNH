@@ -64,6 +64,26 @@ hgg_meta <- read_tsv(file.path(subset_dir, "hgg_metadata.tsv")) %>%
 fusion_df <- read_tsv(file.path(results_dir, "HGG_cleaned_fusion.tsv"))
 exp_df <- read_tsv(file.path(results_dir,
                                 "HGG_cleaned_expression.tsv"))
+
+# Read in the JSON file that contains the strings we'll use to include or
+# exclude samples for subtyping - see 00-HGG-select-pathology-dx
+path_dx_list <- jsonlite::fromJSON(
+  file.path(subset_dir,
+            "hgg_subtyping_path_dx_strings.json")
+)
+
+#### Filter metadata -----------------------------------------------------------
+
+# Filter metadata based on pathology diagnosis and methylation fields and include samples that
+# should be classified as high-grade glioma based on defining lesions and methylation
+
+# Samples included on the basis of the pathology diagnosis fields
+hgg_methyl_highconf <- hgg_meta %>%
+  # Inclusion on the basis of CBTN harmonized pathology diagnoses
+  filter((dkfz_v12_methylation_subclass %in% path_dx_list$include_methyl_dkfz & dkfz_v12_methylation_subclass_score >= 0.8) | 
+           (NIH_v2_methylation_Class_mean_score %in% path_dx_list$include_methyl_nih &  dkfz_v12_methylation_subclass_score >= 0.9 & NIH_v2_methylation_Superfamily_mean_score >= 0.9)) %>%
+  select(Kids_First_Biospecimen_ID, match_id, pathology_diagnosis, dkfz_v12_methylation_subclass, dkfz_v12_methylation_subclass_score, NIH_v2_methylation_Class, NIH_v2_methylation_Superfamily_mean_score, NIH_v2_methylation_Class_mean_score)
+
 ```
 
 ### Output Files
@@ -163,51 +183,51 @@ Add methylation to all_data_df.
 
 ```{r}
 methyl_df <- hgg_meta %>% 
-  filter(experimental_strategy == "Methylation" & 
-         # keep DKFZ scores >= 0.8 or NIH >= 0.9
-           (dkfz_v12_methylation_subclass_score >= 0.8 & (grepl("GBM_|pedHGG_|HGG_", dkfz_v12_methylation_subclass) | dkfz_v12_methylation_subclass %in% c("DHG_G34", "DMG_K27", "DMG_EGFR", "A_IDH_HG", "IHG", "HGAP", "A_IDH_HG", "PXA", "O_IDH", "OLIGOSARC_IDH", "HGAP")) | 
-            (NIH_v2_methylation_Superfamily_mean_score >= 0.9 & 
-             NIH_v2_methylation_Class_mean_score >= 0.9 & 
-             grepl("GBM_|DMG_|HGNET_|HGG_|PXA|O_IDH|OLIGO|AAP", NIH_v2_methylation_Class)))) %>% 
-  # add all samples but only keep subtypes if score >=0.8
-  mutate(molecular_subtype_methyl = case_when(dkfz_v12_methylation_subclass_score >= 0.8 ~ dkfz_v12_methylation_subclass,
-                                              TRUE ~ NA_character_)) %>% 
+  filter(experimental_strategy == "Methylation") %>%
     # if NA subtype, now choose NIH classifier subtype
-  mutate(molecular_subtype_methyl = case_when(is.na(molecular_subtype_methyl) & NIH_v2_methylation_Superfamily_mean_score >= 0.9 & 
-                                         NIH_v2_methylation_Class_mean_score >= 0.9 ~ NIH_v2_methylation_Class,
-                                       TRUE ~ molecular_subtype_methyl)) %>%
+  mutate(molecular_subtype_methyl = case_when(Kids_First_Biospecimen_ID %in% hgg_methyl_highconf$Kids_First_Biospecimen_ID & dkfz_v12_methylation_subclass_score >= 0.8 ~ dkfz_v12_methylation_subclass,
+                                              TRUE ~ NA_character_)) %>%
+  mutate(molecular_subtype_methyl = case_when(Kids_First_Biospecimen_ID %in% hgg_methyl_highconf$Kids_First_Biospecimen_ID & is.na(molecular_subtype_methyl) ~ NIH_v2_methylation_Class,
+                                              TRUE ~ molecular_subtype_methyl)) %>%
   # mutate subtypes:
-  mutate(molecular_subtype_methyl = case_when(grepl("GBM_MES|GBM_RTK|HGG_|HGAP|AAP|ped_", molecular_subtype_methyl) ~ "HGG, H3 wildtype",
+  mutate(molecular_subtype_methyl = case_when(grepl("HGG_", molecular_subtype_methyl) ~ "HGNET",
+                                              grepl("pedHGG_RTK", molecular_subtype_methyl) ~ "HGG, RTK",
+                                              grepl("pedHGG_A|pedHGG_B", molecular_subtype_methyl) ~ "HGG, chr6 CTX",
+                                              molecular_subtype_methyl == "pedHGG_MYCN" ~ "HGG, MYCN",
+                                              molecular_subtype_methyl %in% c("HGAP", "AAP") ~ "HGAP",
                                               molecular_subtype_methyl %in% c("DHG_G34", "GBM_G34")  ~ "DHG, H3 G35",
                                               molecular_subtype_methyl == "DMG_K27"  ~ "DMG, H3 K28",
                                               molecular_subtype_methyl %in% c("DMG_EGFR", "GBM_THAL(K27)")  ~ "DMG, EGFR",
                                               molecular_subtype_methyl %in% c("A_IDH_HG", "GBM_IDH")  ~ "HGG, IDH",
                                               molecular_subtype_methyl == "O_IDH" ~ "Oligo, IDH",
                                               molecular_subtype_methyl == "OLIGOSARC_IDH" ~ "Oligosarcoma, IDH",
-                                              molecular_subtype_methyl == "IHG"  ~ "HGG, IHG",
+                                              molecular_subtype_methyl == "IHG"  ~ "IHG",
                                               molecular_subtype_methyl == "PXA"  ~ "HGG, PXA",
+                                              molecular_subtype_methyl == "GBM_CBM" ~	"GBM, CBM",
+                                              molecular_subtype_methyl %in% c("GBM_MES_ATYP", "GBM_MES_TYP") ~	"GBM, MES", 
+                                              molecular_subtype_methyl == "GBM_PNC" ~	"GBM, PNC",
+                                              molecular_subtype_methyl %in% c("GBM_RTK1", "GBM_RTK2") ~	"GBM, RTK",
                                               TRUE ~ molecular_subtype_methyl)) %>% 
   select(Kids_First_Biospecimen_ID, Kids_First_Participant_ID, sample_id, 
                 composition, match_id, molecular_subtype_methyl) %>%
   dplyr::rename(Kids_First_Biospecimen_ID_Methyl = Kids_First_Biospecimen_ID) %>%
-  distinct()
+  distinct() %>%
+  filter(!is.na(molecular_subtype_methyl))
 
-# add remaining methyl without the subtypes of interest 
+# add remaining methyl without the subtypes of interest, first join on match id of matched methyl event
 methyl_not_subtyped <- hgg_meta %>%
   filter(experimental_strategy == "Methylation",
          !Kids_First_Biospecimen_ID %in% methyl_df$Kids_First_Biospecimen_ID_Methyl) %>%
   dplyr::rename(Kids_First_Biospecimen_ID_Methyl = Kids_First_Biospecimen_ID) %>%
-  select(Kids_First_Biospecimen_ID_Methyl, Kids_First_Participant_ID, sample_id, 
-                composition, match_id) %>%
-  left_join(methyl_df[, c("match_id", "molecular_subtype_methyl", "Kids_First_Participant_ID")]) %>%
+  select(Kids_First_Biospecimen_ID_Methyl, Kids_First_Participant_ID, sample_id, composition, match_id) %>%
   distinct()
 
-methyl_df <- methyl_df %>%
+methyl_df_plus_not_subtyped <- methyl_df %>%
   bind_rows(methyl_not_subtyped) %>% 
   distinct()
 
 all_data_df <-  all_data_df %>% 
-  full_join(methyl_df, by = c("Kids_First_Participant_ID", "sample_id", "composition", "match_id"))  %>% 
+  full_join(methyl_df_plus_not_subtyped, by = c("Kids_First_Participant_ID", "sample_id", "composition", "match_id"))  %>% 
   select(starts_with("Kids_First"), sample_id, everything())
 
 ```
@@ -434,7 +454,7 @@ RTK_list <- c(NTRK, ALK, MET, ROS1)
 ihg_df_biospecimen <- all_data_df %>% 
   # need free text
   left_join(unique(hgg_meta[,c("pathology_free_text_diagnosis", "match_id")])) %>%
-  filter(molecular_subtype_methyl == "HGG, IHG" | grepl("infant type hemispheric glioma with ALK fusion", pathology_free_text_diagnosis)) %>%
+  filter(molecular_subtype_methyl == "IHG" | grepl("infant type hemispheric glioma with ALK fusion", pathology_free_text_diagnosis)) %>%
   mutate(tmp_tag = "ihg_sample") %>%
   unique() %>%
   mutate(molecular_subtype = case_when((!is.na(tmp_tag) & Kids_First_Biospecimen_ID_RNA %in% NTRK ~ "IHG, NTRK-altered"),
@@ -502,8 +522,8 @@ wildtype_df <- all_data_df %>%
          `H3F3A_H3-3A.G35V` == "No",
          IDH1_mutation == "No R132 or R172",
          # and not re-classified by methyl
-         !molecular_subtype_methyl %in% c("DMG, H3 K28", "DHG, H3 G35", "IHG")) %>% ## if there is no H3 mutation and methylation molecular subtype == "DMG, EFGR", assign sample molecular subtype as "DMG, H3 K28"
-  mutate(molecular_subtype = case_when(molecular_subtype_methyl == "DMG, EGFR" ~ "DMG, H3 K28", 
+         !molecular_subtype_methyl %in% c("DMG, H3 K28", "DHG, H3 G35", "IHG")) %>%
+  mutate(molecular_subtype = case_when(molecular_subtype_methyl == "DMG, EGFR" ~ "DMG, EGFR", 
                                        TRUE ~ "HGG, H3 wildtype")) %>%
   distinct()
 
@@ -530,39 +550,45 @@ molecular_subtype_table_wt <- molecular_subtype_table %>%
 
 # subtype mapping 
 subtype_map <- molecular_subtype_table_wt %>%
-  select(match_id, molecular_subtype, molecular_subtype_methyl) %>%
+  select(Kids_First_Participant_ID, sample_id, match_id, molecular_subtype, molecular_subtype_methyl) %>%
   unique()
 
 # which ids have samples which can be assigned subtypes
 all_subtypes <- subtype_map %>%
+  select(-molecular_subtype_methyl) %>%
+  distinct() %>%
   left_join(hgg_meta[,c("Kids_First_Biospecimen_ID", "match_id")]) %>%
-  select(Kids_First_Biospecimen_ID, match_id, molecular_subtype, molecular_subtype_methyl)
+  select(Kids_First_Biospecimen_ID, match_id, molecular_subtype)
 
 # add rest as TO BE CLASSIFIED
 to_be_classified <- hgg_meta %>%
   filter(!match_id %in% all_subtypes$match_id) %>%
   mutate(molecular_subtype = "HGG, To be classified") %>%
-select(Kids_First_Participant_ID, Kids_First_Biospecimen_ID, sample_id, match_id, molecular_subtype)
+  left_join(methyl_df) %>%
+select(Kids_First_Participant_ID, Kids_First_Biospecimen_ID, sample_id, match_id, molecular_subtype, molecular_subtype_methyl) %>%
+  # assign based on methyl
+  mutate(molecular_subtype = case_when(molecular_subtype_methyl %in% c("GBM, MES", "HGNET") ~ "HGG, H3 wildtype",
+                                       TRUE ~ molecular_subtype))
 
 molecular_subtype_table_w_tbc <- all_subtypes %>%
   bind_rows(to_be_classified) %>%
   arrange(Kids_First_Biospecimen_ID)
 
-# update non DMG brainstem glioma dx to DIPG based on clinical dx for PNOC and Mioncoseq only. 
+# update non DMG brainstem glioma dx to DMG based on clinical dx for PNOC and Mioncoseq only. 
 # HGG, IDH remain as HGG
 dipgs <- hgg_meta %>%
   filter(sub_cohort %in% c("PNOC", "Mioncoseq") &
            grepl("Brainstem glioma", pathology_diagnosis)) %>%
-  select(Kids_First_Biospecimen_ID, primary_site)
+  select(Kids_First_Biospecimen_ID, pathology_diagnosis, primary_site, aliquot_id, molecular_subtype)
 
 molecular_subtype_table_final <- molecular_subtype_table_w_tbc %>%
   dplyr::mutate(molecular_subtype = case_when(Kids_First_Biospecimen_ID %in% dipgs$Kids_First_Biospecimen_ID & 
-                                                grepl("HGG, H3 wildtype|HGG, To be classified", molecular_subtype) ~ gsub("HGG", "DIPG", molecular_subtype),
+                                                grepl("HGG, H3 wildtype|HGG, To be classified", molecular_subtype) ~ gsub("HGG", "DMG", molecular_subtype),
                                               TRUE ~ molecular_subtype))
   
 # create final lesion + subtype file
 lesions_subtypes <- all_data_df %>%
-  right_join(molecular_subtype_table_final[,c("match_id", "molecular_subtype")]) %>%
+  right_join(unique(molecular_subtype_table_final[,c("match_id", "molecular_subtype")])) %>%
   unique() %>%
   arrange(match_id)
 ```
@@ -603,9 +629,33 @@ lesions_subtypes_methyl <- lesions_subtypes %>%
   distinct()
   
 lesions_subtypes_final <- bind_rows(lesions_subtypes_RNA, lesions_subtypes_DNA, lesions_subtypes_methyl) %>%
-  full_join(molecular_subtype_table_final)
-
-
+  full_join(molecular_subtype_table_final) %>%
+  group_by(match_id) %>%
+  mutate(
+    molecular_subtype_methyl = {
+      vals <- na.omit(molecular_subtype_methyl)
+      if (length(vals) == 0) molecular_subtype_methyl else coalesce(molecular_subtype_methyl, vals[1])
+    }
+  ) %>%
+  ungroup() %>%
+  group_by(Kids_First_Biospecimen_ID) %>%
+  mutate(
+    across(everything(), ~ {
+      vals <- na.omit(.x)
+      if (length(vals) == 0) .x else coalesce(.x, vals[1])
+    })
+  ) %>%
+  ungroup() %>%
+  # fix duplicates
+    group_by(Kids_First_Biospecimen_ID) %>%
+  mutate(
+    `H3F3A_H3-3A.K28M` =
+      ifelse(any(`H3F3A_H3-3A.K28M` == "yes", na.rm = TRUE),
+             "yes",
+             `H3F3A_H3-3A.K28M`)
+  ) %>%
+  ungroup() %>%
+  unique()
 ```
 
 Write to file.

@@ -19,7 +19,7 @@
     "exclude_path_dx": [
         "Langerhans Cell histiocytosis"
     ],
-    "include_methyl": [
+    "include_methyl_dkfz": [
         "A_IDH_HG",
         "DHG_G34",
         "DMG_EGFR",
@@ -45,7 +45,34 @@
         "A_IDH_HG",
         "IHG",
         "O_IDH",
-        "OLIGOSARC_IDH"
+        "OLIGOSARC_IDH",
+        "PXA"
+    ],
+    "include_methyl_nih": [
+        "GBM_THAL(K27)",
+        "GBM_IDH",
+        "GBM_G34",
+        "DMG_K27",
+        "GBM_CBM",
+        "GBM_MES_NOS",
+        "GBM_MES",
+        "HGNET_NOS1",
+        "GBM_RTK1",
+        "GBM_RTK2",
+        "AAP",
+        "HGNET_NOS2",
+        "HGNET_NOS5",
+        "HGNET_NOS6",
+        "IHG",
+        "HGG_chr6CTX_A",
+        "HGG_chr6CTX_B",
+        "GBM_pedMYCN",
+        "GBM_pedRTK1a",
+        "GBM_pedRTK1b",
+        "GBM_pedRTK1c",
+        "GBM_pedRTK2",
+        "GBM_pedRTK2b",
+        "PXA"
     ]
 }
 

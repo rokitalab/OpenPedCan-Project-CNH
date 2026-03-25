@@ -86,8 +86,8 @@ path_dx_df <- metadata %>%
          # Inclusion based on pathology free text diagnosis for IHG
          pathology_free_text_diagnosis %in% path_dx_list$IHG_path_free_path_dx |
          # include HGG high-conf methyl classifications
-         (dkfz_v12_methylation_subclass %in% path_dx_list$include_methyl & dkfz_v12_methylation_subclass_score >= 0.8))
-  
+           (dkfz_v12_methylation_subclass %in% path_dx_list$include_methyl_dkfz & dkfz_v12_methylation_subclass_score >= 0.8) |
+           (NIH_v2_methylation_Class %in% path_dx_list$include_methyl_nih & NIH_v2_methylation_Superfamily_mean_score >= 0.9 & NIH_v2_methylation_Class_mean_score >= 0.9))  
 
 # Now samples on the basis of the defining lesions
 hgg_sample_ids <- hgg_lesions_df %>%
