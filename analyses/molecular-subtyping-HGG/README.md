@@ -30,10 +30,9 @@ When run in this manner, `02-HGG-molecular-subtyping-subset-files.R` will genera
 ## Folder content
 
 This folder contains scripts tasked to molecularly subtype High-grade Glioma samples in the PBTA dataset.
-[`00-HGG-select-pathology-dx.R`](https://github.com/d3b-center/OpenPedCan-analysis/blob/dev/analyses/molecular-subtyping-HGG/00-HGG-select-pathology-dx.R) gathers the exact matches for inclusion in the `pathology_diagnosis` and `pathology_free_text_diagnosis` which are saved in `hgg-subset/hgg_subtyping_path_dx_strings.json`, which is used downstream in `02-HGG-molecular-subtyping-subset-files` to generate subset files.
+`00-HGG-select-pathology-dx.R` gathers the exact matches for inclusion in the `pathology_diagnosis`, `pathology_free_text_diagnosis`, and/or high-confidence methylation which are saved in `hgg-subset/hgg_subtyping_path_dx_strings.json` and used downstream in `02-HGG-molecular-subtyping-subset-files` to generate subset files.
 
-
-`01-HGG-molecular-subtyping-defining-lesions.Rmd` is a notebook written to look at the high-grade glioma defining lesions (_H3-3A_ K28M, _H3-3A_ G35R/V, _H3C2_ K28M, _H3C3_ K28M, _H3C14_ K28M/I) for all tumor samples except LGAT and EPN in the PBTA dataset. 
+`01-HGG-molecular-subtyping-defining-lesions.Rmd` is a notebook written to look at the high-grade glioma defining lesions (_H3-3A_ K28M, _H3-3A_ G35R/V, _H3C2_ K28M, _H3C3_ K28M, _H3C14_ K28M/I) for all tumor samples except LGG and EPN in the PBTA dataset. 
 This notebook produces a results table found at `results/HGG_defining_lesions.tsv`.
 
 `02-HGG-molecular-subtyping-subset-files.R` is a script written to subset the copy number, gene expression, fusion, mutation, SNV and GISTIC's broad values files to include only samples that meet one of the following criteria: 1) with defining lesions 2) have `pathology_diagnosis` values that match those in `hgg-subset/hgg_subtyping_path_dx_strings.json`.
@@ -76,19 +75,20 @@ The NIH Bethesda classifier v2 data are available in `NIH_v2_methylation_Class` 
 
 A table with the molecular subtype information for each HGG sample at `results/HGG_molecular_subtype.tsv` is also produced, where the subtype values in the `molecular_subtype` column are determined as follows:
 
-1. If there was an _H3-3A_ K28M or K28I, _H3C2_ K28M or K28I, _H3C3_ K28M or K28I, or _H3C14_ K28M or K28I mutation or high-confidence methylation subtype (`DMG_K27`, `DMG_EGFR`, or `GBM_THAL(K27)`)-> `DMG, H3K28`
-2. If there was an _H3-3A_ G35V or G35R mutation or high-confidence methylation subtype (`DHG_G34` or `GBM_G34`) -> `HGG, H3 G35`
-3. If there was an _IDH1_ R132 mutation or high-confidence methylation subtype (`A_IDH_HG` or `GBM_IDH`)-> `HGG, IDH`
-4. In `histologies_base.tsv`, column `pathology_free_text_diagnosis` contains "infant type hemispheric glioma" or `dkfz_v12_methylation_subclass` == `IHG` -> `IHG`
+1. If there was an _H3-3A_ K28M or K28I, _H3C2_ K28M or K28I, _H3C3_ K28M or K28I, or _H3C14_ K28M or K28I mutation or high-confidence methylation subtype (`DMG_K27`) -> `DMG, H3K28`
+2. If there was no H3 K28 mutation and high-confidence methylation subtype of `DMG_EGFR` or `GBM_THAL(K27)` -> `DMG, EGFR`
+3. If there was an _H3-3A_ G35V or G35R mutation or high-confidence methylation subtype (`DHG_G34` or `GBM_G34`) -> `HGG, H3 G35`
+4. If there was an _IDH1_ R132 mutation or high-confidence methylation subtype (`A_IDH_HG` or `GBM_IDH`)-> `HGG, IDH`
+5. In `histologies_base.tsv`, column `pathology_free_text_diagnosis` contains "infant type hemispheric glioma" or `dkfz_v12_methylation_subclass` == `IHG` -> `IHG`
     1. If there was a _NTRK_ fusion -> `IHG, NTRK-altered`
     2. If there was a _ROS1_ fusion -> `IHG, ROS1-altered`
     3. If there was a _ALK_ fusion -> `IHG, ALK-altered`
     4. If there was a _MET_ fusion -> `IHG, MET-altered`
     5. If there was no fusion -> `IHG, To be classified` based on IHG methylation classification and sample clinical report in the `pathology_diagnosis_free_text` stated as `infant type hemispheric glioma`
-5. If methylation subtype == "PXA" or `pathology_free_text_diagnosis` contains "pleomorphic xanthoastrocytoma" or "pxa" AND there was a BRAF V600E mutation AND loss of CDKN2A and/or CDKN2B -> `HGG, PXA`
-6. If methylation subtype == "O_IDH" -> `Oligo, IDH`
-7. If methylation subtype == "OLIGO_IDH" -> `Oligosarcoma, IDH`
-8. All other samples that did not meet any of these criteria were marked as `HGG, H3 wildtype` if there was no canonical histone variant the DNA sample, the methylation classification subtype if present, or else `HGG, To be classified` 
+6. If methylation subtype == "PXA" or `pathology_free_text_diagnosis` contains "pleomorphic xanthoastrocytoma" or "pxa" AND there was a BRAF V600E mutation AND loss of CDKN2A and/or CDKN2B -> `HGG, PXA`
+7. If methylation subtype == "O_IDH" -> `Oligo, IDH`
+8. If methylation subtype == "OLIGO_IDH" -> `Oligosarcoma, IDH`
+9. All other samples that did not meet any of these criteria were marked as `HGG, H3 wildtype` if there was no canonical histone variant the DNA sample, the methylation classification subtype if present, or else `HGG, To be classified` 
 
 `08-1p19q-codeleted-oligodendrogliomas.Rmd` is a notebook written to identify samples in the OpenPBTA dataset that should be classified as 1p/19q co-deleted oligodendrogliomas.
 The GISTIC `broad_values_by_arm.txt` file is used to identify samples with `1p` and `19q` loss, then the consensus mutation file is filtered to the identified samples in order to check for _IDH1_ mutations.
@@ -101,13 +101,14 @@ The results, shown below, suggest that one sample may be a candidate for reclass
 
 ![09_umap_tsne](plots/HGG_stranded.png)
 
+`10-HGG-TP53-annotation.Rmd` is a notebook which adds TP53 annotation from the `tp53_nf1_score` module.
+
 ## Folder structure
 
 The structure of this folder is as follows:
 
 ```
-├── 00-HGG-select-pathology-dx.Rmd
-├── 00-HGG-select-pathology-dx.nb.html
+├── 00-HGG-select-pathology-dx.R
 ├── 01-HGG-molecular-subtyping-defining-lesions.Rmd
 ├── 01-HGG-molecular-subtyping-defining-lesions.nb.html
 ├── 02-HGG-molecular-subtyping-subset-files.R
@@ -125,6 +126,8 @@ The structure of this folder is as follows:
 ├── 08-1p19q-codeleted-oligodendrogliomas.nb.html
 ├── 09-HGG-with-braf-clustering.Rmd
 ├── 09-HGG-with-braf-clustering.nb.html
+├── 10-HGG-TP53-annotation.Rmd
+├── 10-HGG-TP53-annotation.nb.html
 ├── README.md
 ├── hgg-subset
 │   ├── hgg_focal_cn.tsv.gz
@@ -134,6 +137,8 @@ The structure of this folder is as follows:
 │   ├── hgg_snv_maf.tsv.gz
 │   ├── hgg_subtyping_path_dx_strings.json
 │   └── hgg_zscored_expression.RDS
+├── input
+│   └── cell-line-composition.tsv
 ├── plots
 │   ├── HGG_stranded.pdf
 │   ├── HGG_stranded.png
@@ -145,6 +150,7 @@ The structure of this folder is as follows:
 │   ├── HGG_cleaned_fusion.tsv
 │   ├── HGG_cleaned_mutation.tsv
 │   ├── HGG_defining_lesions.tsv
-│   └── HGG_molecular_subtype.tsv
+│   ├── HGG_molecular_subtype.tsv
+│   └── HGG_molecular_subtype_tp53.tsv
 └── run-molecular-subtyping-HGG.sh
 ```

@@ -461,7 +461,7 @@ ihg_df_biospecimen <- all_data_df %>%
                                        (!is.na(tmp_tag) & Kids_First_Biospecimen_ID_RNA %in% ALK ~ "IHG, ALK-altered"),
                                        (!is.na(tmp_tag) & Kids_First_Biospecimen_ID_RNA %in% ROS1 ~ "IHG, ROS1-altered"),
                                        (!is.na(tmp_tag) & Kids_First_Biospecimen_ID_RNA %in% MET ~ "IHG, MET-altered"),
-                                       (!is.na(tmp_tag) & !Kids_First_Biospecimen_ID_RNA %in% c(NTRK, ALK, MET, ROS1) & molecular_subtype_methyl == "HGG, IHG") ~ "IHG, To be classified")) %>%
+                                       (!is.na(tmp_tag) & !Kids_First_Biospecimen_ID_RNA %in% c(NTRK, ALK, MET, ROS1) & molecular_subtype_methyl == "IHG") ~ "IHG, To be classified")) %>%
   select(-c(tmp_tag, pathology_free_text_diagnosis)) %>%
   unique()
 ```
@@ -555,10 +555,10 @@ subtype_map <- molecular_subtype_table_wt %>%
 
 # which ids have samples which can be assigned subtypes
 all_subtypes <- subtype_map %>%
-  select(-molecular_subtype_methyl) %>%
+ # select(-molecular_subtype_methyl) %>%
   distinct() %>%
   left_join(hgg_meta[,c("Kids_First_Biospecimen_ID", "match_id")]) %>%
-  select(Kids_First_Biospecimen_ID, match_id, molecular_subtype)
+  select(Kids_First_Biospecimen_ID, match_id, molecular_subtype, molecular_subtype_methyl)
 
 # add rest as TO BE CLASSIFIED
 to_be_classified <- hgg_meta %>%
@@ -566,7 +566,7 @@ to_be_classified <- hgg_meta %>%
   mutate(molecular_subtype = "HGG, To be classified") %>%
   left_join(methyl_df) %>%
 select(Kids_First_Participant_ID, Kids_First_Biospecimen_ID, sample_id, match_id, molecular_subtype, molecular_subtype_methyl) %>%
-  # assign based on methyl
+  # assign H3 WT based on methyl
   mutate(molecular_subtype = case_when(molecular_subtype_methyl %in% c("GBM, MES", "HGNET") ~ "HGG, H3 wildtype",
                                        TRUE ~ molecular_subtype))
 
@@ -584,8 +584,18 @@ dipgs <- hgg_meta %>%
 molecular_subtype_table_final <- molecular_subtype_table_w_tbc %>%
   dplyr::mutate(molecular_subtype = case_when(Kids_First_Biospecimen_ID %in% dipgs$Kids_First_Biospecimen_ID & 
                                                 grepl("HGG, H3 wildtype|HGG, To be classified", molecular_subtype) ~ gsub("HGG", "DMG", molecular_subtype),
-                                              TRUE ~ molecular_subtype))
-  
+                                              TRUE ~ molecular_subtype)) %>%
+  # coalesce molecular subtype methyl
+  group_by(match_id) %>%
+  mutate(
+    molecular_subtype_methyl = {
+      vals <- molecular_subtype_methyl[!is.na(molecular_subtype_methyl)]
+      if (length(vals) == 0) molecular_subtype_methyl else vals[1]
+    }
+  ) %>%
+  ungroup() %>%
+  distinct()
+
 # create final lesion + subtype file
 lesions_subtypes <- all_data_df %>%
   right_join(unique(molecular_subtype_table_final[,c("match_id", "molecular_subtype")])) %>%
@@ -623,39 +633,13 @@ lesions_subtypes_DNA <- lesions_subtypes %>%
   distinct()
 
 lesions_subtypes_methyl <- lesions_subtypes %>% 
-  select(Kids_First_Participant_ID, Kids_First_Biospecimen_ID_Methyl, sample_id, match_id, CNS_region, age_at_diagnosis_yr, composition, molecular_subtype_methyl, molecular_subtype) %>% 
+  select(Kids_First_Participant_ID, Kids_First_Biospecimen_ID_Methyl, sample_id, match_id, CNS_region, age_at_diagnosis_yr, composition, molecular_subtype_methyl, molecular_subtype) %>%
   dplyr::rename(Kids_First_Biospecimen_ID = Kids_First_Biospecimen_ID_Methyl) %>%
   filter(!is.na(Kids_First_Biospecimen_ID)) %>% 
   distinct()
   
 lesions_subtypes_final <- bind_rows(lesions_subtypes_RNA, lesions_subtypes_DNA, lesions_subtypes_methyl) %>%
-  full_join(molecular_subtype_table_final) %>%
-  group_by(match_id) %>%
-  mutate(
-    molecular_subtype_methyl = {
-      vals <- na.omit(molecular_subtype_methyl)
-      if (length(vals) == 0) molecular_subtype_methyl else coalesce(molecular_subtype_methyl, vals[1])
-    }
-  ) %>%
-  ungroup() %>%
-  group_by(Kids_First_Biospecimen_ID) %>%
-  mutate(
-    across(everything(), ~ {
-      vals <- na.omit(.x)
-      if (length(vals) == 0) .x else coalesce(.x, vals[1])
-    })
-  ) %>%
-  ungroup() %>%
-  # fix duplicates
-    group_by(Kids_First_Biospecimen_ID) %>%
-  mutate(
-    `H3F3A_H3-3A.K28M` =
-      ifelse(any(`H3F3A_H3-3A.K28M` == "yes", na.rm = TRUE),
-             "yes",
-             `H3F3A_H3-3A.K28M`)
-  ) %>%
-  ungroup() %>%
-  unique()
+  full_join(molecular_subtype_table_final)
 ```
 
 Write to file.
