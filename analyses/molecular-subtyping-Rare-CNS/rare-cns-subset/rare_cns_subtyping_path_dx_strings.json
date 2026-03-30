@@ -1,32 +1,4 @@
 {
-    "include_path_dx": [
-        "embryonal tumor",
-        "ewing sarcoma",
-        "neuroblastoma",
-        "sarcoma",
-        "glial-neuronal tumor nos",
-        "low-grade glioma/astrocytoma",
-        "ganglioglioma",
-        "ependymoma"
-    ],
-    "exclude_path_dx": [
-        "medulloblastoma",
-        "atypical teratoid/rhabdoid tumor",
-        "craniopharyngioma",
-        "chordoma"
-    ],
-    "recode_path_free_text": [
-        "mn1",
-        "bcor",
-        "foxr2",
-        "cic",
-        "dicer1",
-        "plagl1",
-        "patz1",
-        "mycn",
-        "myod1",
-        "ews"
-    ],
     "methyl_subtype_map": [
         {
             "Abbreviation_internal_NIH": "HGNET_MN1",
@@ -122,6 +94,11 @@
             "Abbreviation_internal_NIH": "RMS_MYOD1",
             "dkfz_Abbreviation": "RMS_MYOD1",
             "OPC_molecular_subtype": "Rare CNS, MYOD1 RMS"
+        },
+        {
+            "Abbreviation_internal_NIH": "CRINET",
+            "dkfz_Abbreviation": "CRINET",
+            "OPC_molecular_subtype": "Rare CNS, CRINET"
         }
     ]
 }
