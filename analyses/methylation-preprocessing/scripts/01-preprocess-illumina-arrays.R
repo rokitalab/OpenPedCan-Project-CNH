@@ -9,6 +9,7 @@
 suppressPackageStartupMessages(library(optparse))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(qs2))
+suppressPackageStartupMessages(library(arrow))
 suppressWarnings(
   suppressPackageStartupMessages(library(minfi))
 )
@@ -63,14 +64,16 @@ n_cores <- opt$n_cores
 out_base <- opt$output_basename
 
 
-#base_dir <- 'inputs'
+#base_dir <- 'sorted_idats_output_dir/IlluminaHumanMethylationEPIC'
 #snp_filter <- TRUE
 #use_funnorm <- TRUE
-#manifest_file <- 'inputs/epicv2-test.tsv'
+#manifest_file <- 'controls_and_dicer_manifest.tsv'
 #n_cores <- 4 
+#out_base <- 'test-out/'
+
 
 # read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
-man_df <- read_tsv(file = opt$manifest_file, show_col_types = FALSE) %>% 
+man_df <- read_tsv(file = manifest_file, show_col_types = FALSE) %>% 
   select(file_name, Bioassay_ID) %>%
   dplyr::mutate(file_name = gsub("(_Red|_Grn).*", "", file_name)) %>%
   dplyr::mutate(file_name = basename(file_name)) %>%
@@ -219,10 +222,15 @@ message("Generate results...\n")
 # from the GenomicRatioSet object
 
 # set up output file names
-m_value_file <- paste0(out_base, "-", dataset, "-methyl-m-values-unmasked.qs2")
-m_value_file_masked <- paste0(out_base, "-", dataset, "-methyl-m-values-masked.qs2")
-beta_value_file <- paste0(out_base, "-", dataset, "-methyl-beta-values-masked.qs2")
-cn_value_file <- paste0(out_base, "-", dataset, "-methyl-cn-values.qs2")
+m_value_file <- paste0(out_base, "-", dataset, "-methyl-m-values-unmasked.parquet")
+m_value_file_masked <- paste0(out_base, "-", dataset, "-methyl-m-values-masked.parquet")
+beta_value_file <- paste0(out_base, "-", dataset, "-methyl-beta-values-masked.parquet")
+cn_value_file <- paste0(out_base, "-", dataset, "-methyl-cn-values.parquet")
+p_value_file <- paste0(out_base, "-", dataset, "-methyl-p-values.parquet")
+m_set_file <- paste0(out_base, "-", dataset, '-m-set.qs2')
+
+
+qs_save(GRset, m_set_file)
 
 message("Extracting m values")
 
@@ -230,16 +238,21 @@ message("Extracting m values")
 m_values <- minfi::getM(GRset)
 
 # Create unmasked version
-m_value_unmasked <- m_values %>% as.data.frame() %>%
+m_values_unmasked <- m_values %>% as.data.frame() %>%
   tibble::rownames_to_column("Probe_ID")
 
-m_value_unmasked <- data.table::setnames(m_value_unmasked, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
+m_values_unmasked <- data.table::setnames(m_values_unmasked, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
 
 # write output file
-qs_save(m_value_unmasked, m_value_file)
+
+if (!is.data.frame(m_values_unmasked)) {
+  m_values_masked <- as.data.frame(m_values_unmasked)
+}
+write_parquet(m_values_unmasked, m_value_file)
+#qs_save(m_value_unmasked, m_value_file)
 
 # Free memory
-rm(m_value_unmasked)
+rm(m_values_unmasked)
 gc()
 
 ##masking is optional for m values -- can generate masked and unmasked matrices
@@ -252,7 +265,12 @@ m_value_masked <- m_values %>% as.data.frame() %>%
 m_value_masked <- data.table::setnames(m_value_masked, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
 
 # write output file
-qs_save(m_value_masked, m_value_file_masked)
+if (!is.data.frame(m_value_masked)) {
+  m_value_masked <- as.data.frame(m_value_masked)
+}
+write_parquet(m_value_masked, m_value_file_masked)
+
+#qs_save(m_value_masked, m_value_file_masked)
 
 # Free memory
 rm(m_values, m_value_masked)
@@ -270,28 +288,39 @@ beta_values_masked <- beta_values %>% as.data.frame() %>%
 rm(beta_values)
 gc()
 
-# apply masking -- #should ALWAYS be done for B values 
-#beta_values_masked <- beta_values
-#beta_values_masked[detP > 0.05] <- NA
 beta_values_masked <- data.table::setnames(beta_values_masked, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
 
 # write output file
+if (!is.data.frame(beta_values_masked)) {
+  beta_values_masked <- as.data.frame(beta_values_masked)
+}
+write_parquet(beta_values_masked, beta_value_file)
+#qs_save(beta_values_masked, beta_value_file)
 
-qs_save(beta_values_masked, beta_value_file)
+if (!is.data.frame(detP)) {
+  detP <- as.data.frame(detP)
+}
+detP <- data.table::setnames(detP, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
+# write output file
+
+write_parquet(detP, p_value_file)
 
 # Free memory
 rm(detP, beta_values_masked)
 gc()
 
 message("Extracting copy number values")
-cn_value <- GRset %>% minfi::getCN() %>% as.data.frame() %>%
-  tibble::rownames_to_column("Probe_ID")
-
+cn_value <- GRset %>% minfi::getCN() %>% as.data.frame() #%>% #keep as tibble if saving as qs2 ? 
+  #tibble::rownames_to_column("Probe_ID")
+if (!is.data.frame(cn_value)) {
+  cn_value <- as.data.frame(cn_value)
+}
 cn_value <- data.table::setnames(cn_value, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
 
 # write output file
 
-qs_save(cn_value, cn_value_file)
+write_parquet(cn_value, cn_value_file)
+#qs_save(cn_value, cn_value_file)
 # delete GenomicRatioSet object to free memory
 rm(GRset)
 gc()
