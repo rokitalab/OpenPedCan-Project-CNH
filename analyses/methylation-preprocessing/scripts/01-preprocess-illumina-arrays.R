@@ -64,17 +64,17 @@ n_cores <- opt$n_cores
 out_base <- opt$output_basename
 
 
-#base_dir <- 'sorted_idats_output_dir/IlluminaHumanMethylationEPIC'
-#snp_filter <- TRUE
-#use_funnorm <- TRUE
-#manifest_file <- 'controls_and_dicer_manifest.tsv'
-#n_cores <- 4 
-#out_base <- 'test-out/'
+base_dir <- 'sorted_idats_output_dir/IlluminaHumanMethylationEPIC'
+snp_filter <- TRUE
+use_funnorm <- TRUE
+manifest_file <- 'controls_and_dicer_manifest.tsv'
+n_cores <- 4 
+out_base <- 'test-out/'
 
 
 # read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
 man_df <- read_tsv(file = manifest_file, show_col_types = FALSE) %>% 
-  select(file_name, Bioassay_ID) %>%
+  dplyr::select(file_name, Bioassay_ID) %>%
   dplyr::mutate(file_name = gsub("(_Red|_Grn).*", "", file_name)) %>%
   dplyr::mutate(file_name = basename(file_name)) %>%
   unique()
@@ -94,9 +94,6 @@ RGset <- suppressWarnings(
 )
 ###################### Check for MAD=0 samples and skip them ####################
 message("\nChecking for samples with zero MAD in control probes...\n")
-
-
-
 
 
 # Extract raw intensities from RGset
@@ -138,6 +135,13 @@ if (use_funnorm) {
   }
   
 }
+
+
+## calcuate the Mset for CNV calling later
+MSet <- preprocessNoob(RGset)
+m_set_file <- paste0(out_base, "-", dataset, '-m-set.qs2')
+qs_save(MSet, m_set_file)
+
 
 ######################## Calculate detection p-values #########################
 message("\nsetting parallel processing options...\n")
@@ -227,10 +231,7 @@ m_value_file_masked <- paste0(out_base, "-", dataset, "-methyl-m-values-masked.p
 beta_value_file <- paste0(out_base, "-", dataset, "-methyl-beta-values-masked.parquet")
 cn_value_file <- paste0(out_base, "-", dataset, "-methyl-cn-values.parquet")
 p_value_file <- paste0(out_base, "-", dataset, "-methyl-p-values.parquet")
-m_set_file <- paste0(out_base, "-", dataset, '-m-set.qs2')
 
-
-qs_save(GRset, m_set_file)
 
 message("Extracting m values")
 
