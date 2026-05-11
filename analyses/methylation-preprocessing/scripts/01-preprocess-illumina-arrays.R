@@ -141,6 +141,8 @@ if (use_funnorm) {
 MSet <- preprocessNoob(RGset)
 m_set_file <- paste0(out_base, "-", dataset, '-m-set.qs2')
 qs_save(MSet, m_set_file)
+rm(MSet)
+gc()
 
 
 ######################## Calculate detection p-values #########################
