@@ -1,37 +1,47 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 mkdir -p input-test
 
-aws s3 ls s3://bti-private-us-east-1-prd-rood-lab/ --recursive > bucket_listing.txt --profile cnh-sso
+filelist="idat_filesnames.txt"
 
+# ---- FIRST BUCKET ----
+aws s3 ls s3://bti-private-us-east-1-prd-rood-lab/ --recursive --profile cnh-sso > bucket_listing.txt
 awk '{print $4}' bucket_listing.txt > bucket_files.txt
 
-fname=idat_filesnames.txt
+while IFS= read -r fname || [ -n "$fname" ]; do
+    fname=$(echo "$fname" | tr -d '\r')
 
-while read -r fname; do
-    match=$(grep -F "/$fname" bucket_files.txt || true)
+    echo "Searching (rood): $fname"
+
+    match=$(grep -E "/$fname\$" bucket_files.txt | head -n 1 || true)
 
     if [ -n "$match" ]; then
+        echo "Found: $match"
         aws s3 cp "s3://bti-private-us-east-1-prd-rood-lab/$match" input-test/ --profile cnh-sso
     else
-        echo "$fname" >> missing_files.txt
+        echo "Missing (rood): $fname" >> missing_files.txt
     fi
-done < "$fname"
+done < "$filelist"
 
-rm bucket_listing.txt
-rm bucket_files.txt
+rm bucket_listing.txt bucket_files.txt
 
-aws s3 ls s3://bti-private-us-east-1-prd-fonseca-lab/ --recursive > bucket_listing.txt --profile cnh-sso
-
+# ---- SECOND BUCKET ----
+aws s3 ls s3://bti-private-us-east-1-prd-fonseca-lab/ --recursive --profile cnh-sso > bucket_listing.txt
 awk '{print $4}' bucket_listing.txt > bucket_files.txt
 
+while IFS= read -r fname || [ -n "$fname" ]; do
+    fname=$(echo "$fname" | tr -d '\r')
 
-while read -r fname; do
-    match=$(grep -F "/$fname" bucket_files.txt || true)
+    echo "Searching (fonseca): $fname"
+
+    match=$(grep -E "/$fname\$" bucket_files.txt | head -n 1 || true)
 
     if [ -n "$match" ]; then
+        echo "Found: $match"
         aws s3 cp "s3://bti-private-us-east-1-prd-fonseca-lab/$match" input-test/ --profile cnh-sso
     else
-        echo "$fname" >> missing_files_final.txt
+        echo "Missing (fonseca): $fname" >> missing_files_final.txt
     fi
-done < "$fname"
+done < "$filelist"

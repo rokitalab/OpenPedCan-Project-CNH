@@ -64,12 +64,12 @@ n_cores <- opt$n_cores
 out_base <- opt$output_basename
 
 
-base_dir <- 'sorted_idats_output_dir/IlluminaHumanMethylationEPIC'
-snp_filter <- TRUE
-use_funnorm <- TRUE
-manifest_file <- 'controls_and_dicer_manifest.tsv'
-n_cores <- 4 
-out_base <- 'test-out/'
+#base_dir <- 'sorted_idats_output_dir/IlluminaHumanMethylationEPIC'
+#snp_filter <- TRUE
+#use_funnorm <- TRUE
+#manifest_file <- 'controls_and_dicer_manifest.tsv'
+#n_cores <- 4 
+#out_base <- 'test-out/'
 
 
 # read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
