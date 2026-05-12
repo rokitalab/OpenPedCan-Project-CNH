@@ -111,7 +111,7 @@ run_preprocess () {
     local DIR=$1
     local LABEL=$2
 
-    if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
+if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
         echo "Processing $LABEL"
 
         Rscript "$SCRIPT_DIR/scripts/01-preprocess-illumina-arrays.R" \
@@ -135,3 +135,29 @@ printf "\ncombining array types...\n"
 Rscript --vanilla "$SCRIPT_DIR/scripts/02-merge-methyl-matrices.R" \
     --output_dir "$OUTPUT_DIR" \
     --output_prefix "$OUTPUT_PREFIX"
+
+printf "\nStart segmentation and CNV calling...\n\n"
+
+run_cnv () {
+    local DIR=$1
+    local LABEL=$2
+    local ARRAY_TYPE=$3
+
+    if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
+        echo "Running segmentation for $LABEL"
+
+        Rscript --vanilla "$SCRIPT_DIR/scripts/03-cnv-calls.R" \
+            --base_dir "$DIR" \
+            --manifest_file "$MANIFEST_FILE" \
+            --n_cores "$N_CORES" \
+            --output_basename "$OUT_BASE/$LABEL" \
+            --array_type "$ARRAY_TYPE"
+    else
+        echo "Skipping segmentation for $LABEL (missing or empty)"
+    fi
+}
+
+# ---- Run CNV step for each array ----
+# run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPICv2" "EPICv2" "EPICv2" # no normals yet
+run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPIC" "EPICv1" "EPIC"
+run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylation450k" "450k" "450"

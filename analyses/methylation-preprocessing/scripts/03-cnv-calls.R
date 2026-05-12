@@ -39,7 +39,7 @@ option_list <- list(
               'Bioassay_ID' columns"),
   make_option(opt_str = "--n_cores", type = 'integer',
               default=1, help="number of cores for parallelisation of minfi::detectionP. Default is 1"),
-  make_option(opt_str = "--array type", type = 'integer',
+  make_option(opt_str = "--array_type", type = 'character',
               default="EPIC", help="short form array type, either EPIC, EPICv2 or 450k")
 )
 
@@ -51,13 +51,13 @@ manifest_file <- opt$manifest_file
 n_cores <- opt$n_cores
 out_base <- opt$output_basename
 array_type <- opt$array_type
+#for local testing
+#base_dir <- 'sorted_idats_output_dir/IlluminaHumanMethylation450k'
+#n_cores <- 4
+#manifest_file <- 'controls_and_dicer_manifest.tsv'
+#out_base <- 'test-out/450k'
+#array_type <- '450'
 
-
-base_dir <- 'sorted_idats_output_dir/IlluminaHumanMethylationEPIC'
-n_cores <- 4
-manifest_file <- 'controls_and_dicer_manifest.tsv'
-out_base <- 'test-out/'
-array_type <- 'EPIC'
 dataset <- basename(base_dir)
 
 # read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
@@ -109,7 +109,7 @@ if (array_type == "EPICv2") {
   anno <- CNV.create_anno(
     array_type = "EPIC"
   )
-} else if (array_type %in% c("450k", "HM450")) {
+} else if (array_type %in% c("450k", "HM450", "450")) {
   message("Creating annotation for 450k (hg19)")
   anno <- CNV.create_anno(
     array_type = "450k"
