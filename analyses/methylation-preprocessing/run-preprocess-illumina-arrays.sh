@@ -7,9 +7,9 @@ set -o pipefail
 # This script should always run as if it were being called from
 # the directory it lives in.
 
-#printf 'Sorting array types \n\n'
+printf 'Sorting array types \n\n'
 
-#Rscript --vanilla scripts/00-unzip-and-sort.R --base_dir input-test --manifest_file controls_and_dicer_manifest.tsv --output_basename sorted_idats
+Rscript --vanilla scripts/00-unzip-and-sort.R --base_dir input-test --manifest_file controls_and_dicer_manifest.tsv --output_basename sorted_idats
 
 printf "Start methylation pre-processing...\n\n"
 
@@ -26,7 +26,7 @@ run_preprocess () {
     local DIR=$1
     local LABEL=$2
 
-    if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
+if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
         echo "Processing $LABEL"
 
         Rscript scripts/01-preprocess-illumina-arrays.R \
@@ -44,3 +44,30 @@ run_preprocess () {
 run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2"
 run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylationEPIC" "EPICv1"
 run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylation450k" "450k"
+
+
+printf "\nStart segmentation and CNV calling...\n\n"
+
+run_cnv () {
+    local DIR=$1
+    local LABEL=$2
+    local ARRAY_TYPE=$3
+
+    if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
+        echo "Running segmentation for $LABEL"
+
+        Rscript --vanilla scripts/03-cnv-calls.R \
+            --base_dir "$DIR" \
+            --manifest_file "$MANIFEST_FILE" \
+            --n_cores "$N_CORES" \
+            --output_basename "$OUT_BASE/$LABEL" \
+            --array_type "$ARRAY_TYPE"
+    else
+        echo "Skipping segmentation for $LABEL (missing or empty)"
+    fi
+}
+
+# ---- Run CNV step for each array ----
+#run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2" "EPICv2" #dont have normals for this one yet
+run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPIC"   "EPICv1" "EPIC"
+run_cnv "sorted_idats_output_dir/IlluminaHumanMethylation450k"   "450k"   "450"
