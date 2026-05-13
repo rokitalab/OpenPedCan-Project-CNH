@@ -18,9 +18,10 @@ MANIFEST_FILE="controls_and_dicer_manifest.tsv"
 N_CORES=4
 FUNNORM=TRUE
 SNP_FILTER=TRUE
-OUT_BASE="test-out"
+OUT_DIR='test-out'
+OUT_BASE="$OUT_DIR/test"
 
-mkdir -p $OUT_BASE
+mkdir -p $OUT_DIR
 
 run_preprocess () {
     local DIR=$1
@@ -35,7 +36,7 @@ run_preprocess () {
             --snp_filter "$SNP_FILTER" \
             --manifest_file "$MANIFEST_FILE" \
             --n_cores "$N_CORES" \
-            --output_basename "$OUT_BASE/$LABEL"
+            --output_basename "$OUT_BASE"
     else
         echo "Skipping $LABEL (missing or empty)"
     fi
