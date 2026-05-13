@@ -43,7 +43,7 @@ if (any(grepl("450k", files, ignore.case = TRUE))) {
   array_types <- c(array_types, "450k")
 }
 
-detP_epicv2_fn <- file.path(out_dir, "EPICv2-IlluminaHumanMethylationEPICv2-methyl-p-values.parquet")
+detP_epicv2_fn <- file.path(out_dir, "test-IlluminaHumanMethylationEPICv2-methyl-p-values.parquet")
 
 detP <- open_dataset(detP_epicv2_fn)
 
