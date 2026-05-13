@@ -292,6 +292,8 @@ colnames(detP) <- dplyr::recode(
   colnames(detP),
   !!!setNames(man_df$Bioassay_ID, man_df$file_name)
 )
+
+write_parquet(detP, p_value_file)
 # Free memory
 rm(detP, beta_values_masked)
 gc()
