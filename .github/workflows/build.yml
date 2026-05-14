@@ -11,7 +11,7 @@ jobs:
     name: Build Only
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2 #v6.0.2
 
       - name: Free disk space (pre-build)
         run: |
@@ -28,11 +28,11 @@ jobs:
           echo "Disk usage after cleanup:" && df -h
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd #v4.0.0
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf
+        uses: docker/metadata-action@030e881283bb7a6894de51c315a6bfe6a94e05cf #v6.0.0
         with:
           images: pgc-images.sbgenomics.com/rokita-lab/openpedcanverse
           tags: |
@@ -42,14 +42,14 @@ jobs:
             type=raw,value=analysisjob,enable={{is_default_branch}}
 
       - name: Login to CAVATICA Docker registry
-        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 #v4.1.0
         with:
           registry: pgc-images.sbgenomics.com
           username: ${{ secrets.CAVATICA_USERNAME }}
           password: ${{ secrets.CAVATICA_TOKEN }}
 
       - name: Build
-        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f #v7.1.0
         with:
           context: .
           push: false
