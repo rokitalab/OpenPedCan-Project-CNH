@@ -19,7 +19,7 @@ jobs:
     # We want to count the contributions to the dev branch
     steps:
       - name: Checkout code
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2 #v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
         with:
           ref: "dev"
           fetch-depth: 0
