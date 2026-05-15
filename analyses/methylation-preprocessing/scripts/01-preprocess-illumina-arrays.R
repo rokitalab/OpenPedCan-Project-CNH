@@ -13,6 +13,9 @@ suppressPackageStartupMessages(library(arrow))
 suppressWarnings(
   suppressPackageStartupMessages(library(minfi))
 )
+suppressWarnings(
+  suppressPackageStartupMessages(library(tibble))
+)
 
 # Magrittr pipe
 `%>%` <- dplyr::`%>%`
@@ -64,12 +67,12 @@ n_cores <- opt$n_cores
 out_base <- opt$output_basename
 
 
-#base_dir <- 'sorted_idats_output_dir/IlluminaHumanMethylationEPIC'
+#base_dir <- 'sorted_idats_output_dir/IlluminaHumanMethylationEPICv2'
 #snp_filter <- TRUE
 #use_funnorm <- TRUE
 #manifest_file <- 'controls_and_dicer_manifest.tsv'
 #n_cores <- 4 
-#out_base <- 'test-out/'
+#out_base <- 'test-out/EPICv2'
 
 
 # read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
@@ -240,17 +243,10 @@ message("Extracting m values")
 # extract m values (compute once, use for both masked and unmasked)
 m_values <- minfi::getM(GRset)
 
-# Create unmasked version
-m_values_unmasked <- m_values %>% as.data.frame() %>%
-  tibble::rownames_to_column("Probe_ID")
+m_values_unmasked <- m_values %>%
+  as_tibble(rownames = "ProbeID") %>%
+  rename_with(~ recode(.x, !!!setNames(man_df$Bioassay_ID, man_df$file_name)))
 
-m_values_unmasked <- data.table::setnames(m_values_unmasked, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
-
-# write output file
-
-if (!is.data.frame(m_values_unmasked)) {
-  m_values_masked <- as.data.frame(m_values_unmasked)
-}
 write_parquet(m_values_unmasked, m_value_file)
 #qs_save(m_value_unmasked, m_value_file)
 
@@ -262,21 +258,16 @@ gc()
 
 # Create masked version from the same m_values matrix
 m_values[detP > 0.05] <- NA
-m_value_masked <- m_values %>% as.data.frame() %>%
-  tibble::rownames_to_column("Probe_ID")
 
-m_value_masked <- data.table::setnames(m_value_masked, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
+m_values_masked <- m_values %>%
+  as_tibble(rownames = "ProbeID") %>%
+  rename_with(~ recode(.x, !!!setNames(man_df$Bioassay_ID, man_df$file_name)))
 
-# write output file
-if (!is.data.frame(m_value_masked)) {
-  m_value_masked <- as.data.frame(m_value_masked)
-}
-write_parquet(m_value_masked, m_value_file_masked)
-
+write_parquet(m_values_masked, m_value_file_masked)
 #qs_save(m_value_masked, m_value_file_masked)
 
 # Free memory
-rm(m_values, m_value_masked)
+rm(m_values, m_values_masked)
 gc()
 
 message("Extracting beta-values")
@@ -284,41 +275,39 @@ message("Extracting beta-values")
 # Extract beta values and apply masking
 beta_values <- minfi::getBeta(GRset)
 beta_values[detP > 0.05] <- NA
-beta_values_masked <- beta_values %>% as.data.frame() %>%
-  tibble::rownames_to_column("Probe_ID")
 
+beta_values_masked <- beta_values %>%
+  as_tibble(rownames = "ProbeID") %>%
+  rename_with(~ recode(.x, !!!setNames(man_df$Bioassay_ID, man_df$file_name)))
 # Free beta_values matrix
 rm(beta_values)
 gc()
-
-beta_values_masked <- data.table::setnames(beta_values_masked, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
-
-# write output file
-if (!is.data.frame(beta_values_masked)) {
-  beta_values_masked <- as.data.frame(beta_values_masked)
-}
 write_parquet(beta_values_masked, beta_value_file)
 #qs_save(beta_values_masked, beta_value_file)
 
-if (!is.data.frame(detP)) {
-  detP <- as.data.frame(detP)
-}
-detP <- data.table::setnames(detP, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
-# write output file
+# ensure tibble
+detP <- as_tibble(detP, rownames = "ProbeID")
+# rename columns
+colnames(detP) <- dplyr::recode(
+  colnames(detP),
+  !!!setNames(man_df$Bioassay_ID, man_df$file_name)
+)
 
 write_parquet(detP, p_value_file)
-
 # Free memory
 rm(detP, beta_values_masked)
 gc()
 
 message("Extracting copy number values")
-cn_value <- GRset %>% minfi::getCN() %>% as.data.frame() #%>% #keep as tibble if saving as qs2 ? 
-  #tibble::rownames_to_column("Probe_ID")
-if (!is.data.frame(cn_value)) {
-  cn_value <- as.data.frame(cn_value)
-}
-cn_value <- data.table::setnames(cn_value, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
+cn_value <- GRset %>% minfi::getCN() 
+# ensure tibble
+cn_value <- as_tibble(cn_value, rownames = "ProbeID")
+# rename columns
+colnames(cn_value) <- dplyr::recode(
+  colnames(cn_value),
+  !!!setNames(man_df$Bioassay_ID, man_df$file_name)
+)
+
 
 # write output file
 
