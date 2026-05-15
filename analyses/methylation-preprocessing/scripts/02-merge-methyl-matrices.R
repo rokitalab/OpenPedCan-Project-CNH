@@ -263,7 +263,7 @@ if (all(c("EPICv1", "EPICv2", "450k") %in% array_types)) {
     # --- Output filename ---
     out_fn <- file.path(
       out_dir,
-      paste0(out_pref, "IlluminaHumanMethylationEPICv1-EPICv2-450k-methyl-", data_type, ".parquet")
+      paste0(out_pref, "-IlluminaHumanMethylationEPICv1-EPICv2-450k-methyl-", data_type, ".parquet")
     )
     # --- Save ---
     write_parquet(combined_df, out_fn)
@@ -381,7 +381,7 @@ if (all(c("EPICv1", "450k") %in% array_types) &&
     # --- Output filename ---
     out_fn <- file.path(
       out_dir,
-      paste0(out_pref, "IlluminaHumanMethylationEPICv1-450k-methyl-", data_type, ".parquet")
+      paste0(out_pref, "-IlluminaHumanMethylationEPICv1-450k-methyl-", data_type, ".parquet")
     )
     
     # --- Save ---
@@ -495,7 +495,7 @@ if (all(c("EPICv2", "450k") %in% array_types) &&
     # --- Output filename ---
     out_fn <- file.path(
       out_dir,
-      paste0(out_pref, "IlluminaHumanMethylationEPICv2-450k-methyl-", data_type, ".parquet")
+      paste0(out_pref, "-IlluminaHumanMethylationEPICv2-450k-methyl-", data_type, ".parquet")
     )
     
     # --- Save ---
