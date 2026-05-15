@@ -26,6 +26,7 @@ out_pref <- opt$output_prefix
 #define the data types - these will be looped through later
 data_types <- c('beta-values-masked', 'm-values-masked', 'm-values-unmasked', 'cn-values')
 
+
 #find out what array types are present - use the files in the output directory
 files <- list.files(out_dir, full.names = FALSE)
 array_types <- character()
@@ -58,26 +59,43 @@ if ("EPICv2" %in% array_types) {
     paste0(out_pref, "-IlluminaHumanMethylationEPICv2-methyl-p-values.parquet")
   )
   detP <- open_dataset(detP_epicv2_fn)
-  # --- Identify assay columns ---
-  cols <- setdiff(colnames(detP), "ProbeID")
-  # --- Collect only required data ---
-  detP_df <- detP %>%
-    select(ProbeID, all_of(cols)) %>%
+  #only want to calculate means on duplicate sites - saves memory
+  dup_bases <- detP %>%
+    select(ProbeID) %>%
+    mutate(Probe_base = sub("_.*$", "", ProbeID)) %>%
+    group_by(Probe_base) %>%
+    summarise(n = n(), .groups = "drop") %>%
+    filter(n > 1) %>%
+    collect() %>%
+    pull(Probe_base)
+  detP_sub <- detP %>%
+    mutate(Probe_base = sub("_.*$", "", ProbeID)) %>%
+    filter(Probe_base %in% dup_bases)
+  
+  cols <- setdiff(colnames(detP_sub), c("ProbeID", "Probe_base"))
+  
+  detP_df <- detP_sub %>%
+    select(ProbeID, Probe_base, all_of(cols)) %>%
     collect()
-  # --- Compute mean detection p-values (row-wise) ---
+  
   detP_df$detP_mean <- rowMeans(detP_df[, cols], na.rm = TRUE)
-  # Optional but recommended: drop wide columns to save memory
   detP_df[, cols] <- NULL
   
-  # --- Select best probe per Probe_base ---
-  epicv2unique <- detP_df %>%
-    mutate(
-      Probe_base = sub("_.*$", "", ProbeID)
-    ) %>%
-    select(ProbeID, Probe_base, detP_mean) %>%
+  
+  epicv2_dups_best <- detP_df %>%
     group_by(Probe_base) %>%
-    slice_min(order_by = detP_mean, n = 1, with_ties = FALSE) %>%
+    slice_min(detP_mean, n = 1, with_ties = FALSE) %>%
     ungroup()
+  
+  non_dup <- detP %>%
+    select(ProbeID) %>%
+    mutate(Probe_base = sub("_.*$", "", ProbeID)) %>%
+    filter(!Probe_base %in% dup_bases) %>%
+    collect()
+  epicv2unique <- bind_rows(
+    epicv2_dups_best,
+    non_dup
+  )
   rm(detP, detP_df)
   gc()
 } else {
