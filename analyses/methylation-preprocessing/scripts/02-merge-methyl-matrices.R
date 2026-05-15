@@ -17,10 +17,11 @@ option_list <- list(
               metavar = "character"),
   make_option(opt_str = "--output_prefix", type = "character", default = NULL,
               help = "output file prefix",
-              metavar = "character"),
+              metavar = "character")
 )
-
-
+opt <- parse_args(OptionParser(option_list = option_list))
+out_dir <- opt$output_dir
+out_pref <- opt$output_prefix
 
 #define the data types - these will be looped through later
 data_types <- c('beta-values-masked', 'm-values-masked', 'm-values-unmasked', 'cn-values')
