@@ -138,7 +138,6 @@ RUN apt-get -y --no-install-recommends install \
 # Standalone tools and libraries
 ################################
 
-
 # Required for mapping segments to genes
 # Add bedtools
 RUN wget https://github.com/arq5x/bedtools2/releases/download/v2.28.0/bedtools-2.28.0.tar.gz && \
@@ -326,7 +325,7 @@ RUN mkdir /mcr-install-v83 && \
     rm -rf mcr-install-v83
 
 WORKDIR /home/rstudio/
-# GISTIC installation -- THIS DID NOT WORK LOCALLY (jdaggett, may 2026)
+# GISTIC installation
 RUN mkdir -p gistic_install && \
     cd gistic_install && \
     #wget -q ftp://ftp.broadinstitute.org/pub/GISTIC2.0/GISTIC_2_0_23.tar.gz && \
@@ -348,11 +347,6 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 # Install Desal latest release (v2.1.1)- converter for JSON, TOML, YAML, XML and CSV data formats
 RUN sudo wget -qO /usr/local/bin/dasel "https://github.com/TomWright/dasel/releases/download/v2.1.1/dasel_linux_amd64" && \
     sudo chmod a+x /usr/local/bin/dasel
-
-
-
-
-
 
 # Reset the frontend variable for interactive
 ENV DEBIAN_FRONTEND=
