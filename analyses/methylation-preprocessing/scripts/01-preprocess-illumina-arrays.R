@@ -299,12 +299,15 @@ rm(detP, beta_values_masked)
 gc()
 
 message("Extracting copy number values")
-cn_value <- GRset %>% minfi::getCN() %>% as.data.frame() #%>% #keep as tibble if saving as qs2 ? 
-  #tibble::rownames_to_column("Probe_ID")
-if (!is.data.frame(cn_value)) {
-  cn_value <- as.data.frame(cn_value)
-}
-cn_value <- data.table::setnames(cn_value, man_df$file_name, man_df$Bioassay_ID, skip_absent = TRUE)
+cn_value <- GRset %>% minfi::getCN() 
+# ensure tibble
+cn_value <- as_tibble(cn_value, rownames = "ProbeID")
+# rename columns
+colnames(cn_value) <- dplyr::recode(
+  colnames(cn_value),
+  !!!setNames(man_df$Bioassay_ID, man_df$file_name)
+)
+
 
 # write output file
 
