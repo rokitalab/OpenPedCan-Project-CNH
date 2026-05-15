@@ -4,9 +4,10 @@
 # Jessica Daggett
 # 05/12/2026
 
-#you are very close with this - just need to update file naming conventions and add lines to 
-#remove memory heavy objects that you do not need as you go. 
-
+suppressPackageStartupMessages(library(optparse))
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(arrow))
 
 
 # set up optparse options
@@ -19,18 +20,12 @@ option_list <- list(
               metavar = "character"),
 )
 
-# establish base dir
-#root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
-
-out_dir <- 'test-out'
-out_pref <- 'test'
 
 
 #define the data types - these will be looped through later
 data_types <- c('beta-values-masked', 'm-values-masked', 'm-values-unmasked', 'cn-values')
 
-
-#find out what array types are present - gets files
+#find out what array types are present - use the files in the output directory
 files <- list.files(out_dir, full.names = FALSE)
 array_types <- character()
 
@@ -47,8 +42,15 @@ if (
 if (any(grepl("450k", files, ignore.case = TRUE))) {
   array_types <- c(array_types, "450k")
 }
+message("Array types: ", paste(array_types, collapse = ", "))
 
+#this block gets the unique cpg sites from the v2 file first using mean p value (from detP)
+#the tie breaker for this is alphabetical order
+#v2 probes have some 'duplicate' probes that refer to same cpg site. 
+#they look like cgXXXXXXX_TC21 - remove everything after _ to get probe base 
+#probe base can then be used to intersect with other array types
 if ("EPICv2" %in% array_types) {
+  message('converting EPICv2 probe names to match other array types...\n')
   # --- Load detP parquet ---
   detP_epicv2_fn <- file.path(
     out_dir,
@@ -77,11 +79,13 @@ if ("EPICv2" %in% array_types) {
     ungroup()
   rm(detP, detP_df)
   gc()
+} else {
+  message("EPICv2 not in array types \n")
 }
 
-#start with one dataset - try 
+#this block gets probes common to v1 and v2 if both array types are present
 if (all(c("EPICv1", "EPICv2") %in% array_types)) {
-  
+  message('finding common probes for EPICv1 and EPICv2 \n')
   # --- File paths ---
   epicv1_vals_fn <- file.path(
     out_dir,
@@ -113,11 +117,13 @@ if (all(c("EPICv1", "EPICv2") %in% array_types)) {
   stopifnot(length(common_probes) == nrow(epicv2_overlap))
   rm(epicv1_vals, v1_probes)
   gc()
-}
+} else {message("either EPICv1 or EPICv2 absent from dataset, skipping...\n")}
 
 
-##to combine EPICv1 and EPICv2
+##this block loops through the data types if v1 and v2 are present, filters for probes in common probes, then combines arrays and saves file 
+#all large files are removed after the end of each block
 if (all(c("EPICv1", "EPICv2") %in% array_types)) {
+  message('combining EPICv1 and EPICv2 data \n')
   for (data_type in data_types) {
     message("Processing: ", data_type)
     
@@ -177,9 +183,9 @@ if (all(c("EPICv1", "EPICv2") %in% array_types)) {
   }
 }
 
-# Add 450k restriction using existing common_probes
+# This block uses common probes already determined from EPICv1 and EPICv2, and finds which are also common to 450k
 if (all(c("EPICv1", "EPICv2", "450k") %in% array_types)) {
-  
+  message('finding common probes for EPICv1, EPICv2, and 450k \n')
   # --- File path ---
   k450_vals_fn <- file.path(
     out_dir,
@@ -199,11 +205,11 @@ if (all(c("EPICv1", "EPICv2", "450k") %in% array_types)) {
   message("Shared probes across EPICv1 + EPICv2 + 450k: ", length(common_probes))
   rm(k450_vals, k450_probes)
   gc()
-}
+} else{message('all 3 array types not present, skipping... \n')}
 
-## to combine (EPICv1 + EPICv2) with 450k
+## this block combines the joint epicv1 and v2 file to the common probes from 450k
 if (all(c("EPICv1", "EPICv2", "450k") %in% array_types)) {
-  
+  message('combining EPICv1, EPICv2, and 450k data \n')
   for (data_type in data_types) {
     
     message("Processing: ", data_type)
@@ -266,8 +272,9 @@ if (all(c("EPICv1", "EPICv2", "450k") %in% array_types)) {
   }
 }
 
+#next two blocks are for if only v1 and 450k present
 if (all(c("EPICv1", "450k") %in% array_types) && !("EPICv2" %in% array_types)) 
-  {
+  {message('finding EPICv1 and 450k common probes \n')
   
   # --- File paths ---
   epicv1_vals_fn <- file.path(
@@ -321,10 +328,10 @@ if (all(c("EPICv1", "450k") %in% array_types) && !("EPICv2" %in% array_types))
   stopifnot(length(common_probes) == k450_n)
 }
 
-## to combine EPICv1 and 450k
+## combines v1 and 450k files
 if (all(c("EPICv1", "450k") %in% array_types) &&
     !("EPICv2" %in% array_types)) 
-  {
+  {message('combining EPICv1 and 450k datasets \n')
   for (data_type in data_types) {
     message("Processing: ", data_type)
     
@@ -385,10 +392,11 @@ if (all(c("EPICv1", "450k") %in% array_types) &&
   }
 }
 
+# same as above but for v2 and 450k 
 # EPICv2 + 450k (no EPICv1)
 if (all(c("EPICv2", "450k") %in% array_types) &&
     !("EPICv1" %in% array_types)) 
-    {
+    {message('finding EPICv2 and 450k common probes \n')
   
   # --- File paths ---
   k450_vals_fn <- file.path(
@@ -428,7 +436,7 @@ if (all(c("EPICv2", "450k") %in% array_types) &&
 }
 
 
-## to combine EPICv2 and 450k
+## to combine EPICv2 and 450k files
 if (all(c("EPICv2", "450k") %in% array_types) &&
     !("EPICv1" %in% array_types)) 
   {
