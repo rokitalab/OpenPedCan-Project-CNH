@@ -78,3 +78,5 @@ run_cnv () {
 #run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2" "EPICv2" #dont have normals for this one yet
 run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPIC"   "EPICv1" "EPIC"
 run_cnv "sorted_idats_output_dir/IlluminaHumanMethylation450k"   "450k"   "450"
+
+Rscript scripts/04-convert-to-qs2.R --output_dir $OUT_DIR --output_prefix $OUT_PREF --manifest $MANIFEST_FILE
