@@ -1,137 +1,157 @@
-external_patient_id	external_sample_id	external_aliquot_id	sample_type	composition	file_name	file_format	file_size	file_hash_type	file_hash_value	sequencing_center	platform	experimental_strategy	primary_site	FFPE	Bioassay_ID	PI_name	project	sub_cohort	organism	tumor_descriptor	cohort
-RR729	RR729_T001		Tumor	Solid Tissue	200078650182_R02C02_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_06449BXF	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR729	RR729_T001		Tumor	Solid Tissue	200078650182_R02C02_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_06449BXF	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR709	RR709_T001		Tumor	Solid Tissue	207709860093_R08C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_02GJK4FY	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR709	RR709_T001		Tumor	Solid Tissue	207709860093_R08C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_02GJK4FY	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR677	RR677_T001		Tumor	Solid Tissue	208009790072_R04C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_VEFYF3KD	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR677	RR677_T001		Tumor	Solid Tissue	208009790072_R04C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_VEFYF3KD	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR775	RR775_T001		Tumor	Solid Tissue	208009790073_R01C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_WY3T6DSV	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR775	RR775_T001		Tumor	Solid Tissue	208009790073_R01C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_WY3T6DSV	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR551	RR551_T001		Tumor	Solid Tissue	208144140103_R03C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_Y1RGREEX	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR551	RR551_T001		Tumor	Solid Tissue	208144140103_R03C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_Y1RGREEX	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR679	RR679_T001		Tumor	Solid Tissue	208144260134_R07C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_Z0W70TGT	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR679	RR679_T001		Tumor	Solid Tissue	208144260134_R07C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_Z0W70TGT	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR714	RR714_T001		Tumor	Solid Tissue	208234480029_R06C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_HGMFP46F	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR714	RR714_T001		Tumor	Solid Tissue	208234480029_R06C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_HGMFP46F	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR716	RR716_T001		Tumor	Solid Tissue	208340950014_R08C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_F5YTMV0X	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR716	RR716_T001		Tumor	Solid Tissue	208340950014_R08C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_F5YTMV0X	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR609	RR609_T001		Tumor	Solid Tissue	208340950041_R07C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_KMVYR0VA	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR609	RR609_T001		Tumor	Solid Tissue	208340950041_R07C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_KMVYR0VA	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR718	RR718_T001		Tumor	Solid Tissue	208340980102_R03C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_2AKS8G7F	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR718	RR718_T001		Tumor	Solid Tissue	208340980102_R03C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_2AKS8G7F	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR576	RR576_T001		Tumor	Solid Tissue	208375650108_R04C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_HASK3VA9	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR576	RR576_T001		Tumor	Solid Tissue	208375650108_R04C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_HASK3VA9	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR682	RR682_T001		Tumor	Solid Tissue	208375680097_R07C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_JDV6ZSYE	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR682	RR682_T001		Tumor	Solid Tissue	208375680097_R07C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_JDV6ZSYE	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR569	RR569_T001		Tumor	Solid Tissue	208418340065_R01C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_C6P2YRCN	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR569	RR569_T001		Tumor	Solid Tissue	208418340065_R01C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_C6P2YRCN	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR723	RR723_T001		Tumor	Solid Tissue	208596330050_R07C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_493BMZQS	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR723	RR723_T001		Tumor	Solid Tissue	208596330050_R07C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_493BMZQS	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR690	RR690_T001		Tumor	Solid Tissue	208824840082_R05C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_YTJ2J3H4	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR690	RR690_T001		Tumor	Solid Tissue	208824840082_R05C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_YTJ2J3H4	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR615	RR615_T001		Tumor	Solid Tissue	209340880006_R08C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_1RXHEWZD	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR615	RR615_T001		Tumor	Solid Tissue	209340880006_R08C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_1RXHEWZD	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR746	RR746_T001		Tumor	Solid Tissue	3998523076_R01C02_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_VA6QE1NJ	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR746	RR746_T001		Tumor	Solid Tissue	3998523076_R01C02_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_VA6QE1NJ	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR638	RR638_T001		Tumor	Solid Tissue	9969477031_R01C01_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_760VTM8N	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR638	RR638_T001		Tumor	Solid Tissue	9969477031_R01C01_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_760VTM8N	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR486	RR486_T001		Tumor	Solid Tissue	GSM1468973_5765301042_R05C01_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_PPPKF317	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR486	RR486_T001		Tumor	Solid Tissue	GSM1468973_5765301042_R05C01_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_PPPKF317	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR479	RR479_T001		Tumor	Solid Tissue	GSM2403686_7497398017_R06C02_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_TG00X168	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR479	RR479_T001		Tumor	Solid Tissue	GSM2403686_7497398017_R06C02_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_TG00X168	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR475	RR475_T001		Tumor	Solid Tissue	GSM2403798_9296930052_R06C01_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_B0CF1BG2	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR475	RR475_T001		Tumor	Solid Tissue	GSM2403798_9296930052_R06C01_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_B0CF1BG2	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR469	RR469_T001		Tumor	Solid Tissue	GSM2404430_9426021086_R01C02_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_KQ6S87YF	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR469	RR469_T001		Tumor	Solid Tissue	GSM2404430_9426021086_R01C02_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_KQ6S87YF	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR467	RR467_T001		Tumor	Solid Tissue	GSM2404540_9553932012_R04C02_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_Y8M876KA	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR467	RR467_T001		Tumor	Solid Tissue	GSM2404540_9553932012_R04C02_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_Y8M876KA	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR466	RR466_T001		Tumor	Solid Tissue	GSM2404566_9553932123_R05C02_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_D34938WV	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR466	RR466_T001		Tumor	Solid Tissue	GSM2404566_9553932123_R05C02_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_D34938WV	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR444	RR444_T001		Tumor	Solid Tissue	GSM2405633_3998568129_R04C02_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_846VGHG3	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR444	RR444_T001		Tumor	Solid Tissue	GSM2405633_3998568129_R04C02_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_846VGHG3	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR239	RR239		Tumor	Solid Tissue	203136010116_R07C01_Grn.idat	IDAT	13676236.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_QB2NHMR1	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR239	RR239		Tumor	Solid Tissue	203136010116_R07C01_Red.idat	IDAT	13676236.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_QB2NHMR1	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR279	RR279		Tumor	Solid Tissue	204305120005_R08C01_Grn.idat	IDAT	13677970.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_3AEYXEYY	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR279	RR279		Tumor	Solid Tissue	204305120005_R08C01_Red.idat	IDAT	13677970.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_3AEYXEYY	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR31	RR31		Tumor	Solid Tissue	206375080079_R04C01_Grn.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_6A2D3JWR	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR31	RR31		Tumor	Solid Tissue	206375080079_R04C01_Red.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_6A2D3JWR	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR32	RR32		Tumor	Solid Tissue	206375080079_R05C01_Grn.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_1ACVW5D3	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR32	RR32		Tumor	Solid Tissue	206375080079_R05C01_Red.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_1ACVW5D3	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR33	RR33		Tumor	Solid Tissue	206375080079_R06C01_Grn.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_N4XBP2R5	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR33	RR33		Tumor	Solid Tissue	206375080079_R06C01_Red.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_N4XBP2R5	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR36	RR36		Tumor	Solid Tissue	206382220080_R01C01_Grn.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_WCP6PY2Q	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR36	RR36		Tumor	Solid Tissue	206382220080_R01C01_Red.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_WCP6PY2Q	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR40	RR40		Tumor	Solid Tissue	206382220080_R04C01_Grn.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_GN9W1ED2	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR40	RR40		Tumor	Solid Tissue	206382220080_R04C01_Red.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_GN9W1ED2	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR10	RR10		Tumor	Solid Tissue	206699910168_R01C01_Grn.idat	IDAT	13677961.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_3Z3J0KPE	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR10	RR10		Tumor	Solid Tissue	206699910168_R01C01_Red.idat	IDAT	13677961.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_3Z3J0KPE	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR16	RR16		Tumor	Solid Tissue	206699910168_R05C01_Grn.idat	IDAT	13677960.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_YJKT65KP	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR16	RR16		Tumor	Solid Tissue	206699910168_R05C01_Red.idat	IDAT	13677960.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_YJKT65KP	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR18	RR18		Tumor	Solid Tissue	206699910168_R07C01_Grn.idat	IDAT	13677960.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_2MA83JDB	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR18	RR18		Tumor	Solid Tissue	206699910168_R07C01_Red.idat	IDAT	13677960.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_2MA83JDB	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR1	RR1		Tumor	Solid Tissue	206699910197_R06C01_Grn.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_4WX7DEG1	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR1	RR1		Tumor	Solid Tissue	206699910197_R06C01_Red.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_4WX7DEG1	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR3	RR3		Tumor	Solid Tissue	206699910197_R08C01_Grn.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_HC8PHH8D	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR3	RR3		Tumor	Solid Tissue	206699910197_R08C01_Red.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_HC8PHH8D	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR292	RR292		Tumor	Solid Tissue	207019360095_R02C01_Grn.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_SPZ6432C	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR292	RR292		Tumor	Solid Tissue	207019360095_R02C01_Red.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_SPZ6432C	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR5	RR5		Tumor	Solid Tissue	207019360139_R02C01_Grn.idat	IDAT	13677965.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_058W75F6	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR5	RR5		Tumor	Solid Tissue	207019360139_R02C01_Red.idat	IDAT	13677965.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_058W75F6	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR11	RR11		Tumor	Solid Tissue	207019360139_R07C01_Grn.idat	IDAT	13677965.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_KYJDHVGB	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR11	RR11		Tumor	Solid Tissue	207019360139_R07C01_Red.idat	IDAT	13677965.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_KYJDHVGB	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR20	RR20		Tumor	Solid Tissue	207019370071_R01C01_Grn.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_FPH35FPF	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR20	RR20		Tumor	Solid Tissue	207019370071_R01C01_Red.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_FPH35FPF	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR24	RR24		Tumor	Solid Tissue	207019370071_R05C01_Grn.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_KQHTQWCB	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR24	RR24		Tumor	Solid Tissue	207019370071_R05C01_Red.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_KQHTQWCB	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR295	RR295		Tumor	Solid Tissue	207278070147_R03C01_Grn.idat	IDAT	13687054.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_TSMMXP1J	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR295	RR295		Tumor	Solid Tissue	207278070147_R03C01_Red.idat	IDAT	13687054.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_TSMMXP1J	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR93	RR93		Tumor	Solid Tissue	207687900018_R07C01_Grn.idat	IDAT	13687044.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_TGH74A8V	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR93	RR93		Tumor	Solid Tissue	207687900018_R07C01_Red.idat	IDAT	13687044.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_TGH74A8V	Fonseca	RBT	RBT	Homo sapiens		RBT
-RR311	RR311_T001		Tumor	Solid Tissue	206095950069_R04C01_Grn.idat	IDAT					HumanMethylationEPIC	Methylation			BA_JBKZ1GR1	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR311	RR311_T001		Tumor	Solid Tissue	206095950069_R04C01_Red.idat	IDAT					HumanMethylationEPIC	Methylation			BA_JBKZ1GR1	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR549	RR549_T001		Tumor	Solid Tissue	207129590072_R02C01_Grn.idat	IDAT					HumanMethylationEPIC	Methylation			BA_CTT2ADCD	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR549	RR549_T001		Tumor	Solid Tissue	207129590072_R02C01_Red.idat	IDAT					HumanMethylationEPIC	Methylation			BA_CTT2ADCD	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR674	RR674_T001		Tumor	Solid Tissue	207361110124_R02C01_Grn.idat	IDAT					HumanMethylationEPIC	Methylation			BA_9X5C3XG6	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR674	RR674_T001		Tumor	Solid Tissue	207361110124_R02C01_Red.idat	IDAT					HumanMethylationEPIC	Methylation			BA_9X5C3XG6	Fonseca	RBT	NIH	Homo sapiens		RBT
-RR420	RR420_T001		Tumor	Solid Tissue	GSM3927495_202816900074_R05C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_KZ04VRTX	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR420	RR420_T001		Tumor	Solid Tissue	GSM3927495_202816900074_R05C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_KZ04VRTX	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR418	RR418_T001		Tumor	Solid Tissue	GSM4180495_201465910026_R05C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_HQHV09R7	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR418	RR418_T001		Tumor	Solid Tissue	GSM4180495_201465910026_R05C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_HQHV09R7	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR417	RR417_T001		Tumor	Solid Tissue	GSM4180501_201533480048_R03C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_CRD509QB	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR417	RR417_T001		Tumor	Solid Tissue	GSM4180501_201533480048_R03C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_CRD509QB	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR414	RR414_T001		Tumor	Solid Tissue	GSM4180773_200848860109_R06C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_49QE015F	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR414	RR414_T001		Tumor	Solid Tissue	GSM4180773_200848860109_R06C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_49QE015F	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR404	RR404_T001		Tumor	Solid Tissue	GSM4709789_202905570063_R02C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_BYP4SR0S	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR404	RR404_T001		Tumor	Solid Tissue	GSM4709789_202905570063_R02C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_BYP4SR0S	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR403	RR403_T001		Tumor	Solid Tissue	GSM4709790_202905570063_R03C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_NK3A7QPC	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR403	RR403_T001		Tumor	Solid Tissue	GSM4709790_202905570063_R03C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_NK3A7QPC	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR398	RR398_T001		Tumor	Solid Tissue	GSM4709797_202915470040_R03C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_DMV5R1D6	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR398	RR398_T001		Tumor	Solid Tissue	GSM4709797_202915470040_R03C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_DMV5R1D6	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR391	RR391_T001		Tumor	Solid Tissue	GSM4709807_202232290177_R08C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_FPTP137X	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-RR391	RR391_T001		Tumor	Solid Tissue	GSM4709807_202232290177_R08C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_FPTP137X	Fonseca	RBT	GSE215240	Homo sapiens		RBT
-single_pt	cer849		Normal		200627670055_R05C01_Grn.idat	IDAT	13686979.0	MD5	98e5c7dde743d065bda6c411597130f7	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_1J6R453E	Rood	Liquid Biopsy				EPN
-single_pt	cer849		Normal		200627670055_R05C01_Red.idat	IDAT	13686979.0	MD5	98f80f97c9542faa4e8de2cc1c849117	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_1J6R453E	Rood	Liquid Biopsy				EPN
-single_pt	cer855		Normal		200627670055_R06C01_Grn.idat	IDAT	13686979.0	MD5	c7dac3554db1152132c4fdc3bcbcc7e6	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_QWYEWSP5	Rood	Liquid Biopsy				EPN
-single_pt	cer855		Normal		200627670055_R06C01_Red.idat	IDAT	13686979.0	MD5	a5740a3b5b3b15e1b1c8c5042b90a080	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_QWYEWSP5	Rood	Liquid Biopsy				EPN
-single_pt	cer859		Normal		200627670055_R07C01_Grn.idat	IDAT	13686979.0	MD5	1e39d1eaf7d5eb44065f9fd308053408	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_PNH9TZY7	Rood	Liquid Biopsy				EPN
-single_pt	cer859		Normal		200627670055_R07C01_Red.idat	IDAT	13686979.0	MD5	44caee38926438ea90f4c4e0f68aad6d	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_PNH9TZY7	Rood	Liquid Biopsy				EPN
-single_pt	cer860		Normal		200627670037_R04C01_Grn.idat	IDAT	13686997.0	MD5	bd64518c07b9a7475547767b9c67800f	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_PH1KDKQ0	Rood	Liquid Biopsy				EPN
-single_pt	cer860		Normal		200627670037_R04C01_Red.idat	IDAT	13686997.0	MD5	f4677116f6ec2511151bd1c10fdf8912	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_PH1KDKQ0	Rood	Liquid Biopsy				EPN
-single_pt	cer865		Normal		200627670037_R05C01_Grn.idat	IDAT	13686994.0	MD5	e790d4648058f14aa0ebe4e07d175658	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_SD12X29J	Rood	Liquid Biopsy				EPN
-single_pt	cer865		Normal		200627670037_R05C01_Red.idat	IDAT	13686994.0	MD5	75335c151db4ef2d635ac8c6a2dc6168	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_SD12X29J	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_C_1		Normal		GSM3509330_7497398045_R01C01_Grn.idat.gz	IDAT	4250900.0	MD5	778b5f3968b2b23f1861320c237c409e	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_NGD7DP9E	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_C_1		Normal		GSM3509330_7497398045_R01C01_Red.idat.gz	IDAT	4328699.0	MD5	8be517f3aa26da669e44c73888fecb55	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_NGD7DP9E	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_C_2		Normal		GSM3509331_7497398045_R01C02_Grn.idat.gz	IDAT	4253046.0	MD5	56480209b7c1c421e3fb5baf76da246b	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_KM1JWMVJ	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_C_2		Normal		GSM3509331_7497398045_R01C02_Red.idat.gz	IDAT	4332630.0	MD5	e09d4204d4697353c23cb763ebc64e7b	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_KM1JWMVJ	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_C_3		Normal		GSM3509332_7497398045_R02C01_Grn.idat.gz	IDAT	4261290.0	MD5	42e7b9370d351adc87578eb5b0986f86	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_2KZMQYCF	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_C_3		Normal		GSM3509332_7497398045_R02C01_Red.idat.gz	IDAT	4335084.0	MD5	c4284969875b819ca8bba85b1e872fb0	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_2KZMQYCF	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_C_4		Normal		GSM3509333_7497398045_R02C02_Grn.idat.gz	IDAT	4272393.0	MD5	c8f94577039b9013556c76a0c931a1ea	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_SPZW7NVJ	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_C_4		Normal		GSM3509333_7497398045_R02C02_Red.idat.gz	IDAT	4347579.0	MD5	76e1bd121ea1d971a6555aa440982209	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_SPZW7NVJ	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_C_5		Normal		GSM3509334_7497398045_R03C01_Grn.idat.gz	IDAT	4272811.0	MD5	460a8cee432a4d806312be265e9b7fb1	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_ANENYEER	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_C_5		Normal		GSM3509334_7497398045_R03C01_Red.idat.gz	IDAT	4340809.0	MD5	784e08787ac5e72525f7fb4ce53d843d	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_ANENYEER	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_CF_3SB		Normal		GSM3509335_9426021190_R04C02_Grn.idat.gz	IDAT	4267439.0	MD5	5cff019dcb185d8bd11be442f247b1c3	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Frontal Cortex		BA_ER5SGMRJ	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_CF_3SB		Normal		GSM3509335_9426021190_R04C02_Red.idat.gz	IDAT	4311502.0	MD5	0212ef3f7f5e4909c5334828cd74db45	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Frontal Cortex		BA_ER5SGMRJ	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_CF_4SB		Normal		GSM3509336_9426021190_R06C01_Grn.idat.gz	IDAT	4276063.0	MD5	dd320051e8f3822e516f5d013793ee91	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Frontal Cortex		BA_4D97Z6RD	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_CF_4SB		Normal		GSM3509336_9426021190_R06C01_Red.idat.gz	IDAT	4321138.0	MD5	348e5738869368bb00f641ac2062c640	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Frontal Cortex		BA_4D97Z6RD	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_CF_5SB		Normal		GSM3509337_9426021190_R06C02_Grn.idat.gz	IDAT	4277980.0	MD5	87926e442a836bdad3dccb1fa2ffa4a2	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Frontal Cortex		BA_0ST0ZEB5	Rood	Liquid Biopsy				EPN
-single_pt	ctrl_CF_5SB		Normal		GSM3509337_9426021190_R06C02_Red.idat.gz	IDAT	4321953.0	MD5	e8fc0448777e28daa25b34ceda3d3473	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Frontal Cortex		BA_0ST0ZEB5	Rood	Liquid Biopsy				EPN
+external_patient_id	external_sample_id	external_aliquot_id	sample_type	composition	file_name	file_format	file_size	file_hash_type	file_hash_value	sequencing_center	platform	experimental_strategy	primary_site	FFPE	Bioassay_ID	PI_name	project	sub_cohort	organism	tumor_descriptor	cohort	host_organism
+RR729	RR729_T001		Tumor	Solid Tissue	200078650182_R02C02_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_06449BXF	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR729	RR729_T001		Tumor	Solid Tissue	200078650182_R02C02_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_06449BXF	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR709	RR709_T001		Tumor	Solid Tissue	207709860093_R08C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_02GJK4FY	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR709	RR709_T001		Tumor	Solid Tissue	207709860093_R08C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_02GJK4FY	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR677	RR677_T001		Tumor	Solid Tissue	208009790072_R04C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_VEFYF3KD	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR677	RR677_T001		Tumor	Solid Tissue	208009790072_R04C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_VEFYF3KD	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR775	RR775_T001		Tumor	Solid Tissue	208009790073_R01C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_WY3T6DSV	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR775	RR775_T001		Tumor	Solid Tissue	208009790073_R01C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_WY3T6DSV	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR551	RR551_T001		Tumor	Solid Tissue	208144140103_R03C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_Y1RGREEX	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR551	RR551_T001		Tumor	Solid Tissue	208144140103_R03C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_Y1RGREEX	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR679	RR679_T001		Tumor	Solid Tissue	208144260134_R07C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_Z0W70TGT	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR679	RR679_T001		Tumor	Solid Tissue	208144260134_R07C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_Z0W70TGT	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR714	RR714_T001		Tumor	Solid Tissue	208234480029_R06C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_HGMFP46F	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR714	RR714_T001		Tumor	Solid Tissue	208234480029_R06C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_HGMFP46F	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR716	RR716_T001		Tumor	Solid Tissue	208340950014_R08C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_F5YTMV0X	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR716	RR716_T001		Tumor	Solid Tissue	208340950014_R08C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_F5YTMV0X	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR609	RR609_T001		Tumor	Solid Tissue	208340950041_R07C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_KMVYR0VA	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR609	RR609_T001		Tumor	Solid Tissue	208340950041_R07C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_KMVYR0VA	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR718	RR718_T001		Tumor	Solid Tissue	208340980102_R03C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_2AKS8G7F	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR718	RR718_T001		Tumor	Solid Tissue	208340980102_R03C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_2AKS8G7F	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR576	RR576_T001		Tumor	Solid Tissue	208375650108_R04C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_HASK3VA9	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR576	RR576_T001		Tumor	Solid Tissue	208375650108_R04C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_HASK3VA9	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR682	RR682_T001		Tumor	Solid Tissue	208375680097_R07C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_JDV6ZSYE	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR682	RR682_T001		Tumor	Solid Tissue	208375680097_R07C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_JDV6ZSYE	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR569	RR569_T001		Tumor	Solid Tissue	208418340065_R01C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_C6P2YRCN	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR569	RR569_T001		Tumor	Solid Tissue	208418340065_R01C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_C6P2YRCN	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR723	RR723_T001		Tumor	Solid Tissue	208596330050_R07C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_493BMZQS	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR723	RR723_T001		Tumor	Solid Tissue	208596330050_R07C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_493BMZQS	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR690	RR690_T001		Tumor	Solid Tissue	208824840082_R05C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_YTJ2J3H4	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR690	RR690_T001		Tumor	Solid Tissue	208824840082_R05C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_YTJ2J3H4	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR615	RR615_T001		Tumor	Solid Tissue	209340880006_R08C01_Grn.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_1RXHEWZD	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR615	RR615_T001		Tumor	Solid Tissue	209340880006_R08C01_Red.idat	IDAT					HumanMethylationEPICv2	Methylation			BA_1RXHEWZD	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR746	RR746_T001		Tumor	Solid Tissue	3998523076_R01C02_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_VA6QE1NJ	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR746	RR746_T001		Tumor	Solid Tissue	3998523076_R01C02_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_VA6QE1NJ	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR638	RR638_T001		Tumor	Solid Tissue	9969477031_R01C01_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_760VTM8N	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR638	RR638_T001		Tumor	Solid Tissue	9969477031_R01C01_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_760VTM8N	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR486	RR486_T001		Tumor	Solid Tissue	GSM1468973_5765301042_R05C01_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_PPPKF317	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR486	RR486_T001		Tumor	Solid Tissue	GSM1468973_5765301042_R05C01_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_PPPKF317	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR479	RR479_T001		Tumor	Solid Tissue	GSM2403686_7497398017_R06C02_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_TG00X168	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR479	RR479_T001		Tumor	Solid Tissue	GSM2403686_7497398017_R06C02_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_TG00X168	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR475	RR475_T001		Tumor	Solid Tissue	GSM2403798_9296930052_R06C01_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_B0CF1BG2	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR475	RR475_T001		Tumor	Solid Tissue	GSM2403798_9296930052_R06C01_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_B0CF1BG2	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR469	RR469_T001		Tumor	Solid Tissue	GSM2404430_9426021086_R01C02_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_KQ6S87YF	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR469	RR469_T001		Tumor	Solid Tissue	GSM2404430_9426021086_R01C02_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_KQ6S87YF	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR467	RR467_T001		Tumor	Solid Tissue	GSM2404540_9553932012_R04C02_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_Y8M876KA	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR467	RR467_T001		Tumor	Solid Tissue	GSM2404540_9553932012_R04C02_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_Y8M876KA	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR466	RR466_T001		Tumor	Solid Tissue	GSM2404566_9553932123_R05C02_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_D34938WV	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR466	RR466_T001		Tumor	Solid Tissue	GSM2404566_9553932123_R05C02_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_D34938WV	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR444	RR444_T001		Tumor	Solid Tissue	GSM2405633_3998568129_R04C02_Grn.idat.gz	IDAT					HumanMethylation450	Methylation			BA_846VGHG3	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR444	RR444_T001		Tumor	Solid Tissue	GSM2405633_3998568129_R04C02_Red.idat.gz	IDAT					HumanMethylation450	Methylation			BA_846VGHG3	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR239	RR239		Tumor	Solid Tissue	203136010116_R07C01_Grn.idat	IDAT	13676236.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_QB2NHMR1	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR239	RR239		Tumor	Solid Tissue	203136010116_R07C01_Red.idat	IDAT	13676236.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_QB2NHMR1	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR279	RR279		Tumor	Solid Tissue	204305120005_R08C01_Grn.idat	IDAT	13677970.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_3AEYXEYY	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR279	RR279		Tumor	Solid Tissue	204305120005_R08C01_Red.idat	IDAT	13677970.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_3AEYXEYY	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR31	RR31		Tumor	Solid Tissue	206375080079_R04C01_Grn.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_6A2D3JWR	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR31	RR31		Tumor	Solid Tissue	206375080079_R04C01_Red.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_6A2D3JWR	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR32	RR32		Tumor	Solid Tissue	206375080079_R05C01_Grn.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_1ACVW5D3	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR32	RR32		Tumor	Solid Tissue	206375080079_R05C01_Red.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_1ACVW5D3	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR33	RR33		Tumor	Solid Tissue	206375080079_R06C01_Grn.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_N4XBP2R5	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR33	RR33		Tumor	Solid Tissue	206375080079_R06C01_Red.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_N4XBP2R5	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR36	RR36		Tumor	Solid Tissue	206382220080_R01C01_Grn.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_WCP6PY2Q	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR36	RR36		Tumor	Solid Tissue	206382220080_R01C01_Red.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_WCP6PY2Q	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR40	RR40		Tumor	Solid Tissue	206382220080_R04C01_Grn.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_GN9W1ED2	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR40	RR40		Tumor	Solid Tissue	206382220080_R04C01_Red.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_GN9W1ED2	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR10	RR10		Tumor	Solid Tissue	206699910168_R01C01_Grn.idat	IDAT	13677961.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_3Z3J0KPE	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR10	RR10		Tumor	Solid Tissue	206699910168_R01C01_Red.idat	IDAT	13677961.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_3Z3J0KPE	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR16	RR16		Tumor	Solid Tissue	206699910168_R05C01_Grn.idat	IDAT	13677960.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_YJKT65KP	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR16	RR16		Tumor	Solid Tissue	206699910168_R05C01_Red.idat	IDAT	13677960.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_YJKT65KP	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR18	RR18		Tumor	Solid Tissue	206699910168_R07C01_Grn.idat	IDAT	13677960.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_2MA83JDB	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR18	RR18		Tumor	Solid Tissue	206699910168_R07C01_Red.idat	IDAT	13677960.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_2MA83JDB	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR1	RR1		Tumor	Solid Tissue	206699910197_R06C01_Grn.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_4WX7DEG1	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR1	RR1		Tumor	Solid Tissue	206699910197_R06C01_Red.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_4WX7DEG1	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR3	RR3		Tumor	Solid Tissue	206699910197_R08C01_Grn.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_HC8PHH8D	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR3	RR3		Tumor	Solid Tissue	206699910197_R08C01_Red.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_HC8PHH8D	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR292	RR292		Tumor	Solid Tissue	207019360095_R02C01_Grn.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_SPZ6432C	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR292	RR292		Tumor	Solid Tissue	207019360095_R02C01_Red.idat	IDAT	13677980.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_SPZ6432C	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR5	RR5		Tumor	Solid Tissue	207019360139_R02C01_Grn.idat	IDAT	13677965.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_058W75F6	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR5	RR5		Tumor	Solid Tissue	207019360139_R02C01_Red.idat	IDAT	13677965.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_058W75F6	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR11	RR11		Tumor	Solid Tissue	207019360139_R07C01_Grn.idat	IDAT	13677965.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_KYJDHVGB	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR11	RR11		Tumor	Solid Tissue	207019360139_R07C01_Red.idat	IDAT	13677965.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_KYJDHVGB	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR20	RR20		Tumor	Solid Tissue	207019370071_R01C01_Grn.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_FPH35FPF	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR20	RR20		Tumor	Solid Tissue	207019370071_R01C01_Red.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_FPH35FPF	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR24	RR24		Tumor	Solid Tissue	207019370071_R05C01_Grn.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_KQHTQWCB	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR24	RR24		Tumor	Solid Tissue	207019370071_R05C01_Red.idat	IDAT	13677975.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_KQHTQWCB	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR295	RR295		Tumor	Solid Tissue	207278070147_R03C01_Grn.idat	IDAT	13687054.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_TSMMXP1J	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR295	RR295		Tumor	Solid Tissue	207278070147_R03C01_Red.idat	IDAT	13687054.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_TSMMXP1J	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR93	RR93		Tumor	Solid Tissue	207687900018_R07C01_Grn.idat	IDAT	13687044.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_TGH74A8V	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR93	RR93		Tumor	Solid Tissue	207687900018_R07C01_Red.idat	IDAT	13687044.0			NIH	HumanMethylationEPIC	Methylation		1.0	BA_TGH74A8V	Fonseca	RBT	RBT	Homo sapiens		RBT	
+RR311	RR311_T001		Tumor	Solid Tissue	206095950069_R04C01_Grn.idat	IDAT					HumanMethylationEPIC	Methylation			BA_JBKZ1GR1	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR311	RR311_T001		Tumor	Solid Tissue	206095950069_R04C01_Red.idat	IDAT					HumanMethylationEPIC	Methylation			BA_JBKZ1GR1	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR549	RR549_T001		Tumor	Solid Tissue	207129590072_R02C01_Grn.idat	IDAT					HumanMethylationEPIC	Methylation			BA_CTT2ADCD	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR549	RR549_T001		Tumor	Solid Tissue	207129590072_R02C01_Red.idat	IDAT					HumanMethylationEPIC	Methylation			BA_CTT2ADCD	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR674	RR674_T001		Tumor	Solid Tissue	207361110124_R02C01_Grn.idat	IDAT					HumanMethylationEPIC	Methylation			BA_9X5C3XG6	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR674	RR674_T001		Tumor	Solid Tissue	207361110124_R02C01_Red.idat	IDAT					HumanMethylationEPIC	Methylation			BA_9X5C3XG6	Fonseca	RBT	NIH	Homo sapiens		RBT	
+RR420	RR420_T001		Tumor	Solid Tissue	GSM3927495_202816900074_R05C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_KZ04VRTX	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR420	RR420_T001		Tumor	Solid Tissue	GSM3927495_202816900074_R05C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_KZ04VRTX	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR418	RR418_T001		Tumor	Solid Tissue	GSM4180495_201465910026_R05C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_HQHV09R7	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR418	RR418_T001		Tumor	Solid Tissue	GSM4180495_201465910026_R05C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_HQHV09R7	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR417	RR417_T001		Tumor	Solid Tissue	GSM4180501_201533480048_R03C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_CRD509QB	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR417	RR417_T001		Tumor	Solid Tissue	GSM4180501_201533480048_R03C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_CRD509QB	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR414	RR414_T001		Tumor	Solid Tissue	GSM4180773_200848860109_R06C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_49QE015F	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR414	RR414_T001		Tumor	Solid Tissue	GSM4180773_200848860109_R06C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_49QE015F	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR404	RR404_T001		Tumor	Solid Tissue	GSM4709789_202905570063_R02C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_BYP4SR0S	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR404	RR404_T001		Tumor	Solid Tissue	GSM4709789_202905570063_R02C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_BYP4SR0S	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR403	RR403_T001		Tumor	Solid Tissue	GSM4709790_202905570063_R03C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_NK3A7QPC	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR403	RR403_T001		Tumor	Solid Tissue	GSM4709790_202905570063_R03C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_NK3A7QPC	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR398	RR398_T001		Tumor	Solid Tissue	GSM4709797_202915470040_R03C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_DMV5R1D6	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR398	RR398_T001		Tumor	Solid Tissue	GSM4709797_202915470040_R03C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_DMV5R1D6	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR391	RR391_T001		Tumor	Solid Tissue	GSM4709807_202232290177_R08C01_Grn.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_FPTP137X	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+RR391	RR391_T001		Tumor	Solid Tissue	GSM4709807_202232290177_R08C01_Red.idat.gz	IDAT					HumanMethylationEPIC	Methylation			BA_FPTP137X	Fonseca	RBT	GSE215240	Homo sapiens		RBT	
+single_pt	cer849		Normal		200627670055_R05C01_Grn.idat	IDAT	13686979.0	MD5	98e5c7dde743d065bda6c411597130f7	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_1J6R453E	Rood	Liquid Biopsy				EPN	
+single_pt	cer849		Normal		200627670055_R05C01_Red.idat	IDAT	13686979.0	MD5	98f80f97c9542faa4e8de2cc1c849117	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_1J6R453E	Rood	Liquid Biopsy				EPN	
+single_pt	cer855		Normal		200627670055_R06C01_Grn.idat	IDAT	13686979.0	MD5	c7dac3554db1152132c4fdc3bcbcc7e6	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_QWYEWSP5	Rood	Liquid Biopsy				EPN	
+single_pt	cer855		Normal		200627670055_R06C01_Red.idat	IDAT	13686979.0	MD5	a5740a3b5b3b15e1b1c8c5042b90a080	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_QWYEWSP5	Rood	Liquid Biopsy				EPN	
+single_pt	cer859		Normal		200627670055_R07C01_Grn.idat	IDAT	13686979.0	MD5	1e39d1eaf7d5eb44065f9fd308053408	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_PNH9TZY7	Rood	Liquid Biopsy				EPN	
+single_pt	cer859		Normal		200627670055_R07C01_Red.idat	IDAT	13686979.0	MD5	44caee38926438ea90f4c4e0f68aad6d	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_PNH9TZY7	Rood	Liquid Biopsy				EPN	
+single_pt	cer860		Normal		200627670037_R04C01_Grn.idat	IDAT	13686997.0	MD5	bd64518c07b9a7475547767b9c67800f	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_PH1KDKQ0	Rood	Liquid Biopsy				EPN	
+single_pt	cer860		Normal		200627670037_R04C01_Red.idat	IDAT	13686997.0	MD5	f4677116f6ec2511151bd1c10fdf8912	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_PH1KDKQ0	Rood	Liquid Biopsy				EPN	
+single_pt	cer865		Normal		200627670037_R05C01_Grn.idat	IDAT	13686994.0	MD5	e790d4648058f14aa0ebe4e07d175658	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_SD12X29J	Rood	Liquid Biopsy				EPN	
+single_pt	cer865		Normal		200627670037_R05C01_Red.idat	IDAT	13686994.0	MD5	75335c151db4ef2d635ac8c6a2dc6168	CNMC	HumanMethylationEPIC	Methylation	Cerebellum		BA_SD12X29J	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_C_1		Normal		GSM3509330_7497398045_R01C01_Grn.idat.gz	IDAT	4250900.0	MD5	778b5f3968b2b23f1861320c237c409e	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_NGD7DP9E	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_C_1		Normal		GSM3509330_7497398045_R01C01_Red.idat.gz	IDAT	4328699.0	MD5	8be517f3aa26da669e44c73888fecb55	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_NGD7DP9E	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_C_2		Normal		GSM3509331_7497398045_R01C02_Grn.idat.gz	IDAT	4253046.0	MD5	56480209b7c1c421e3fb5baf76da246b	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_KM1JWMVJ	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_C_2		Normal		GSM3509331_7497398045_R01C02_Red.idat.gz	IDAT	4332630.0	MD5	e09d4204d4697353c23cb763ebc64e7b	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_KM1JWMVJ	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_C_3		Normal		GSM3509332_7497398045_R02C01_Grn.idat.gz	IDAT	4261290.0	MD5	42e7b9370d351adc87578eb5b0986f86	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_2KZMQYCF	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_C_3		Normal		GSM3509332_7497398045_R02C01_Red.idat.gz	IDAT	4335084.0	MD5	c4284969875b819ca8bba85b1e872fb0	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_2KZMQYCF	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_C_4		Normal		GSM3509333_7497398045_R02C02_Grn.idat.gz	IDAT	4272393.0	MD5	c8f94577039b9013556c76a0c931a1ea	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_SPZW7NVJ	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_C_4		Normal		GSM3509333_7497398045_R02C02_Red.idat.gz	IDAT	4347579.0	MD5	76e1bd121ea1d971a6555aa440982209	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_SPZW7NVJ	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_C_5		Normal		GSM3509334_7497398045_R03C01_Grn.idat.gz	IDAT	4272811.0	MD5	460a8cee432a4d806312be265e9b7fb1	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_ANENYEER	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_C_5		Normal		GSM3509334_7497398045_R03C01_Red.idat.gz	IDAT	4340809.0	MD5	784e08787ac5e72525f7fb4ce53d843d	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Corpus Callosum		BA_ANENYEER	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_CF_3SB		Normal		GSM3509335_9426021190_R04C02_Grn.idat.gz	IDAT	4267439.0	MD5	5cff019dcb185d8bd11be442f247b1c3	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Frontal Cortex		BA_ER5SGMRJ	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_CF_3SB		Normal		GSM3509335_9426021190_R04C02_Red.idat.gz	IDAT	4311502.0	MD5	0212ef3f7f5e4909c5334828cd74db45	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Frontal Cortex		BA_ER5SGMRJ	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_CF_4SB		Normal		GSM3509336_9426021190_R06C01_Grn.idat.gz	IDAT	4276063.0	MD5	dd320051e8f3822e516f5d013793ee91	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Frontal Cortex		BA_4D97Z6RD	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_CF_4SB		Normal		GSM3509336_9426021190_R06C01_Red.idat.gz	IDAT	4321138.0	MD5	348e5738869368bb00f641ac2062c640	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Frontal Cortex		BA_4D97Z6RD	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_CF_5SB		Normal		GSM3509337_9426021190_R06C02_Grn.idat.gz	IDAT	4277980.0	MD5	87926e442a836bdad3dccb1fa2ffa4a2	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Frontal Cortex		BA_0ST0ZEB5	Rood	Liquid Biopsy				EPN	
+single_pt	ctrl_CF_5SB		Normal		GSM3509337_9426021190_R06C02_Red.idat.gz	IDAT	4321953.0	MD5	e8fc0448777e28daa25b34ceda3d3473	GReD CNRS Clermont-Ferrand	HumanMethylation450	Methylation	Frontal Cortex		BA_0ST0ZEB5	Rood	Liquid Biopsy				EPN	
+CB_1	CB_1	N_001	Normal	Solid Tissue	GSM9038234_206522880069_R01C01_Grn.idat.gz	IDAT	7225303.0	MD5	8a18ab6b6a7bfe5c93a70d57c488a3b2		Illumina Infinium HumanMethylationEPIC	Methylation	Cerebellum	1.0	BA_YT0VN0J2	Fonseca	RBT		Homo sapiens			
+CB_1	CB_1	N_001	Normal	Solid Tissue	GSM9038234_206522880069_R01C01_Red.idat.gz	IDAT	7392691.0	MD5	4b72e12544f078ae84658373c7436721		Illumina Infinium HumanMethylationEPIC	Methylation	Cerebellum	1.0	BA_YT0VN0J2	Fonseca	RBT		Homo sapiens			
+CB_1	CB_1	N_002	Normal	Solid Tissue	GSM9038235_207071170092_R05C01_Grn.idat.gz	IDAT	7384278.0	MD5	03c990a602346988d266c1c7b2a125e7		Illumina Infinium HumanMethylationEPICv2	Methylation	Cerebellum	1.0	BA_4PBFZYXB	Fonseca	RBT		Homo sapiens			
+CB_1	CB_1	N_002	Normal	Solid Tissue	GSM9038235_207071170092_R05C01_Red.idat.gz	IDAT	7592255.0	MD5	cb39b69f8a0f47769c16c09fc4c9f250		Illumina Infinium HumanMethylationEPICv2	Methylation	Cerebellum	1.0	BA_4PBFZYXB	Fonseca	RBT		Homo sapiens			
+CB_2	CB_2	N_001	Normal	Solid Tissue	GSM9038236_206544450027_R01C01_Grn.idat.gz	IDAT	6780490.0	MD5	4e26f6391eda79d68df30df87fd2f5da		Illumina Infinium HumanMethylationEPIC	Methylation	Cerebellum	1.0	BA_T6HDQNK1	Fonseca	RBT		Homo sapiens			
+CB_2	CB_2	N_001	Normal	Solid Tissue	GSM9038236_206544450027_R01C01_Red.idat.gz	IDAT	7108403.0	MD5	9a74d20f8a3cbb86cd09680824b077bf		Illumina Infinium HumanMethylationEPIC	Methylation	Cerebellum	1.0	BA_T6HDQNK1	Fonseca	RBT		Homo sapiens			
+CB_2	CB_2	N_002	Normal	Solid Tissue	GSM9038237_207096530024_R04C01_Grn.idat.gz	IDAT	7229037.0	MD5	f7379271585495b5710e31aeb3161d0b		Illumina Infinium HumanMethylationEPICv2	Methylation	Cerebellum	1.0	BA_8SZDQ23R	Fonseca	RBT		Homo sapiens			
+CB_2	CB_2	N_002	Normal	Solid Tissue	GSM9038237_207096530024_R04C01_Red.idat.gz	IDAT	7492945.0	MD5	2f3e59824be414dcb53f4070ceb6b73e		Illumina Infinium HumanMethylationEPICv2	Methylation	Cerebellum	1.0	BA_8SZDQ23R	Fonseca	RBT		Homo sapiens			
+CB_3	CB_3	N_001	Normal	Solid Tissue	GSM9038238_206544450027_R02C01_Grn.idat.gz	IDAT	6742677.0	MD5	98e448c90490fee5cc4ffdb21e9a6213		Illumina Infinium HumanMethylationEPIC	Methylation	Cerebellum	1.0	BA_PFHJ2DBJ	Fonseca	RBT		Homo sapiens			
+CB_3	CB_3	N_001	Normal	Solid Tissue	GSM9038238_206544450027_R02C01_Red.idat.gz	IDAT	7062472.0	MD5	5db4e3966213985c46985306d3a8d5c4		Illumina Infinium HumanMethylationEPIC	Methylation	Cerebellum	1.0	BA_PFHJ2DBJ	Fonseca	RBT		Homo sapiens			
+CB_3	CB_3	N_002	Normal	Solid Tissue	GSM9038239_207096530024_R05C01_Grn.idat.gz	IDAT	7270685.0	MD5	3fda0451942168bb83a6542b980d33e7		Illumina Infinium HumanMethylationEPICv2	Methylation	Cerebellum	1.0	BA_GB3VSTF1	Fonseca	RBT		Homo sapiens			
+CB_3	CB_3	N_002	Normal	Solid Tissue	GSM9038239_207096530024_R05C01_Red.idat.gz	IDAT	7531643.0	MD5	9c91875268945d36f3c0ee358cde23d3		Illumina Infinium HumanMethylationEPICv2	Methylation	Cerebellum	1.0	BA_GB3VSTF1	Fonseca	RBT		Homo sapiens			
+CB_4	CB_4	N_001	Normal	Solid Tissue	GSM9038240_207558990048_R08C01_Grn.idat.gz	IDAT	7008098.0	MD5	fc9b4ecb22ddeb9407fd13aa4f75942d		Illumina Infinium HumanMethylationEPIC	Methylation	Cerebellum	1.0	BA_RW4KG4V6	Fonseca	RBT		Homo sapiens			
+CB_4	CB_4	N_001	Normal	Solid Tissue	GSM9038240_207558990048_R08C01_Red.idat.gz	IDAT	7237071.0	MD5	bc805a6f01fd5bb793457b9ca3912327		Illumina Infinium HumanMethylationEPIC	Methylation	Cerebellum	1.0	BA_RW4KG4V6	Fonseca	RBT		Homo sapiens			
+CB_4	CB_4	N_002	Normal	Solid Tissue	GSM9038241_208061540043_R03C01_Grn.idat.gz	IDAT	6756261.0	MD5	7b753589cf21487d20bf963a3d377022		Illumina Infinium HumanMethylationEPICv2	Methylation	Cerebellum	1.0	BA_G91VJA1V	Fonseca	RBT		Homo sapiens			
+CB_4	CB_4	N_002	Normal	Solid Tissue	GSM9038241_208061540043_R03C01_Red.idat.gz	IDAT	7014888.0	MD5	0df5aced522532f77ba48efee8a9db5a		Illumina Infinium HumanMethylationEPICv2	Methylation	Cerebellum	1.0	BA_G91VJA1V	Fonseca	RBT		Homo sapiens			
+CB_5	CB_5	N_002	Normal	Solid Tissue	GSM9038242_208061540043_R05C01_Grn.idat.gz	IDAT	6965463.0	MD5	37074ebac8874750f0e831fa650ade2e		Illumina Infinium HumanMethylationEPICv2	Methylation	Cerebellum	1.0	BA_Z049YQ12	Fonseca	RBT		Homo sapiens			
+CB_5	CB_5	N_002	Normal	Solid Tissue	GSM9038242_208061540043_R05C01_Red.idat.gz	IDAT	7123862.0	MD5	333905d3008900efc391b24757bc34f1		Illumina Infinium HumanMethylationEPICv2	Methylation	Cerebellum	1.0	BA_Z049YQ12	Fonseca	RBT		Homo sapiens			
+CB_6	CB_6	N_002	Normal	Solid Tissue	GSM9038243_208061540043_R01C01_Grn.idat.gz	IDAT	6860617.0	MD5	802e4d2d9838d5e51557975c22557e6c		Illumina Infinium HumanMethylationEPICv2	Methylation	Cerebellum	1.0	BA_Q2NW4GTN	Fonseca	RBT		Homo sapiens			
+CB_6	CB_6	N_002	Normal	Solid Tissue	GSM9038243_208061540043_R01C01_Red.idat.gz	IDAT	7079105.0	MD5	7d2cef2c0a60de178791eee82fb2510b		Illumina Infinium HumanMethylationEPICv2	Methylation	Cerebellum	1.0	BA_Q2NW4GTN	Fonseca	RBT		Homo sapiens			
