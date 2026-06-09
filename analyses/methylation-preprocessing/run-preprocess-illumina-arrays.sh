@@ -7,9 +7,9 @@ set -o pipefail
 # This script should always run as if it were being called from
 # the directory it lives in.
 
-#printf 'Sorting array types \n\n'
+printf 'Sorting array types \n\n'
 
-#Rscript --vanilla scripts/00-unzip-and-sort.R --base_dir input-test --manifest_file controls_and_dicer_manifest.tsv --output_basename sorted_idats
+Rscript --vanilla scripts/00-unzip-and-sort.R --base_dir input-test --manifest_file controls_and_dicer_manifest.tsv --output_basename sorted_idats
 
 printf "Start methylation pre-processing...\n\n"
 
