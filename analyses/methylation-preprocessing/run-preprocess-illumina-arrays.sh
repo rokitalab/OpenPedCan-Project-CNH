@@ -126,9 +126,9 @@ if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
     fi
 }
 
-# run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPICv2" "EPICv2"
-# run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPIC" "EPICv1"
-# run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylation450k" "450k"
+run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPICv2" "EPICv2"
+run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPIC" "EPICv1"
+run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylation450k" "450k"
 
 printf "\ncombining array types...\n"
 
@@ -158,6 +158,6 @@ run_cnv () {
 }
 
 # ---- Run CNV step for each array ----
-# run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPICv2" "EPICv2" "EPICv2"
-# run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPIC" "EPICv1" "EPIC"
+run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPICv2" "EPICv2" "EPICv2"
+run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPIC" "EPICv1" "EPIC"
 run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylation450k" "450k" "450"
