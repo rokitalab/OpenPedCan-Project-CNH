@@ -52,11 +52,11 @@ n_cores <- opt$n_cores
 out_base <- opt$output_basename
 array_type <- opt$array_type
 #for local testing
-#base_dir <- 'sorted_idats_output_dir/IlluminaHumanMethylation450k'
+#base_dir <- 'sorted_idats_output_dir/IlluminaHumanMethylationEPICv2'
 #n_cores <- 4
 #manifest_file <- 'controls_and_dicer_manifest.tsv'
-#out_base <- 'test-out/450k'
-#array_type <- '450'
+#out_base <- 'test-out/test'
+#array_type <- 'EPICv2'
 
 dataset <- basename(base_dir)
 
@@ -65,7 +65,7 @@ man_df <- read_tsv(file = manifest_file, show_col_types = FALSE) %>%
   dplyr::select(file_name, Bioassay_ID, sample_type, platform) %>%
   dplyr::mutate(file_name = gsub("(_Red|_Grn).*", "", file_name)) %>%
   dplyr::mutate(file_name = basename(file_name)) %>%
-  dplyr::filter(platform == paste0("HumanMethylation",array_type)) %>%
+  dplyr::filter(platform %in% c(paste0("Illumina Infinium HumanMethylation",array_type),paste0("HumanMethylation",array_type))) %>%
   unique()
 
 

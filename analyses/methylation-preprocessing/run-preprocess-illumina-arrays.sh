@@ -9,7 +9,7 @@ set -o pipefail
 
 printf 'Sorting array types \n\n'
 
-#Rscript --vanilla scripts/00-unzip-and-sort.R --base_dir input-test --manifest_file controls_and_dicer_manifest.tsv --output_basename sorted_idats
+Rscript --vanilla scripts/00-unzip-and-sort.R --base_dir input-test --manifest_file controls_and_dicer_manifest.tsv --output_basename sorted_idats
 
 printf "Start methylation pre-processing...\n\n"
 
@@ -42,9 +42,9 @@ if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
     fi
 }
 
-#run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2"
-#run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylationEPIC" "EPICv1"
-#run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylation450k" "450k"
+run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2"
+run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylationEPIC" "EPICv1"
+run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylation450k" "450k"
 
 
 printf "\nStart segmentation and CNV calling...\n\n"
@@ -69,6 +69,6 @@ run_cnv () {
 }
 
 # ---- Run CNV step for each array ----
-#run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2" "EPICv2" 
-#run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPIC"   "EPICv1" "EPIC"
+run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2" "EPICv2" 
+run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPIC"   "EPICv1" "EPIC"
 run_cnv "sorted_idats_output_dir/IlluminaHumanMethylation450k"   "450k"   "450"
