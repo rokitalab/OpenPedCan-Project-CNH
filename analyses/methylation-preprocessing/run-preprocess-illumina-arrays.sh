@@ -1,65 +1,74 @@
 #!/bin/bash
 # OPenPedCan 2022
-# Eric Wafula
+# J Daggett, updated 2026 
 set -e
 set -o pipefail
 
-printf "Start methylation pre-processing...\n\n"
-
 # This script should always run as if it were being called from
 # the directory it lives in.
-script_directory="$(perl -e 'use File::Basename;
- use Cwd "abs_path";
- print dirname(abs_path(@ARGV[0]));' -- "$0")"
-cd "$script_directory" || exit
 
-# Set up paths to input and output directories for the analysis
-absolute_path=$(cd "$(dirname "$0")"; pwd -P)
-data_path="${absolute_path}/data"
-results_path="results"
+printf 'Sorting array types \n\n'
 
-######################### Process `NBL` samples for Illumina 450k arrays ############################
-Rscript --vanilla 01-preprocess-illumina-arrays.R \
-  --base_dir ${data_path}/NBL \
-  --controls_present TRUE \
-  --snp_filter TRUE
+Rscript --vanilla scripts/00-unzip-and-sort.R --base_dir input-test --manifest_file controls_and_dicer_manifest.tsv --output_basename sorted_idats
 
-######################### Process `CCSK` samples for Illumina 450k arrays ############################
-Rscript --vanilla 01-preprocess-illumina-arrays.R \
-  --base_dir ${data_path}/CCSK \
-  --controls_present FALSE \
-  --snp_filter TRUE
+printf "Start methylation pre-processing...\n\n"
 
-######################### Process `OS` samples for Illumina 450k arrays ##############################
-Rscript --vanilla 01-preprocess-illumina-arrays.R \
-  --base_dir ${data_path}/OS \
-  --controls_present FALSE \
-  --snp_filter TRUE
+# ---- Global parameters ----
+MANIFEST_FILE="controls_and_dicer_manifest.tsv"
+N_CORES=4
+FUNNORM=TRUE
+SNP_FILTER=TRUE
+OUT_DIR='test-out'
+OUT_BASE="$OUT_DIR/test"
 
-######################### Process `WT` samples for Illumina 450k arrays ##############################
-Rscript --vanilla 01-preprocess-illumina-arrays.R \
-  --base_dir ${data_path}/WT \
-  --controls_present FALSE \
-  --snp_filter TRUE
+mkdir -p $OUT_DIR
 
-######################### Process `AML` samples for Illumina 450k arrays #############################
-Rscript --vanilla 01-preprocess-illumina-arrays.R \
-  --base_dir ${data_path}/AML \
-  --controls_present TRUE \
-  --snp_filter TRUE
+run_preprocess () {
+    local DIR=$1
+    local LABEL=$2
 
-######################### Process `CBTN` samples for Illumina 850k arrays ############################
-Rscript --vanilla 01-preprocess-illumina-arrays.R \
-  --base_dir ${data_path}/CBTN \
-  --controls_present TRUE \
-  --snp_filter TRUE
+if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
+        echo "Processing $LABEL"
 
-######################### Merge methyl matrices for all datasets #####################################
-Rscript --vanilla 02-merge-methyl-matrices.R
+        Rscript scripts/01-preprocess-illumina-arrays.R \
+            --base_dir "$DIR" \
+            --funnorm "$FUNNORM" \
+            --snp_filter "$SNP_FILTER" \
+            --manifest_file "$MANIFEST_FILE" \
+            --n_cores "$N_CORES" \
+            --output_basename "$OUT_BASE"
+    else
+        echo "Skipping $LABEL (missing or empty)"
+    fi
+}
 
-######################### Remove intermediate analysis results #######################################
-rm ${results_path}/*-methyl-beta-values.rds
-rm ${results_path}/*-methyl-m-values.rds
-rm ${results_path}/*-methyl-cn-values.rds
+run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2"
+run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylationEPIC" "EPICv1"
+run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylation450k" "450k"
 
-printf "\nAnalysis Done...\n\n"
+
+printf "\nStart segmentation and CNV calling...\n\n"
+
+run_cnv () {
+    local DIR=$1
+    local LABEL=$2
+    local ARRAY_TYPE=$3
+
+    if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
+        echo "Running segmentation for $LABEL"
+
+        Rscript --vanilla scripts/03-cnv-calls.R \
+            --base_dir "$DIR" \
+            --manifest_file "$MANIFEST_FILE" \
+            --n_cores "$N_CORES" \
+            --output_basename "$OUT_BASE" \
+            --array_type "$ARRAY_TYPE"
+    else
+        echo "Skipping segmentation for $LABEL (missing or empty)"
+    fi
+}
+
+# ---- Run CNV step for each array ----
+run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2" "EPICv2" 
+run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPIC"   "EPICv1" "EPIC"
+run_cnv "sorted_idats_output_dir/IlluminaHumanMethylation450k"   "450k"   "450"
