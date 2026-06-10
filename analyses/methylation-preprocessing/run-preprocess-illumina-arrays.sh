@@ -126,9 +126,9 @@ if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
     fi
 }
 
-run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPICv2" "EPICv2"
-run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPIC" "EPICv1"
-run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylation450k" "450k"
+# run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPICv2" "EPICv2"
+# run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPIC" "EPICv1"
+# run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylation450k" "450k"
 
 printf "\ncombining array types...\n"
 
@@ -150,7 +150,7 @@ run_cnv () {
             --base_dir "$DIR" \
             --manifest_file "$MANIFEST_FILE" \
             --n_cores "$N_CORES" \
-            --output_basename "$OUT_BASE/$LABEL" \
+            --output_basename "$OUT_BASE" \
             --array_type "$ARRAY_TYPE"
     else
         echo "Skipping segmentation for $LABEL (missing or empty)"
@@ -158,6 +158,6 @@ run_cnv () {
 }
 
 # ---- Run CNV step for each array ----
-# run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPICv2" "EPICv2" "EPICv2" # no normals yet
-run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPIC" "EPICv1" "EPIC"
+# run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPICv2" "EPICv2" "EPICv2"
+# run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPIC" "EPICv1" "EPIC"
 run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylation450k" "450k" "450"
