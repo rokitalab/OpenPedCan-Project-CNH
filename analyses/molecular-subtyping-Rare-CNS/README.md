@@ -16,16 +16,26 @@ The Rare CNS subtyping workflow is organized into the following scripts:
 
 `00-rare-cns-select-tumors.R` identifies candidate Rare CNS samples based on methylation subtype criteria and generates the JSON file for selection in downstream subtyping steps.
 
-`01-subset-files-for-Rare-CNS.Rmd` subsets Rare CNS DNA, RNA, and methylation biospecimens and generates the initial methylation subtype subset file for downstream analyses.
+`01-subtype-Rare-CNS.Rmd` uses methylation to subtype Rare CNS tumors
 
 ### Outputs
+- `rare-cns-subset/rare_cns_subtyping_path_dx_strings.json` - methylation classifications to consider
+- `results/rare-cns-molecular-subtypes.tsv` - final subtypes
 
-- `rare-cns-subset/rare_cns_subtyping_path_dx_strings.json`
-- `rare-cns-subset/RareCNS_dna_biospecimen.tsv`
-- `rare-cns-subset/RareCNS_rna_biospecimen.tsv`
-- `rare-cns-subset/RareCNS_methyl_biospecimen.tsv`
-- `rare-cns-subset/RareCNS_methyl_subtypes.tsv`
 
+### Directory structure
+```
+.
+├── 00-rare-cns-select-tumors.R
+├── 01-subtype-Rare-CNS.Rmd
+├── 01-subtype-Rare-CNS.nb.html
+├── README.md
+├── rare-cns-subset
+│   └── rare_cns_subtyping_path_dx_strings.json
+├── results
+│   └── rare-cns-molecular-subtypes.tsv
+└── run-molecular-subtyping-rare-cns.sh
+```
 
 ### Usage
 

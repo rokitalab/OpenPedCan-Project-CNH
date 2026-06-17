@@ -1,0 +1,165 @@
+---
+title: "Subset files for Rare CNS subtyping"
+output: html_notebook
+author: "Aylar Babaei, Jo Lynne Rokita"
+date: 2026
+---
+
+In this PR, we identify candidate Rare CNS biospecimens from `histologies-base.tsv` and gather high-confidence methylation subtype calls for downstream Rare CNS subtyping.
+
+As per issue [#114](https://github.com/rokitalab/OpenPedCan-Project-CNH/issues/114), Rare CNS subtyping is primarily based on high-confidence methylation subclassifications with `dkfz_v12_methylation_subclass_score >= 0.8`. Hallmark lesion evidence will be added in downstream scripts.
+
+The following Rare CNS methylation classes are included in this step:
+
+- Rare CNS, MN1::BEND2
+- Rare CNS, ANTCON
+- Rare CNS, ARMS
+- Rare CNS, BCOR-fused
+- Rare CNS, BCOR ITD
+- Rare CNS, FOXR2 NBL
+- Rare CNS, CIC SARC
+- Rare CNS, DICER1 SARC
+- Rare CNS, ERMS
+- Rare CNS, BRD4::LEUTX
+- Rare CNS, PLAG AMP
+- Rare CNS, EWS
+- Rare CNS, MYCN NBL
+- Rare CNS, TMM NEG NBL
+- Rare CNS, TMM POS NBL
+- Rare CNS, MN1::CXXC5
+- Rare CNS, PATZ1-fused
+- Rare CNS, PLAGL1-fused
+- Rare CNS, MYOD1 RMS
+
+### Setup
+
+```{r}
+library(tidyverse)
+
+root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
+
+subset_dir <- file.path(
+  root_dir,
+  "analyses",
+  "molecular-subtyping-Rare-CNS",
+  "rare-cns-subset"
+)
+
+results_dir <-
+  file.path(root_dir, "analyses", "molecular-subtyping-Rare-CNS", "results")
+
+if(!dir.exists(results_dir)){
+  dir.create(results_dir)
+}
+```
+
+## Input
+
+```{r}
+# File from 00-Rare-CNS-select-pathology-dx.R that is used for pathology
+# diagnosis inclusion, exclusion criteria and Rare CNS methylation mapping
+termslist <- jsonlite::fromJSON(
+  file.path(subset_dir, "rare_cns_subtyping_path_dx_strings.json")
+)
+
+# subtype lookup table
+subtype_to_opc_map <- tribble(
+  ~NIH_v2_methylation_Class, ~dkfz_v12_methylation_subclass, ~OPC_molecular_subtype,
+  "HGNET_MN1", "ABM_MN1", "Rare CNS, MN1::BEND2",
+  "ANTCON", "ANTCON", "Rare CNS, ANTCON",
+  "RMS_alevolar", "ARMS", "Rare CNS, ARMS",
+  "EP300_BCOR", "CNS_BCOR_FUS", "Rare CNS, BCOR-fused",
+  "HGNET_BCOR", "CNS_BCOR_ITD", "Rare CNS, BCOR ITD",
+  "CNS_NB_FOXR2", "CNS_NB_FOXR2", "Rare CNS, FOXR2 NBL",
+  "EFT_CIC", "CNS_SARC_CIC", "Rare CNS, CIC SARC",
+  "CNS_SCS_DICER", "CNS_SARC_DICER", "Rare CNS, DICER1 SARC",
+  "RMS_embryonal", "ERMS", "Rare CNS, ERMS",
+  "ET_BRD4_LEUTX", "ET_BRD4_LEUTX", "Rare CNS, BRD4::LEUTX",
+  "HGNET_PLAG", "ET_PLAG", "Rare CNS, PLAG AMP",
+  "EWS", "EWS", "Rare CNS, EWS",
+  "HGNET_CXXC5", "NET_CXXC5", "Rare CNS, MN1::CXXC5",
+  "HGNET_PATZ", "NET_PATZ1", "Rare CNS, PATZ1-fused",
+  "PLAGL1_FUS", "NET_PLAGL1_FUS", "Rare CNS, PLAGL1-fused",
+  "RMS_MYOD1", "RMS_MYOD1", "Rare CNS, MYOD1 RMS",
+  "CRINET", "CRINET", "Rare CNS, CRINET"
+)
+
+# Clinical file
+hist <- readr::read_tsv(
+  file.path(root_dir, "data", "histologies-base.tsv"),
+  guess_max = 100000
+)
+```
+
+## pathology-subset 
+
+```{r}
+# Candidate Rare CNS tumor specimens based on methylation
+rare_cns_methyl <- hist %>%
+  filter(experimental_strategy == "Methylation" & 
+           (dkfz_v12_methylation_subclass_score >= 0.8 & 
+              dkfz_v12_methylation_subclass %in% termslist$include_dkfz_subtypes) |
+          (NIH_v2_methylation_Superfamily_mean_score >= 0.9 & 
+             NIH_v2_methylation_Class_mean_score >= 0.9 & 
+             NIH_v2_methylation_Class %in% termslist$include_nih_subtypes)
+  ) %>%
+  select(Kids_First_Participant_ID, Kids_First_Biospecimen_ID, match_id, sample_id, composition, 
+         dkfz_v12_methylation_subclass, dkfz_v12_methylation_subclass_score,
+         NIH_v2_methylation_Class, NIH_v2_methylation_Superfamily_mean_score, NIH_v2_methylation_Class_mean_score) %>%
+  left_join(subtype_to_opc_map[,c("dkfz_v12_methylation_subclass", "OPC_molecular_subtype")]) %>%
+  # assign DKFZ first
+  mutate(molecular_subtype = case_when(
+    dkfz_v12_methylation_subclass_score >= 0.8 ~ OPC_molecular_subtype,
+    TRUE ~ NA_character_
+  )) %>%
+  # join NIH mapping
+  left_join(subtype_to_opc_map[,c("NIH_v2_methylation_Class", "OPC_molecular_subtype")]) %>%
+  # use NIH mapping where DKFZ missing
+  mutate(molecular_subtype = case_when(
+    is.na(molecular_subtype) ~ OPC_molecular_subtype,
+    TRUE ~ molecular_subtype
+  )) %>%
+  # ensure consistent prefix
+  mutate(molecular_subtype = if_else(
+    grepl("^Rare CNS,", molecular_subtype),
+    molecular_subtype,
+    paste0("Rare CNS, ", molecular_subtype)
+  )) %>%
+  select(-OPC_molecular_subtype)
+
+
+# make a methyl map
+methyl_map <- rare_cns_methyl %>%
+  select(match_id, molecular_subtype) %>%
+  unique()
+
+# any dups? no
+length(unique(methyl_map$match_id)) == length(methyl_map$match_id)
+
+# select all strategies for rare tumors
+rare_hist <- hist %>%
+  filter(match_id %in% methyl_map$match_id)
+
+rare_cns_subtype_final <- rare_hist %>% 
+  select(Kids_First_Participant_ID, Kids_First_Biospecimen_ID, match_id, sample_id, composition) %>%
+  left_join(methyl_map) %>%
+  # write result
+  readr::write_tsv(file.path(results_dir, "rare-cns-molecular-subtypes.tsv"))
+
+
+# how many tumors subtyped?
+tumors_subtyped <- rare_cns_subtype_final %>%
+  select(match_id, molecular_subtype) %>%
+  unique() %>%
+  count(molecular_subtype) %>%
+  arrange(-n)
+
+print(tumors_subtyped)
+
+```
+
+## Session Info
+
+```{r}
+sessionInfo()
+```

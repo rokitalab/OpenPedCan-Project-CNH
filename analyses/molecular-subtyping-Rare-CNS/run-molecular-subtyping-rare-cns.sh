@@ -20,3 +20,7 @@ data_dir="../../data"
 
 # Run R script to generate JSON file
 Rscript --vanilla 00-rare-cns-select-tumors.R
+
+# Subtype rare tumors using methylation
+Rscript -e "rmarkdown::render('01-subtype-Rare-CNS.Rmd', clean = TRUE)"
+
