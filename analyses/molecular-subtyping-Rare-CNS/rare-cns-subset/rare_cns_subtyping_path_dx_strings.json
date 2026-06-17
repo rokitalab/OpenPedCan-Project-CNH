@@ -1,128 +1,41 @@
 {
-    "include_path_dx": [
-        "embryonal tumor",
-        "ewing sarcoma",
-        "neuroblastoma",
-        "sarcoma",
-        "glial-neuronal tumor nos",
-        "low-grade glioma/astrocytoma",
-        "ganglioglioma",
-        "ependymoma"
+    "include_dkfz_subtypes": [
+        "ABM_MN1",
+        "ANTCON",
+        "ARMS",
+        "CNS_BCOR_FUS",
+        "CNS_BCOR_ITD",
+        "CNS_NB_FOXR2",
+        "CNS_SARC_CIC",
+        "CNS_SARC_DICER",
+        "ERMS",
+        "ET_BRD4_LEUTX",
+        "ET_PLAG",
+        "EWS",
+        "NET_CXXC5",
+        "NET_PATZ1",
+        "NET_PLAGL1_FUS",
+        "RMS_MYOD1",
+        "CRINET"
     ],
-    "exclude_path_dx": [
-        "medulloblastoma",
-        "atypical teratoid/rhabdoid tumor",
-        "craniopharyngioma",
-        "chordoma"
-    ],
-    "recode_path_free_text": [
-        "mn1",
-        "bcor",
-        "foxr2",
-        "cic",
-        "dicer1",
-        "plagl1",
-        "patz1",
-        "mycn",
-        "myod1",
-        "ews"
-    ],
-    "methyl_subtype_map": [
-        {
-            "Abbreviation_internal_NIH": "HGNET_MN1",
-            "dkfz_Abbreviation": "ABM_MN1",
-            "OPC_molecular_subtype": "Rare CNS, MN1::BEND2"
-        },
-        {
-            "Abbreviation_internal_NIH": "ANTCON",
-            "dkfz_Abbreviation": "ANTCON",
-            "OPC_molecular_subtype": "Rare CNS, ANTCON"
-        },
-        {
-            "Abbreviation_internal_NIH": "RMS_alevolar",
-            "dkfz_Abbreviation": "ARMS",
-            "OPC_molecular_subtype": "Rare CNS, ARMS"
-        },
-        {
-            "Abbreviation_internal_NIH": "EP300_BCOR",
-            "dkfz_Abbreviation": "CNS_BCOR_FUS",
-            "OPC_molecular_subtype": "Rare CNS, BCOR-fused"
-        },
-        {
-            "Abbreviation_internal_NIH": "HGNET_BCOR",
-            "dkfz_Abbreviation": "CNS_BCOR_ITD",
-            "OPC_molecular_subtype": "Rare CNS, BCOR ITD"
-        },
-        {
-            "Abbreviation_internal_NIH": "CNS_NB_FOXR2",
-            "dkfz_Abbreviation": "CNS_NB_FOXR2",
-            "OPC_molecular_subtype": "Rare CNS, FOXR2 NBL"
-        },
-        {
-            "Abbreviation_internal_NIH": "EFT_CIC",
-            "dkfz_Abbreviation": "CNS_SARC_CIC",
-            "OPC_molecular_subtype": "Rare CNS, CIC SARC"
-        },
-        {
-            "Abbreviation_internal_NIH": "CNS_SCS_DICER",
-            "dkfz_Abbreviation": "CNS_SARC_DICER",
-            "OPC_molecular_subtype": "Rare CNS, DICER1 SARC"
-        },
-        {
-            "Abbreviation_internal_NIH": "RMS_embryonal",
-            "dkfz_Abbreviation": "ERMS",
-            "OPC_molecular_subtype": "Rare CNS, ERMS"
-        },
-        {
-            "Abbreviation_internal_NIH": "MB_G3_Like",
-            "dkfz_Abbreviation": "ET_BRD4_LEUTX",
-            "OPC_molecular_subtype": "Rare CNS, BRD4::LEUTX"
-        },
-        {
-            "Abbreviation_internal_NIH": "HGNET_PLAG",
-            "dkfz_Abbreviation": "ET_PLAG",
-            "OPC_molecular_subtype": "Rare CNS, PLAG AMP"
-        },
-        {
-            "Abbreviation_internal_NIH": "EWS",
-            "dkfz_Abbreviation": "EWS",
-            "OPC_molecular_subtype": "Rare CNS, EWS"
-        },
-        {
-            "Abbreviation_internal_NIH": "NB_1",
-            "dkfz_Abbreviation": "NB_MYCN",
-            "OPC_molecular_subtype": "Rare CNS, MYCN NBL"
-        },
-        {
-            "Abbreviation_internal_NIH": "NB_2s",
-            "dkfz_Abbreviation": "NB_TMM_NEG",
-            "OPC_molecular_subtype": "Rare CNS, TMM NEG NBL"
-        },
-        {
-            "Abbreviation_internal_NIH": "NB_2wo2s",
-            "dkfz_Abbreviation": "NB_TMM_POS",
-            "OPC_molecular_subtype": "Rare CNS, TMM POS NBL"
-        },
-        {
-            "Abbreviation_internal_NIH": "HGNET_CXXC5",
-            "dkfz_Abbreviation": "NET_CXXC5",
-            "OPC_molecular_subtype": "Rare CNS, MN1::CXXC5"
-        },
-        {
-            "Abbreviation_internal_NIH": "HGNET_PATZ",
-            "dkfz_Abbreviation": "NET_PATZ1",
-            "OPC_molecular_subtype": "Rare CNS, PATZ1-fused"
-        },
-        {
-            "Abbreviation_internal_NIH": "EPN_ST_1",
-            "dkfz_Abbreviation": "NET_PLAGL1_FUS",
-            "OPC_molecular_subtype": "Rare CNS, PLAGL1-fused"
-        },
-        {
-            "Abbreviation_internal_NIH": "RMS_MYOD1",
-            "dkfz_Abbreviation": "RMS_MYOD1",
-            "OPC_molecular_subtype": "Rare CNS, MYOD1 RMS"
-        }
+    "include_nih_subtypes": [
+        "HGNET_MN1",
+        "ANTCON",
+        "RMS_alevolar",
+        "EP300_BCOR",
+        "HGNET_BCOR",
+        "CNS_NB_FOXR2",
+        "EFT_CIC",
+        "CNS_SCS_DICER",
+        "RMS_embryonal",
+        "ET_BRD4_LEUTX",
+        "HGNET_PLAG",
+        "EWS",
+        "HGNET_CXXC5",
+        "HGNET_PATZ",
+        "PLAGL1_FUS",
+        "RMS_MYOD1",
+        "CRINET"
     ]
 }
 
