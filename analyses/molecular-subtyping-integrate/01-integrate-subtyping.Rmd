@@ -24,6 +24,8 @@ Here we will use `histologies-base.tsv` in which integrated_diagnosis,Notes and 
 - molecular-subtyping-ATRT
 - molecular-subtyping-PB
 - molecular-subtyping-NBL
+- molecular-subtyping-NBL
+- molecular-subtyping-Rare-CNS
 - molecular-subtyping-pathology
 
 
@@ -222,11 +224,12 @@ histology_cg <- histology %>%
     broad_histology == "Meningioma" ~ "Meningioma",
     cancer_group == "Perineuroma" ~ "Neurofibroma/Plexiform",
     is.na(cancer_group) & broad_histology == "Tumor of cranial and paraspinal nerves" ~ "Neurofibroma/Plexiform",
+    grepl("^Rare CNS, ", molecular_subtype) ~ "Rare CNS tumor",
     TRUE ~ cancer_group)
     ) %>%
   # Additional update to clean up terms that we will use in plots
   # harmonize myofibroblastic tumors - all inflammatory; take care of organ later
-    mutate(short_histology = case_when(short_histology == "Myofibroblastic tumor" ~ "Inflammatory Myofibroblastic Tumor", TRUE ~ as.character(short_histology)),
+    dplyr::mutate(short_histology = case_when(short_histology == "Myofibroblastic tumor" ~ "Inflammatory Myofibroblastic Tumor", TRUE ~ as.character(short_histology)),
            harmonized_diagnosis = case_when(short_histology == "Myofibroblastic tumor" ~ "Inflammatory Myofibroblastic Tumor", 
                                             TRUE ~ as.character(harmonized_diagnosis)),
            broad_histology = case_when(sample_id == "7316-3066" ~ "Tumor of cranial and paraspinal nerves",

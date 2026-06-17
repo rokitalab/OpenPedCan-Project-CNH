@@ -69,7 +69,6 @@ DGD	Diffuse leptomeningeal glioneuronal tumor,  To be classified	Diffuse leptome
 PBTA	Diffuse midline glioma, H3 K28-altered	Diffuse midline glioma	Yes	No
 PBTA	Diffuse midline glioma, H3 K28-mutant	Diffuse midline glioma	Yes	No
 PBTA	Diffuse midline glioma, H3 K28-altered (EGFR mutant)	Diffuse midline glioma	Yes	No
-PBTA	Diffuse intrinsic pontine glioma	Diffuse midline glioma	No	Yes
 PBTA	Dysembryoplastic neuroepithelial tumor (DNET)	Dysembryoplastic neuroepithelial tumor	No	Yes
 PBTA	Dysembryoplastic neuroepithelial tumor (DNET);Ganglioglioma	Dysembryoplastic neuroepithelial tumor	No	Yes
 DGD	EBV-Positive Diffuse Large B-Cell Lymphoma, Not Otherwise Specified	EBV-Positive Diffuse Large B-Cell Lymphoma	Yes	No
@@ -134,13 +133,11 @@ DGD	Germ Cell Tumor	Germ Cell Tumor	No	No
 PBTA	Germ Cell Tumor	Germ Cell Tumor	No	No
 PBTA	Germinoma	Germinoma	No	No
 PPTC	Germinoma	Germinoma	No	No
-PBTA	Neuroepithelial neoplasm with EWSR1--PLAG1 fusion	Glial-neuronal tumor	No	Yes
 PBTA	Glial-neuronal tumor,  RTK	Glial-neuronal tumor NOS	Yes	Yes
 PBTA	Glial-neuronal tumor,  wildtype	Glial-neuronal tumor NOS	Yes	Yes
 PBTA	Glial-neuronal tumor,  BRAF V600E	Glial-neuronal tumor NOS	Yes	Yes
 PBTA	Glial-neuronal tumor,  other MAPK	Glial-neuronal tumor NOS	Yes	Yes
 PBTA	Glial-neuronal tumor,  FGFR	Glial-neuronal tumor NOS	Yes	Yes
-PBTA	Glial-neuronal tumor,  RTK, CDKN2A/B	Glial-neuronal tumor NOS	Yes	Yes
 PBTA	Glial-neuronal tumor,  To be classified	Glial-neuronal tumor NOS	Yes	Yes
 PBTA	Glial-neuronal tumor, wildtype	Glial-neuronal tumor NOS	Yes	Yes
 PBTA	Glial-neuronal tumor,  KIAA1549-BRAF	Glial-neuronal tumor NOS	Yes	Yes
@@ -267,7 +264,6 @@ PBTA	Neurofibroma/Plexiform	Neurofibroma/Plexiform	No	No
 PBTA	Malignant peripheral nerve sheath tumor (MPNST)	Neurofibroma/Plexiform	No	Yes
 PBTA	Perineuroma	Neurofibroma/Plexiform	No	Yes
 DGD	Non-Hodgkin Lymphoma	Non-Hodgkin Lymphoma	No	No
-PBTA	Not Reported	Not Reported	No	No
 PBTA	Oligodendroglioma	Oligodendroglioma	No	No
 DGD	Osteosarcoma	Osteosarcoma	No	No
 PBTA	Osteosarcoma	Osteosarcoma	No	No
@@ -339,6 +335,18 @@ PBTA	Pineoblastoma	Pineoblastoma	No	No
 PBTA	Pleomorphic xanthoastrocytoma	Pleomorphic xanthoastrocytoma	No	No
 DGD	Primary mediastinal large B cell lymphoma	Primary mediastinal large B cell lymphoma	No	No
 TCGA	Prostate Adenocarcinoma	Prostate Adenocarcinoma	No	No
+PBTA	Rare CNS, EWS	Rare CNS tumor	Yes	Yes
+PBTA	Rare CNS, BCOR ITD	Rare CNS tumor	Yes	Yes
+PBTA	Rare CNS, ANTCON	Rare CNS tumor	Yes	Yes
+PBTA	Rare CNS, PLAGL1-fused	Rare CNS tumor	Yes	Yes
+PBTA	Rare CNS, CIC SARC	Rare CNS tumor	Yes	Yes
+PBTA	Rare CNS, DICER1 SARC	Rare CNS tumor	Yes	Yes
+PBTA	Rare CNS, PATZ1-fused	Rare CNS tumor	Yes	Yes
+PBTA	Rare CNS, ARMS	Rare CNS tumor	Yes	Yes
+PBTA	Rare CNS, FOXR2 NBL	Rare CNS tumor	Yes	Yes
+PBTA	Rare CNS, PLAG AMP	Rare CNS tumor	Yes	Yes
+PBTA	Rare CNS, CRINET	Rare CNS tumor	Yes	Yes
+PBTA	Rare CNS, BCOR-fused	Rare CNS tumor	Yes	Yes
 TCGA	Rectum Adenocarcinoma	Rectum Adenocarcinoma	No	No
 TCGA	Kidney Renal Clear Cell Carcinoma	Renal Clear Cell Carcinoma	No	Yes
 TCGA	Kidney Renal Papillary Cell Carcinoma	Renal Papillary Cell Carcinoma	No	Yes
@@ -347,7 +355,6 @@ DGD	Rhabdoid tumor of the kidney	Rhabdoid tumor of the kidney	No	No
 PPTC	Rhabdoid tumor of the kidney	Rhabdoid tumor of the kidney	No	No
 TARGET	Rhabdoid tumor of the kidney	Rhabdoid tumor of the kidney	No	No
 DGD	Rhabdomyosarcoma	Rhabdomyosarcoma	No	No
-PBTA	Rhabdomyosarcoma	Rhabdomyosarcoma	No	No
 PPTC	Rhabdomyosarcoma	Rhabdomyosarcoma	No	No
 PBTA	Rosai-dorfman	Rosai-Dorfman disease	No	Yes
 PBTA	Rosette-forming glioneuronal tumor,  FGFR	Rosette-forming glioneuronal tumor	Yes	No
