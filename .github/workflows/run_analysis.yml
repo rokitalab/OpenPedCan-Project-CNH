@@ -118,6 +118,9 @@ jobs:
             entrypoint: molecular-subtyping-PB/run-molecular-subtyping-PB.sh
             openpbta_subset: 0
             
+          - name: Molecular Subtyping - Rare CNS
+            entrypoint: molecular-subtyping-Rare-CNS/run-molecular-subtyping-rare-cns.sh
+            
           - name: Molecular Subtyping - NBL
             entrypoint: molecular-subtyping-NBL/run-molecular-subtyping-NBL.sh
 
