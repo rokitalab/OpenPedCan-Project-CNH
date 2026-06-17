@@ -37,9 +37,6 @@ include_dkfz_abbreviation <- c(
   "ET_BRD4_LEUTX",
   "ET_PLAG",
   "EWS",
-  "NB_MYCN",
-  "NB_TMM_NEG",
-  "NB_TMM_POS",
   "NET_CXXC5",
   "NET_PATZ1",
   "NET_PLAGL1_FUS",
@@ -58,53 +55,21 @@ include_abbreviation_internal_nih <- c(
   "EFT_CIC",
   "CNS_SCS_DICER",
   "RMS_embryonal",
-  "MB_G3_Like",
+  "ET_BRD4_LEUTX",
   "HGNET_PLAG",
   "EWS",
-  "NB_1",
-  "NB_2s",
-  "NB_2wo2s",
   "HGNET_CXXC5",
   "HGNET_PATZ",
-  "EPN_ST_1",
+  "PLAGL1_FUS",
   "RMS_MYOD1",
   "CRINET"
 )
 
-# OpenPedCan molecular subtype labels corresponding to the requested classes.
-opc_molecular_subtype <- c(
-  "Rare CNS, MN1::BEND2",
-  "Rare CNS, ANTCON",
-  "Rare CNS, ARMS",
-  "Rare CNS, BCOR-fused",
-  "Rare CNS, BCOR ITD",
-  "Rare CNS, FOXR2 NBL",
-  "Rare CNS, CIC SARC",
-  "Rare CNS, DICER1 SARC",
-  "Rare CNS, ERMS",
-  "Rare CNS, BRD4::LEUTX",
-  "Rare CNS, PLAG AMP",
-  "Rare CNS, EWS",
-  "Rare CNS, MYCN NBL",
-  "Rare CNS, TMM NEG NBL",
-  "Rare CNS, TMM POS NBL",
-  "Rare CNS, MN1::CXXC5",
-  "Rare CNS, PATZ1-fused",
-  "Rare CNS, PLAGL1-fused",
-  "Rare CNS, MYOD1 RMS",
-  "Rare CNS, CRINET"
-)
-
-# Create a lookup table to use in downstream scripts
-methyl_subtype_map <- tibble::tibble(
-  Abbreviation_internal_NIH = include_abbreviation_internal_nih,
-  dkfz_Abbreviation = include_dkfz_abbreviation,
-  OPC_molecular_subtype = opc_molecular_subtype
-)
 
 # Create a list with the strings and mapping tables used downstream
 terms_list <- list(
-  methyl_subtype_map = methyl_subtype_map
+  include_dkfz_subtypes = include_dkfz_abbreviation,
+  include_nih_subtypes = include_abbreviation_internal_nih
 )
 
 # Write to file
