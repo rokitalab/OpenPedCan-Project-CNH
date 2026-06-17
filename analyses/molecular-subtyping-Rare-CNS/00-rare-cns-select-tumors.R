@@ -1,9 +1,6 @@
-# Aylar Babaei for OpenPedCan 2026
-
-# The Rare CNS module will primarily use high-confidence methylation
-# subclassifications (dkfz_v12_methylation_subclass_score >= 0.8) 
+# Aylar Babaei, Jo Lynne Rokita for OpenPedCan 2026
 #
-# USAGE: Rscript --vanilla 00-Rare-CNS-select-pathology-dx.R
+# USAGE: Rscript --vanilla 00-Rare-CNS-select-tumors.R
 
 
 root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
