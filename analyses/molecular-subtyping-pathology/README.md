@@ -8,29 +8,29 @@ In some cases, our analyses have resulted in an update of the `integrated_diagno
 The objective of this module is three-fold:
 
 1. Aggregate the molecular subtyping calls from the following modules that produced results:
-   * [`molecular-subtyping-EPN`](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/tree/dev/analyses/molecular-subtyping-EPN)
-   * [`molecular-subtyping-EWS`](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/tree/dev/analyses/molecular-subtyping-EWS)
-   * [`molecular-subtyping-HGG`](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/tree/dev/analyses/molecular-subtyping-HGG)
-   * [`molecular-subtyping-LGAT`](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/tree/dev/analyses/molecular-subtyping-LGAT)
-   * [`molecular-subtyping-embryonal`](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/tree/dev/analyses/molecular-subtyping-embryonal)
-   * [`molecular-subtyping-CRANIO`](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/tree/dev/analyses/molecular-subtyping-CRANIO)
-   * [`molecular-subtyping-MB`](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/tree/dev/analyses/molecular-subtyping-MB)
-   * [`molecular-subtyping-neurocytoma`](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/tree/dev/analyses/molecular-subtyping-neurocytoma)
-   * [`molecular-subtyping-chordoma`](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/tree/dev/analyses/molecular-subtyping-chordoma)
-   * [`molecular-subtyping-NBL`](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/tree/dev/analyses/molecular-subtyping-NBL)
-   * [`molecular-subtyping-ATRT`](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/tree/dev/analyses/molecular-subtyping-ATRT)
+   * [`molecular-subtyping-EPN`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-EPN)
+   * [`molecular-subtyping-EWS`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-EWS)
+   * [`molecular-subtyping-HGG`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-HGG)
+   * [`molecular-subtyping-LGAT`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-LGAT)
+   * [`molecular-subtyping-embryonal`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-embryonal)
+   * [`molecular-subtyping-CRANIO`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-CRANIO)
+   * [`molecular-subtyping-MB`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-MB)
+   * [`molecular-subtyping-neurocytoma`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-neurocytoma)
+   * [`molecular-subtyping-chordoma`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-chordoma)
+   * [`molecular-subtyping-NBL`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-NBL)
+   * [`molecular-subtyping-ATRT`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-ATRT)
+   * [`molecular-subtyping-Rare-CNS`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-Rare-CNS)
 
 
 2. Aggregate pathology_free_text_diagnosis from results 
-   * [Choroid plexus papilloma subtypes](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/blob/dev/analyses/molecular-subtyping-pathology/results/choroid_plexus_papilloma_subtypes.tsv)
-   * [CNS Lymphoma subtypes](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/blob/dev/analyses/molecular-subtyping-pathology/results/cns-lymphoma-subtypes.tsv)
-   * [Meningioma subtypes](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/blob/dev/analyses/molecular-subtyping-pathology/results/meningioma_subtypes.tsv) 
-   * [Juvenile Xanthogranuloma subtypes](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/blob/dev/analyses/molecular-subtyping-pathology/results/juvenile-xanthogranuloma-subtypes.tsv)
-   * [Adamantinomatous craniopharyngioma subtype](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/blob/dev/analyses/molecular-subtyping-pathology/results/cranio_adam_subtypes.tsv)
-   * [Neuronal and mixed neuronal-glial tumors subtypes](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/blob/dev/analyses/molecular-subtyping-pathology/results/glialneuronal_tumor_subtypes.tsv)
-   * [LGAT subtypes update](https://github.com/PediatricOpenTargets/OpenPedCan-analysis/blob/dev/analyses/molecular-subtyping-pathology/results/lgat-pathology-free-text-subtypes.tsv)
+   * [Choroid plexus papilloma subtypes](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/analyses/molecular-subtyping-pathology/results/choroid_plexus_papilloma_subtypes.tsv)
+   * [CNS Lymphoma subtypes](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/analyses/molecular-subtyping-pathology/results/cns-lymphoma-subtypes.tsv)
+   * [Meningioma subtypes](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/analyses/molecular-subtyping-pathology/results/meningioma_subtypes.tsv) 
+   * [Juvenile Xanthogranuloma subtypes](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/analyses/molecular-subtyping-pathology/results/juvenile-xanthogranuloma-subtypes.tsv)
+   * [Adamantinomatous craniopharyngioma subtype](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/analyses/molecular-subtyping-pathology/results/cranio_adam_subtypes.tsv)
+   * [Neuronal and mixed neuronal-glial tumors subtypes](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/analyses/molecular-subtyping-pathology/results/glialneuronal_tumor_subtypes.tsv)
+   * [LGAT subtypes update](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/analyses/molecular-subtyping-pathology/results/lgat-pathology-free-text-subtypes.tsv)
    
-
 
 3. Incorporate clinical reviewed subtypes for PNOC003 samples:
 In the original [issue](https://github.com/AlexsLemonade/OpenPBTA-analysis/issues/751) added by @jharenza we have the clinically reviewed subtypes for PNOC003 samples. We check if any subtype is different between the results from `molecular-subtyping-HGG` and this file and update to the clinically reviewed subtype. Subtypes for 3 WXS samples and 3 RNA-Seq from PT_NK8A49X5, PT_QA9WJ679 and PT_WGVEF96B were updated.  
