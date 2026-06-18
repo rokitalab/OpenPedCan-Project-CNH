@@ -1,0 +1,41 @@
+{
+    "include_dkfz_subtypes": [
+        "ABM_MN1",
+        "ANTCON",
+        "ARMS",
+        "CNS_BCOR_FUS",
+        "CNS_BCOR_ITD",
+        "CNS_NB_FOXR2",
+        "CNS_SARC_CIC",
+        "CNS_SARC_DICER",
+        "ERMS",
+        "ET_BRD4_LEUTX",
+        "ET_PLAG",
+        "EWS",
+        "NET_CXXC5",
+        "NET_PATZ1",
+        "NET_PLAGL1_FUS",
+        "RMS_MYOD1",
+        "CRINET"
+    ],
+    "include_nih_subtypes": [
+        "HGNET_MN1",
+        "ANTCON",
+        "RMS_alevolar",
+        "EP300_BCOR",
+        "HGNET_BCOR",
+        "CNS_NB_FOXR2",
+        "EFT_CIC",
+        "CNS_SCS_DICER",
+        "RMS_embryonal",
+        "ET_BRD4_LEUTX",
+        "HGNET_PLAG",
+        "EWS",
+        "HGNET_CXXC5",
+        "HGNET_PATZ",
+        "PLAGL1_FUS",
+        "RMS_MYOD1",
+        "CRINET"
+    ]
+}
+
