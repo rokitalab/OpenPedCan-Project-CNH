@@ -15,3 +15,11 @@ WORKDIR /rocker-build/
 # RUN python3 -m pip install --no-cache-dir some-extra-package==1.2.3
 
 
+
+#Install conumee
+
+RUN R -e "devtools::install_github( \
+  'hovestadtlab/conumee2', \
+  subdir='conumee2', \
+  ref='0a21b9d508506d14ccbc3c8820d5974b26ff3824', \
+  dependencies=TRUE)"
