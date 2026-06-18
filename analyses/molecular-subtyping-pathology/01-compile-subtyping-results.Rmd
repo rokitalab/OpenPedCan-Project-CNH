@@ -378,11 +378,10 @@ rare_results_df <-  rare_results_df %>%
              by = "Kids_First_Biospecimen_ID") %>%
   mutate(integrated_diagnosis = case_when(grepl("Rare CNS,", molecular_subtype) ~ molecular_subtype,
                                           TRUE ~ NA_character_),
-         broad_histology = "Mixed or indeterminate differentiation",
+         broad_histology = "Mixed or indeterminate tumor",
          short_histology = "Rare CNS",
          Notes = if_else(!is.na(integrated_diagnosis), "Subtype based on methylation;Updated via OpenPedCan subtyping", Notes))
 ```
-
 
 
 ### All results
