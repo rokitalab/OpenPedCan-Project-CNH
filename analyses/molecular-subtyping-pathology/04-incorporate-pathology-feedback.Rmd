@@ -263,39 +263,6 @@ compiled_df <- compiled_df %>%
   )
 ```
 
-### `PT_80NVYCBS`
-
-This sample was inspected by pathology and should be CNS HGNET-MN1, so we will update here.
-```{r}
-compiled_df %>%
-  filter(Kids_First_Participant_ID == "PT_80NVYCBS")
-```
-```{r}
-compiled_df <- compiled_df %>%
-  mutate(
-    integrated_diagnosis = case_when(
-      sample_id == "7316-765" ~ "CNS Embryonal tumor, HGNET-MN1",
-      TRUE ~ integrated_diagnosis
-    ),
-    short_histology = case_when(
-      sample_id == "7316-765" ~ "Embryonal tumor",
-      TRUE ~ short_histology
-    ),
-    broad_histology = case_when(
-      sample_id == "7316-765" ~ "Embryonal tumor",
-      TRUE ~ broad_histology
-    ),
-    molecular_subtype = case_when(
-      sample_id == "7316-765" ~ "CNS HGNET-MN1",
-      TRUE ~ molecular_subtype
-    ),
-    Notes = case_when(
-      sample_id == "7316-765" ~ "Updated via OpenPBTA subtyping",
-      TRUE ~ Notes
-    )
-  )
-```
-
 ### `PT_9BZETM0M`
 
 This sample was inspected by pathology and should be HGG, H3 G35, so we will update here.
