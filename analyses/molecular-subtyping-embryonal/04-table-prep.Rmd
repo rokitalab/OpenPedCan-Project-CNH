@@ -97,6 +97,8 @@ histologies_file <- file.path(data_dir, "histologies-base.tsv")
 # full fusions of interest file
 fusion_file <- file.path(file.path(data_dir, 
                                    "fusion_summary_embryonal_foi.tsv"))
+rare_fusion_file <- file.path(file.path(root_dir, "analyses", "fusion-summary", "results", 
+                                   "fusion_summary_rare_cns_foi.tsv"))
 
 # subset files
 manta_file <- file.path(subset_dir, "embryonal_manta_sv.tsv")
@@ -131,6 +133,7 @@ manta_sv_df <- read_tsv(manta_file)
 # all of the RNA data
 exp_dat <- read_rds(exp_file)
 fusions_df <- read_tsv(fusion_file)
+rare_fusions_df <- read_tsv(rare_fusion_file)
 
 # get biospecimen ids as a vector rather than data frame
 biospecimen_ids <- read_tsv(biospecimen_file) %>%
@@ -162,11 +165,13 @@ Summarizing the salient points from [`AlexsLemonade/OpenPBTA-analysis#251`](http
 
 > **ETMR, C19MC-altered**: These tumors have focal amplification of the miRNA cluster on chr19 (denoted C19MC) and often have gene fusions involving _TTYH1_ and chr19 miRNA cluster genes
 
-> **CNS HGNET-MN1**: Contain gene fusions involving 5' _MN1_. 3' fusion partners can include _BEND2_ and _CXXC5_.
+> **Rare CNS, MN1::BEND2**: Contain gene fusions involving 5' _MN1_ and 3' fusion partner _BEND2_.
 
-> **CNS NB-FOXR2**: Over-expression and/or gene fusions in _FOXR2_
+> **Rare CNS, MN1::CXXC5**: Contain gene fusions involving 5' _MN1_ and 3' fusion partner _CXXC5_.
 
-> **CNS EFT-CIC**: Alterations in _CIC_, commonly fused with _NUTM1_
+> **Rare CNS, FOXR2 NBL**: Over-expression and/or gene fusions in _FOXR2_
+
+> **Rare CNS, CIC SARC**: Alterations in _CIC_, commonly fused with _NUTM1_
 
 ```{r}
 colnames(fusions_df)
@@ -177,10 +182,12 @@ ttyh1_fusions <- wrangle_fusions(fusions_df, "TTYH1--", "TTYH1_fusions")
 mn1_fusions <- wrangle_fusions(fusions_df, "MN1--", "MN1_fusions")
 foxr2_fusions <- wrangle_fusions(fusions_df, "FOXR2", "FOXR2_fusions")
 cic_fusions <- wrangle_fusions(fusions_df, "CIC--", "CIC_fusions")
+bcor_fusions <- wrangle_fusions(rare_fusions_df, "BCOR--|--BCOR", "BCOR_fusions")
 fusions_summary_df <- list(ttyh1_fusions,
                            mn1_fusions,
                            foxr2_fusions,
-                           cic_fusions) %>%
+                           cic_fusions,
+                           bcor_fusions) %>%
   purrr::reduce(dplyr::inner_join, by = "Kids_First_Biospecimen_ID") %>%
   # Filter out specific MN1--PATZ1 fusion based on comment: https://github.com/AlexsLemonade/OpenPBTA-analysis/pull/788#discussion_r495212879 and MN1 self-fusion (other hist)
   filter(!(MN1_fusions %in% c("MN1--PATZ1", "MN1--MN1"))) %>% 
@@ -238,9 +245,9 @@ For example, all of the poly-A values for _FOXR2_ are zero prior to scaling.
 
 ### Structural variant data
 
-> **CNS HGNET-BCOR**
+**Rare CNS, BCOR ITD**
 
-> * CNS high-grade neuroepithelial tumor with BCOR alteration
+> * Rare CNS tumors with BCOR alteration
 
 > * Tumors have internal tandem duplication of BCOR
 
@@ -285,9 +292,9 @@ rm(bcor_sv_df, manta_sv_df, consensus_sex_chr)
 
 The following were mentioned in [`AlexsLemonade/OpenPBTA-analysis#251`](https://github.com/AlexsLemonade/OpenPBTA-analysis/issues/251):
 
-> **CNS HGNET-BCOR**: Median age of diagnosis less than 10 years
+> **Rare CNS, BCOR-fused** and **Rare CNS, BCOR ITD**: Median age of diagnosis less than 10 years
 
-> **CNS HGNET-MN1**: Predominantly female patients.
+> **Rare CNS, MN1::CXXC5** and **Rare CNS, MN1::BEND2**: Predominantly female patients.
 
 > **CNS Embryonal, NOS**: Tumors previously called PNET that do not fit into other groups above.
 
@@ -358,7 +365,8 @@ all_data_df %>%
          FOXR2,
          FOXR2_fusions,
          MN1_fusions,
-         CIC_fusions) %>%
+         CIC_fusions,
+         BCOR_fusions) %>%
   arrange(Kids_First_Participant_ID, match_id) %>%
   write_tsv(output_all)
 ```
@@ -407,7 +415,7 @@ etmr_nos_df <- all_data_df %>%
   mutate(molecular_subtype = "ETMR, NOS")
 ```
 
-### CNS HGNET-MN1
+### Rare CNS, MN1::BEND2 and Rare CNS, MN1::CXXC5
 
 > * CNS high-grade neuroepithelial tumor with _MN1_ alteration
 > * Likely previously diagnosed as PNET.
@@ -423,24 +431,36 @@ all_data_df %>%
          MN1_fusions)
 ```
 
-We will call the sample with the _MN1--CXXC5_ fusion CNS HGNET-MN1.
+We will call the sample with the _MN1::CXXC5_ fusion Rare CNS, MN1::CXXC5.
 
 ```{r}
-hgnet_mn1_df <- all_data_df %>%
+mn1_df <- all_data_df %>%
   filter(MN1_fusions != "None") %>%
-  select(contains("ID")) %>%
-  mutate(molecular_subtype = "CNS HGNET-MN1")
+  mutate(
+    molecular_subtype = case_when(
+      str_detect(MN1_fusions, "MN1--BEND2") ~ "CNS, MN1::BEND2",
+      str_detect(MN1_fusions, "MN1--CXXC5") ~ "Rare CNS, MN1::CXXC5",
+      TRUE ~ NA_character_
+    )
+  )
 ```
 
-### CNS HGNET-BCOR
+### - Rare CNS, BCOR-fused
 
-> * CNS high-grade neuroepithelial tumor with BCOR alteration
-> * Tumors have internal tandem duplication of BCOR
-> * Median age of diagnosis less than 10 years
+> Currently none in the embryonal biospecimen list.
 
-We have no clear evidence of _BCOR_ alterations.
+```{r}
+bcor_df <- all_data_df %>%
+  filter(BCOR_fusions != "None") %>%
+  mutate(
+    molecular_subtype = case_when(
+      str_detect(BCOR_fusions, "BCOR") ~ "Rare CNS, BCOR-fused",
+      TRUE ~ NA_character_
+    )
+  )
+```
 
-### CNS NB-FOXR2
+### Rare CNS, FOXR2 NBL
 
 > * Central nervous system (CNS) neuroblastoma with _FOXR2_ activation
 > * Over-expression and/or gene fusions in _FOXR2_
@@ -457,13 +477,13 @@ all_data_df %>%
 nb_foxr2_df <- all_data_df %>%
   filter(FOXR2_fusions != "None" | FOXR2 > 3) %>%
   select(contains("ID")) %>%
-  mutate(molecular_subtype = "CNS NB-FOXR2")
+  mutate(molecular_subtype = "Rare CNS, FOXR2 NBL")
 ```
 
 
-### CNS EFT-CIC
+### Rare CNS, CIC SARC
 
-> * CNS Ewing sarcoma family tumor with _CIC_ alteration
+> * CNS sarcoma family tumor with _CIC_ alteration
 > * Alterations in _CIC_, commonly fused with _NUTM1_
 
 ```{r}
@@ -480,7 +500,7 @@ All other samples will be called CNS Embryonal, NOS with an exception (see below
 
 ### Exclusion of neuroblastoma specimens without FOXR2 alterations
 
-If neuroblastoma samples were included on the basis of `pathology_diagnosis`, `pathology_free_text_diagnosis`, and `primary_site` (see `01-samples-to-subset`), but do not meet the criteria for _FOXR2_ alterations (CNS NB-FOXR2), those samples should not get a subtype label. 
+If neuroblastoma samples were included on the basis of `pathology_diagnosis`, `pathology_free_text_diagnosis`, and `primary_site` (see `01-samples-to-subset`), but do not meet the criteria for _FOXR2_ alterations (Rare CNS, FOXR2 NBL), those samples should not get a subtype label. 
 
 ```{r}
 other_nbl_df <- all_data_df %>%
@@ -503,7 +523,7 @@ exclude_match_id <- other_nbl_df %>%
 subtypes_df <- bind_rows(
   etmr_c19mc_df,
   etmr_nos_df,
-  hgnet_mn1_df,
+  mn1_df,
   nb_foxr2_df
 )
 

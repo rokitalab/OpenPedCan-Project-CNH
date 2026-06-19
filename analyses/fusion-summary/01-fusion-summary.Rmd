@@ -200,6 +200,7 @@ rareCNSGenes <- c(
   "PLAGL",
   "CXXC5",
   "BCOR",
+  "BCORL1",
   "PATZ1",
   "EWSR1",
   "TFCP2",
