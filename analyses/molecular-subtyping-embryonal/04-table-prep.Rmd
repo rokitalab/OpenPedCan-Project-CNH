@@ -438,7 +438,7 @@ mn1_df <- all_data_df %>%
   filter(MN1_fusions != "None") %>%
   mutate(
     molecular_subtype = case_when(
-      str_detect(MN1_fusions, "MN1--BEND2") ~ "CNS, MN1::BEND2",
+      str_detect(MN1_fusions, "MN1--BEND2") ~ "Rare CNS, MN1::BEND2",
       str_detect(MN1_fusions, "MN1--CXXC5") ~ "Rare CNS, MN1::CXXC5",
       TRUE ~ NA_character_
     )

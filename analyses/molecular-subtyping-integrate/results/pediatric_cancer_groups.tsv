@@ -34,15 +34,13 @@ B Acute Lymphoblastic Leukemia/Lymphoma	Unknown	1
 Burkitt Leukemia/Lymphoma	Primary Tumor	5
 CNS Burkitt's lymphoma	Initial CNS Tumor	3
 CNS Embryonal tumor	Deceased	1
-CNS Embryonal tumor	Initial CNS Tumor	22
+CNS Embryonal tumor	Initial CNS Tumor	20
 CNS Embryonal tumor	Primary Tumor	3
 CNS Embryonal tumor	Progressive	12
-CNS Embryonal tumor	Recurrence	13
+CNS Embryonal tumor	Recurrence	10
 CNS Embryonal tumor	Relapse	1
 CNS Embryonal tumor	Unknown	1
 CNS Melanoma	Initial CNS Tumor	1
-CNS neuroblastoma	Initial CNS Tumor	2
-CNS neuroblastoma	Recurrence	2
 Central neurocytoma	Initial CNS Tumor	4
 Central neurocytoma	Progressive	6
 Cholangiocarcinoma	Primary Tumor	1
@@ -110,10 +108,7 @@ Ependymoma	Relapse	5
 Ependymoma	Second Malignancy	3
 Ependymoma	Unknown	2
 Epstein-Barr virus-related tumor	Initial CNS Tumor	2
-Ewing sarcoma	Initial CNS Tumor	11
-Ewing sarcoma	Primary Tumor	14
-Ewing sarcoma	Progressive	1
-Ewing sarcoma	Recurrence	3
+Ewing sarcoma	Primary Tumor	3
 Ewing sarcoma	Relapse	6
 Extraventricular neurocytoma	Initial CNS Tumor	8
 Fibromyxoid lesion	Second Malignancy	3
@@ -263,9 +258,10 @@ Pleomorphic xanthoastrocytoma	Progressive	15
 Pleomorphic xanthoastrocytoma	Recurrence	1
 Primary mediastinal large B cell lymphoma	Primary Tumor	1
 Rare CNS tumor	Deceased	24
-Rare CNS tumor	Initial CNS Tumor	96
-Rare CNS tumor	Progressive	31
-Rare CNS tumor	Recurrence	18
+Rare CNS tumor	Initial CNS Tumor	111
+Rare CNS tumor	Primary Tumor	11
+Rare CNS tumor	Progressive	32
+Rare CNS tumor	Recurrence	26
 Retinoblastoma	Recurrence	1
 Rhabdoid tumor of the kidney	Primary Tumor	67
 Rhabdoid tumor of the kidney	Relapse	1

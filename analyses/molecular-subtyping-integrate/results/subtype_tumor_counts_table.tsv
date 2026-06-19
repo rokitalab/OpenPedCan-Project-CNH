@@ -7,8 +7,6 @@ Atypical Teratoid Rhabdoid Tumor	ATRT, SHH	98
 Atypical Teratoid Rhabdoid Tumor	ATRT, TYR	49
 Atypical Teratoid Rhabdoid Tumor	ATRT, To be classified	111
 CNS Embryonal tumor	CNS Embryonal, NOS	48
-CNS Embryonal tumor	CNS HGNET-MN1	5
-CNS neuroblastoma	CNS NB-FOXR2	4
 Central neurocytoma	CNC	10
 Chordoma	CHDM, To be classified	144
 Chordoma	CHDM, conventional	6
@@ -41,7 +39,6 @@ Ependymoma	EPN, SP-SE	1
 Ependymoma	EPN, ST YAP1	22
 Ependymoma	EPN, ST ZFTA	174
 Ependymoma	EPN, To be classified	244
-Ewing sarcoma	EWS	35
 Extraventricular neurocytoma	EVN	8
 Ganglioglioma	GNG, BRAF V600E	88
 Ganglioglioma	GNG, BRAF V600E, CDKN2A/B	8
@@ -154,8 +151,10 @@ Rare CNS tumor	Rare CNS, BCOR-fused	3
 Rare CNS tumor	Rare CNS, CIC SARC	15
 Rare CNS tumor	Rare CNS, CRINET	2
 Rare CNS tumor	Rare CNS, DICER1 SARC	8
-Rare CNS tumor	Rare CNS, EWS	45
-Rare CNS tumor	Rare CNS, FOXR2 NBL	6
+Rare CNS tumor	Rare CNS, EWS	71
+Rare CNS tumor	Rare CNS, FOXR2 NBL	10
+Rare CNS tumor	Rare CNS, MN1::BEND2	3
+Rare CNS tumor	Rare CNS, MN1::CXXC5	2
 Rare CNS tumor	Rare CNS, PATZ1-fused	17
 Rare CNS tumor	Rare CNS, PLAG AMP	5
 Rare CNS tumor	Rare CNS, PLAGL1-fused	14
