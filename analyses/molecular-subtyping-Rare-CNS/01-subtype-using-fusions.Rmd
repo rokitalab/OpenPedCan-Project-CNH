@@ -1,0 +1,113 @@
+---
+title: "Subtype rare cns tumors using hallmark fusions"
+output: html_notebook
+author: "Jo Lynne Rokita"
+date: 2026
+---
+
+In this PR, we identify subtype Rare CNS RNA-Seq biospecimens from `histologies-base.tsv` using hallmark fusions per [#115](https://github.com/rokitalab/OpenPedCan-Project-CNH/issues/115).
+
+Fusions:
+MN1::BEND2
+MN1::CXXC5
+BRD4::LEUTX
+PAX3::FOXO1
+PAX7::FOXO1
+FUS::TFCP2
+EWSR1::TFCP2
+FUS::ETV4
+FET::CREB
+
+Genes:
+PLAG
+MN1
+PLAGL
+CXXC5
+BCOR
+PATZ1
+EWSR1
+TFCP2
+PAX3
+PAX7
+CREB1
+ATF1
+CREM
+
+The following subtypes are included in this step:
+
+- Rare CNS, MN1::BEND2
+- Rare CNS, ANTCON
+- Rare CNS, ARMS
+- Rare CNS, BCOR-fused
+- Rare CNS, BCOR ITD
+- Rare CNS, FOXR2 NBL
+- Rare CNS, CIC SARC
+- Rare CNS, DICER1 SARC
+- Rare CNS, ERMS
+- Rare CNS, BRD4::LEUTX
+- Rare CNS, PLAG AMP
+- Rare CNS, EWS
+- Rare CNS, MN1::CXXC5
+- Rare CNS, PATZ1-fused
+- Rare CNS, PLAGL1-fused
+- Rare CNS, MYOD1 RMS
+- Rare CNS, CRINET
+
+### Setup
+
+```{r}
+library(tidyverse)
+
+root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
+data_dir <- file.path(root_dir, "data")
+fus_input_dir <- file.path(root_dir, "analyses", "fusion-summary", "results")
+  
+results_dir <-
+  file.path(root_dir, "analyses", "molecular-subtyping-Rare-CNS", "results")
+
+if(!dir.exists(results_dir)){
+  dir.create(results_dir)
+}
+```
+
+## Input
+
+# Candidate Rare CNS tumor specimens based on RNA-Seq fusions
+
+We will use the fusion summary file to find samples that contain fusions defining rare CNS tumosr (e.g. _BCOR_ or _BCORL1_).
+[These](https://pubmed.ncbi.nlm.nih.gov/40724977/) tumors are primarily driven by gene fusions involving the BCOR (BCL6 corepressor) or BCORL1 genes. Common fusion partners include EP300, CREBBP, and occasionally others.
+
+```{r}
+hist <- read_tsv(file.path (data_dir, "histologies-base.tsv"))
+fus_mat <- read_tsv(file.path(fus_input_dir, "fusion_summary_rare_cns_foi.tsv"))
+
+cns_rna_biospecimens <- hist %>%
+  filter(cohort == "PBTA",
+         # let's remove EWS since they're subtyped in their own module
+         pathology_diagnosis != "Ewings Sarcoma",
+         !is.na(pathology_diagnosis),
+         !is.na(RNA_library)) 
+
+# Which samples have these fusions?
+fusion_hits <- fus_mat %>%
+  filter(Kids_First_Biospecimen_ID %in% cns_rna_biospecimens$Kids_First_Biospecimen_ID) %>%
+  filter(if_any(-Kids_First_Biospecimen_ID, ~ . > 0)) %>%
+  pivot_longer(-Kids_First_Biospecimen_ID,
+               names_to = "fusion",
+               values_to = "value") %>%
+  filter(value > 0) %>%
+  select(-value) %>%
+  # group if >1 fusion per bs id
+  group_by(Kids_First_Biospecimen_ID) %>%
+  summarise(fusion = paste(unique(fusion), collapse = ";"),
+            .groups = "drop") %>%
+  left_join(cns_rna_biospecimens[,c("Kids_First_Biospecimen_ID", "pathology_diagnosis", "pathology_free_text_diagnosis")]) %>%
+  write_tsv(file.path(results_dir, "rare_cns_fusion_hits_for_inspection.tsv"))
+  
+```
+
+## Session Info
+
+```{r}
+sessionInfo()
+```
