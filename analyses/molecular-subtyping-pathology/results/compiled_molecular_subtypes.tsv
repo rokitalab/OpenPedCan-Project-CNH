@@ -4087,8 +4087,8 @@ PT_9CQA1W10	PT_9CQA1W10_7316-6349_Solid Tissue_Deceased	7316-6349	BS_M1TDN11J	Di
 PT_9CQA1W10	PT_9CQA1W10_7316-6349_Solid Tissue_Deceased	7316-6349	BS_S84AAK3V	Diffuse astrocytic and oligodendroglial tumor	HGAT	Diffuse midline glioma, H3 K28-altered	DMG, H3 K28, TP53	DMG, H3 K28	Updated via OpenPedCan subtyping
 PT_9CQA1W10	PT_9CQA1W10_7316-6349_Solid Tissue_Deceased	7316-6349	BS_7J80611F	Diffuse astrocytic and oligodendroglial tumor	HGAT	Diffuse midline glioma, H3 K28-altered	DMG, H3 K28, TP53	DMG, H3 K28	Updated via OpenPedCan subtyping
 PT_9CQA1W10	PT_9CQA1W10_7316-6349_Solid Tissue_Deceased	7316-6349	BS_AAGXTZ99	Diffuse astrocytic and oligodendroglial tumor	HGAT	Diffuse midline glioma, H3 K28-altered	DMG, H3 K28, TP53	DMG, H3 K28	Updated via OpenPedCan subtyping
-PT_9CSZBV2P	PT_9CSZBV2P_7316-1473_Solid Tissue_Recurrence	7316-1473	BS_VFF1Y8S7	Embryonal tumor	Rare CNS tumor	Rare CNS tumor, FOXR2 NBL	Rare CNS, FOXR2 NBL	NA	Updated via OpenPedCan subtyping
-PT_9CSZBV2P	PT_9CSZBV2P_7316-1473_Solid Tissue_Recurrence	7316-1473	BS_YBJBSRHV	Embryonal tumor	Rare CNS tumor	Rare CNS tumor, FOXR2 NBL	Rare CNS, FOXR2 NBL	NA	Updated via OpenPedCan subtyping
+PT_9CSZBV2P	PT_9CSZBV2P_7316-1473_Solid Tissue_Recurrence	7316-1473	BS_VFF1Y8S7	Embryonal tumor	Rare CNS tumor	Rare CNS, FOXR2 NBL	Rare CNS, FOXR2 NBL	NA	Updated via OpenPedCan subtyping
+PT_9CSZBV2P	PT_9CSZBV2P_7316-1473_Solid Tissue_Recurrence	7316-1473	BS_YBJBSRHV	Embryonal tumor	Rare CNS tumor	Rare CNS, FOXR2 NBL	Rare CNS, FOXR2 NBL	NA	Updated via OpenPedCan subtyping
 PT_9D2N4S5Z	PT_9D2N4S5Z_7316-93_Solid Tissue_Deceased	7316-93	BS_8SKZ7BRN	Low-grade astrocytic tumor	LGAT	NA	LGG, To be classified	NA	NA
 PT_9D2N4S5Z	PT_9D2N4S5Z_7316-93_Solid Tissue_Deceased	7316-93	BS_S9H9WDCD	Low-grade astrocytic tumor	LGAT	NA	LGG, To be classified	NA	NA
 PT_9DER14KH	PT_9DER14KH_7316-2230_Solid Tissue_Initial CNS Tumor	7316-2230	BS_HE57E1RP	Embryonal tumor	Medulloblastoma	Medulloblastoma, group 3	MB, Group3	NA	Subtype based on prediction;Updated via OpenPedCan subtyping
@@ -4419,9 +4419,9 @@ PT_B5VQ16GW	PT_B5VQ16GW_7316-488_Solid Tissue_Progressive	7316-488	BS_PSW39PF7_P
 PT_B5VQ16GW	PT_B5VQ16GW_7316-488_Solid Tissue_Progressive	7316-488	BS_PSW39PF7_WCP	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	LGG, MAPK	Updated via OpenPedCan subtyping
 PT_B5VQ16GW	PT_B5VQ16GW_7316-488_Solid Tissue_Progressive	7316-488	BS_PWRJHMQV	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	LGG, MAPK	Updated via OpenPedCan subtyping
 PT_B5VQ16GW	PT_B5VQ16GW_7316-488_Solid Tissue_Progressive	7316-488	BS_QRNSKFMS	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	LGG, MAPK	Updated via OpenPedCan subtyping
-PT_B7BBE5DV	PT_B7BBE5DV_7316-3166_Solid Tissue_Recurrence	7316-3166	BS_F0HZ7VMV	Mixed or indeterminate tumor	Rare CNS tumor	Rare CNS tumor, MN1::BEND2	Rare CNS, MN1::BEND2	NA	Updated via OpenPedCan subtyping
-PT_B7BBE5DV	PT_B7BBE5DV_7316-3166_Solid Tissue_Recurrence	7316-3166	BS_JQZWFWFK	Mixed or indeterminate tumor	Rare CNS tumor	Rare CNS tumor, MN1::BEND2	Rare CNS, MN1::BEND2	NA	Updated via OpenPedCan subtyping
-PT_B7BBE5DV	PT_B7BBE5DV_7316-3166_Solid Tissue_Recurrence	7316-3166	BS_MF8YNTC4	Mixed or indeterminate tumor	Rare CNS tumor	Rare CNS tumor, MN1::BEND2	Rare CNS, MN1::BEND2	NA	Updated via OpenPedCan subtyping
+PT_B7BBE5DV	PT_B7BBE5DV_7316-3166_Solid Tissue_Recurrence	7316-3166	BS_F0HZ7VMV	Mixed or indeterminate tumor	Rare CNS tumor	Rare CNS, MN1::BEND2	Rare CNS, MN1::BEND2	NA	Updated via OpenPedCan subtyping
+PT_B7BBE5DV	PT_B7BBE5DV_7316-3166_Solid Tissue_Recurrence	7316-3166	BS_JQZWFWFK	Mixed or indeterminate tumor	Rare CNS tumor	Rare CNS, MN1::BEND2	Rare CNS, MN1::BEND2	NA	Updated via OpenPedCan subtyping
+PT_B7BBE5DV	PT_B7BBE5DV_7316-3166_Solid Tissue_Recurrence	7316-3166	BS_MF8YNTC4	Mixed or indeterminate tumor	Rare CNS tumor	Rare CNS, MN1::BEND2	Rare CNS, MN1::BEND2	NA	Updated via OpenPedCan subtyping
 PT_B7QRTN72	PT_B7QRTN72_7316-1802_Solid Tissue_Initial CNS Tumor	7316-1802	BS_EFBDT6ZE	Embryonal tumor	Medulloblastoma	Medulloblastoma, group 4	MB, Group4	NA	Subtype based on prediction;Updated via OpenPedCan subtyping
 PT_B7QRTN72	PT_B7QRTN72_7316-1802_Solid Tissue_Initial CNS Tumor	7316-1802	BS_TA9WP4TH	Embryonal tumor	Medulloblastoma	Medulloblastoma, group 4	MB, Group4	NA	Subtype based on prediction;Updated via OpenPedCan subtyping
 PT_B7QRTN72	PT_B7QRTN72_7316-1802_Solid Tissue_Initial CNS Tumor	7316-1802	BS_YH60H2FS	Embryonal tumor	Medulloblastoma	Medulloblastoma, group 4	MB, Group4	NA	Subtype based on prediction;Updated via OpenPedCan subtyping
@@ -7842,8 +7842,8 @@ PT_RRAXRH8B	PT_RRAXRH8B_7316-4317_Solid Tissue_Unknown	7316-4317	BS_0TSD8W2N	Dif
 PT_RRG1V7EP	PT_RRG1V7EP_7316-820_Solid Tissue_Initial CNS Tumor	7316-820	BS_2DPWXV8H	Embryonal tumor	ATRT	Atypical Teratoid Rhabdoid Tumor, MYC	ATRT, MYC	ATRT, MYC	Subtype based on methylation;Updated via OpenPedCan subtyping
 PT_RRG1V7EP	PT_RRG1V7EP_7316-820_Solid Tissue_Initial CNS Tumor	7316-820	BS_N0877CX1	Embryonal tumor	ATRT	Atypical Teratoid Rhabdoid Tumor, MYC	ATRT, MYC	ATRT, MYC	Subtype based on methylation;Updated via OpenPedCan subtyping
 PT_RRG1V7EP	PT_RRG1V7EP_7316-820_Solid Tissue_Initial CNS Tumor	7316-820	BS_P7CY04E7	Embryonal tumor	ATRT	Atypical Teratoid Rhabdoid Tumor, MYC	ATRT, MYC	ATRT, MYC	Subtype based on methylation;Updated via OpenPedCan subtyping
-PT_RRHC6FZW	PT_RRHC6FZW_C4105740-Tumor_Solid Tissue_Initial CNS Tumor	C4105740-Tumor	BS_HVB0N4A3	Embryonal tumor	Rare CNS tumor	Rare CNS tumor, FOXR2 NBL	Rare CNS, FOXR2 NBL	NA	Updated via OpenPedCan subtyping
-PT_RRHC6FZW	PT_RRHC6FZW_C4105740-Tumor_Solid Tissue_Initial CNS Tumor	C4105740-Tumor	BS_XE9D080R	Embryonal tumor	Rare CNS tumor	Rare CNS tumor, FOXR2 NBL	Rare CNS, FOXR2 NBL	NA	Updated via OpenPedCan subtyping
+PT_RRHC6FZW	PT_RRHC6FZW_C4105740-Tumor_Solid Tissue_Initial CNS Tumor	C4105740-Tumor	BS_HVB0N4A3	Embryonal tumor	Rare CNS tumor	Rare CNS, FOXR2 NBL	Rare CNS, FOXR2 NBL	NA	Updated via OpenPedCan subtyping
+PT_RRHC6FZW	PT_RRHC6FZW_C4105740-Tumor_Solid Tissue_Initial CNS Tumor	C4105740-Tumor	BS_XE9D080R	Embryonal tumor	Rare CNS tumor	Rare CNS, FOXR2 NBL	Rare CNS, FOXR2 NBL	NA	Updated via OpenPedCan subtyping
 PT_RRT2E7HK	PT_RRT2E7HK_7316-136_Solid Tissue_Initial CNS Tumor	7316-136	BS_5CWT1AFF	Low-grade astrocytic tumor	LGAT	Low-grade glioma, BRAF V600E	LGG, BRAF V600E	NA	Updated via OpenPedCan subtyping
 PT_RRT2E7HK	PT_RRT2E7HK_7316-136_Solid Tissue_Initial CNS Tumor	7316-136	BS_B0SVFK4P	Low-grade astrocytic tumor	LGAT	Low-grade glioma, BRAF V600E	LGG, BRAF V600E	NA	Updated via OpenPedCan subtyping
 PT_RRT2E7HK	PT_RRT2E7HK_7316-136_Solid Tissue_Initial CNS Tumor	7316-136	BS_JHGFJR3D	Low-grade astrocytic tumor	LGAT	Low-grade glioma, BRAF V600E	LGG, BRAF V600E	NA	Updated via OpenPedCan subtyping
