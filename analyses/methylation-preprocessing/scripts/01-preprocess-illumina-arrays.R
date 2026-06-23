@@ -140,12 +140,10 @@ if (use_funnorm) {
 }
 
 
-## calcuate the Mset for CNV calling later
-MSet <- preprocessNoob(RGset)
-m_set_file <- paste0(out_base, "-", dataset, '-m-set.qs2')
-qs_save(MSet, m_set_file)
-rm(MSet)
-gc()
+## save the rgset object for cnv calling 
+rg_set_file <- paste0(out_base, "-", dataset, '-rg-set.qs2')
+qs_save(RGset, rg_set_file)
+
 
 
 ######################## Calculate detection p-values #########################
