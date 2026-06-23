@@ -7,21 +7,23 @@ set -o pipefail
 # This script should always run as if it were being called from
 # the directory it lives in.
 
-printf 'Sorting array types \n\n'
-
-Rscript --vanilla scripts/00-unzip-and-sort.R --base_dir input-test --manifest_file controls_and_dicer_manifest.tsv --output_basename sorted_idats
-
-printf "Start methylation pre-processing...\n\n"
-
 # ---- Global parameters ----
 MANIFEST_FILE="controls_and_dicer_manifest.tsv"
 N_CORES=4
 FUNNORM=TRUE
 SNP_FILTER=TRUE
 OUT_DIR='test-out'
-OUT_BASE="$OUT_DIR/test"
+FILE_PREF='test'
+OUT_BASE="$OUT_DIR/$FILE_PREF"
 
 mkdir -p $OUT_DIR
+
+printf 'Sorting array types \n\n'
+
+Rscript --vanilla scripts/00-unzip-and-sort.R --base_dir input-test --manifest_file controls_and_dicer_manifest.tsv --output_basename sorted_idats
+
+printf "Start methylation pre-processing...\n\n"
+
 
 run_preprocess () {
     local DIR=$1
@@ -45,6 +47,10 @@ if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
 run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2"
 run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylationEPIC" "EPICv1"
 run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylation450k" "450k"
+
+printf "\ncombining array types...\n"
+
+Rscript scripts/02-merge-methyl-matrices.R --output_dir $OUT_DIR --output_prefix $FILE_PREF
 
 
 printf "\nStart segmentation and CNV calling...\n\n"
