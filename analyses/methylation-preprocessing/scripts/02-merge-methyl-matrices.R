@@ -8,6 +8,7 @@ suppressPackageStartupMessages(library(optparse))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(arrow))
+library(qs2)
 
 
 # set up optparse options
@@ -85,7 +86,9 @@ if ("EPICv2" %in% array_types) {
   epicv2_dups_best <- detP_df %>%
     group_by(Probe_base) %>%
     slice_min(detP_mean, n = 1, with_ties = FALSE) %>%
-    ungroup()
+    ungroup() %>%
+    select(-detP_mean)   
+  
   
   non_dup <- detP %>%
     select(ProbeID) %>%
@@ -96,6 +99,7 @@ if ("EPICv2" %in% array_types) {
     epicv2_dups_best,
     non_dup
   )
+  qs_save(epicv2unique, file.path(out_dir, paste0(out_pref, "-EPICv2-unique-mapping.qs2")))
   rm(detP, detP_df)
   gc()
 } else {
