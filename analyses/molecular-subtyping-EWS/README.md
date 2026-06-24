@@ -20,5 +20,5 @@ bash run_subtyping.sh
 
 ### Module contents
 
-`01-run-subtyping-ewings.Rmd` identifies sample_id for RNA-Seq samples with hallmark _EWSR1_ fusions and matches sample_id with WGS sample and adds molecular_subtype as "EWS" (Ewing Sarcoma).
+`01-run-subtyping-ewings.Rmd` identifies sample_id for RNA-Seq samples with hallmark _EWSR1_ fusions for only PBTA tumors, matches sample_id with WGS sample and adds molecular_subtype as "Rare CNS, EWS" (Ewing Sarcoma).
 The tabular output (`results/EWS_results.tsv`) only contains tumors where `molecular_subtype == "EWS"`.

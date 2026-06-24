@@ -28,7 +28,8 @@ ews_file <- file.path(results_dir, "EWS_results.tsv")
 ```{r read in data}
 # histology file
 clinical <- readr::read_tsv(file.path(dataDir, "histologies-base.tsv"), guess_max = 100000) %>%
-  filter(cohort %in% c("PBTA", "Kentucky", "DGD", "PPTC"))
+  # filter for CNS tumors only
+  filter(cohort %in% c("PBTA", "Kentucky"))
 
 # read pathology diagnosis JSON file 
 path_dx_list <- jsonlite::fromJSON(file.path(analysis_dir, "ews-subset", "EWS_subtyping_path_dx_strings.json"))
@@ -130,7 +131,7 @@ all_subtypes <- ews_clinical %>%
   # confirm the subtype based in the pathology, remove any with different pathology dx
   filter(pathology_diagnosis == "Ewings Sarcoma") %>% 
   # make subtype EWS if diagnosis EWS or methylation was EWS
-  mutate(molecular_subtype = case_when(pathology_diagnosis == "Ewings Sarcoma" ~ "EWS",
+  mutate(molecular_subtype = case_when(pathology_diagnosis == "Ewings Sarcoma" ~ "Rare CNS, EWS",
                                        TRUE ~ molecular_subtype_methyl))
 
 ```

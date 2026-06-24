@@ -5,10 +5,8 @@ Astrocytoma	HGG, To be classified	3
 Atypical Teratoid Rhabdoid Tumor	ATRT, MYC	93
 Atypical Teratoid Rhabdoid Tumor	ATRT, SHH	98
 Atypical Teratoid Rhabdoid Tumor	ATRT, TYR	49
-Atypical Teratoid Rhabdoid Tumor	ATRT, To be classified	115
-CNS Embryonal tumor	CNS Embryonal, NOS	54
-CNS Embryonal tumor	CNS HGNET-MN1	5
-CNS neuroblastoma	CNS NB-FOXR2	10
+Atypical Teratoid Rhabdoid Tumor	ATRT, To be classified	111
+CNS Embryonal tumor	CNS Embryonal, NOS	48
 Central neurocytoma	CNC	10
 Chordoma	CHDM, To be classified	144
 Chordoma	CHDM, conventional	6
@@ -27,7 +25,7 @@ Diffuse intrinsic pontine glioma	HGG, To be classified	16
 Diffuse leptomeningeal glioneuronal tumor	GNT, KIAA1549-BRAF	4
 Diffuse leptomeningeal glioneuronal tumor	GNT, MAPK	3
 Diffuse leptomeningeal glioneuronal tumor	GNT, To be classified	2
-Diffuse midline glioma	DMG, H3 K28	385
+Diffuse midline glioma	DMG, H3 K28	386
 Diffuse midline glioma	DMG, H3 K28, TP53	509
 Embryonal tumor with multilayer rosettes	ETMR, C19MC-altered	12
 Embryonal tumor with multilayer rosettes	ETMR, NOS	22
@@ -40,8 +38,7 @@ Ependymoma	EPN, SP-MYCN	12
 Ependymoma	EPN, SP-SE	1
 Ependymoma	EPN, ST YAP1	22
 Ependymoma	EPN, ST ZFTA	174
-Ependymoma	EPN, To be classified	251
-Ewing sarcoma	EWS	100
+Ependymoma	EPN, To be classified	244
 Extraventricular neurocytoma	EVN	8
 Ganglioglioma	GNG, BRAF V600E	88
 Ganglioglioma	GNG, BRAF V600E, CDKN2A/B	8
@@ -60,7 +57,7 @@ Ganglioglioma	GNG, To be classified	21
 Ganglioglioma	GNG, other MAPK	28
 Ganglioglioma	GNG, other MAPK, BRAF V600E	3
 Ganglioglioma	GNG, other MAPK, IDH	6
-Ganglioglioma	GNG, wildtype	59
+Ganglioglioma	GNG, wildtype	55
 Ganglioneuroblastoma	NBL, MYCN amplified	41
 Ganglioneuroblastoma	NBL, MYCN non-amplified	100
 Ganglioneuroblastoma	NBL, To be classified	58
@@ -73,16 +70,15 @@ Glial-neuronal tumor NOS	GNT, NF1-somatic	2
 Glial-neuronal tumor NOS	GNT, NF1-somatic, FGFR	1
 Glial-neuronal tumor NOS	GNT, NF1-somatic, NF1-germline	1
 Glial-neuronal tumor NOS	GNT, RTK	12
-Glial-neuronal tumor NOS	GNT, RTK, CDKN2A/B	8
-Glial-neuronal tumor NOS	GNT, To be classified	19
+Glial-neuronal tumor NOS	GNT, To be classified	17
 Glial-neuronal tumor NOS	GNT, other MAPK	13
 Glial-neuronal tumor NOS	GNT, other MAPK, CDKN2A/B	4
 Glial-neuronal tumor NOS	GNT, wildtype	23
-High-grade glioma	HGG, H3 wildtype	469
-High-grade glioma	HGG, H3 wildtype, TP53	298
+High-grade glioma	HGG, H3 wildtype	448
+High-grade glioma	HGG, H3 wildtype, TP53	290
 High-grade glioma	HGG, IDH	8
 High-grade glioma	HGG, IDH, TP53	60
-High-grade glioma	HGG, To be classified	158
+High-grade glioma	HGG, To be classified	152
 High-grade glioma	HGG, To be classified, TP53	1
 Infant-type hemispheric glioma	IHG, ALK-altered	6
 Infant-type hemispheric glioma	IHG, NTRK-altered	26
@@ -129,18 +125,17 @@ Low-grade glioma	LGG, other MAPK	96
 Low-grade glioma	LGG, other MAPK, CDKN2A/B	3
 Low-grade glioma	LGG, other MAPK, H3	3
 Low-grade glioma	LGG, other MAPK, IDH	2
-Low-grade glioma	LGG, wildtype	150
+Low-grade glioma	LGG, wildtype	143
 Low-grade glioma	SEGA, RTK	4
 Low-grade glioma	SEGA, wildtype	6
 Medulloblastoma	MB, Group3	245
 Medulloblastoma	MB, Group4	365
-Medulloblastoma	MB, SHH	265
-Medulloblastoma	MB, To be classified	63
+Medulloblastoma	MB, SHH	260
+Medulloblastoma	MB, To be classified	60
 Medulloblastoma	MB, WNT	83
 Neuroblastoma	NBL, MYCN amplified	478
 Neuroblastoma	NBL, MYCN non-amplified	514
 Neuroblastoma	NBL, To be classified	608
-Not Reported	HGG, To be classified	1
 Pilocytic astrocytoma	LGG, To be classified	74
 Pineoblastoma	PB, Group 1	23
 Pineoblastoma	PB, Group 2	11
@@ -149,6 +144,20 @@ Pineoblastoma	PB, To be classified	22
 Pleomorphic xanthoastrocytoma	HGG, PXA	52
 Pleomorphic xanthoastrocytoma	HGG, PXA, TP53	4
 Pleomorphic xanthoastrocytoma	LGG, To be classified	5
+Rare CNS tumor	Rare CNS, ANTCON	8
+Rare CNS tumor	Rare CNS, ARMS	9
+Rare CNS tumor	Rare CNS, BCOR ITD	37
+Rare CNS tumor	Rare CNS, BCOR-fused	3
+Rare CNS tumor	Rare CNS, CIC SARC	15
+Rare CNS tumor	Rare CNS, CRINET	2
+Rare CNS tumor	Rare CNS, DICER1 SARC	8
+Rare CNS tumor	Rare CNS, EWS	71
+Rare CNS tumor	Rare CNS, FOXR2 NBL	10
+Rare CNS tumor	Rare CNS, MN1::BEND2	3
+Rare CNS tumor	Rare CNS, MN1::CXXC5	2
+Rare CNS tumor	Rare CNS, PATZ1-fused	17
+Rare CNS tumor	Rare CNS, PLAG AMP	5
+Rare CNS tumor	Rare CNS, PLAGL1-fused	14
 Rosette-forming glioneuronal tumor	GNT, FGFR	5
 Rosette-forming glioneuronal tumor	GNT, other MAPK, FGFR	3
 Subependymal Giant Cell Astrocytoma	SEGA, To be classified	30
