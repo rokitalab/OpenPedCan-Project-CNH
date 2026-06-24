@@ -72,3 +72,10 @@ run_cnv () {
 run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2" "EPICv2" 
 run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPIC"   "EPICv1" "EPIC"
 run_cnv "sorted_idats_output_dir/IlluminaHumanMethylation450k"   "450k"   "450"
+
+mkdir -p liftover
+cd liftover
+curl -O http://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg38.over.chain.gz
+cd ..
+
+Rscript --vanilla scripts/04-liftover.R --seg_dir test-out
