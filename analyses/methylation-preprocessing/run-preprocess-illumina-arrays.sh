@@ -27,7 +27,7 @@ run_preprocess () {
     local DIR=$1
     local LABEL=$2
 
-    if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
+if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
         echo "Processing $LABEL"
 
         Rscript scripts/01-preprocess-illumina-arrays.R \
@@ -45,3 +45,30 @@ run_preprocess () {
 run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2"
 run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylationEPIC" "EPICv1"
 run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylation450k" "450k"
+
+
+printf "\nStart segmentation and CNV calling...\n\n"
+
+run_cnv () {
+    local DIR=$1
+    local LABEL=$2
+    local ARRAY_TYPE=$3
+
+    if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
+        echo "Running segmentation for $LABEL"
+
+        Rscript --vanilla scripts/03-cnv-calls.R \
+            --base_dir "$DIR" \
+            --manifest_file "$MANIFEST_FILE" \
+            --n_cores "$N_CORES" \
+            --output_basename "$OUT_BASE" \
+            --array_type "$ARRAY_TYPE"
+    else
+        echo "Skipping segmentation for $LABEL (missing or empty)"
+    fi
+}
+
+# ---- Run CNV step for each array ----
+run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2" "EPICv2" 
+run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPIC"   "EPICv1" "EPIC"
+run_cnv "sorted_idats_output_dir/IlluminaHumanMethylation450k"   "450k"   "450"
