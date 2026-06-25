@@ -108,7 +108,7 @@ Ependymoma	Relapse	5
 Ependymoma	Second Malignancy	3
 Ependymoma	Unknown	2
 Epstein-Barr virus-related tumor	Initial CNS Tumor	2
-Ewing sarcoma	Primary Tumor	3
+Ewing sarcoma	Primary Tumor	14
 Ewing sarcoma	Relapse	6
 Extraventricular neurocytoma	Initial CNS Tumor	8
 Fibromyxoid lesion	Second Malignancy	3
@@ -182,7 +182,7 @@ Malignant peripheral nerve sheath tumor	Primary Tumor	2
 Malignant peripheral nerve sheath tumor	Progressive	3
 Malignant peripheral nerve sheath tumor	Recurrence	3
 Medulloblastoma	Deceased	93
-Medulloblastoma	Initial CNS Tumor	811
+Medulloblastoma	Initial CNS Tumor	814
 Medulloblastoma	Primary Tumor	26
 Medulloblastoma	Progressive	39
 Medulloblastoma	Recurrence	41
@@ -258,8 +258,7 @@ Pleomorphic xanthoastrocytoma	Progressive	15
 Pleomorphic xanthoastrocytoma	Recurrence	1
 Primary mediastinal large B cell lymphoma	Primary Tumor	1
 Rare CNS tumor	Deceased	24
-Rare CNS tumor	Initial CNS Tumor	111
-Rare CNS tumor	Primary Tumor	11
+Rare CNS tumor	Initial CNS Tumor	108
 Rare CNS tumor	Progressive	32
 Rare CNS tumor	Recurrence	26
 Retinoblastoma	Recurrence	1

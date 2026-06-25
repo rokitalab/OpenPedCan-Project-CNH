@@ -2615,7 +2615,6 @@ PT_3CVMBGD7	PT_3CVMBGD7_7316-1963_Solid Tissue_Initial CNS Tumor	7316-1963	BS_H9
 PT_3DPGHW7X	PT_3DPGHW7X_7316-4305_Solid Tissue_Initial CNS Tumor	7316-4305	BS_CBHR1061	Low-grade astrocytic tumor	LGAT	NA	LGG, To be classified	NA	NA
 PT_3E11RE96	PT_3E11RE96_C4107708-Tumor_Solid Tissue_Recurrence	C4107708-Tumor	BS_SNQ9QFPA	Embryonal tumor	ATRT	NA	ATRT, To be classified	NA	NA
 PT_3E11RE96	PT_3E11RE96_C4107708-Tumor_Solid Tissue_Recurrence	C4107708-Tumor	BS_TW4ZGQ3E	Embryonal tumor	ATRT	NA	ATRT, To be classified	NA	NA
-PT_3FBE56XT	PT_3FBE56XT_ET_3DTQ8EYT_Solid Tissue_Primary Tumor	ET_3DTQ8EYT	BS_FQ28Q58A	Mixed or indeterminate tumor	EWS	CNS Ewing sarcoma	Rare CNS, EWS	NA	Updated via OpenPedCan subtyping
 PT_3FWKC70D	PT_3FWKC70D_7316-2323_Solid Tissue_Recurrence	7316-2323	BS_503DZ8BN	Low-grade astrocytic tumor	LGAT	Low-grade glioma, other MAPK, H3	LGG, other MAPK, H3	NA	Updated via OpenPedCan subtyping
 PT_3FWKC70D	PT_3FWKC70D_7316-2323_Solid Tissue_Recurrence	7316-2323	BS_74Q0DPJ7	Low-grade astrocytic tumor	LGAT	Low-grade glioma, other MAPK, H3	LGG, other MAPK, H3	NA	Updated via OpenPedCan subtyping
 PT_3FWKC70D	PT_3FWKC70D_7316-2323_Solid Tissue_Recurrence	7316-2323	BS_GBH5465S	Low-grade astrocytic tumor	LGAT	Low-grade glioma, other MAPK, H3	LGG, other MAPK, H3	NA	Updated via OpenPedCan subtyping
@@ -3757,7 +3756,6 @@ PT_89HXDTTW	PT_89HXDTTW_7316-4844_Solid Tissue_Initial CNS Tumor	7316-4844	BS_VQ
 PT_89HXDTTW	PT_89HXDTTW_7316-4844_Solid Tissue_Initial CNS Tumor	7316-4844	BS_DSZSFTR6	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma, IDH-wildtype and H3-wildtype	HGG, H3 wildtype	NA	Updated via OpenPedCan subtyping
 PT_89HXDTTW	PT_89HXDTTW_7316-4844_Solid Tissue_Initial CNS Tumor	7316-4844	BS_SZXJWF0V_PHOS	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma, IDH-wildtype and H3-wildtype	HGG, H3 wildtype	NA	Updated via OpenPedCan subtyping
 PT_89HXDTTW	PT_89HXDTTW_7316-4844_Solid Tissue_Initial CNS Tumor	7316-4844	BS_SZXJWF0V_WCP	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma, IDH-wildtype and H3-wildtype	HGG, H3 wildtype	NA	Updated via OpenPedCan subtyping
-PT_89MDQM4A	PT_89MDQM4A_ET_DYCGCT3C_Solid Tissue_Primary Tumor	ET_DYCGCT3C	BS_2ZPGN4AS	Mixed or indeterminate tumor	EWS	CNS Ewing sarcoma	Rare CNS, EWS	NA	Updated via OpenPedCan subtyping
 PT_89XRZBSG	PT_89XRZBSG_7316-1789_Solid Tissue_Recurrence	7316-1789	BS_49FQXT2E	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma, IDH-wildtype and H3-wildtype	HGG, H3 wildtype, TP53	NA	Updated via OpenPedCan subtyping
 PT_89XRZBSG	PT_89XRZBSG_7316-1789_Solid Tissue_Recurrence	7316-1789	BS_X1DSETVE	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma, IDH-wildtype and H3-wildtype	HGG, H3 wildtype, TP53	NA	Updated via OpenPedCan subtyping
 PT_89XRZBSG	PT_89XRZBSG_7316-1789_Solid Tissue_Recurrence	7316-1789	BS_2N7G3R27	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma, IDH-wildtype and H3-wildtype	HGG, H3 wildtype, TP53	NA	Updated via OpenPedCan subtyping
@@ -3958,7 +3956,6 @@ PT_91PDAFH0	PT_91PDAFH0_ET_74EBAQQ1_Solid Tissue_Primary Tumor	ET_74EBAQQ1	BS_PX
 PT_91WW504A	PT_91WW504A_7316-6197_Solid Tissue_Initial CNS Tumor	7316-6197	BS_A1V3BH0Z	Low-grade astrocytic tumor	LGAT	Low-grade glioma, wildtype	LGG, wildtype	NA	Updated via OpenPedCan subtyping
 PT_91WW504A	PT_91WW504A_7316-6197_Solid Tissue_Initial CNS Tumor	7316-6197	BS_W95SFE00	Low-grade astrocytic tumor	LGAT	Low-grade glioma, wildtype	LGG, wildtype	NA	Updated via OpenPedCan subtyping
 PT_936J0BZ5	PT_936J0BZ5_ET_9ZA5FKKS_Not Available_Progressive	ET_9ZA5FKKS	BS_HEDCVFKC	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA
-PT_93X64HCA	PT_93X64HCA_ET_5ECC4ZRA_Solid Tissue_Primary Tumor	ET_5ECC4ZRA	BS_8WKDAXEF	Mixed or indeterminate tumor	EWS	CNS Ewing sarcoma	Rare CNS, EWS	NA	Updated via OpenPedCan subtyping
 PT_94BFYTVZ	PT_94BFYTVZ_7316-6768_Solid Tissue_Initial CNS Tumor	7316-6768	BS_238MGRTM	Ependymal tumor	Ependymoma	Posterior fossa group B (PFB) ependymoma	EPN, PF B	EPN, PF B	Updated via OpenPedCan subtyping
 PT_94BFYTVZ	PT_94BFYTVZ_7316-6768_Solid Tissue_Initial CNS Tumor	7316-6768	BS_7M4R9HV9	Ependymal tumor	Ependymoma	Posterior fossa group B (PFB) ependymoma	EPN, PF B	EPN, PF B	Updated via OpenPedCan subtyping
 PT_94BFYTVZ	PT_94BFYTVZ_7316-6768_Solid Tissue_Initial CNS Tumor	7316-6768	BS_9MTN0TJX	Ependymal tumor	Ependymoma	Posterior fossa group B (PFB) ependymoma	EPN, PF B	EPN, PF B	Updated via OpenPedCan subtyping
@@ -4296,7 +4293,6 @@ PT_AP658JQV	PT_AP658JQV_7316-1694_Solid Tissue_Deceased	7316-1694	BS_8MA5B8Y9	Di
 PT_AP658JQV	PT_AP658JQV_7316-1694_Solid Tissue_Deceased	7316-1694	BS_TSMY09VT	Diffuse astrocytic and oligodendroglial tumor	HGAT	Diffuse hemispheric glioma, H3 G35-mutant	DHG, H3 G35	DHG, H3 G35	Updated via OpenPedCan subtyping
 PT_AP658JQV	PT_AP658JQV_7316-519_Solid Tissue_Initial CNS Tumor	7316-519	BS_3MS8WVNR	Diffuse astrocytic and oligodendroglial tumor	HGAT	Diffuse hemispheric glioma, H3 G35-mutant	DHG, H3 G35	DHG, H3 G35	Updated via OpenPedCan subtyping
 PT_AP658JQV	PT_AP658JQV_7316-519_Solid Tissue_Initial CNS Tumor	7316-519	BS_7YW8W58B	Diffuse astrocytic and oligodendroglial tumor	HGAT	Diffuse hemispheric glioma, H3 G35-mutant	DHG, H3 G35	DHG, H3 G35	Updated via OpenPedCan subtyping
-PT_APCZ05PP	PT_APCZ05PP_ET_AGJN03AJ_Solid Tissue_Primary Tumor	ET_AGJN03AJ	BS_CA3QVWME	Mixed or indeterminate tumor	EWS	CNS Ewing sarcoma	Rare CNS, EWS	NA	Updated via OpenPedCan subtyping
 PT_APH89KGV	PT_APH89KGV_7316-8536_Solid Tissue_Progressive	7316-8536	BS_STYGP160	Embryonal tumor	ATRT	Atypical Teratoid Rhabdoid Tumor, MYC	ATRT, MYC	ATRT, MYC	Subtype based on methylation;Updated via OpenPedCan subtyping
 PT_AR01XWM3	PT_AR01XWM3_7316-8070_Solid Tissue_Initial CNS Tumor	7316-8070	BS_R81XA0F9	Low-grade astrocytic tumor	LGAT	Low-grade glioma, wildtype	LGG, wildtype	NA	Updated via OpenPedCan subtyping
 PT_AR01XWM3	PT_AR01XWM3_7316-8070_Solid Tissue_Initial CNS Tumor	7316-8070	BS_W4XFSP1Q	Low-grade astrocytic tumor	LGAT	Low-grade glioma, wildtype	LGG, wildtype	NA	Updated via OpenPedCan subtyping
@@ -5836,9 +5832,9 @@ PT_GH693TT8	PT_GH693TT8_7316-2181_Solid Tissue_Initial CNS Tumor	7316-2181	BS_28
 PT_GH693TT8	PT_GH693TT8_7316-2181_Solid Tissue_Initial CNS Tumor	7316-2181	BS_KXCY5BN5	Embryonal tumor	ATRT	Atypical Teratoid Rhabdoid Tumor, TYR	ATRT, TYR	ATRT, TYR	Subtype based on methylation;Updated via OpenPedCan subtyping
 PT_GH693TT8	PT_GH693TT8_7316-2181_Solid Tissue_Initial CNS Tumor	7316-2181	BS_MGX6V2BS	Embryonal tumor	ATRT	Atypical Teratoid Rhabdoid Tumor, TYR	ATRT, TYR	ATRT, TYR	Subtype based on methylation;Updated via OpenPedCan subtyping
 PT_GH693TT8	PT_GH693TT8_7316-2181_Solid Tissue_Initial CNS Tumor	7316-2181	BS_NDSWS9TS	Embryonal tumor	ATRT	Atypical Teratoid Rhabdoid Tumor, TYR	ATRT, TYR	ATRT, TYR	Subtype based on methylation;Updated via OpenPedCan subtyping
-PT_GH6HM5QF	PT_GH6HM5QF_7316-3202_Solid Tissue_Initial CNS Tumor	7316-3202	BS_70FKSKM9	Mixed or indeterminate tumor	Rare CNS	Rare CNS, ARMS	Rare CNS, ARMS	NA	Subtype based on methylation;Updated via OpenPedCan subtyping
-PT_GH6HM5QF	PT_GH6HM5QF_7316-3202_Solid Tissue_Initial CNS Tumor	7316-3202	BS_K81DR8XG	Mixed or indeterminate tumor	Rare CNS	Rare CNS, ARMS	Rare CNS, ARMS	NA	Subtype based on methylation;Updated via OpenPedCan subtyping
-PT_GH6HM5QF	PT_GH6HM5QF_7316-3202_Solid Tissue_Initial CNS Tumor	7316-3202	BS_MR7DZ7D0	Mixed or indeterminate tumor	Rare CNS	Rare CNS, ARMS	Rare CNS, ARMS	NA	Subtype based on methylation;Updated via OpenPedCan subtyping
+PT_GH6HM5QF	PT_GH6HM5QF_7316-3202_Solid Tissue_Initial CNS Tumor	7316-3202	BS_70FKSKM9	Embryonal tumor	Medulloblastoma	Medulloblastoma, SHH-activated	MB, SHH	NA	Subtype based on prediction;Updated via OpenPedCan subtyping
+PT_GH6HM5QF	PT_GH6HM5QF_7316-3202_Solid Tissue_Initial CNS Tumor	7316-3202	BS_K81DR8XG	Embryonal tumor	Medulloblastoma	Medulloblastoma, SHH-activated	MB, SHH	NA	Subtype based on prediction;Updated via OpenPedCan subtyping
+PT_GH6HM5QF	PT_GH6HM5QF_7316-3202_Solid Tissue_Initial CNS Tumor	7316-3202	BS_MR7DZ7D0	Embryonal tumor	Medulloblastoma	Medulloblastoma, SHH-activated	MB, SHH	NA	Subtype based on prediction;Updated via OpenPedCan subtyping
 PT_GHFG41Q2	PT_GHFG41Q2_7316-8429_Solid Tissue_Initial CNS Tumor	7316-8429	BS_BTVH61CD	Embryonal tumor	Medulloblastoma	Medulloblastoma, group 3	MB, Group3	MB, Group3	Subtype based on prediction;Updated via OpenPedCan subtyping
 PT_GHFG41Q2	PT_GHFG41Q2_7316-8429_Solid Tissue_Initial CNS Tumor	7316-8429	BS_DQ53BKED	Embryonal tumor	Medulloblastoma	Medulloblastoma, group 3	MB, Group3	MB, Group3	Subtype based on prediction;Updated via OpenPedCan subtyping
 PT_GHHY5AAE	PT_GHHY5AAE_7316-741_Solid Tissue_Initial CNS Tumor	7316-741	BS_7SSM2WX4	Low-grade astrocytic tumor	LGAT	Low-grade glioma, FGFR	LGG, FGFR	NA	Updated via OpenPedCan subtyping
@@ -6023,7 +6019,6 @@ PT_H6E09982	PT_H6E09982_7316-5_Solid Tissue_Initial CNS Tumor	7316-5	BS_0K0R2RHX
 PT_H6E09982	PT_H6E09982_7316-5_Solid Tissue_Initial CNS Tumor	7316-5	BS_5VQP0E6K	Embryonal tumor	Medulloblastoma	Medulloblastoma, WNT-activated	MB, WNT	MB, WNT	Subtype based on prediction;Updated via OpenPedCan subtyping
 PT_H6E09982	PT_H6E09982_7316-5_Solid Tissue_Initial CNS Tumor	7316-5	BS_9D39MFHT	Embryonal tumor	Medulloblastoma	Medulloblastoma, WNT-activated	MB, WNT	MB, WNT	Subtype based on prediction;Updated via OpenPedCan subtyping
 PT_H6MHKR2J	PT_H6MHKR2J_7316-4724_Solid Tissue_Initial CNS Tumor	7316-4724	BS_C4MPKK2H	Mixed or indeterminate tumor	EWS	CNS Ewing sarcoma	Rare CNS, EWS	NA	Updated via OpenPedCan subtyping
-PT_H6MHKR2J	PT_H6MHKR2J_ET_FQ9SBKJA_Solid Tissue_Primary Tumor	ET_FQ9SBKJA	BS_V42WKCSW	Mixed or indeterminate tumor	EWS	CNS Ewing sarcoma	Rare CNS, EWS	NA	Updated via OpenPedCan subtyping
 PT_H7X4M9CC	PT_H7X4M9CC_C4118901-Tumor_Solid Tissue_Recurrence	C4118901-Tumor	BS_H08FEN68	Low-grade astrocytic tumor	LGAT	Low-grade glioma, MYB/MYBL1, other MAPK	LGG, MYB/MYBL1, other MAPK	NA	Updated via OpenPedCan subtyping
 PT_H7X4M9CC	PT_H7X4M9CC_C4118901-Tumor_Solid Tissue_Recurrence	C4118901-Tumor	BS_Q9MMJ9H4	Low-grade astrocytic tumor	LGAT	Low-grade glioma, MYB/MYBL1, other MAPK	LGG, MYB/MYBL1, other MAPK	NA	Updated via OpenPedCan subtyping
 PT_H876VB6R	PT_H876VB6R_7316-1806_Solid Tissue_Initial CNS Tumor	7316-1806	BS_BQB6NZWZ	Ependymal tumor	Ependymoma	Posterior fossa group A (PFA) ependymoma	EPN, PF A	EPN, PF A	Updated via OpenPedCan subtyping
@@ -6240,7 +6235,6 @@ PT_HXV713W6	PT_HXV713W6_7316-9439_Solid Tissue_Initial CNS Tumor	7316-9439	BS_QM
 PT_HXV713W6	PT_HXV713W6_7316-9439_Solid Tissue_Initial CNS Tumor	7316-9439	BS_VSSBS981	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	NA	Updated via OpenPedCan subtyping
 PT_HXV713W6	PT_HXV713W6_7316-9815_Solid Tissue_Recurrence	7316-9815	BS_E10P4XYZ	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	NA	Updated via OpenPedCan subtyping
 PT_HXV713W6	PT_HXV713W6_7316-9815_Solid Tissue_Recurrence	7316-9815	BS_RAQFEB0S	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	NA	Updated via OpenPedCan subtyping
-PT_HY4QQHN4	PT_HY4QQHN4_ET_7SY25S7M_Solid Tissue_Primary Tumor	ET_7SY25S7M	BS_D8AE7DC2	Mixed or indeterminate tumor	EWS	CNS Ewing sarcoma	Rare CNS, EWS	NA	Updated via OpenPedCan subtyping
 PT_HY664Q1B	PT_HY664Q1B_7316-7542_Solid Tissue_Initial CNS Tumor	7316-7542	BS_BJW6371E	Diffuse astrocytic and oligodendroglial tumor	HGAT	Diffuse midline glioma, H3 K28-altered	DMG, H3 K28	NA	Updated via OpenPedCan subtyping
 PT_HY664Q1B	PT_HY664Q1B_7316-7542_Solid Tissue_Initial CNS Tumor	7316-7542	BS_VQJSP9JS	Diffuse astrocytic and oligodendroglial tumor	HGAT	Diffuse midline glioma, H3 K28-altered	DMG, H3 K28	NA	Updated via OpenPedCan subtyping
 PT_HYBNXPN8	PT_HYBNXPN8_7316-3933_Solid Tissue_Initial CNS Tumor	7316-3933	BS_YXXVKQEK	Embryonal tumor	Medulloblastoma	NA	MB, To be classified	NA	NA
@@ -6990,12 +6984,9 @@ PT_MYNKT1TK	PT_MYNKT1TK_7316-9075_Solid Tissue_Deceased	7316-9075	BS_HT74FBJ2	Em
 PT_MYNKT1TK	PT_MYNKT1TK_7316-9075_Solid Tissue_Deceased	7316-9075	BS_RG9W7TH4	Embryonal tumor	Medulloblastoma	Medulloblastoma, SHH-activated	MB, SHH	NA	Subtype based on prediction;Updated via OpenPedCan subtyping
 PT_MYNKT1TK	PT_MYNKT1TK_7316-9075_Solid Tissue_Deceased	7316-9075	BS_YBD8KGXQ	Embryonal tumor	Medulloblastoma	Medulloblastoma, SHH-activated	MB, SHH	NA	Subtype based on prediction;Updated via OpenPedCan subtyping
 PT_MYNKT1TK	PT_MYNKT1TK_7316-9075_Solid Tissue_Deceased	7316-9075	BS_Z7ADGXGV	Embryonal tumor	Medulloblastoma	Medulloblastoma, SHH-activated	MB, SHH	NA	Subtype based on prediction;Updated via OpenPedCan subtyping
-PT_MZPW2BAD	PT_MZPW2BAD_ET_ER0AEJ1E_Solid Tissue_Primary Tumor	ET_ER0AEJ1E	BS_RSQJANXC	Mixed or indeterminate tumor	EWS	CNS Ewing sarcoma	Rare CNS, EWS	NA	Updated via OpenPedCan subtyping
 PT_N13MXT13	PT_N13MXT13_7316-7758_Solid Tissue_Initial CNS Tumor	7316-7758	BS_N6TQBQ8M	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma, IDH-wildtype and H3-wildtype	HGG, H3 wildtype	HGG, H3 wildtype	Updated via OpenPedCan subtyping
 PT_N13MXT13	PT_N13MXT13_7316-7758_Solid Tissue_Initial CNS Tumor	7316-7758	BS_MD2R88X3	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma, IDH-wildtype and H3-wildtype	HGG, H3 wildtype	HGG, H3 wildtype	Updated via OpenPedCan subtyping
 PT_N13MXT13	PT_N13MXT13_7316-7758_Solid Tissue_Initial CNS Tumor	7316-7758	BS_ARVP8BAK	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma, IDH-wildtype and H3-wildtype	HGG, H3 wildtype	HGG, H3 wildtype	Updated via OpenPedCan subtyping
-PT_N17MK63X	PT_N17MK63X_ET_2K4G9A1D_Solid Tissue_Primary Tumor	ET_2K4G9A1D	BS_86SKTG9Y	Mixed or indeterminate tumor	EWS	CNS Ewing sarcoma	Rare CNS, EWS	NA	Updated via OpenPedCan subtyping
-PT_N17MK63X	PT_N17MK63X_ET_2K4G9A1D_Solid Tissue_Primary Tumor	ET_2K4G9A1D	BS_RQ4TNF1G	Mixed or indeterminate tumor	EWS	CNS Ewing sarcoma	Rare CNS, EWS	NA	Updated via OpenPedCan subtyping
 PT_N1HWK3YS	PT_N1HWK3YS_7316-2603_Solid Tissue_Initial CNS Tumor	7316-2603	BS_GKQQKS8C	Embryonal tumor	Medulloblastoma	Medulloblastoma, WNT-activated	MB, WNT	MB, WNT	Subtype based on prediction;Updated via OpenPedCan subtyping
 PT_N1HWK3YS	PT_N1HWK3YS_7316-2603_Solid Tissue_Initial CNS Tumor	7316-2603	BS_JV8JSETJ	Embryonal tumor	Medulloblastoma	Medulloblastoma, WNT-activated	MB, WNT	MB, WNT	Subtype based on prediction;Updated via OpenPedCan subtyping
 PT_N1HWK3YS	PT_N1HWK3YS_7316-2603_Solid Tissue_Initial CNS Tumor	7316-2603	BS_WZZN982T	Embryonal tumor	Medulloblastoma	Medulloblastoma, WNT-activated	MB, WNT	MB, WNT	Subtype based on prediction;Updated via OpenPedCan subtyping
@@ -7281,7 +7272,6 @@ PT_P5HHJJPH	PT_P5HHJJPH_7316-870_Solid Tissue_Progressive	7316-870	BS_1SF71VCP	D
 PT_P5HHJJPH	PT_P5HHJJPH_7316-870_Solid Tissue_Progressive	7316-870	BS_7JTNRXN7	Diffuse astrocytic and oligodendroglial tumor	HGAT	Pleomorphic xanthoastrocytoma	HGG, PXA	HGG, PXA	Updated via OpenPedCan subtyping
 PT_P5HHJJPH	PT_P5HHJJPH_7316-870_Solid Tissue_Progressive	7316-870	BS_T1NJ8A5A_PHOS	Diffuse astrocytic and oligodendroglial tumor	HGAT	Pleomorphic xanthoastrocytoma	HGG, PXA	HGG, PXA	Updated via OpenPedCan subtyping
 PT_P5HHJJPH	PT_P5HHJJPH_7316-870_Solid Tissue_Progressive	7316-870	BS_T1NJ8A5A_WCP	Diffuse astrocytic and oligodendroglial tumor	HGAT	Pleomorphic xanthoastrocytoma	HGG, PXA	HGG, PXA	Updated via OpenPedCan subtyping
-PT_P5N77DTV	PT_P5N77DTV_ET_3XDQ6MF4_Solid Tissue_Primary Tumor	ET_3XDQ6MF4	BS_PPVW1VVG	Mixed or indeterminate tumor	EWS	CNS Ewing sarcoma	Rare CNS, EWS	NA	Updated via OpenPedCan subtyping
 PT_P6PKT77Y	PT_P6PKT77Y_7316-7741_Solid Tissue_Second Malignancy	7316-7741	BS_ANFZNMQ4	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA
 PT_P6PKT77Y	PT_P6PKT77Y_7316-7741_Solid Tissue_Second Malignancy	7316-7741	BS_RF93Q7R6	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA
 PT_P71D2V8S	PT_P71D2V8S_7316-9489_Solid Tissue_Initial CNS Tumor	7316-9489	BS_XQXXBWPD	Diffuse astrocytic and oligodendroglial tumor	HGAT	Diffuse midline glioma, H3 K28-altered	DMG, H3 K28	DMG, H3 K28	Updated via OpenPedCan subtyping
@@ -8861,7 +8851,6 @@ PT_XAR3V6N6	PT_XAR3V6N6_7316-10532_Solid Tissue_Initial CNS Tumor	7316-10532	BS_
 PT_XB59JD00	PT_XB59JD00_7316-9801_Solid Tissue_Initial CNS Tumor	7316-9801	BS_PGNT9HBC	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	NA	Updated via OpenPedCan subtyping
 PT_XB59JD00	PT_XB59JD00_7316-9801_Solid Tissue_Initial CNS Tumor	7316-9801	BS_RB6E2DP5	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	NA	Updated via OpenPedCan subtyping
 PT_XB59JD00	PT_XB59JD00_7316-9801_Solid Tissue_Initial CNS Tumor	7316-9801	BS_RRWF6GD6	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	NA	Updated via OpenPedCan subtyping
-PT_XBCBJBTN	PT_XBCBJBTN_ET_1ADX2J9A_Solid Tissue_Primary Tumor	ET_1ADX2J9A	BS_2RGFY8JF	Mixed or indeterminate tumor	EWS	CNS Ewing sarcoma	Rare CNS, EWS	NA	Updated via OpenPedCan subtyping
 PT_XBSCF601	PT_XBSCF601_7316-7961_Solid Tissue_Initial CNS Tumor	7316-7961	BS_1HYS8CSC	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	NA	Updated via OpenPedCan subtyping
 PT_XBSCF601	PT_XBSCF601_7316-7961_Solid Tissue_Initial CNS Tumor	7316-7961	BS_7AAHZV0E	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	NA	Updated via OpenPedCan subtyping
 PT_XBSCF601	PT_XBSCF601_7316-7961_Solid Tissue_Initial CNS Tumor	7316-7961	BS_E8EFACMN	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	NA	Updated via OpenPedCan subtyping
