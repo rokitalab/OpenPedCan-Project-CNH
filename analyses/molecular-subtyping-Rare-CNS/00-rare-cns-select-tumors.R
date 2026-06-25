@@ -62,19 +62,26 @@ include_abbreviation_internal_nih <- c(
   "CRINET"
 )
 
-exclude_diagnoses <- c("Meningioma", 
-                "Choroid plexus carcinoma", 
-                "Brainstem glioma- Diffuse intrinsic pontine glioma",
-                "Medulloblastoma",
-                "Pineoblastoma",
-                "Chordoma")
+exclude_diagnoses <- c("Meningioma",
+                       "Atypical Teratoid Rhabdoid Tumor (ATRT)",
+                       "Choroid plexus carcinoma", 
+                       "Brainstem glioma- Diffuse intrinsic pontine glioma",
+                       "Medulloblastoma",
+                       "Pineoblastoma",
+                       "Chordoma")
 
 exclude_free_text_dx <- c("vascular lesion", 
                           "fibroma", 
                           "diffuse midline glioma h3.k27m mutation who grade iv",
-                          "diffuse midline glioma who iv")
+                          "diffuse midline glioma who iv",
+                          # this one is PXA
+                          "epithelioid glioblastoma, arising from a pleiomorphic xanthoastrocytoma")
 
-exclude_subtypes <- c("DMG_K27")
+exclude_subtypes <- c("DMG_K27", 
+                      "DMG_EGFR", 
+                      "DHG_G34",
+                      "ETMR_C19MC",
+                      "EPN_ST_ZFTA_RELA_A")
 
 # these are extracranial RMS, but need to be updated upstream
 exclude_events <- c("7316-1959", "7316-1968")
@@ -85,7 +92,7 @@ terms_list <- list(
   include_nih_subtypes = include_abbreviation_internal_nih,
   exclude_dx = exclude_diagnoses,
   exclude_free = exclude_free_text_dx,
-  exclude_sub = exclude_subtypes,
+  exclude_methyl = exclude_subtypes,
   exclude_sample_ids = exclude_events
 )
 
