@@ -1,0 +1,169 @@
+---
+title: "Subtype rare cns tumors using hallmark fusions"
+output: html_notebook
+author: "Jo Lynne Rokita"
+date: 2026
+---
+
+In this PR, we identify subtype Rare CNS RNA-Seq biospecimens from `histologies-base.tsv` using hallmark fusions per [#115](https://github.com/rokitalab/OpenPedCan-Project-CNH/issues/115), removing RMS and EWS.
+
+Fusions:
+MN1::BEND2
+MN1::CXXC5
+BRD4::LEUTX
+FUS::ETV4
+FET::CREB --> this is really now CREB family, consisting of CREB1, ATF1, CREM partners
+
+Genes:
+PLAG
+MN1
+PLAGL
+CXXC5
+BCOR
+PATZ1
+CREB1
+ATF1
+CREM
+
+The following subtypes are included in this step:
+
+- Rare CNS, MN1::BEND2
+- Rare CNS, BCOR-fused
+- Rare CNS, BRD4::LEUTX
+- Rare CNS, MN1::CXXC5
+- Rare CNS, PATZ1-fused
+- Rare CNS, PLAGL1-fused
+- Rare CNS, FET::CREB
+
+### Setup
+
+```{r}
+library(tidyverse)
+
+root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
+data_dir <- file.path(root_dir, "data")
+analysis_dir <- file.path(root_dir, "analyses", "molecular-subtyping-Rare-CNS")
+fus_input_dir <- file.path(root_dir, "analyses", "fusion-summary", "results")
+subset_dir <- file.path(analysis_dir, "rare-cns-subset")
+results_dir <- file.path(analysis_dir, "results")
+
+if(!dir.exists(results_dir)){
+  dir.create(results_dir)
+}
+```
+
+## Input
+
+# Candidate Rare CNS tumor specimens based on RNA-Seq fusions
+
+We will use the fusion summary file to find samples that contain fusions defining rare CNS tumosr (e.g. _BCOR_ or _BCORL1_).
+[These](https://pubmed.ncbi.nlm.nih.gov/40724977/) tumors are primarily driven by gene fusions involving the BCOR (BCL6 corepressor) or BCORL1 genes. Common fusion partners include EP300, CREBBP, and occasionally others.
+
+```{r}
+termslist <- jsonlite::fromJSON(
+  file.path(subset_dir, "rare_cns_subtyping_path_dx_strings.json")
+)
+
+hist <- read_tsv(file.path (data_dir, "histologies-base.tsv"))
+fus_mat <- read_tsv(file.path(fus_input_dir, "fusion_summary_rare_cns_foi.tsv"))
+
+methyl_matches <- hist %>%
+  filter(cohort == "PBTA",
+         experimental_strategy == "Methylation",
+         # let's remove EWS since they're subtyped in their own module
+         pathology_diagnosis != "Ewings Sarcoma",
+         # remove exclude dx
+         !pathology_diagnosis %in% termslist$exclude_dx,
+         !pathology_free_text_diagnosis %in% termslist$exclude_free,
+         !sample_id %in% termslist$exclude_sample_ids,
+         !is.na(pathology_diagnosis),
+         # no DMGs
+         !(dkfz_v12_methylation_subclass %in% termslist$exclude_methyl & dkfz_v12_methylation_subclass_score >=0.8)
+  ) %>%
+  pull(match_id) %>%
+  unique()
+        
+
+cns_rna_biospecimens <- hist %>%
+  filter(cohort == "PBTA",
+         # let's remove EWS since they're subtyped in their own module
+         pathology_diagnosis != "Ewings Sarcoma",
+         # remove exclude dx
+         !pathology_diagnosis %in% termslist$exclude_dx,
+         !pathology_free_text_diagnosis %in% termslist$exclude_free,
+         !sample_id %in% termslist$exclude_sample_ids,
+         !is.na(pathology_diagnosis),
+         !is.na(RNA_library)) 
+
+# Which samples have these fusions?
+fusion_hits <- fus_mat %>%
+  filter(Kids_First_Biospecimen_ID %in% cns_rna_biospecimens$Kids_First_Biospecimen_ID) %>%
+  filter(if_any(-Kids_First_Biospecimen_ID, ~ . > 0)) %>%
+  pivot_longer(-Kids_First_Biospecimen_ID,
+               names_to = "fusion",
+               values_to = "value") %>%
+  filter(value > 0) %>%
+  select(-value) %>%
+  # group if >1 fusion per bs id
+  group_by(Kids_First_Biospecimen_ID) %>%
+  summarise(fusion = paste(unique(fusion), collapse = ";"),
+            .groups = "drop") %>%
+  left_join(cns_rna_biospecimens[,c("Kids_First_Biospecimen_ID", "pathology_diagnosis", "pathology_free_text_diagnosis", "match_id")]) %>%
+  write_tsv(file.path(results_dir, "rare_cns_fusion_hits.tsv"))
+  
+```
+Subtype based on fusions
+
+```{r subtype fusions}
+fusion_subtypes <- fusion_hits %>%
+  # split multi-fusion entries
+  separate_rows(fusion, sep = ";") %>%
+
+  # assign subtype using hybrid exact + pattern matching
+  mutate(
+    molecular_subtype = case_when(
+
+      # exact hallmark fusions
+      fusion == "MN1--BEND2" ~ "Rare CNS, MN1::BEND2",
+      fusion == "MN1--CXXC5" ~ "Rare CNS, MN1::CXXC5",
+      fusion == "BRD4--LEUTX" ~ "Rare CNS, BRD4::LEUTX",
+      fusion %in% c("EP300--BCOR", "BCOR--EP300") ~ "Rare CNS, BCOR-fused",
+      fusion %in% c("MN1--PATZ1", "EWSR1--PATZ1") ~ "Rare CNS, PATZ1-fused",
+      fusion == "EWSR1--PLAGL1" ~ "Rare CNS, PLAGL1-fused",
+
+      # CREB family beyond FET
+      str_detect(fusion, "^(FUS|FET)--(CREB|ATF|CREM)") |
+      str_detect(fusion, "(CREB1|ATF1|CREM)") ~ "Rare CNS, CREB-fused",
+    
+      # MN1 family members
+
+      # BCOR family beyond EP300
+      str_detect(fusion, "^BCOR|^BCORL1") ~ "Rare CNS, BCOR-fused",
+
+      TRUE ~ NA_character_
+    )
+  ) %>%
+
+  # collapse back to sample level
+  group_by(Kids_First_Biospecimen_ID) %>%
+  summarise(
+    molecular_subtype = first(na.omit(molecular_subtype)),
+    fusion = paste(unique(fusion), collapse = ";"),
+    pathology_diagnosis = first(pathology_diagnosis),
+    pathology_free_text_diagnosis = first(pathology_free_text_diagnosis),
+    match_id = match_id,
+    .groups = "drop"
+  )
+
+rna_methyl <- hist %>%
+  filter(match_id %in% methyl_matches,
+         dkfz_v12_methylation_subclass_score >=0.8) %>%
+  select(match_id, dkfz_v12_methylation_subclass, dkfz_v12_methylation_subclass_score) %>%
+  unique() %>%
+  right_join(fusion_subtypes)
+```
+## Session Info
+
+```{r}
+sessionInfo()
+```

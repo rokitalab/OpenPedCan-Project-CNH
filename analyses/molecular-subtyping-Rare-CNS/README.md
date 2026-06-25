@@ -15,7 +15,8 @@ Related issue: [#114](https://github.com/rokitalab/OpenPedCan-Project-CNH/issues
 The Rare CNS subtyping workflow is organized into the following scripts:
 
 `00-rare-cns-select-tumors.R` identifies candidate Rare CNS samples based on methylation subtype criteria and generates the JSON file for selection in downstream subtyping steps.
-`01-subtype-Rare-CNS.Rmd` uses methylation to subtype Rare CNS tumors
+`01-subtype-using-methylation.Rmd` uses fusions to subtype Rare CNS tumors
+`02-subtype-using-methylation.Rmd` uses methylation to subtype Rare CNS tumors
 
 DKFZ v12 subclass scores must be >=0.8 and if exists and meets criteria, tumors are subtyped using DKFZ. 
 If DKFZ v12 subclass scores <0.8, classify using NIH v2 if >0.9 for superfamily mean and class mean score.
@@ -29,13 +30,16 @@ If DKFZ v12 subclass scores <0.8, classify using NIH v2 if >0.9 for superfamily 
 ```
 .
 ├── 00-rare-cns-select-tumors.R
-├── 01-subtype-Rare-CNS.Rmd
-├── 01-subtype-Rare-CNS.nb.html
+├── 01-subtype-using-fusions.Rmd
+├── 01-subtype-using-fusions.nb.html
+├── 02-subtype-using-methylation.Rmd
+├── 02-subtype-using-methylation.nb.html
 ├── README.md
 ├── rare-cns-subset
 │   └── rare_cns_subtyping_path_dx_strings.json
 ├── results
-│   └── rare-cns-molecular-subtypes.tsv
+│   ├── rare-cns-molecular-subtypes.tsv
+│   └── rare_cns_fusion_hits_for_inspection.tsv
 └── run-molecular-subtyping-rare-cns.sh
 ```
 

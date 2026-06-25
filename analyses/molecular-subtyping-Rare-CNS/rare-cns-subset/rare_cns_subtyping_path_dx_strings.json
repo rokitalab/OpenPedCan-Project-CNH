@@ -36,6 +36,33 @@
         "PLAGL1_FUS",
         "RMS_MYOD1",
         "CRINET"
+    ],
+    "exclude_dx": [
+        "Meningioma",
+        "Atypical Teratoid Rhabdoid Tumor (ATRT)",
+        "Choroid plexus carcinoma",
+        "Brainstem glioma- Diffuse intrinsic pontine glioma",
+        "Medulloblastoma",
+        "Pineoblastoma",
+        "Chordoma"
+    ],
+    "exclude_free": [
+        "vascular lesion",
+        "fibroma",
+        "diffuse midline glioma h3.k27m mutation who grade iv",
+        "diffuse midline glioma who iv",
+        "epithelioid glioblastoma, arising from a pleiomorphic xanthoastrocytoma"
+    ],
+    "exclude_methyl": [
+        "DMG_K27",
+        "DMG_EGFR",
+        "DHG_G34",
+        "ETMR_C19MC",
+        "EPN_ST_ZFTA_RELA_A"
+    ],
+    "exclude_sample_ids": [
+        "7316-1959",
+        "7316-1968"
     ]
 }
 
