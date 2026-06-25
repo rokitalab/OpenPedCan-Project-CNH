@@ -36,6 +36,14 @@
         "PLAGL1_FUS",
         "RMS_MYOD1",
         "CRINET"
-    ]
+    ],
+    "exclude_dx": [
+        "Meningioma",
+        "Choroid plexus carcinoma",
+        "Brainstem glioma- Diffuse intrinsic pontine glioma",
+        "Medulloblastoma",
+        "Chordoma"
+    ],
+    "exclude_sub": "DMG_K27"
 }
 

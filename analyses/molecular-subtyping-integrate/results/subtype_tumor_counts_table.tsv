@@ -130,7 +130,7 @@ Low-grade glioma	SEGA, RTK	4
 Low-grade glioma	SEGA, wildtype	6
 Medulloblastoma	MB, Group3	245
 Medulloblastoma	MB, Group4	365
-Medulloblastoma	MB, SHH	260
+Medulloblastoma	MB, SHH	263
 Medulloblastoma	MB, To be classified	60
 Medulloblastoma	MB, WNT	83
 Neuroblastoma	NBL, MYCN amplified	478
@@ -145,13 +145,13 @@ Pleomorphic xanthoastrocytoma	HGG, PXA	52
 Pleomorphic xanthoastrocytoma	HGG, PXA, TP53	4
 Pleomorphic xanthoastrocytoma	LGG, To be classified	5
 Rare CNS tumor	Rare CNS, ANTCON	8
-Rare CNS tumor	Rare CNS, ARMS	9
+Rare CNS tumor	Rare CNS, ARMS	6
 Rare CNS tumor	Rare CNS, BCOR ITD	37
 Rare CNS tumor	Rare CNS, BCOR-fused	3
 Rare CNS tumor	Rare CNS, CIC SARC	15
 Rare CNS tumor	Rare CNS, CRINET	2
 Rare CNS tumor	Rare CNS, DICER1 SARC	8
-Rare CNS tumor	Rare CNS, EWS	71
+Rare CNS tumor	Rare CNS, EWS	60
 Rare CNS tumor	Rare CNS, FOXR2 NBL	10
 Rare CNS tumor	Rare CNS, MN1::BEND2	3
 Rare CNS tumor	Rare CNS, MN1::CXXC5	2

@@ -62,11 +62,21 @@ include_abbreviation_internal_nih <- c(
   "CRINET"
 )
 
+exclude_diagnoses <- c("Meningioma", 
+                "Choroid plexus carcinoma", 
+                "Brainstem glioma- Diffuse intrinsic pontine glioma",
+                "Medulloblastoma",
+                "Chordoma")
+
+exclude_subtypes <- c("DMG_K27")
 
 # Create a list with the strings and mapping tables used downstream
 terms_list <- list(
   include_dkfz_subtypes = include_dkfz_abbreviation,
-  include_nih_subtypes = include_abbreviation_internal_nih
+  include_nih_subtypes = include_abbreviation_internal_nih,
+  exclude_dx = exclude_diagnoses,
+  exclude_sub = exclude_subtypes
+  
 )
 
 # Write to file
