@@ -89,6 +89,10 @@ cns_rna_biospecimens <- hist %>%
   filter(cohort == "PBTA",
          # let's remove EWS since they're subtyped in their own module
          pathology_diagnosis != "Ewings Sarcoma",
+         # remove exclude dx
+         !pathology_diagnosis %in% termslist$exclude_dx,
+         !pathology_free_text_diagnosis %in% termslist$exclude_free,
+         !sample_id %in% termslist$exclude_sample_ids,
          !is.na(pathology_diagnosis),
          !is.na(RNA_library)) 
 

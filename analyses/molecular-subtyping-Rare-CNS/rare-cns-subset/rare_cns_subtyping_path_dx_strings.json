@@ -42,8 +42,19 @@
         "Choroid plexus carcinoma",
         "Brainstem glioma- Diffuse intrinsic pontine glioma",
         "Medulloblastoma",
+        "Pineoblastoma",
         "Chordoma"
     ],
-    "exclude_sub": "DMG_K27"
+    "exclude_free": [
+        "vascular lesion",
+        "fibroma",
+        "diffuse midline glioma h3.k27m mutation who grade iv",
+        "diffuse midline glioma who iv"
+    ],
+    "exclude_sub": "DMG_K27",
+    "exclude_sample_ids": [
+        "7316-1959",
+        "7316-1968"
+    ]
 }
 
