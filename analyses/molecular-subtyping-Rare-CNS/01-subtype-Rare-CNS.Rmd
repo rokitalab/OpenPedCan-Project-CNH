@@ -126,7 +126,9 @@ rare_cns_methyl <- hist %>%
   filter(!is.na(molecular_subtype)) %>%
   select(Kids_First_Participant_ID, Kids_First_Biospecimen_ID, match_id, sample_id, composition, 
          dkfz_v12_methylation_subclass, dkfz_v12_methylation_subclass_score,
-         NIH_v2_methylation_Class, NIH_v2_methylation_Superfamily_mean_score, NIH_v2_methylation_Class_mean_score, molecular_subtype)
+         NIH_v2_methylation_Class, NIH_v2_methylation_Superfamily_mean_score, NIH_v2_methylation_Class_mean_score, pathology_diagnosis, molecular_subtype) %>%
+  # remove samples with pathology diagnosis of MB with Rare CNS, ARMS subtype --> these can mis-cluster if they are myogenic MB
+  filter(!(pathology_diagnosis == "Medulloblastoma" & molecular_subtype == "Rare CNS, ARMS"))
 
 # make a methyl mapping
 methyl_map <- rare_cns_methyl %>%
