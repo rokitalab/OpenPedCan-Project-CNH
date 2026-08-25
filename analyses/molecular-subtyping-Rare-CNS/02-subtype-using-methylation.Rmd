@@ -7,7 +7,7 @@ date: 2026
 
 In this PR, we identify candidate Rare CNS biospecimens from `histologies-base.tsv` and gather high-confidence methylation subtype calls for Rare CNS subtyping.
 
-As per issue [#114](https://github.com/rokitalab/OpenPedCan-Project-CNH/issues/114), Rare CNS subtyping is based on high-confidence methylation subclassifications with `dkfz_v12_methylation_subclass_score >= 0.8` first, or NIH v2 subtypes with scores >= 0.9.
+As per issue [#114](https://github.com/rokitalab/OpenPedCan-Project-CNH/issues/114), Rare CNS subtyping is based on high-confidence methylation subclassifications with `dkfz_v12_methylation_subclass_score >= 0.8` first, or NIH v2 subtypes with scores >= 0.9. We additionally layer in a newer DKFZ v12.8 / NIH v3.1 classifier run (see `molecular-subtyping-methylation/input/bti_methylation_classifications.tsv`) using the same 0.8 / 0.9 thresholds and inclusion list, preferring the v12.8 call when a tumor has calls from both classifier versions.
 
 The following Rare CNS methylation classes are included in this step:
 
@@ -103,7 +103,7 @@ rare_cns_methyl <- hist %>%
       NIH_v2_methylation_Class_mean_score >= 0.9 &
       NIH_v2_methylation_Class %in% termslist$include_nih_subtypes
   ) %>%
-  filter(experimental_strategy == "Methylation", dkfz_pass | nih_fallback_pass) %>%
+  filter(cohort == "PBTA", experimental_strategy == "Methylation", dkfz_pass | nih_fallback_pass) %>%
   left_join(
     subtype_to_opc_map %>%
       transmute(dkfz_v12_methylation_subclass,
@@ -130,14 +130,136 @@ rare_cns_methyl <- hist %>%
   # remove samples with pathology diagnosis of MB with Rare CNS, ARMS subtype --> these can mis-cluster if they are myogenic MB
   filter(!(pathology_diagnosis == "Medulloblastoma" & molecular_subtype == "Rare CNS, ARMS"))
 
-# make a methyl mapping
-methyl_map <- rare_cns_methyl %>%
+# make a methyl mapping from the histologies-base.tsv (dkfz v12 / NIH v2) calls above
+methyl_map_v12 <- rare_cns_methyl %>%
   select(match_id, molecular_subtype) %>%
   unique()
+```
+
+## New DKFZ v12.8 methylation classifications
+
+A newer classifier run (DKFZ v12.8 / NIH v3.1) was dropped in
+`../molecular-subtyping-methylation/input/bti_methylation_classifications.tsv`,
+keyed by `Bioassay_ID`. Per the source, a `BS_`-prefixed `Bioassay_ID` is a
+`Kids_First_Biospecimen_ID`; the original file also included `BA_`-prefixed
+IDs (external/non-PBTA samples), which have already been filtered out of this
+subset. Any `BS_` ID not found in this cohort is still dropped here via the
+join below. DKFZ v12.8
+subclass abbreviations are largely the same taxonomy as v12, but not always:
+DKFZ renamed `ANTCON` to `GTAKA` in v12.8 (confirmed on specimens with a
+near-1.0-confidence call under both versions), so we alias it back before
+matching against the v12 inclusion list / subtype map.
+
+NIH v3.1 uses a different abbreviation scheme than NIH v2 for its fine-grained
+call (e.g. `CNS BCOR ITD` vs. `HGNET_BCOR`, and `GTAKA` again for `ANTCON`) --
+note v3.1's `subclass` column, not `class`, is the analog of v2's `Class`
+column used for matching. We derived the alias table below empirically, by
+pairing specimens with a confirmed high-confidence DKFZ v12 call against their
+NIH v3.1 subclass call. `ET_BRD4_LEUTX`, `ERMS`, `RMS_MYOD1`, and `CRINET`
+have no high-confidence specimens in the cohort yet to confirm their v3.1
+code, so they're intentionally left out of this table (and out of the NIH
+v3.1 fallback) until one is observed.
+
+```{r}
+bti_file <- file.path(
+  root_dir, "analyses", "molecular-subtyping-methylation",
+  "input", "bti_methylation_classifications.tsv"
+)
+
+# known DKFZ subclass renames between v12 and v12.8
+dkfz_v128_to_v12_alias <- c("GTAKA" = "ANTCON")
+
+# empirically-derived NIH v3.1 subclass -> DKFZ v12 subclass vocabulary,
+# so v3.1 calls can reuse termslist$include_dkfz_subtypes / subtype_to_opc_map
+nih_v31_subclass_alias <- c(
+  "EWS" = "EWS",
+  "CNS BCOR ITD" = "CNS_BCOR_ITD",
+  "CNS SARC CIC" = "CNS_SARC_CIC",
+  "CNS PLAGL1 FUS" = "NET_PLAGL1_FUS",
+  "GTAKA" = "ANTCON",
+  "RMS ALV" = "ARMS",
+  "CNS PATZ1 FUS" = "NET_PATZ1",
+  "AB MN1 BEND2" = "ABM_MN1",
+  "CNS NB FOXR2" = "CNS_NB_FOXR2",
+  "CNS PLAG AMP" = "ET_PLAG",
+  "CNS BCOR FUS" = "CNS_BCOR_FUS",
+  "CNS SARC DICER" = "CNS_SARC_DICER",
+  "AB MN1 CXXC5" = "NET_CXXC5"
+)
+
+bti_calls <- readr::read_tsv(bti_file, guess_max = 10000) %>%
+  rename(Kids_First_Biospecimen_ID = Bioassay_ID) %>%
+  mutate(
+    dkfz_v12.8_subclass = recode(dkfz_v12.8_subclass, !!!dkfz_v128_to_v12_alias),
+    NIH_v3.1_subclass = recode(NIH_v3.1_subclass, !!!nih_v31_subclass_alias),
+    dkfz_v12.8_pass = dkfz_v12.8_subclass_maxscore >= 0.8 &
+      dkfz_v12.8_subclass %in% termslist$include_dkfz_subtypes,
+    nih_v31_pass = (is.na(dkfz_v12.8_subclass_maxscore) | dkfz_v12.8_subclass_maxscore < 0.8) &
+      NIH_v3.1_superfamily_meanscore >= 0.9 &
+      NIH_v3.1_class_score >= 0.9 &
+      NIH_v3.1_subclass %in% termslist$include_dkfz_subtypes
+  ) %>%
+  filter(dkfz_v12.8_pass | nih_v31_pass) %>%
+  left_join(
+    subtype_to_opc_map %>%
+      transmute(dkfz_v12.8_subclass = dkfz_v12_methylation_subclass,
+                dkfz_opc_molecular_subtype = OPC_molecular_subtype),
+    by = "dkfz_v12.8_subclass"
+  ) %>%
+  left_join(
+    subtype_to_opc_map %>%
+      transmute(NIH_v3.1_subclass = dkfz_v12_methylation_subclass,
+                nih_opc_molecular_subtype = OPC_molecular_subtype),
+    by = "NIH_v3.1_subclass"
+  ) %>%
+  mutate(
+    molecular_subtype = case_when(
+      dkfz_v12.8_pass ~ dkfz_opc_molecular_subtype,
+      nih_v31_pass ~ nih_opc_molecular_subtype,
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(molecular_subtype)) %>%
+  # keep only specimens that are part of this cohort
+  inner_join(
+    hist %>% filter(cohort == "PBTA") %>%
+      select(Kids_First_Biospecimen_ID, match_id, pathology_diagnosis),
+    by = "Kids_First_Biospecimen_ID"
+  ) %>%
+  # same mis-clustering safeguard as the v12/v2 calls above
+  filter(!(pathology_diagnosis == "Medulloblastoma" & molecular_subtype == "Rare CNS, ARMS")) %>%
+  distinct(match_id, molecular_subtype)
+
+nrow(bti_calls)
+```
+
+Combine the v12/v2-based calls with the new v12.8-based calls. Where a
+`match_id` has a call from both, prefer the newer v12.8 classifier, but flag
+any disagreement for manual review rather than silently overwriting.
+
+```{r}
+combined_calls <- full_join(
+  methyl_map_v12 %>% rename(molecular_subtype_v12 = molecular_subtype),
+  bti_calls %>% rename(molecular_subtype_v128 = molecular_subtype),
+  by = "match_id"
+)
+
+# tumors where both classifiers ran and disagree on subtype
+methyl_conflicts <- combined_calls %>%
+  filter(!is.na(molecular_subtype_v12), !is.na(molecular_subtype_v128),
+         molecular_subtype_v12 != molecular_subtype_v128)
+
+print(methyl_conflicts)
+
+methyl_map <- combined_calls %>%
+  mutate(molecular_subtype = coalesce(molecular_subtype_v128, molecular_subtype_v12)) %>%
+  select(match_id, molecular_subtype)
 
 # any dups? no
-length(unique(methyl_map$match_id)) == length(methyl_map$match_id)
+length(unique(methyl_map$match_id)) == nrow(methyl_map)
+```
 
+```{r}
 # select all strategies for rare tumors
 rare_hist <- hist %>%
   filter(match_id %in% methyl_map$match_id)
@@ -158,6 +280,66 @@ tumors_subtyped <- rare_cns_subtype_final %>%
 
 print(tumors_subtyped)
 
+```
+
+## Confirm fusion evidence agrees with the methylation-based subtype
+
+Fusions (`01-subtype-using-fusions.Rmd`) are not used to add new samples or subtypes to this cohort. For tumors that already have a high-confidence methylation subtype above and RNA-seq available, we check that any hallmark fusion detected agrees with the methylation-based call, and flag any that don't for manual review.
+
+```{r}
+fusion_results_file <- file.path(results_dir, "rare_cns_fusion_based_subtypes.tsv")
+
+fusion_map <- readr::read_tsv(fusion_results_file, col_types = cols(.default = "c")) %>%
+  filter(!is.na(molecular_subtype)) %>%
+  distinct(match_id, molecular_subtype) %>%
+  group_by(match_id) %>%
+  summarise(fusion_molecular_subtype = paste(sort(unique(molecular_subtype)), collapse = ";"),
+            .groups = "drop")
+
+# tumors already classified above that have RNA-seq, and so could have fusion evidence
+rna_available <- hist %>%
+  filter(match_id %in% rare_cns_subtype_final$match_id,
+         !is.na(RNA_library)) %>%
+  distinct(match_id)
+
+pathology_dx_by_match_id <- hist %>%
+  filter(match_id %in% rare_cns_subtype_final$match_id) %>%
+  distinct(match_id, pathology_diagnosis)
+
+fusion_methyl_confirmation <- rare_cns_subtype_final %>%
+  distinct(match_id, molecular_subtype) %>%
+  inner_join(rna_available, by = "match_id") %>%
+  left_join(fusion_map, by = "match_id") %>%
+  left_join(pathology_dx_by_match_id, by = "match_id") %>%
+  mutate(concordant = case_when(
+    is.na(fusion_molecular_subtype) ~ NA,
+    fusion_molecular_subtype == molecular_subtype ~ TRUE,
+    TRUE ~ FALSE
+  )) %>%
+  write_tsv(file.path(results_dir, "rare_cns_fusion_methylation_confirmation.tsv"))
+
+# tumors with RNA-seq and a fusion call that disagrees with the methylation-based subtype
+# note: a BCOR ITD methylation call with BCOR-fused fusion evidence is not
+# necessarily an error -- ITD (internal tandem duplication) and a fusion are
+# distinct events that can co-occur; still flagged here for manual review.
+discordant <- fusion_methyl_confirmation %>%
+  filter(concordant == FALSE)
+
+print(discordant)
+```
+
+## Verify one subtype per biospecimen
+
+```{r}
+multi_subtype_bs_ids <- rare_cns_subtype_final %>%
+  distinct(Kids_First_Biospecimen_ID, molecular_subtype) %>%
+  count(Kids_First_Biospecimen_ID) %>%
+  filter(n > 1)
+
+if (nrow(multi_subtype_bs_ids) > 0) {
+  stop("The following Kids_First_Biospecimen_ID(s) have more than one Rare CNS molecular_subtype assigned: ",
+       paste(multi_subtype_bs_ids$Kids_First_Biospecimen_ID, collapse = ", "))
+}
 ```
 
 ## Session Info
