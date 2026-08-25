@@ -28,9 +28,9 @@ ews_file <- file.path(results_dir, "EWS_results.tsv")
 ```{r read in data}
 # histology file
 clinical <- readr::read_tsv(file.path(dataDir, "histologies-base.tsv"), guess_max = 100000) %>%
-  # filter for CNS tumors only --> there are extracranial EWS samples here by mistake
+  # filter for CNS tumors only --> there are extracranial EWS samples here by mistake; BS_V42WKCSW has Primary but is CNS, keep
   filter(cohort %in% c("PBTA", "Kentucky"),
-         tumor_descriptor != "Primary Tumor")
+             tumor_descriptor != "Primary Tumor" | Kids_First_Biospecimen_ID == "BS_V42WKCSW")
 
 # read pathology diagnosis JSON file 
 path_dx_list <- jsonlite::fromJSON(file.path(analysis_dir, "ews-subset", "EWS_subtyping_path_dx_strings.json"))

@@ -6019,6 +6019,7 @@ PT_H6E09982	PT_H6E09982_7316-5_Solid Tissue_Initial CNS Tumor	7316-5	BS_0K0R2RHX
 PT_H6E09982	PT_H6E09982_7316-5_Solid Tissue_Initial CNS Tumor	7316-5	BS_5VQP0E6K	Embryonal tumor	Medulloblastoma	Medulloblastoma, WNT-activated	MB, WNT	MB, WNT	Subtype based on prediction;Updated via OpenPedCan subtyping
 PT_H6E09982	PT_H6E09982_7316-5_Solid Tissue_Initial CNS Tumor	7316-5	BS_9D39MFHT	Embryonal tumor	Medulloblastoma	Medulloblastoma, WNT-activated	MB, WNT	MB, WNT	Subtype based on prediction;Updated via OpenPedCan subtyping
 PT_H6MHKR2J	PT_H6MHKR2J_7316-4724_Solid Tissue_Initial CNS Tumor	7316-4724	BS_C4MPKK2H	Mixed or indeterminate tumor	EWS	CNS Ewing sarcoma	Rare CNS, EWS	NA	Updated via OpenPedCan subtyping
+PT_H6MHKR2J	PT_H6MHKR2J_ET_FQ9SBKJA_Solid Tissue_Primary Tumor	ET_FQ9SBKJA	BS_V42WKCSW	Mixed or indeterminate tumor	EWS	CNS Ewing sarcoma	Rare CNS, EWS	NA	Updated via OpenPedCan subtyping
 PT_H7X4M9CC	PT_H7X4M9CC_C4118901-Tumor_Solid Tissue_Recurrence	C4118901-Tumor	BS_H08FEN68	Low-grade astrocytic tumor	LGAT	Low-grade glioma, MYB/MYBL1, other MAPK	LGG, MYB/MYBL1, other MAPK	NA	Updated via OpenPedCan subtyping
 PT_H7X4M9CC	PT_H7X4M9CC_C4118901-Tumor_Solid Tissue_Recurrence	C4118901-Tumor	BS_Q9MMJ9H4	Low-grade astrocytic tumor	LGAT	Low-grade glioma, MYB/MYBL1, other MAPK	LGG, MYB/MYBL1, other MAPK	NA	Updated via OpenPedCan subtyping
 PT_H876VB6R	PT_H876VB6R_7316-1806_Solid Tissue_Initial CNS Tumor	7316-1806	BS_BQB6NZWZ	Ependymal tumor	Ependymoma	Posterior fossa group A (PFA) ependymoma	EPN, PF A	EPN, PF A	Updated via OpenPedCan subtyping
