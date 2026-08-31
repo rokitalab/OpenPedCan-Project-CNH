@@ -117,8 +117,9 @@ fusion_subtypes <- fusion_hits %>%
       # CREB family (CREB1/ATF1/CREM partners, any 5' partner)
       str_detect(fusion, "(CREB1|ATF1|CREM)") ~ "Rare CNS, CREB-fused",
 
-      # BCOR family beyond EP300
-      str_detect(fusion, "^BCOR|^BCORL1") ~ "Rare CNS, BCOR-fused",
+      # BCOR family beyond EP300, orientation-independent (BCOR/BCORL1 as
+      # either the 5' or 3' partner)
+      str_detect(fusion, "(^|--)(BCOR|BCORL1)(--|$)") ~ "Rare CNS, BCOR-fused",
 
       TRUE ~ NA_character_
     )
