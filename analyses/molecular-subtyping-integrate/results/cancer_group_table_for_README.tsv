@@ -22,6 +22,7 @@ Bone marrow cellularity	Other tumor
 Bone marrow failure	Other tumor
 Brain Lower Grade Glioma	Low-grade glioma
 Brainstem glioma- Diffuse intrinsic pontine glioma	Diffuse intrinsic pontine glioma
+CNS Ewing sarcoma	Rare CNS tumor
 Cavernoma	NA
 Cellular Congenital Mesoblastic Nephroma	Other tumor
 Cerebral ventriculomegaly	Other tumor
@@ -37,7 +38,6 @@ Congenital Mesoblastic Nephroma	Other tumor
 Cranial fasciitis	NA
 Cyst	Other tumor
 Dermoid cyst	NA
-Diffuse intrinsic pontine glioma	Diffuse midline glioma
 Dysembryoplastic neuroepithelial tumor (DNET)	Dysembryoplastic neuroepithelial tumor
 Dysembryoplastic neuroepithelial tumor (DNET);Dysplasia/Gliosis;Ganglioglioma	NA
 Dysembryoplastic neuroepithelial tumor (DNET);Ganglioglioma	Dysembryoplastic neuroepithelial tumor
@@ -97,7 +97,6 @@ Necrotizing myelopathy	NA
 Neoplasm of unspecified behavior of endocrine glands	Other tumor
 Neuroblastic tumor	Other tumor
 Neuroendocrine carcinoma	Other tumor
-Neuroepithelial neoplasm with EWSR1--PLAG1 fusion	Glial-neuronal tumor
 Neurofibroma/Plexiform;Schwannoma	NA
 Neutropenia	Other tumor
 Nodular fasciitis	Other tumor
@@ -122,6 +121,7 @@ Posterior fossa group A (PFA) ependymoma	Ependymoma
 Posterior fossa group B (PFB) ependymoma	Ependymoma
 Posterior fossa subependymoma	Ependymoma
 Primary myelofibrosis	Other tumor
+Rare CNS	Rare CNS tumor
 Reactive connective tissue	Other tumor
 Recurrent Acute Leukemia	NA
 Recurrent Glioma	Other tumor

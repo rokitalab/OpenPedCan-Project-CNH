@@ -19,7 +19,7 @@ jobs:
     # We want to count the contributions to the dev branch
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
         with:
           ref: "dev"
           fetch-depth: 0
@@ -41,21 +41,21 @@ jobs:
 
       # Upload the manuscript YAML as an artifact
       - name: Upload metadata YAML artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
         with:
           name: manuscript_metadata
           path: analyses/count-contributions/results/metadata.yaml
 
       # Upload the author information as an artifact
       - name: Upload author information TSV artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
         with:
           name: author_information
           path: analyses/count-contributions/author_information.tsv
 
       # Create a pull request with the updated results
       - name: Create PR with updated contribution module
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 #v8.1.1
         with:
           token: ${{ secrets.GH_TOKEN }}
           commit-message: Rerun count-contributions analysis module
@@ -81,7 +81,7 @@ jobs:
     # We want to add the updated metadata to the manuscript repo
     steps:
       - name: Checkout manuscript repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
         with:
           repository: rokitalab/OpenPedCan-manuscript
       
@@ -101,14 +101,14 @@ jobs:
           rm content/metadata.yaml
 
       - name: Download the metadata artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c #v8.0.1
         with:
           name: manuscript_metadata
           path: content
 
 
       - name: Download the author information artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c #v8.0.1
         with:
           name: author_information
           path: submission_info
@@ -116,7 +116,7 @@ jobs:
 
       # Create a pull request with the updated results
       - name: Create PR with updated manuscript metadata YAML
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 #v8.1.1
         with:
           token: ${{ secrets.GH_TOKEN }}
           commit-message: Update manuscript metadata

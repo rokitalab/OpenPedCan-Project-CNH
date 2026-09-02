@@ -65,6 +65,11 @@ histologies_df <- read_tsv(file.path(data_dir, "histologies-base.tsv"),
                            guess_max = 100000)
 fusion_summary_df <- read_tsv(file.path(data_dir, 
                                         "fusion_summary_embryonal_foi.tsv"))
+rare_fusion_summary_df <- read_tsv(file.path(root_dir,
+                                             "analyses", 
+                                             "fusion-summary",
+                                             "results",
+                                             "fusion_summary_rare_cns_foi.tsv"))
 arriba <- read_tsv(file.path(data_dir, "fusion-arriba.tsv.gz"))
 starfusion <- read_tsv(file.path(data_dir, "fusion-starfusion.tsv.gz"))
 dgd_fusion <- read_tsv(file.path(data_dir, "fusion-dgd.tsv.gz"))
@@ -211,6 +216,15 @@ fusion_biospecimens <- c(
 )
 ```
 
+# Combine
+
+```{r}
+fusion_biospecimens <- c(
+  fusion_biospecimens,
+  relevant_sample_df%>% pull(Kids_First_Biospecimen_ID)
+)
+```
+
 ### Disease labels
 
 First subset to solid **tumors**, excluding any derived cell lines.
@@ -300,11 +314,11 @@ emb_methyl_subtyped <- histologies_df %>%
                 composition == "Solid Tissue",
                 cohort != "TARGET") %>% 
   dplyr::mutate(molecular_subtype_methyl = 
-                  case_when(dkfz_v12_methylation_subclass == "CNS_NB_FOXR2" ~ "CNS NB-FOXR2",
+                  case_when(dkfz_v12_methylation_subclass == "CNS_NB_FOXR2" ~ "Rare CNS, FOXR2 NBL",
                             dkfz_v12_methylation_subclass == "ETMR_C19MC" ~ "ETMR, C19MC-altered",
-                            dkfz_v12_methylation_subclass == "CNS_BCOR_ITD" ~ "CNS BCOR",
-                            dkfz_v12_methylation_subclass == "NET_CXXC5" ~ "CNS HGNET-MN1",
-                            dkfz_v12_methylation_subclass == "ABM_MN1" ~ "CNS HGNET-MN1")) %>% 
+                            dkfz_v12_methylation_subclass == "CNS_BCOR_ITD" ~ "Rare CNS, BCOR ITD",
+                            dkfz_v12_methylation_subclass == "NET_CXXC5" ~ "Rare CNS, MN1::CXXC5",
+                            dkfz_v12_methylation_subclass == "ABM_MN1" ~ "Rare CNS, MN1::BEND2")) %>% 
   dplyr::select(Kids_First_Biospecimen_ID, Kids_First_Participant_ID, sample_id, molecular_subtype_methyl, match_id) %>%
   dplyr::rename("Kids_First_Biospecimen_ID_Methyl" = "Kids_First_Biospecimen_ID") %>% 
   dplyr::filter(!is.na(molecular_subtype_methyl)) %>% 
