@@ -118,8 +118,9 @@ fusion_subtypes <- fusion_hits %>%
       str_detect(fusion, "(CREB1|ATF1|CREM)") ~ "Rare CNS, CREB-fused",
 
       # BCOR family beyond EP300, orientation-independent (BCOR/BCORL1 as
-      # either the 5' or 3' partner)
-      str_detect(fusion, "(^|--)(BCOR|BCORL1)(--|$)") ~ "Rare CNS, BCOR-fused",
+      # either the 5' or 3' partner), allowing for a "/"-joined co-annotated
+      # gene at the same breakpoint (e.g. "CPSF4--BCOR/ENSG00000236393")
+      str_detect(fusion, "(^|--|/)(BCOR|BCORL1)(--|/|$)") ~ "Rare CNS, BCOR-fused",
 
       TRUE ~ NA_character_
     )
