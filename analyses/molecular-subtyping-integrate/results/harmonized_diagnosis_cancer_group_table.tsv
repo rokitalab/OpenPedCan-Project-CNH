@@ -159,7 +159,6 @@ PBTA	High-grade glioma/astrocytoma (WHO grade III/IV)	High-grade glioma	No	Yes
 PBTA	Gliomatosis Cerebri;High-grade glioma/astrocytoma (WHO grade III/IV)	High-grade glioma	No	Yes
 PBTA	High-grade glioma/astrocytoma (WHO grade III/IV);Oligodendroglioma	High-grade glioma	No	Yes
 PPTC	High-grade glioma/astrocytoma (WHO grade III/IV)	High-grade glioma	No	Yes
-PBTA	High-grade neuroepithelial tumor	High-grade neuroepithelial tumor	No	No
 DGD	Histiocytic Tumor	Histiocytic tumor	No	Yes
 PBTA	Histiocytic Tumor	Histiocytic tumor	No	Yes
 PBTA	Histiocytic tumor	Histiocytic tumor	No	No
@@ -335,19 +334,19 @@ DGD	Primary mediastinal large B cell lymphoma	Primary mediastinal large B cell l
 TCGA	Prostate Adenocarcinoma	Prostate Adenocarcinoma	No	No
 PBTA	Rare CNS, EWS	Rare CNS tumor	Yes	Yes
 PBTA	Rare CNS, BCOR ITD	Rare CNS tumor	Yes	Yes
+PBTA	Rare CNS, MN1::BEND2	Rare CNS tumor	Yes	Yes
+PBTA	Rare CNS, CIC SARC	Rare CNS tumor	Yes	Yes
 PBTA	Rare CNS, ANTCON	Rare CNS tumor	Yes	Yes
 PBTA	Rare CNS, PLAGL1-fused	Rare CNS tumor	Yes	Yes
-PBTA	Rare CNS, CIC SARC	Rare CNS tumor	Yes	Yes
 PBTA	Rare CNS, DICER1 SARC	Rare CNS tumor	Yes	Yes
 PBTA	CNS Ewing sarcoma	Rare CNS tumor	No	Yes
+PBTA	Rare CNS, PLAG AMP	Rare CNS tumor	Yes	Yes
 PBTA	Rare CNS, PATZ1-fused	Rare CNS tumor	Yes	Yes
 PBTA	Rare CNS, ARMS	Rare CNS tumor	Yes	Yes
 PBTA	Rare CNS, MN1::CXXC5	Rare CNS tumor	Yes	Yes
 PBTA	Rare CNS, FOXR2 NBL	Rare CNS tumor	Yes	Yes
-PBTA	Rare CNS, PLAG AMP	Rare CNS tumor	Yes	Yes
 PBTA	Rare CNS, CRINET	Rare CNS tumor	Yes	Yes
 PBTA	Rare CNS, BCOR-fused	Rare CNS tumor	Yes	Yes
-PBTA	Rare CNS, MN1::BEND2	Rare CNS tumor	Yes	Yes
 TCGA	Rectum Adenocarcinoma	Rectum Adenocarcinoma	No	No
 TCGA	Kidney Renal Clear Cell Carcinoma	Renal Clear Cell Carcinoma	No	Yes
 TCGA	Kidney Renal Papillary Cell Carcinoma	Renal Papillary Cell Carcinoma	No	Yes

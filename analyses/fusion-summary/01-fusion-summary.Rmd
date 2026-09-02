@@ -187,10 +187,6 @@ rareCNSFuses <- c(
   "MN1--BEND2",
   "MN1--CXXC5",
   "BRD4--LEUTX",
-  "PAX3--FOXO1",
-  "PAX7--FOXO1",
-  "FUS--TFCP2",
-  "EWSR1--TFCP2",
   "FUS--ETV4",
   "FET--CREB" 
 )
@@ -202,10 +198,6 @@ rareCNSGenes <- c(
   "BCOR",
   "BCORL1",
   "PATZ1",
-  "EWSR1",
-  "TFCP2",
-  "PAX3",
-  "PAX7",
   "CREB1",
   "ATF1",
   "CREM" 

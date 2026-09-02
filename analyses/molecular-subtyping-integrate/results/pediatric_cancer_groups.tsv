@@ -36,7 +36,7 @@ CNS Burkitt's lymphoma	Initial CNS Tumor	3
 CNS Embryonal tumor	Deceased	1
 CNS Embryonal tumor	Initial CNS Tumor	20
 CNS Embryonal tumor	Primary Tumor	3
-CNS Embryonal tumor	Progressive	12
+CNS Embryonal tumor	Progressive	9
 CNS Embryonal tumor	Recurrence	10
 CNS Embryonal tumor	Relapse	1
 CNS Embryonal tumor	Unknown	1
@@ -99,8 +99,8 @@ Embryonal tumor with multilayer rosettes	Primary Tumor	2
 Embryonal tumor with multilayer rosettes	Progressive	7
 Embryonal tumor with multilayer rosettes	Recurrence	2
 Embryonal tumor with multilayer rosettes	Relapse	1
-Ependymoma	Deceased	44
-Ependymoma	Initial CNS Tumor	530
+Ependymoma	Deceased	41
+Ependymoma	Initial CNS Tumor	529
 Ependymoma	Primary Tumor	9
 Ependymoma	Progressive	131
 Ependymoma	Recurrence	136
@@ -150,7 +150,6 @@ High-grade glioma	Recurrence	126
 High-grade glioma	Relapse	1
 High-grade glioma	Second Malignancy	37
 High-grade glioma	Unknown	9
-High-grade neuroepithelial tumor	Initial CNS Tumor	2
 Histiocytic tumor	Initial CNS Tumor	1
 Histiocytic tumor	Primary Tumor	5
 Histiocytic tumor	Progressive	1
@@ -257,11 +256,11 @@ Pleomorphic xanthoastrocytoma	Initial CNS Tumor	41
 Pleomorphic xanthoastrocytoma	Progressive	15
 Pleomorphic xanthoastrocytoma	Recurrence	1
 Primary mediastinal large B cell lymphoma	Primary Tumor	1
-Rare CNS tumor	Deceased	24
-Rare CNS tumor	Initial CNS Tumor	108
+Rare CNS tumor	Deceased	27
+Rare CNS tumor	Initial CNS Tumor	111
 Rare CNS tumor	Primary Tumor	1
-Rare CNS tumor	Progressive	32
-Rare CNS tumor	Recurrence	26
+Rare CNS tumor	Progressive	35
+Rare CNS tumor	Recurrence	29
 Retinoblastoma	Recurrence	1
 Rhabdoid tumor of the kidney	Primary Tumor	67
 Rhabdoid tumor of the kidney	Relapse	1
@@ -278,7 +277,7 @@ Rosette-forming glioneuronal tumor	Recurrence	5
 Sarcoma	Initial CNS Tumor	30
 Sarcoma	Primary Tumor	12
 Sarcoma	Progressive	13
-Sarcoma	Recurrence	21
+Sarcoma	Recurrence	18
 Sarcoma	Second Malignancy	8
 Schwannoma	Initial CNS Tumor	95
 Schwannoma	Primary Tumor	6

@@ -1,0 +1,47 @@
+match_id	molecular_subtype	fusion_molecular_subtype	pathology_diagnosis	concordant
+PT_VHS5RM2K_7316-364_Solid Tissue_Initial CNS Tumor	Rare CNS, EWS	NA	Ewings Sarcoma	NA
+PT_HJMP6PH2_7316-4768_Solid Tissue_Deceased	Rare CNS, BCOR ITD	NA	Ewings Sarcoma	NA
+PT_HJMP6PH2_7316-3775_Solid Tissue_Recurrence	Rare CNS, BCOR ITD	NA	Ewings Sarcoma	NA
+PT_WHK1MYQG_7316-7759_Solid Tissue_Recurrence	Rare CNS, CIC SARC	NA	Sarcoma	NA
+PT_5JMNQAY8_7316-4217_Solid Tissue_Initial CNS Tumor	Rare CNS, EWS	NA	Ewings Sarcoma	NA
+PT_MGJJBG0T_7316-7667_Solid Tissue_Deceased	Rare CNS, ANTCON	NA	Glial-neuronal tumor NOS	NA
+PT_WE1CHTWK_7316-87_Solid Tissue_Initial CNS Tumor	Rare CNS, PLAGL1-fused	NA	Supratentorial or Spinal Cord PNET	NA
+PT_X8S0H6TG_7316-876_Solid Tissue_Initial CNS Tumor	Rare CNS, EWS	NA	Ewings Sarcoma	NA
+PT_DW2XRPC9_7316-1723_Solid Tissue_Progressive	Rare CNS, CIC SARC	NA	High-grade glioma/astrocytoma (WHO grade III/IV)	NA
+PT_DW2XRPC9_7316-430_Solid Tissue_Recurrence	Rare CNS, CIC SARC	NA	High-grade glioma/astrocytoma (WHO grade III/IV)	NA
+PT_1JP2ANQK_7316-6353_Solid Tissue_Progressive	Rare CNS, EWS	NA	Ewings Sarcoma	NA
+PT_Z9QE51C3_7316-373_Solid Tissue_Initial CNS Tumor	Rare CNS, PLAGL1-fused	NA	Ganglioglioma	NA
+PT_C2D4JXS1_7316-1746_Solid Tissue_Initial CNS Tumor	Rare CNS, DICER1 SARC	NA	High-grade glioma/astrocytoma (WHO grade III/IV)	NA
+PT_Z4GS3ZQQ_7316-1797_Solid Tissue_Recurrence	Rare CNS, BCOR ITD	NA	Dysembryoplastic neuroepithelial tumor (DNET)	NA
+PT_8NPNACF3_7316-7109_Solid Tissue_Initial CNS Tumor	Rare CNS, EWS	NA	Ewings Sarcoma	NA
+PT_NBSRQAMS_7316-1079_Solid Tissue_Initial CNS Tumor	Rare CNS, EWS	NA	Ewings Sarcoma	NA
+PT_5CYJ3NZ9_7316-8767_Solid Tissue_Progressive	Rare CNS, PLAG AMP	NA	Other	NA
+PT_62VNQ8C4_7316-1884_Solid Tissue_Progressive	Rare CNS, CIC SARC	NA	Medulloblastoma	NA
+PT_HNZNZ635_7316-2151_Solid Tissue_Progressive	Rare CNS, PATZ1-fused	Rare CNS, PATZ1-fused	High-grade glioma/astrocytoma (WHO grade III/IV)	TRUE
+PT_69C7CBFW_7316-1959_Solid Tissue_Initial CNS Tumor	Rare CNS, ARMS	NA	Rhabdomyosarcoma	NA
+PT_FF0NV7ZM_7316-716_Solid Tissue_Initial CNS Tumor	Rare CNS, PATZ1-fused	Rare CNS, PATZ1-fused	High-grade glioma/astrocytoma (WHO grade III/IV)	TRUE
+PT_3873YK5S_7316-2862_Solid Tissue_Initial CNS Tumor	Rare CNS, PLAGL1-fused	NA	Dysembryoplastic neuroepithelial tumor (DNET)	NA
+PT_PJFTMJ6H_7316-2150_Solid Tissue_Initial CNS Tumor	Rare CNS, EWS	NA	Ewings Sarcoma	NA
+PT_80NVYCBS_7316-765_Solid Tissue_Initial CNS Tumor	Rare CNS, MN1::CXXC5	Rare CNS, MN1::CXXC5	Ependymoma	TRUE
+PT_VW2PNHFD_7316-8868_Solid Tissue_Initial CNS Tumor	Rare CNS, PLAGL1-fused	NA	Other	NA
+PT_7HGY5W67_7316-6044_Solid Tissue_Recurrence	Rare CNS, MN1::BEND2	Rare CNS, MN1::BEND2	Glial-neuronal tumor NOS	TRUE
+PT_1VXX91Z9_7316-8803_Solid Tissue_Progressive	Rare CNS, CIC SARC	NA	High-grade glioma/astrocytoma (WHO grade III/IV)	NA
+PT_NESAQHB1_7316-3689_Solid Tissue_Initial CNS Tumor	Rare CNS, FOXR2 NBL	NA	Supratentorial or Spinal Cord PNET	NA
+PT_Z4GS3ZQQ_7316-740_Solid Tissue_Initial CNS Tumor	Rare CNS, BCOR ITD	NA	Ependymoma	NA
+PT_DNAJYFZT_7316-4274_Solid Tissue_Deceased	Rare CNS, BCOR ITD	Rare CNS, BCOR-fused	Ependymoma	FALSE
+PT_E3ADF4ZB_7316-2664_Solid Tissue_Initial CNS Tumor	Rare CNS, PATZ1-fused	Rare CNS, PATZ1-fused	Low-grade glioma/astrocytoma (WHO grade I/II)	TRUE
+PT_VZEREHVW_7316-6047_Solid Tissue_Initial CNS Tumor	Rare CNS, MN1::BEND2	Rare CNS, MN1::BEND2	Other	TRUE
+PT_EWAYPB7J_7316-2613_Solid Tissue_Initial CNS Tumor	Rare CNS, CRINET	NA	Atypical Teratoid Rhabdoid Tumor (ATRT)	NA
+PT_1JP2ANQK_7316-4424_Solid Tissue_Progressive	Rare CNS, EWS	NA	Ewings Sarcoma	NA
+PT_J50NZYZF_7316-956_Solid Tissue_Progressive	Rare CNS, EWS	NA	Ewings Sarcoma	NA
+PT_38FS37DP_7316-2686_Solid Tissue_Initial CNS Tumor	Rare CNS, EWS	NA	Ewings Sarcoma	NA
+PT_0DXHDZJR_7316-2857_Solid Tissue_Initial CNS Tumor	Rare CNS, BCOR ITD	NA	High-grade glioma/astrocytoma (WHO grade III/IV)	NA
+PT_HERXR7FX_7316-6039_Solid Tissue_Recurrence	Rare CNS, PLAG AMP	NA	High-grade glioma/astrocytoma (WHO grade III/IV)	NA
+PT_DNAJYFZT_7316-4035_Solid Tissue_Recurrence	Rare CNS, BCOR-fused	Rare CNS, BCOR-fused	Ependymoma	TRUE
+PT_NESAQHB1_7316-3844_Solid Tissue_Initial CNS Tumor	Rare CNS, FOXR2 NBL	NA	Supratentorial or Spinal Cord PNET	NA
+PT_8NRH7W3N_7316-7105_Solid Tissue_Initial CNS Tumor	Rare CNS, EWS	NA	Ewings Sarcoma	NA
+PT_1DRAVX4S_7316-1968_Solid Tissue_Initial CNS Tumor	Rare CNS, ARMS	NA	Rhabdomyosarcoma	NA
+PT_J50NZYZF_7316-128_Solid Tissue_Progressive	Rare CNS, EWS	NA	Ewings Sarcoma	NA
+PT_F822DBA0_7316-458_Solid Tissue_Initial CNS Tumor	Rare CNS, EWS	NA	Ewings Sarcoma	NA
+PT_HJMP6PH2_7316-185_Solid Tissue_Initial CNS Tumor	Rare CNS, BCOR ITD	NA	Ewings Sarcoma	NA
+PT_TJJF9JT8_7316-685_Solid Tissue_Initial CNS Tumor	Rare CNS, CIC SARC	NA	Atypical Teratoid Rhabdoid Tumor (ATRT)	NA

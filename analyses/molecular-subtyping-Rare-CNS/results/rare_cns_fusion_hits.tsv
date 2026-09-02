@@ -1,0 +1,33 @@
+Kids_First_Biospecimen_ID	fusion	pathology_diagnosis	pathology_free_text_diagnosis	match_id
+BS_0DAAQ75Z	BRD4--LEUTX	High-grade glioma/astrocytoma (WHO grade III/IV)	high-grade glioma who grade iii	PT_WN1B80HN_7316-5271_Solid Tissue_Initial CNS Tumor
+BS_0XHT9W4Q	BCORL1--BCORL1;BCORL1--TRAP1;BCORL1--TRAP1/CREBBP;CREBBP--BCORL1	Glioblastoma	NA	PT_DB281Z4K_7316UP-310_Solid Tissue_Primary Tumor
+BS_36T79XQZ	BCOR--BCOR	Sarcoma	bcor-altered sarcoma	PT_R24KKSND_7316-7214_Solid Tissue_Initial CNS Tumor
+BS_37GTVG4N	BCORL1--XACT	Embryonal Tumor with Multilayered Rosettes (ETMR)	embryonal tumor with multilayer rosettes, ros (who grade iv)	PT_DQT78GS5_7316-3326_Solid Tissue_Initial CNS Tumor
+BS_3XYJBBHQ	NRP1--CREM	High-grade glioma/astrocytoma (WHO grade III/IV)	anaplastic pleomorphic xanthoastrocytoma (who grade 3).	PT_JC3FDHBS_7316-6484_Solid Tissue_Deceased
+BS_49BQS7Z6	MN1--PATZ1	High-grade glioma/astrocytoma (WHO grade III/IV)	anaplastic astrocytoma	PT_HNZNZ635_7316-2151_Solid Tissue_Progressive
+BS_4PWDGEB0	EWSR1--PATZ1;PATZ1--ENSG00000234208;PATZ1--THOC5	High-grade glioma/astrocytoma (WHO grade III/IV)	glioblastoma multiforme who gr 4	PT_FF0NV7ZM_7316-716_Solid Tissue_Initial CNS Tumor
+BS_57NMZPS0	BCOR--ARL14EP	Low-grade glioma/astrocytoma (WHO grade I/II)	malignant neuroepithelial tumor	PT_JQ8ZRKBH_7316-6977_Solid Tissue_Recurrence
+BS_5GNQC2FF	BCORL1--BCORL1	High-grade glioma/astrocytoma (WHO grade III/IV)	high grade glioma	PT_VAJN5QP8_7316-2176_Derived Cell Line_Initial CNS Tumor_Serum-based_3
+BS_6VRG1XFB	ATF1--ENSG00000257225;PRICKLE1--ATF1	High-grade glioma/astrocytoma (WHO grade III/IV)	glioblastoma	PT_A64KYWHR_7316-4543_Solid Tissue_Initial CNS Tumor
+BS_7MGXMG6S	BCOR--BCOR	Low-grade glioma/astrocytoma (WHO grade I/II)	astm (astrocytoma); infiltrating astrocytoma, at least who gr ii	PT_Q36SCWF3_C4117056-Tumor_Solid Tissue_Initial CNS Tumor
+BS_99BJN8NC	BCOR--EP300;EP300--BCOR	Ependymoma	anaplastic ependymoma who grade iii	PT_DNAJYFZT_7316-4274_Solid Tissue_Deceased
+BS_AWH9757B	PATZ1--PATZ1	High-grade glioma/astrocytoma (WHO grade III/IV)	glioblastoma, who grade iv, idh-1 wild type, with hyperdiploid genome with additional cnvs and sequence variant of ptpn11 gene	PT_59FJRPVX_7316-3769_Solid Tissue_Initial CNS Tumor
+BS_BMMY0H73	CREB1--MAP2	High-grade glioma/astrocytoma (WHO grade III/IV)	gbm	PT_X5TQR8V2_7316-343_Solid Tissue_Initial CNS Tumor
+BS_C05FKR8X	MN1--MN1	Ependymoma	anaplastic ependymoma	PT_ZWY04DCR_7316-2666_Solid Tissue_Initial CNS Tumor
+BS_DB75RPCD	MN1--BEND2;PHEX--MN1	Other	astroblastoma	PT_VZEREHVW_7316-6047_Solid Tissue_Initial CNS Tumor
+BS_FW5ECXXK	ABCG1--MN1	Ependymoma	ependymoma	PT_3C6QA9MA_7316-1279_Solid Tissue_Recurrence
+BS_GKZZJ29B	EWSR1--PATZ1	Ependymoma	residual/recurrent ependymoma, who grade ii	PT_RY0GF9JR_7316-6974_Solid Tissue_Recurrence
+BS_KSKZ9J7J	CXXC5--MN1;MN1--CXXC5;MN1--ENSG00000249526;MN1--PSD2;UBE2D2--MN1	Ependymoma	anaplastic ependymoma who grade iii	PT_80NVYCBS_7316-765_Solid Tissue_Initial CNS Tumor
+BS_KZPR01BD	SLC9A1--CXXC5	Dysembryoplastic neuroepithelial tumor (DNET)	neuroepithelial tumor	PT_3873YK5S_7316-2862_Solid Tissue_Initial CNS Tumor
+BS_MF8YNTC4	MN1--BEND2;MN1--MPP1	Other	embryonal neoplasm who grade iv	PT_B7BBE5DV_7316-3166_Solid Tissue_Recurrence
+BS_NGHK9RZP	BCORL1--BEND2	Ependymoma	anaplastic ependymoma who grade iii	PT_2SCVQ2N6_7316-3631_Solid Tissue_Initial CNS Tumor
+BS_NPWT4SXA	MN1--BEND2;BCORL1--DCX	Glial-neuronal tumor NOS	high-grade neuroepithelial tumor	PT_7HGY5W67_7316-6044_Solid Tissue_Recurrence
+BS_PN2CE34A	MN1--MN1	Low-grade glioma/astrocytoma (WHO grade I/II)	low-grade glioma	PT_54MH6Q46_7316-2591_Solid Tissue_Initial CNS Tumor
+BS_QBR4WCQ2	ATF1--EWSR1;EWSR1--ATF1	Other	myxoid spindle cell tumor	PT_6PFFSB6D_7316-2569_Solid Tissue_Initial CNS Tumor
+BS_QNAQGAV6	BCORL1--IGL-@-ext	Metastatic secondary tumors	metastatic secondary tumors	PT_XCX9W17B_7316-16_Solid Tissue_Initial CNS Tumor
+BS_RQSKD7PN	ATF1--NAV3	Malignant peripheral nerve sheath tumor (MPNST)	malignant peripheral nerve sheath tumor/ neurofibroma/plexiform	PT_2E552BAR_7316-3066_Solid Tissue_Initial CNS Tumor
+BS_W4H1D4Y6	CXXC5--TMBIM6;TMBIM6--CXXC5	High-grade glioma/astrocytoma (WHO grade III/IV)	glioblastoma multiforme with scherer s secondary structures	PT_X7HC5YCY_7316-255_Solid Tissue_Initial CNS Tumor
+BS_W80TJC27	BCOR--ENSG00000225471;BCOR--NHSL2;BCOR--RTL5	Ependymoma	anaplastic ependymoma, who gr 2	PT_R6WWH1QX_7316-423_Solid Tissue_Initial CNS Tumor
+BS_WGK8ZMVA	BCOR--EP300;EP300--BCOR	Ependymoma	anaplastic ependymoma who grade iii	PT_DNAJYFZT_7316-4035_Solid Tissue_Recurrence
+BS_XRQXGEXB	PSD2--CXXC5	Other	cns embryonal tumor, nos	PT_BRVGRXQY_7316-7218_Solid Tissue_Recurrence
+BS_ZVZDDW2G	MN1--PATZ1	Low-grade glioma/astrocytoma (WHO grade I/II)	pleomorphic xanthoastrocytoma	PT_E3ADF4ZB_7316-2664_Solid Tissue_Initial CNS Tumor
