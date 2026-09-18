@@ -24,7 +24,6 @@ if (!dir.exists(dirname(output_file))) {
 include_dkfz_abbreviation <- c(
   "ABM_MN1",
   "ANTCON",
-  "ARMS",
   "CNS_BCOR_FUS",
   "CNS_BCOR_ITD",
   "CNS_NB_FOXR2",
@@ -37,15 +36,13 @@ include_dkfz_abbreviation <- c(
   "NET_CXXC5",
   "NET_PATZ1",
   "NET_PLAGL1_FUS",
-  "RMS_MYOD1",
-  "CRINET"
+  "RMS_MYOD1"
 )
 
 # Companion NIH/internal abbreviations from the issue.
 include_abbreviation_internal_nih <- c(
   "HGNET_MN1",
   "ANTCON",
-  "RMS_alevolar",
   "EP300_BCOR",
   "HGNET_BCOR",
   "CNS_NB_FOXR2",
@@ -58,8 +55,7 @@ include_abbreviation_internal_nih <- c(
   "HGNET_CXXC5",
   "HGNET_PATZ",
   "PLAGL1_FUS",
-  "RMS_MYOD1",
-  "CRINET"
+  "RMS_MYOD1"
 )
 
 exclude_diagnoses <- c("Meningioma",

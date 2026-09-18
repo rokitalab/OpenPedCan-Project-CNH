@@ -13,7 +13,6 @@ The following Rare CNS methylation classes are included in this step:
 
 - Rare CNS, MN1::BEND2
 - Rare CNS, ANTCON
-- Rare CNS, ARMS
 - Rare CNS, BCOR-fused
 - Rare CNS, BCOR ITD
 - Rare CNS, FOXR2 NBL
@@ -27,7 +26,6 @@ The following Rare CNS methylation classes are included in this step:
 - Rare CNS, PATZ1-fused
 - Rare CNS, PLAGL1-fused
 - Rare CNS, MYOD1 RMS
-- Rare CNS, CRINET
 
 ### Setup
 
@@ -65,7 +63,6 @@ subtype_to_opc_map <- tribble(
   ~NIH_v2_methylation_Class, ~dkfz_v12_methylation_subclass, ~OPC_molecular_subtype,
   "HGNET_MN1", "ABM_MN1", "Rare CNS, MN1::BEND2",
   "ANTCON", "ANTCON", "Rare CNS, ANTCON",
-  "RMS_alevolar", "ARMS", "Rare CNS, ARMS",
   "EP300_BCOR", "CNS_BCOR_FUS", "Rare CNS, BCOR-fused",
   "HGNET_BCOR", "CNS_BCOR_ITD", "Rare CNS, BCOR ITD",
   "CNS_NB_FOXR2", "CNS_NB_FOXR2", "Rare CNS, FOXR2 NBL",
@@ -78,8 +75,7 @@ subtype_to_opc_map <- tribble(
   "HGNET_CXXC5", "NET_CXXC5", "Rare CNS, MN1::CXXC5",
   "HGNET_PATZ", "NET_PATZ1", "Rare CNS, PATZ1-fused",
   "PLAGL1_FUS", "NET_PLAGL1_FUS", "Rare CNS, PLAGL1-fused",
-  "RMS_MYOD1", "RMS_MYOD1", "Rare CNS, MYOD1 RMS",
-  "CRINET", "CRINET", "Rare CNS, CRINET"
+  "RMS_MYOD1", "RMS_MYOD1", "Rare CNS, MYOD1 RMS"
 )
 
 # Clinical file
@@ -126,9 +122,7 @@ rare_cns_methyl <- hist %>%
   filter(!is.na(molecular_subtype)) %>%
   select(Kids_First_Participant_ID, Kids_First_Biospecimen_ID, match_id, sample_id, composition, 
          dkfz_v12_methylation_subclass, dkfz_v12_methylation_subclass_score,
-         NIH_v2_methylation_Class, NIH_v2_methylation_Superfamily_mean_score, NIH_v2_methylation_Class_mean_score, pathology_diagnosis, molecular_subtype) %>%
-  # remove samples with pathology diagnosis of MB with Rare CNS, ARMS subtype --> these can mis-cluster if they are myogenic MB
-  filter(!(pathology_diagnosis == "Medulloblastoma" & molecular_subtype == "Rare CNS, ARMS"))
+         NIH_v2_methylation_Class, NIH_v2_methylation_Superfamily_mean_score, NIH_v2_methylation_Class_mean_score, pathology_diagnosis, molecular_subtype)
 
 # make a methyl mapping from the histologies-base.tsv (dkfz v12 / NIH v2) calls above
 methyl_map_v12 <- rare_cns_methyl %>%
@@ -155,7 +149,7 @@ call (e.g. `CNS BCOR ITD` vs. `HGNET_BCOR`, and `GTAKA` again for `ANTCON`) --
 note v3.1's `subclass` column, not `class`, is the analog of v2's `Class`
 column used for matching. We derived the alias table below empirically, by
 pairing specimens with a confirmed high-confidence DKFZ v12 call against their
-NIH v3.1 subclass call. `ET_BRD4_LEUTX`, `ERMS`, `RMS_MYOD1`, and `CRINET`
+NIH v3.1 subclass call. `ET_BRD4_LEUTX`, `ERMS`, and `RMS_MYOD1`
 have no high-confidence specimens in the cohort yet to confirm their v3.1
 code, so they're intentionally left out of this table (and out of the NIH
 v3.1 fallback) until one is observed.
@@ -177,7 +171,6 @@ nih_v31_subclass_alias <- c(
   "CNS SARC CIC" = "CNS_SARC_CIC",
   "CNS PLAGL1 FUS" = "NET_PLAGL1_FUS",
   "GTAKA" = "ANTCON",
-  "RMS ALV" = "ARMS",
   "CNS PATZ1 FUS" = "NET_PATZ1",
   "AB MN1 BEND2" = "ABM_MN1",
   "CNS NB FOXR2" = "CNS_NB_FOXR2",
@@ -226,8 +219,6 @@ bti_calls <- readr::read_tsv(bti_file, guess_max = 10000) %>%
       select(Kids_First_Biospecimen_ID, match_id, pathology_diagnosis),
     by = "Kids_First_Biospecimen_ID"
   ) %>%
-  # same mis-clustering safeguard as the v12/v2 calls above
-  filter(!(pathology_diagnosis == "Medulloblastoma" & molecular_subtype == "Rare CNS, ARMS")) %>%
   distinct(match_id, molecular_subtype)
 
 nrow(bti_calls)
