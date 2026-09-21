@@ -20,7 +20,7 @@ Astroblastoma	Initial CNS Tumor	3
 Astrocytoma	Primary Tumor	2
 Astrocytoma	Progressive	1
 Atypical Teratoid Rhabdoid Tumor	Deceased	40
-Atypical Teratoid Rhabdoid Tumor	Initial CNS Tumor	235
+Atypical Teratoid Rhabdoid Tumor	Initial CNS Tumor	237
 Atypical Teratoid Rhabdoid Tumor	Primary Tumor	5
 Atypical Teratoid Rhabdoid Tumor	Progressive	41
 Atypical Teratoid Rhabdoid Tumor	Recurrence	26
@@ -133,7 +133,7 @@ Glial-neuronal tumor NOS	Deceased	13
 Glial-neuronal tumor NOS	Initial CNS Tumor	84
 Glial-neuronal tumor NOS	Primary Tumor	4
 Glial-neuronal tumor NOS	Progressive	6
-Glial-neuronal tumor NOS	Recurrence	21
+Glial-neuronal tumor NOS	Recurrence	18
 Glial-neuronal tumor NOS	NA	1
 Glioblastoma	Initial CNS Tumor	198
 Hemangioblastoma	Initial CNS Tumor	23
@@ -257,15 +257,15 @@ Pleomorphic xanthoastrocytoma	Progressive	15
 Pleomorphic xanthoastrocytoma	Recurrence	1
 Primary mediastinal large B cell lymphoma	Primary Tumor	1
 Rare CNS tumor	Deceased	27
-Rare CNS tumor	Initial CNS Tumor	111
+Rare CNS tumor	Initial CNS Tumor	103
 Rare CNS tumor	Primary Tumor	1
 Rare CNS tumor	Progressive	35
-Rare CNS tumor	Recurrence	29
+Rare CNS tumor	Recurrence	32
 Retinoblastoma	Recurrence	1
 Rhabdoid tumor of the kidney	Primary Tumor	67
 Rhabdoid tumor of the kidney	Relapse	1
 Rhabdoid tumor of the kidney	Unknown	1
-Rhabdomyosarcoma	Initial CNS Tumor	2
+Rhabdomyosarcoma	Initial CNS Tumor	8
 Rhabdomyosarcoma	Primary Tumor	36
 Rhabdomyosarcoma	Progressive	5
 Rhabdomyosarcoma	Recurrence	6

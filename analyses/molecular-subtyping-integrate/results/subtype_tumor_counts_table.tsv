@@ -1,11 +1,11 @@
 cancer_group	molecular_subtype	n
 Adamantinomatous Craniopharyngioma	CRANIO, ADAM	288
-Astroblastoma	HGG, To be classified	3
+Astroblastoma	Rare CNS, MN1::BEND2	3
 Astrocytoma	HGG, To be classified	3
 Atypical Teratoid Rhabdoid Tumor	ATRT, MYC	93
 Atypical Teratoid Rhabdoid Tumor	ATRT, SHH	98
 Atypical Teratoid Rhabdoid Tumor	ATRT, TYR	49
-Atypical Teratoid Rhabdoid Tumor	ATRT, To be classified	111
+Atypical Teratoid Rhabdoid Tumor	ATRT, To be classified	113
 CNS Embryonal tumor	CNS Embryonal, NOS	45
 Central neurocytoma	CNC	10
 Chordoma	CHDM, To be classified	144
@@ -73,7 +73,7 @@ Glial-neuronal tumor NOS	GNT, RTK	12
 Glial-neuronal tumor NOS	GNT, To be classified	17
 Glial-neuronal tumor NOS	GNT, other MAPK	13
 Glial-neuronal tumor NOS	GNT, other MAPK, CDKN2A/B	4
-Glial-neuronal tumor NOS	GNT, wildtype	23
+Glial-neuronal tumor NOS	GNT, wildtype	20
 High-grade glioma	HGG, H3 wildtype	448
 High-grade glioma	HGG, H3 wildtype, TP53	290
 High-grade glioma	HGG, IDH	8
@@ -145,15 +145,13 @@ Pleomorphic xanthoastrocytoma	HGG, PXA	52
 Pleomorphic xanthoastrocytoma	HGG, PXA, TP53	4
 Pleomorphic xanthoastrocytoma	LGG, To be classified	5
 Rare CNS tumor	Rare CNS, ANTCON	8
-Rare CNS tumor	Rare CNS, ARMS	6
 Rare CNS tumor	Rare CNS, BCOR ITD	40
 Rare CNS tumor	Rare CNS, BCOR-fused	3
 Rare CNS tumor	Rare CNS, CIC SARC	18
-Rare CNS tumor	Rare CNS, CRINET	2
 Rare CNS tumor	Rare CNS, DICER1 SARC	8
 Rare CNS tumor	Rare CNS, EWS	61
 Rare CNS tumor	Rare CNS, FOXR2 NBL	10
-Rare CNS tumor	Rare CNS, MN1::BEND2	5
+Rare CNS tumor	Rare CNS, MN1::BEND2	8
 Rare CNS tumor	Rare CNS, MN1::CXXC5	2
 Rare CNS tumor	Rare CNS, PATZ1-fused	17
 Rare CNS tumor	Rare CNS, PLAG AMP	8

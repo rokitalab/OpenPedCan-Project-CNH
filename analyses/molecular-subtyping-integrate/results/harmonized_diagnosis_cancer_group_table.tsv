@@ -14,7 +14,7 @@ TCGA	Adrenocortical Carcinoma	Adrenocortical Carcinoma	No	No
 DGD	Alveolar soft part sarcoma	Alveolar soft part sarcoma	No	No
 PPTC	Alveolar soft part sarcoma	Alveolar soft part sarcoma	No	No
 DGD	Angiosarcoma	Angiosarcoma	No	No
-PBTA	Other	Astroblastoma	No	Yes
+PBTA	Rare CNS, MN1::BEND2	Astroblastoma	Yes	Yes
 PBTA	Astrocytoma	Astrocytoma	No	No
 PBTA	Atypical Teratoid Rhabdoid Tumor, MYC	Atypical Teratoid Rhabdoid Tumor	Yes	No
 PBTA	Atypical Teratoid Rhabdoid Tumor (ATRT)	Atypical Teratoid Rhabdoid Tumor	No	Yes
@@ -137,7 +137,6 @@ PBTA	Glial-neuronal tumor,  BRAF V600E	Glial-neuronal tumor NOS	Yes	Yes
 PBTA	Glial-neuronal tumor,  other MAPK	Glial-neuronal tumor NOS	Yes	Yes
 PBTA	Glial-neuronal tumor,  FGFR	Glial-neuronal tumor NOS	Yes	Yes
 PBTA	Glial-neuronal tumor,  To be classified	Glial-neuronal tumor NOS	Yes	Yes
-PBTA	Glial-neuronal tumor, wildtype	Glial-neuronal tumor NOS	Yes	Yes
 PBTA	Glial-neuronal tumor,  KIAA1549-BRAF	Glial-neuronal tumor NOS	Yes	Yes
 PBTA	Glial-neuronal tumor,  other MAPK, CDKN2A/B	Glial-neuronal tumor NOS	Yes	Yes
 PBTA	Glial-neuronal tumor,  H3	Glial-neuronal tumor NOS	Yes	Yes
@@ -342,10 +341,8 @@ PBTA	Rare CNS, DICER1 SARC	Rare CNS tumor	Yes	Yes
 PBTA	CNS Ewing sarcoma	Rare CNS tumor	No	Yes
 PBTA	Rare CNS, PLAG AMP	Rare CNS tumor	Yes	Yes
 PBTA	Rare CNS, PATZ1-fused	Rare CNS tumor	Yes	Yes
-PBTA	Rare CNS, ARMS	Rare CNS tumor	Yes	Yes
 PBTA	Rare CNS, MN1::CXXC5	Rare CNS tumor	Yes	Yes
 PBTA	Rare CNS, FOXR2 NBL	Rare CNS tumor	Yes	Yes
-PBTA	Rare CNS, CRINET	Rare CNS tumor	Yes	Yes
 PBTA	Rare CNS, BCOR-fused	Rare CNS tumor	Yes	Yes
 TCGA	Rectum Adenocarcinoma	Rectum Adenocarcinoma	No	No
 TCGA	Kidney Renal Clear Cell Carcinoma	Renal Clear Cell Carcinoma	No	Yes
@@ -355,6 +352,7 @@ DGD	Rhabdoid tumor of the kidney	Rhabdoid tumor of the kidney	No	No
 PPTC	Rhabdoid tumor of the kidney	Rhabdoid tumor of the kidney	No	No
 TARGET	Rhabdoid tumor of the kidney	Rhabdoid tumor of the kidney	No	No
 DGD	Rhabdomyosarcoma	Rhabdomyosarcoma	No	No
+PBTA	Rhabdomyosarcoma	Rhabdomyosarcoma	No	No
 PPTC	Rhabdomyosarcoma	Rhabdomyosarcoma	No	No
 PBTA	Rosai-dorfman	Rosai-Dorfman disease	No	Yes
 PBTA	Rosette-forming glioneuronal tumor,  FGFR	Rosette-forming glioneuronal tumor	Yes	No
