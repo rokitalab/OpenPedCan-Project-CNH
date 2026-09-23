@@ -8,7 +8,6 @@
 # Load libraries:
 suppressPackageStartupMessages(library(optparse))
 suppressPackageStartupMessages(library(tidyverse))
-suppressPackageStartupMessages(library(qs2))
 suppressPackageStartupMessages(library(arrow))
 suppressWarnings(
   suppressPackageStartupMessages(library(minfi))
@@ -135,12 +134,6 @@ if (length(bad_samples) > 0) {
 }
 
 
-## save the rgset object for cnv calling 
-rg_set_file <- paste0(out_base, "-", dataset, '-rg-set.qs2')
-qs_save(RGset, rg_set_file)
-
-
-
 ######################## Calculate detection p-values #########################
 message("\nsetting parallel processing options...\n")
 library(BiocParallel)
@@ -241,7 +234,6 @@ m_values_unmasked <- m_values %>%
   rename_with(~ recode(.x, !!!setNames(man_df$Bioassay_ID, man_df$file_name)))
 
 write_parquet(m_values_unmasked, m_value_file)
-#qs_save(m_value_unmasked, m_value_file)
 
 # Free memory
 rm(m_values_unmasked)
@@ -257,7 +249,6 @@ m_values_masked <- m_values %>%
   rename_with(~ recode(.x, !!!setNames(man_df$Bioassay_ID, man_df$file_name)))
 
 write_parquet(m_values_masked, m_value_file_masked)
-#qs_save(m_value_masked, m_value_file_masked)
 
 # Free memory
 rm(m_values, m_values_masked)
@@ -276,7 +267,6 @@ beta_values_masked <- beta_values %>%
 rm(beta_values)
 gc()
 write_parquet(beta_values_masked, beta_value_file)
-#qs_save(beta_values_masked, beta_value_file)
 
 # ensure tibble
 detP <- as_tibble(detP, rownames = "ProbeID")
@@ -305,7 +295,6 @@ colnames(cn_value) <- dplyr::recode(
 # write output file
 
 write_parquet(cn_value, cn_value_file)
-#qs_save(cn_value, cn_value_file)
 # delete GenomicRatioSet object to free memory
 rm(GRset)
 gc()

@@ -39,19 +39,19 @@ outputs:
   beta_values:
     type: File
     outputBinding:
-      glob: '*-methyl-beta-values-masked.qs2'
+      glob: '*-methyl-beta-values-masked.parquet'
   m_values_unmasked:
     type: File
     outputBinding:
-      glob: '*-methyl-m-values-unmasked.qs2'
+      glob: '*-methyl-m-values-unmasked.parquet'
   m_values_masked:
     type: File
     outputBinding:
-      glob: '*-methyl-m-values-masked.qs2'
+      glob: '*-methyl-m-values-masked.parquet'
   cn_values:
     type: File
     outputBinding:
-      glob: '*-methyl-cn-values.qs2'
+      glob: '*-methyl-cn-values.parquet'
   zero_mad:
     type: File
     outputBinding:
