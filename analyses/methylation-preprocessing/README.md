@@ -3,7 +3,7 @@ This analysis is was last run with OpenPedCan data release `v12` and is now run 
 
 ## Purpose
 
-Preprocess probe hybridization intensity values of selected methylated and unmethylated cytosine (CpG) loci into usable methylation measurements for the [Pediatric Open Targets, OPenPedCan-analysis](https://github.com/PediatricOpenTargets/OpenPedCan-analysis) raw DNA methylation array datasets. 
+Preprocess probe hybridization intensity values of selected methylated and unmethylated cytosine (CpG) loci into usable methylation measurements for the [Pediatric Open Targets, OpenPedCan-analysis](https://github.com/PediatricOpenTargets/OpenPedCan-analysis) raw DNA methylation array datasets. 
 
 ## Data description 
 
@@ -22,19 +22,27 @@ The [Children's Brain Tumor Network (CBTN)](https://cbtn.org/) `Infinium HumanMe
 
 - The TARGET Illumina methylation analysis results available on the [TARGET project website](https://ocg.cancer.gov/programs/target/target-methods) were preprocessed with different methylation software packages, including `minfi` (AML), `BeadStudio` (CCSK and WT), `methylumi` (NBL), and `Lumi+BMIQ` (OS). We have preprocessed all the TARGET and CBTN cancer types with Illumina arrays and using the updated version of [minfi Bioconductor package](https://academic.oup.com/bioinformatics/article/33/4/558/2666344). We utilized and `preprocessFunnorm` preprocessing method when an array dataset has control samples (i.e., normal and tumor samples) or multiple OpenPedcan cancer groups and `preprocessQuantile` when an array dataset has only tumor samples from a single OpenPedcan cancer group to estimate usable methylation measurements (Beta and M values) and copy number (cn-values) for OpenPedCan.
 
-- Masking is applied using two different methods. Firstly, probes with known SNPs are removed. Secondly, the p-value for each sample is computed by comparing the signal of methylated and unmethylated probes against the background signal. Probes with p-values > 0.05 are filtered out.
+- Masking is applied using two different methods. Firstly, probes with known SNPs are removed. Secondly, the p-value for each sample is computed by comparing the signal of methylated and unmethylated probes against the background signal. Probes with p-values > 0.01 are filtered out.
 
-- In order to do funnorm normalization, a set of control probes must be correctly identified, and Median Absolute Deviation must be above 0 across these control probes. We had been seeing some errors for EPICv2 probes where MAD = 0, causing funnorm to fail, and have added and inspection and filtering step to check for MAD > 0 on the control probes, and skip and print out samples where MAD = 0. This filtering step only takes place if use_funnorm is TRUE (default). 
+- The `-methyl-cn-values.parquet` output is a probe-level copy-number signal intended for quality control only. It should not be used for CNV segmentation or as input to CONUMEE or GISTIC.
+
+- In order to do funnorm normalization, a set of control probes must be correctly identified, and Median Absolute Deviation must be above 0 across these control probes. We had been seeing some errors for EPICv2 probes where MAD = 0, causing funnorm to fail, and have added an inspection and filtering step to check for MAD > 0 on the control probes, and skip and print out samples where MAD = 0. This array-level QC filtering step is applied before either normalization method.
 
 ## General usage of scripts
 
 
 #### `run-preprocess-illumina-arrays.sh`
-This is a bash script wrapper for setting input file paths for the main analysis script, `01-preprocess-illumina-arrays.R` All file paths set in this script relative to the module directory. Therefore, this script should always run as if it were being called from the directory it lives in, the module directory (`OpenPedCan-analysis/analyses/methylation-preprocessing`).
+This wrapper sorts mixed array types and runs the main preprocessing script for each detected supported array type. Supply all run-specific paths on the command line; relative paths are resolved from the directory in which the wrapper is invoked.
 
 ```
-bash run-preprocess-illumina-arrays.sh
+bash run-preprocess-illumina-arrays.sh \
+  --manifest_file controls_and_dicer_manifest.tsv \
+  --input_dir input-test \
+  --output_dir test-out \
+  --output_prefix test
 ```
+
+The sorted IDAT staging directory is written as `<output_dir>/<output_prefix>-sorted-idats_output_dir`; processed output files use `<output_dir>/<output_prefix>` as their prefix.
 
 #### `01-preprocess-illumina-arrays.R`
 Preprocesses raw Illumina Infinium HumanMethylation BeadArrays (450K and 850k) intensities using `minfi Bioconductor package` into usable methylation measurements (Beta and M values) and copy number (cn-values) for OpenPedCan datasets. 

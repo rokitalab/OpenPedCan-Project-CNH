@@ -35,8 +35,7 @@ option_list <- list(
         help = "The absolute path of the base directory containing sample array IDAT files.",
         metavar = "character"
     ),
-  make_option(opt_str = "--funnorm", action = "store_true", 
-              default = TRUE,
+  make_option(opt_str = "--funnorm", type = "logical", default = TRUE,
               help = "preprocesses the Illumina methylation arrays using one of
               the following minfi normalization methods: 
               - preprocessFunnorm: when array dataset contains either control
@@ -45,13 +44,13 @@ option_list <- list(
               - preprocessQuantile: when an array dataset has only tumor samples
                                     from a single OpenPedcan cancer group (FALSE)
               Default is TRUE (preprocessFunnorm)",
-              metavar = "character"),
+              metavar = "TRUE|FALSE"),
   
-  make_option(opt_str = "--snp_filter", action = "store_true", default = TRUE, 
+  make_option(opt_str = "--snp_filter", type = "logical", default = TRUE,
               help = "If TRUE, drops the probes that contain either a SNP at
               the CpG interrogation or at the single nucleotide extension.
               Default is TRUE",
-              metavar = "character"),
+              metavar = "TRUE|FALSE"),
   make_option(opt_str = "--n_cores", type = 'integer',
               default=1, help="number of cores for parallelisation of minfi::detectionP. Default is 1")
 )
@@ -107,36 +106,40 @@ red   <- minfi::getRed(RGset)
 controls_info <- minfi::getProbeInfo(RGset, type = "Control")
 control_idx <- rownames(green) %in% controls_info$Address
 
-# Compute MAD per sample by combining channels on the fly (avoids creating large stacked matrix)
-control_mad <- sapply(seq_len(ncol(green)), function(i) {
-  mad(c(green[control_idx, i], red[control_idx, i]), na.rm = TRUE)
-})
-names(control_mad) <- colnames(green)
+# Compute control-probe MAD separately for each channel. A zero-MAD channel
+# indicates a degenerate readout even if the other channel has variation.
+green_control_mad <- vapply(seq_len(ncol(green)), function(i) {
+  mad(green[control_idx, i], na.rm = TRUE)
+}, numeric(1))
+red_control_mad <- vapply(seq_len(ncol(red)), function(i) {
+  mad(red[control_idx, i], na.rm = TRUE)
+}, numeric(1))
+sample_names <- colnames(green)
 
 # Free memory from large intermediate objects
 rm(green, red, controls_info)
 gc()
 
-# Identify problematic samples
-bad_samples <- names(control_mad[control_mad == 0])
+# Identify samples with a degenerate control-probe readout in either channel.
+bad_sample_idx <- which(green_control_mad == 0 | red_control_mad == 0)
+bad_samples <- sample_names[bad_sample_idx]
 
-if (use_funnorm) {
-  
-  if (length(bad_samples) > 0) {
-    message("Samples with MAD = 0 (will be skipped):")
-    zero_mad_samples <- paste0(out_base, "-", dataset, "zero-mad.txt")
-    fileConn <- file(zero_mad_samples)
-    writeLines(bad_samples, fileConn)
-    close(fileConn)
-    print(bad_samples)
-    
-    # Filter out bad samples
-    RGset <- RGset[, control_mad > 0]
-    
-  } else {
-    message("No samples with MAD = 0 detected.")
+if (length(bad_samples) > 0) {
+  message("Samples with MAD = 0 in at least one control channel (will be skipped):")
+  zero_mad_samples <- paste0(out_base, "-", dataset, "zero-mad.txt")
+  fileConn <- file(zero_mad_samples)
+  writeLines(bad_samples, fileConn)
+  close(fileConn)
+  print(bad_samples)
+
+  # Apply this array-level QC filter before either normalization method.
+  RGset <- RGset[, -bad_sample_idx, drop = FALSE]
+  if (ncol(RGset) == 0) {
+    stop("All samples have MAD = 0 in at least one control channel.")
   }
-  
+
+} else {
+  message("No samples with MAD = 0 in either control channel detected.")
 }
 
 
@@ -255,7 +258,7 @@ gc()
 ##masking is optional for m values -- can generate masked and unmasked matrices
 
 # Create masked version from the same m_values matrix
-m_values[detP > 0.05] <- NA
+m_values[detP > 0.01] <- NA
 
 m_values_masked <- m_values %>%
   as_tibble(rownames = "ProbeID") %>%
@@ -272,7 +275,7 @@ message("Extracting beta-values")
 
 # Extract beta values and apply masking
 beta_values <- minfi::getBeta(GRset)
-beta_values[detP > 0.05] <- NA
+beta_values[detP > 0.01] <- NA
 
 beta_values_masked <- beta_values %>%
   as_tibble(rownames = "ProbeID") %>%

@@ -4,24 +4,108 @@
 set -e
 set -o pipefail
 
-# This script should always run as if it were being called from
-# the directory it lives in.
+# Resolve the script location without changing the caller's working directory,
+# so relative input and output paths are interpreted from the command line.
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+usage() {
+    cat <<EOF
+Usage: $(basename "$0") --manifest_file FILE --input_dir DIR --output_dir DIR --output_prefix PREFIX
 
-printf 'Sorting array types \n\n'
+Sort and preprocess Illumina IDAT files.
 
-Rscript --vanilla scripts/00-unzip-and-sort.R --base_dir input-test --manifest_file controls_and_dicer_manifest.tsv --output_basename sorted_idats
+Required options:
+  --manifest_file FILE    Manifest containing file_name and Bioassay_ID columns.
+  --input_dir DIR         Directory containing the input IDAT files.
+  --output_dir DIR        Directory for sorted IDATs and result files.
+  --output_prefix PREFIX  Prefix for result files within --output_dir.
+  -h, --help              Show this help message.
+EOF
+}
 
-printf "Start methylation pre-processing...\n\n"
+MANIFEST_FILE=""
+INPUT_DIR=""
+OUTPUT_DIR=""
+OUTPUT_PREFIX=""
 
-# ---- Global parameters ----
-MANIFEST_FILE="controls_and_dicer_manifest.tsv"
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --manifest_file)
+            if [[ $# -lt 2 || -z "$2" ]]; then
+                echo "Error: --manifest_file requires a value." >&2
+                exit 2
+            fi
+            MANIFEST_FILE="$2"
+            shift 2
+            ;;
+        --input_dir)
+            if [[ $# -lt 2 || -z "$2" ]]; then
+                echo "Error: --input_dir requires a value." >&2
+                exit 2
+            fi
+            INPUT_DIR="$2"
+            shift 2
+            ;;
+        --output_dir)
+            if [[ $# -lt 2 || -z "$2" ]]; then
+                echo "Error: --output_dir requires a value." >&2
+                exit 2
+            fi
+            OUTPUT_DIR="$2"
+            shift 2
+            ;;
+        --output_prefix)
+            if [[ $# -lt 2 || -z "$2" ]]; then
+                echo "Error: --output_prefix requires a value." >&2
+                exit 2
+            fi
+            OUTPUT_PREFIX="$2"
+            shift 2
+            ;;
+        -h|--help)
+            usage
+            exit 0
+            ;;
+        *)
+            echo "Error: unknown option: $1" >&2
+            usage >&2
+            exit 2
+            ;;
+    esac
+done
+
+if [[ -z "$MANIFEST_FILE" || -z "$INPUT_DIR" || -z "$OUTPUT_DIR" || -z "$OUTPUT_PREFIX" ]]; then
+    echo "Error: --manifest_file, --input_dir, --output_dir, and --output_prefix are required." >&2
+    usage >&2
+    exit 2
+fi
+
+if [[ ! -f "$MANIFEST_FILE" ]]; then
+    echo "Error: manifest file not found: $MANIFEST_FILE" >&2
+    exit 2
+fi
+
+if [[ ! -d "$INPUT_DIR" ]]; then
+    echo "Error: input directory not found: $INPUT_DIR" >&2
+    exit 2
+fi
+
 N_CORES=4
 FUNNORM=TRUE
 SNP_FILTER=TRUE
-OUT_DIR='test-out'
-OUT_BASE="$OUT_DIR/test"
+OUT_BASE="$OUTPUT_DIR/$OUTPUT_PREFIX"
+SORTED_IDATS_BASE="$OUTPUT_DIR/${OUTPUT_PREFIX}-sorted-idats"
+SORTED_IDATS_DIR="${SORTED_IDATS_BASE}_output_dir"
 
-mkdir -p $OUT_DIR
+mkdir -p "$OUTPUT_DIR"
+
+printf 'Sorting array types \n\n'
+
+Rscript --vanilla "$SCRIPT_DIR/scripts/00-unzip-and-sort.R" \
+    --base_dir "$INPUT_DIR" \
+    --manifest_file "$MANIFEST_FILE" \
+    --output_basename "$SORTED_IDATS_BASE"
+
+printf "Start methylation pre-processing...\n\n"
 
 run_preprocess () {
     local DIR=$1
@@ -30,7 +114,7 @@ run_preprocess () {
     if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
         echo "Processing $LABEL"
 
-        Rscript scripts/01-preprocess-illumina-arrays.R \
+        Rscript "$SCRIPT_DIR/scripts/01-preprocess-illumina-arrays.R" \
             --base_dir "$DIR" \
             --funnorm "$FUNNORM" \
             --snp_filter "$SNP_FILTER" \
@@ -42,6 +126,6 @@ run_preprocess () {
     fi
 }
 
-run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2"
-run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylationEPIC" "EPICv1"
-run_preprocess "sorted_idats_output_dir/IlluminaHumanMethylation450k" "450k"
+run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPICv2" "EPICv2"
+run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPIC" "EPICv1"
+run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylation450k" "450k"
