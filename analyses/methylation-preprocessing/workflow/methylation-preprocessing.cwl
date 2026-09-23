@@ -26,11 +26,13 @@ doc: |-
 requirements:
 - class: SubworkflowFeatureRequirement
 - class: ScatterFeatureRequirement
+- class: InlineJavascriptRequirement
 inputs:
   input_idats_dir: { type: Directory, doc: "Directory containing the IDAT files to process." }
   manifest_file: {type: File, doc: "Manifest file containing 'file_name' and 'Bioassay_ID' columns"}
   funnorm: { type: 'boolean?', doc: "If set, use funnorm for normalization" }
   snp_filter: { type: 'boolean?', doc: "If set, drops the probes that contain either a SNP at the CpG interrogation or at the single nucleotide extension." }
+  merge_array_types: { type: boolean, default: false, doc: "If true, intersect common probes and return merged matrices when two or more array types are present." }
   output_basename: {type: string, doc: "String to use as the base for output filenames"}
   ram: { type: 'int?', default: 32, doc: "GB of RAM to allocate to the task." }
   cores: { type: 'int?', default: 16, doc: "Minimum reserved number of CPU cores for the task." }
@@ -42,6 +44,7 @@ outputs:
   m_values_masked: {type: 'File[]', outputSource: preprocess_illumina_arrays/m_values_masked }
   cn_values: {type: 'File[]', outputSource: preprocess_illumina_arrays/cn_values }
   p_values: {type: 'File[]', outputSource: preprocess_illumina_arrays/p_values }
+  merged_values: {type: 'File[]?', outputSource: merge_methyl_matrices/merged_values }
   
 steps:
   unzip_and_sort_files:
@@ -66,4 +69,20 @@ steps:
       ram: ram
       cores: cores
     out: [beta_values, m_values_masked, m_values_unmasked, cn_values, p_values]
+
+  merge_methyl_matrices:
+    run: ../tools/merge_methyl_matrices.cwl
+    in:
+      run_merge: merge_array_types
+      methylation_files:
+        source:
+        - preprocess_illumina_arrays/beta_values
+        - preprocess_illumina_arrays/m_values_masked
+        - preprocess_illumina_arrays/m_values_unmasked
+        - preprocess_illumina_arrays/cn_values
+        - preprocess_illumina_arrays/p_values
+        linkMerge: merge_flattened
+      output_basename: output_basename
+    out: [merged_values]
+    when: $(inputs.run_merge)
   
