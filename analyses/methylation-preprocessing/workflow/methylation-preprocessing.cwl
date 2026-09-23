@@ -45,6 +45,7 @@ outputs:
   cn_values: {type: 'File[]', outputSource: preprocess_illumina_arrays/cn_values }
   p_values: {type: 'File[]', outputSource: preprocess_illumina_arrays/p_values }
   merged_values: {type: 'File[]?', outputSource: merge_methyl_matrices/merged_values }
+  rg_sets: {type: 'File[]', outputSource: preprocess_illumina_arrays/rg_set }
   
 steps:
   unzip_and_sort_files:
@@ -68,7 +69,7 @@ steps:
       output_basename: output_basename
       ram: ram
       cores: cores
-    out: [beta_values, m_values_masked, m_values_unmasked, cn_values, p_values]
+    out: [beta_values, m_values_masked, m_values_unmasked, cn_values, p_values, rg_set]
 
   merge_methyl_matrices:
     run: ../tools/merge_methyl_matrices.cwl

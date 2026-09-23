@@ -8,6 +8,7 @@
 # Load libraries:
 suppressPackageStartupMessages(library(optparse))
 suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(qs2))
 suppressPackageStartupMessages(library(arrow))
 suppressWarnings(
   suppressPackageStartupMessages(library(minfi))
@@ -133,6 +134,9 @@ if (length(bad_samples) > 0) {
   message("No samples with MAD = 0 in either control channel detected.")
 }
 
+# Save the QC-filtered RGChannelSet for downstream CNV calling.
+rg_set_file <- paste0(out_base, "-", dataset, "-rg-set.qs2")
+qs_save(RGset, rg_set_file)
 
 ######################## Calculate detection p-values #########################
 message("\nsetting parallel processing options...\n")
