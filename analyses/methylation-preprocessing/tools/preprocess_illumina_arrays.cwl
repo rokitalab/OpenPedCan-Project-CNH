@@ -31,8 +31,20 @@ inputs:
   input_idats_dir: { type: Directory, loadListing: shallow_listing, inputBinding: { prefix: "--base_dir", position: 1 }, doc: "Directory containing the IDATs to process." }
   output_basename: { type: 'string', doc: "Prefix string for output file name.", inputBinding: { position: 1, prefix: "--output_basename"} }
   manifest_file: {type: File, inputBinding: { prefix: "--manifest_file", position: 1 }, doc: "Manifest file containing 'file_name' and 'Bioassay_ID' columns"}
-  funnorm: { type: 'boolean?', inputBinding: { prefix: "--funnorm", position: 1 }, doc: "If set, use funnorm for normalization" }
-  snp_filter: { type: 'boolean?', inputBinding: { prefix: "--snp_filter", position: 1 }, doc: "If set, drops the probes that contain either a SNP at the CpG interrogation or at the single nucleotide extension." }
+  funnorm:
+    type: 'boolean?'
+    inputBinding:
+      prefix: "--funnorm"
+      position: 1
+      valueFrom: $(self ? "TRUE" : "FALSE")
+    doc: "Whether to use funnorm for normalization."
+  snp_filter:
+    type: 'boolean?'
+    inputBinding:
+      prefix: "--snp_filter"
+      position: 1
+      valueFrom: $(self ? "TRUE" : "FALSE")
+    doc: "Whether to drop probes containing SNPs at the CpG interrogation or single nucleotide extension."
   ram: { type: 'int?', default: 32, doc: "GB of RAM to allocate to the task." }
   cores: { type: 'int?', default: 16, inputBinding: { prefix: "--n_cores", position: 1 }, doc: "Minimum reserved number of CPU cores for the task." }
 outputs:
@@ -61,6 +73,6 @@ outputs:
     outputBinding:
       glob: '*-rg-set.qs2'
   zero_mad:
-    type: File
+    type: 'File?'
     outputBinding:
       glob: '*-zero-mad.txt'

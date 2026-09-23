@@ -1,6 +1,6 @@
 #!/bin/bash
 # OPenPedCan 2022
-# J Daggett, updated 2026 
+# J Daggett, updated 2026
 set -e
 set -o pipefail
 
@@ -129,3 +129,9 @@ run_preprocess () {
 run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPICv2" "EPICv2"
 run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPIC" "EPICv1"
 run_preprocess "$SORTED_IDATS_DIR/IlluminaHumanMethylation450k" "450k"
+
+printf "\ncombining array types...\n"
+
+Rscript --vanilla "$SCRIPT_DIR/scripts/02-merge-methyl-matrices.R" \
+    --output_dir "$OUTPUT_DIR" \
+    --output_prefix "$OUTPUT_PREFIX"
