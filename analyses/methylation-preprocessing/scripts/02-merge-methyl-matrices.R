@@ -8,7 +8,7 @@ suppressPackageStartupMessages(library(optparse))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(arrow))
-library(qs2)
+
 
 
 # set up optparse options
@@ -28,8 +28,11 @@ out_pref <- opt$output_prefix
 data_types <- c('beta-values-masked', 'm-values-masked', 'm-values-unmasked', 'cn-values')
 
 
-#find out what array types are present - use the files in the output directory
+# Find array types only among files produced for this run's output prefix.
+# This prevents files from another run in the same output directory from being
+# mistaken for inputs to the current merge.
 files <- list.files(out_dir, full.names = FALSE)
+files <- files[startsWith(files, paste0(out_pref, "-"))]
 array_types <- character()
 
 if (any(grepl("EPICv2", files, ignore.case = TRUE))) {
@@ -46,6 +49,33 @@ if (any(grepl("450k", files, ignore.case = TRUE))) {
   array_types <- c(array_types, "450k")
 }
 message("Array types: ", paste(array_types, collapse = ", "))
+
+if (length(array_types) == 0) {
+  stop(
+    "No per-array methylation outputs were found for output prefix '",
+    out_pref,
+    "' in ",
+    out_dir,
+    "."
+  )
+}
+
+if (length(array_types) == 1) {
+  message(
+    "Only ", array_types,
+    " array data were found. No probe intersection or merged matrix is needed; ",
+    "leaving the per-array outputs unchanged."
+  )
+  quit(save = "no", status = 0)
+}
+
+message(
+  "Intersecting common probes and merging ",
+  length(array_types),
+  " array types: ",
+  paste(array_types, collapse = ", "),
+  "."
+)
 
 #this block gets the unique cpg sites from the v2 file first using mean p value (from detP)
 #the tie breaker for this is alphabetical order
@@ -85,7 +115,8 @@ if ("EPICv2" %in% array_types) {
   
   epicv2_dups_best <- detP_df %>%
     group_by(Probe_base) %>%
-    slice_min(detP_mean, n = 1, with_ties = FALSE) %>%
+    arrange(detP_mean, ProbeID, .by_group = TRUE) %>%
+    slice_head(n = 1) %>%
     ungroup() %>%
     select(-detP_mean)   
   
@@ -528,5 +559,3 @@ if (all(c("EPICv2", "450k") %in% array_types) &&
     gc()
   }
 }
-
-
