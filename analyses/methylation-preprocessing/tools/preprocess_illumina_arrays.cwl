@@ -52,6 +52,10 @@ outputs:
     type: File
     outputBinding:
       glob: '*-methyl-cn-values.parquet'
+  p_values:
+    type: File
+    outputBinding:
+      glob: '*-methyl-p-values.parquet'
   zero_mad:
     type: File
     outputBinding:
