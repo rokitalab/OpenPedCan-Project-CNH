@@ -131,9 +131,7 @@ x <- CNV.fit(query, ref, anno)
 x <- CNV.bin(x)
 #x <- CNV.detail(x) #only need if you provide detail regions 
 
-#get segments - parameters tuned for array type
-x <- CNV.bin(x)
-
+# Get segments; parameters are tuned for array type.
 if (array_type %in% c("EPIC", "EPICv2")) {
   
   message("Using EPIC-optimized segmentation parameters")
@@ -179,7 +177,6 @@ data.table::fwrite(
 
 #write gistic input ?? 
 gistic <- CNV.write(x, what="gistic", file=gistic_file)
-
 
 
 
