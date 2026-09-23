@@ -56,6 +56,10 @@ outputs:
     type: File
     outputBinding:
       glob: '*-methyl-p-values.parquet'
+  rg_set:
+    type: File
+    outputBinding:
+      glob: '*-rg-set.qs2'
   zero_mad:
     type: File
     outputBinding:
