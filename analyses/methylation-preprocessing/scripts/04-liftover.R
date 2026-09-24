@@ -69,12 +69,30 @@ lift_seg <- function(df, chain) {
   )
   
   lifted <- liftOver(gr, chain)
-  
-  # Keep only segments that map uniquely to ONE region
-  keep <- lengths(lifted) == 1
-  
+
+  # A SEG interval can span several chain blocks.  Retain every mapped fragment
+  # rather than dropping the entire segment when it does not map as one
+  # contiguous interval.  Each fragment has the same segmented copy-number
+  # value as its source interval.
+  fragment_counts <- lengths(lifted)
+  keep <- fragment_counts > 0
+
+  if (!any(keep)) {
+    return(df[FALSE, ])
+  }
+
+  source_index <- rep(which(keep), fragment_counts[keep])
   gr_lifted <- unlist(lifted[keep])
-  df <- df[keep, ]
+  df <- df[source_index, , drop = FALSE]
+
+  # Distribute each original segment's marker count approximately in proportion
+  # to its mapped fragment length.  GISTIC requires a positive marker count.
+  source_width <- width(gr)[source_index]
+  mapped_width <- width(gr_lifted)
+  df$Num_Markers <- pmax(
+    1L,
+    as.integer(round(df$Num_Markers * mapped_width / source_width))
+  )
   
   # Replace coordinates
   df$Chromosome <- as.character(seqnames(gr_lifted))
