@@ -73,37 +73,39 @@ lift_seg <- function(df, chain) {
     ranges = IRanges(start = df$Start_Position, end = df$End_Position)
   )
   
-  lifted <- liftOver(gr, chain)
+  # Lift the two segment boundaries independently.  Lifting a full, often
+  # chromosome-scale segment returns one range per chain block, which is not a
+  # usable SEG representation for GISTIC.  A segment is retained when both
+  # boundaries map uniquely to the same target chromosome.
+  start_gr <- resize(gr, width = 1, fix = "start")
+  end_gr <- resize(gr, width = 1, fix = "end")
+  lifted_start <- liftOver(start_gr, chain)
+  lifted_end <- liftOver(end_gr, chain)
 
-  # A SEG interval can span several chain blocks.  Retain every mapped fragment
-  # rather than dropping the entire segment when it does not map as one
-  # contiguous interval.  Each fragment has the same segmented copy-number
-  # value as its source interval.
-  fragment_counts <- lengths(lifted)
-  keep <- fragment_counts > 0
+  keep <- lengths(lifted_start) == 1 & lengths(lifted_end) == 1
 
   if (!any(keep)) {
     return(df[FALSE, ])
   }
 
-  source_index <- rep(which(keep), fragment_counts[keep])
-  gr_lifted <- unlist(lifted[keep])
-  df <- df[source_index, , drop = FALSE]
+  lifted_start <- unlist(lifted_start[keep])
+  lifted_end <- unlist(lifted_end[keep])
+  same_chromosome <- as.character(seqnames(lifted_start)) ==
+    as.character(seqnames(lifted_end))
 
-  # Distribute each original segment's marker count approximately in proportion
-  # to its mapped fragment length.  GISTIC requires a positive marker count.
-  source_width <- width(gr)[source_index]
-  mapped_width <- width(gr_lifted)
-  df$Num_Markers <- pmax(
-    1L,
-    as.integer(round(df$Num_Markers * mapped_width / source_width))
-  )
+  if (!any(same_chromosome)) {
+    return(df[FALSE, ])
+  }
+
+  df <- df[which(keep)[same_chromosome], , drop = FALSE]
+  lifted_start <- lifted_start[same_chromosome]
+  lifted_end <- lifted_end[same_chromosome]
   
   # Replace coordinates
-  df$Chromosome <- as.character(seqnames(gr_lifted))
+  df$Chromosome <- as.character(seqnames(lifted_start))
   df$Chromosome <- gsub("^chr", "", df$Chromosome)
-  df$Start_Position <- start(gr_lifted)
-  df$End_Position <- end(gr_lifted)
+  df$Start_Position <- pmin(start(lifted_start), start(lifted_end))
+  df$End_Position <- pmax(start(lifted_start), start(lifted_end))
   
   df
 }
