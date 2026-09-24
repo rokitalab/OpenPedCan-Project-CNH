@@ -1,11 +1,15 @@
 library(tidyverse)
 library(rtracklayer)
 library(GenomicRanges)
+library(optparse)
 
 # set up optparse options
 option_list <- list(
   make_option(opt_str = "--seg_dir", type = "character", default = NULL,
               help = "The path where the seg files are located",
+              metavar = "character"),
+  make_option(opt_str = "--chain_file", type = "character", default = NULL,
+              help = "hg19-to-hg38 chain file. Required when 450k or EPICv1 SEG files are present.",
               metavar = "character")
 )
 
@@ -13,13 +17,18 @@ option_list <- list(
 # parse parameter options
 opt <- parse_args(OptionParser(option_list = option_list))
 seg_dir <- opt$seg_dir
+chain_file <- opt$chain_file
 
 # Magrittr pipe
 `%>%` <- dplyr::`%>%`
 
 
 # Locate SEG files
-gistic_seg_files <- list.files(seg_dir, pattern = "\\gistic.seg$", full.names = TRUE)
+gistic_seg_files <- list.files(seg_dir, pattern = "gistic\\.seg$", full.names = TRUE)
+
+if (length(gistic_seg_files) == 0) {
+  stop("No GISTIC SEG files found in: ", seg_dir)
+}
 
 
 #Detect platform from filename
@@ -41,18 +50,18 @@ seg_df_list <- lapply(gistic_seg_files, function(f) {
 
 all_segs <- bind_rows(seg_df_list)
 
-# -----------------------------
-# 3. Split by platform
-# -----------------------------
-seg_epicv2 <- all_segs %>% filter(platform == "EPICv2")
-seg_legacy <- all_segs %>% filter(platform %in% c("450k", "EPIC"))
+if (any(all_segs$platform == "unknown")) {
+  stop(
+    "Could not determine array platform for: ",
+    paste(unique(all_segs$source_file[all_segs$platform == "unknown"]), collapse = ", ")
+  )
+}
+
+# EPICv2 annotations use hg38; EPICv1 and 450k annotations use hg19.
+seg_hg38 <- all_segs %>% filter(platform == "EPICv2")
+seg_hg19 <- all_segs %>% filter(platform %in% c("450k", "EPIC"))
 
 
-# Liftover (hg19 to hg38)
-
-
-# Load chain file
-chain <- import.chain("liftover/hg19ToHg38.over.chain")
 lift_seg <- function(df, chain) {
   gr <- GRanges(
     seqnames = paste0("chr", df$Chromosome),
@@ -76,28 +85,27 @@ lift_seg <- function(df, chain) {
   df
 }
 
+# Standardize all legacy arrays to hg38 before producing the combined SEG.
+# This is required for mixed EPICv2 input and keeps a 450k/EPICv1-only run
+# ready for the same hg38 GISTIC workflow.
+if (nrow(seg_hg19) > 0) {
+  if (is.null(chain_file) || !file.exists(chain_file)) {
+    stop("A valid --chain_file is required when 450k or EPICv1 SEG files are present.")
+  }
 
-if (nrow(seg_legacy) > 0) {
-  seg_legacy_hg38 <- lift_seg(seg_legacy, chain)
+  message("Lifting 450k/EPICv1 segments from hg19 to hg38.")
+  chain <- import.chain(chain_file)
+  combined_seg <- bind_rows(seg_hg38, lift_seg(seg_hg19, chain))
+  output_file <- file.path(seg_dir, "combined_hg38.gistic.seg")
 } else {
-  seg_legacy_hg38 <- NULL
+  message("Only EPICv2 (hg38) SEG files detected; no liftover required.")
+  combined_seg <- seg_hg38
+  output_file <- file.path(seg_dir, "combined_hg38.gistic.seg")
 }
 
-
-# Combine all segments (hg38)
-
-seg_epicv2 <- seg_epicv2 %>%
-  mutate(Chromosome = as.character(Chromosome))
-
-seg_legacy_hg38 <- seg_legacy_hg38 %>%
-  mutate(Chromosome = as.character(Chromosome))
-combined_seg <- bind_rows(
-  seg_epicv2,     # already hg38
-  seg_legacy_hg38 # lifted
-)
-
 combined_seg <- combined_seg %>%
+  mutate(Chromosome = as.character(Chromosome)) %>%
   dplyr::select(-platform, -source_file)
 
 #Write output
-write_tsv(combined_seg, file = file.path(seg_dir, "combined_hg38.gistic.seg"))
+write_tsv(combined_seg, file = output_file)

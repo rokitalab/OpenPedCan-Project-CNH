@@ -73,9 +73,26 @@ run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPICv2" "EPICv2" "EPICv
 run_cnv "sorted_idats_output_dir/IlluminaHumanMethylationEPIC"   "EPICv1" "EPIC"
 run_cnv "sorted_idats_output_dir/IlluminaHumanMethylation450k"   "450k"   "450"
 
-mkdir -p liftover
-cd liftover
-curl -O http://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg38.over.chain.gz
-cd ..
+has_array () {
+    local DIR=$1
+    [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]
+}
 
-Rscript --vanilla scripts/04-liftover.R --seg_dir test-out
+# Step 04 always combines the available GISTIC SEG files. Lift any EPICv1 or
+# 450k calls from hg19 to hg38 so all combined segments share one genome build.
+if has_array "sorted_idats_output_dir/IlluminaHumanMethylationEPIC" || \
+   has_array "sorted_idats_output_dir/IlluminaHumanMethylation450k"; then
+    mkdir -p liftover
+    CHAIN_FILE="liftover/hg19ToHg38.over.chain"
+
+    if [ ! -s "$CHAIN_FILE" ]; then
+        curl -fsSL "http://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg38.over.chain.gz" \
+            | gzip -dc > "$CHAIN_FILE"
+    fi
+
+    Rscript --vanilla scripts/04-liftover.R \
+        --seg_dir "$OUT_DIR" \
+        --chain_file "$CHAIN_FILE"
+else
+    Rscript --vanilla scripts/04-liftover.R --seg_dir "$OUT_DIR"
+fi
