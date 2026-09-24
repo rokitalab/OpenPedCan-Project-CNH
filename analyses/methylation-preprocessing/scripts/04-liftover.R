@@ -61,7 +61,9 @@ if (any(all_segs$platform == "unknown")) {
 }
 
 # EPICv2 annotations use hg38; EPICv1 and 450k annotations use hg19.
-seg_hg38 <- all_segs %>% filter(platform == "EPICv2")
+seg_hg38 <- all_segs %>%
+  filter(platform == "EPICv2") %>%
+  mutate(Chromosome = as.character(Chromosome))
 seg_hg19 <- all_segs %>% filter(platform %in% c("450k", "EPIC"))
 
 
