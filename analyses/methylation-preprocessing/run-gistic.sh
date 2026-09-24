@@ -1,45 +1,75 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-mkdir -p test-out/test-gistic-EPIC
+usage() {
+  cat <<EOF
+Usage: $(basename "$0") [--seg_file FILE] [--output_dir DIR]
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/mcr/v83/runtime/glnxa64:/opt/mcr/v83/bin/glnxa64:/opt/mcr/v83/sys/os/glnxa64
+Run GISTIC2 on a combined hg38 SEG file.
+
+Options:
+  --seg_file FILE   Combined hg38 GISTIC SEG file.
+                    Default: test-out/combined_hg38.gistic.seg
+  --output_dir DIR  Directory for GISTIC output.
+                    Default: test-out/test-gistic
+  -h, --help        Show this help message.
+EOF
+}
+
+SEG_FILE="test-out/combined_hg38.gistic.seg"
+OUTPUT_DIR="test-out/test-gistic"
+GISTIC_DIR="${GISTIC_DIR:-/home/rstudio/gistic_install/share/gistic2-2.0.23-0}"
+REFGENE_FILE="${REFGENE_FILE:-$GISTIC_DIR/refgenefiles/hg38.UCSC.add_miR.160920.refgene.mat}"
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --seg_file)
+      if [[ $# -lt 2 || -z "$2" ]]; then
+        echo "Error: --seg_file requires a value." >&2
+        exit 2
+      fi
+      SEG_FILE="$2"
+      shift 2
+      ;;
+    --output_dir)
+      if [[ $# -lt 2 || -z "$2" ]]; then
+        echo "Error: --output_dir requires a value." >&2
+        exit 2
+      fi
+      OUTPUT_DIR="$2"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Error: unknown option: $1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+done
+
+if [[ ! -f "$SEG_FILE" ]]; then
+  echo "Error: combined SEG file not found: $SEG_FILE" >&2
+  exit 2
+fi
+
+if [[ ! -f "$REFGENE_FILE" ]]; then
+  echo "Error: hg38 reference-gene file not found: $REFGENE_FILE" >&2
+  exit 2
+fi
+
+mkdir -p "$OUTPUT_DIR"
+
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:-}:/opt/mcr/v83/runtime/glnxa64:/opt/mcr/v83/bin/glnxa64:/opt/mcr/v83/sys/os/glnxa64"
 export XAPPLRESDIR=/opt/mcr/v83/X11/app-defaults
 
-
-/home/rstudio/gistic_install/share/gistic2-2.0.23-0/gp_gistic2_from_seg \
-  -b test-out/test-gistic-EPIC \
-  -seg test-out/test-IlluminaHumanMethylationEPIC-gistic.seg \
-  -refgene ~/gistic_install/share/gistic2-2.0.23-0/refgenefiles/hg19.mat \
-  -genegistic 1 \
-  -smallmem 1 \
-  -broad 1 \
-  -brlen 0.7 \
-  -conf 0.99 \
-  -armpeel 1 \
-  -ta 0.2 \
-  -td 0.2
-
-mkdir -p test-out/test-gistic-EPICv2
-
-/home/rstudio/gistic_install/share/gistic2-2.0.23-0/gp_gistic2_from_seg \
-  -b test-out/test-gistic-EPICv2 \
-  -seg test-out/test-IlluminaHumanMethylationEPICv2-gistic.seg \
-  -refgene ~/gistic_install/share/gistic2-2.0.23-0/refgenefiles/hg38.UCSC.add_miR.160920.refgene.mat \
-  -genegistic 1 \
-  -smallmem 1 \
-  -broad 1 \
-  -brlen 0.7 \
-  -conf 0.99 \
-  -armpeel 1 \
-  -ta 0.2 \
-  -td 0.2
-  
-mkdir -p test-out/test-gistic-450k
-
-/home/rstudio/gistic_install/share/gistic2-2.0.23-0/gp_gistic2_from_seg \
-  -b test-out/test-gistic-450k \
-  -seg test-out/test-IlluminaHumanMethylation450k-gistic.seg \
-  -refgene ~/gistic_install/share/gistic2-2.0.23-0/refgenefiles/hg19.mat \
+"$GISTIC_DIR/gp_gistic2_from_seg" \
+  -b "$OUTPUT_DIR" \
+  -seg "$SEG_FILE" \
+  -refgene "$REFGENE_FILE" \
   -genegistic 1 \
   -smallmem 1 \
   -broad 1 \
