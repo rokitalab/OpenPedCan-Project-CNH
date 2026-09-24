@@ -1,4 +1,4 @@
-# use minfi mset object to call CNVs using conumee2
+# Use a Noob-normalized MethylSet to call CNVs using conumee2.
 # Jessica Daggett
 # 05/07/2026
 
@@ -73,9 +73,14 @@ normals <- man_df %>%
   dplyr::filter(sample_type == 'Normal') %>%
   dplyr::select(Bioassay_ID)
 
-##m set file has all data for 
-m_set_file <- paste0(out_base, "-", dataset, '-m-set.qs2')
-MSet <- qs_read(m_set_file)
+# Load the QC-filtered RGChannelSet and apply Noob normalization here.  Conumee2
+# segmentation needs the intensity signal that funnorm/quantile normalization
+# does not preserve.
+rg_set_file <- paste0(out_base, "-", dataset, "-rg-set.qs2")
+RGset <- qs_read(rg_set_file)
+MSet <- minfi::preprocessNoob(RGset)
+rm(RGset)
+gc()
 
 #make mset names bioassay ids
 intersect_samples <- intersect(colnames(MSet), man_df$file_name)
@@ -126,9 +131,7 @@ x <- CNV.fit(query, ref, anno)
 x <- CNV.bin(x)
 #x <- CNV.detail(x) #only need if you provide detail regions 
 
-#get segments - parameters tuned for array type
-x <- CNV.bin(x)
-
+# Get segments; parameters are tuned for array type.
 if (array_type %in% c("EPIC", "EPICv2")) {
   
   message("Using EPIC-optimized segmentation parameters")
@@ -174,8 +177,6 @@ data.table::fwrite(
 
 #write gistic input ?? 
 gistic <- CNV.write(x, what="gistic", file=gistic_file)
-
-
 
 
 

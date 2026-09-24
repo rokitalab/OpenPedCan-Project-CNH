@@ -3,7 +3,7 @@ This analysis is was last run with OpenPedCan data release `v12` and is now run 
 
 ## Purpose
 
-Preprocess probe hybridization intensity values of selected methylated and unmethylated cytosine (CpG) loci into usable methylation measurements for the [Pediatric Open Targets, OPenPedCan-analysis](https://github.com/PediatricOpenTargets/OpenPedCan-analysis) raw DNA methylation array datasets. 
+Preprocess probe hybridization intensity values of selected methylated and unmethylated cytosine (CpG) loci into usable methylation measurements for the [Pediatric Open Targets, OpenPedCan-analysis](https://github.com/PediatricOpenTargets/OpenPedCan-analysis) raw DNA methylation array datasets. 
 
 ## Data description 
 
@@ -22,75 +22,50 @@ The [Children's Brain Tumor Network (CBTN)](https://cbtn.org/) `Infinium HumanMe
 
 - The TARGET Illumina methylation analysis results available on the [TARGET project website](https://ocg.cancer.gov/programs/target/target-methods) were preprocessed with different methylation software packages, including `minfi` (AML), `BeadStudio` (CCSK and WT), `methylumi` (NBL), and `Lumi+BMIQ` (OS). We have preprocessed all the TARGET and CBTN cancer types with Illumina arrays and using the updated version of [minfi Bioconductor package](https://academic.oup.com/bioinformatics/article/33/4/558/2666344). We utilized and `preprocessFunnorm` preprocessing method when an array dataset has control samples (i.e., normal and tumor samples) or multiple OpenPedcan cancer groups and `preprocessQuantile` when an array dataset has only tumor samples from a single OpenPedcan cancer group to estimate usable methylation measurements (Beta and M values) and copy number (cn-values) for OpenPedCan.
 
-- Masking is applied using two different methods. Firstly, probes with known SNPs are removed. Secondly, the p-value for each sample is computed by comparing the signal of methylated and unmethylated probes against the background signal. Probes with p-values > 0.05 are filtered out.
+- Masking is applied using two different methods. Firstly, probes with known SNPs are removed. Secondly, the p-value for each sample is computed by comparing the signal of methylated and unmethylated probes against the background signal. Probes with p-values > 0.01 are filtered out.
 
-- In order to do funnorm normalization, a set of control probes must be correctly identified, and Median Absolute Deviation must be above 0 across these control probes. We had been seeing some errors for EPICv2 probes where MAD = 0, causing funnorm to fail, and have added and inspection and filtering step to check for MAD > 0 on the control probes, and skip and print out samples where MAD = 0. This filtering step only takes place if use_funnorm is TRUE (default). 
+- The `-methyl-cn-values.parquet` output is a probe-level copy-number signal intended for quality control only. It should not be used for CNV segmentation or as input to CONUMEE or GISTIC.
 
-## General usage of scripts
+- In order to do funnorm normalization, a set of control probes must be correctly identified, and Median Absolute Deviation must be above 0 across these control probes. We had been seeing some errors for EPICv2 probes where MAD = 0, causing funnorm to fail, and have added an inspection and filtering step to check for MAD > 0 on the control probes, and skip and print out samples where MAD = 0. This array-level QC filtering step is applied before either normalization method.
 
+## Running the analysis
 
-#### `run-preprocess-illumina-arrays.sh`
-This is a bash script wrapper for setting input file paths for the main analysis script, `01-preprocess-illumina-arrays.R` All file paths set in this script relative to the module directory. Therefore, this script should always run as if it were being called from the directory it lives in, the module directory (`OpenPedCan-analysis/analyses/methylation-preprocessing`).
+### Recommended: shell wrapper
 
-```
-bash run-preprocess-illumina-arrays.sh
-```
-
-#### `01-preprocess-illumina-arrays.R`
-Preprocesses raw Illumina Infinium HumanMethylation BeadArrays (450K and 850k) intensities using `minfi Bioconductor package` into usable methylation measurements (Beta and M values) and copy number (cn-values) for OpenPedCan datasets. 
-- `BiocManager::install("minfi")`
-
-Addition data packages for `Ilumina Infinium HumanMethylation BeadArrays` that don't get installed automatically with `minfi`  and will need to be installed separately as folllows:
-- `BiocManager::install("IlluminaHumanMethylation27kmanifest")`
-- `BiocManager::install("IlluminaHumanMethylation450kmanifest")`
-- `BiocManager::install("IlluminaHumanMethylationEPICmanifest")`
-- `BiocManager::install("IlluminaHumanMethylation27kanno.ilmn12.hg19")`
-- `BiocManager::install("IlluminaHumanMethylation450kanno.ilmn12.hg19")`
-- `BiocManager::install("IlluminaHumanMethylationEPICanno.ilm10b4.hg19")`
-
-
-In some `Ububtu OS` flavors, error occurs from the `preprocessCore library` is installed by `BiocManger` when `minfi` calls the normalization functions. The workaround is to [disable threading](https://support.bioconductor.org/p/122925/) as shown below. This is not an issue on Mac and Redhat OS. 
-- `BiocManager::install("preprocessCore", configure.args="--disable-threading", force = TRUE)`
-
-**Argument descriptions:**
-```
-Usage: 01-preprocess-illumina-arrays.R [options]
-
-
-Options:
-	--base_dir=CHARACTER
-		The absolute path of the base directory containing sample 
-              array IDAT files.
-
-	--metadata_file=CHARACTER
-		The metedata file associated with the sample array data
-              files.
-
-	--controls_present
-		preprocesses the Illumina methylation array using the of
-              the following minfi methods:
-              - preprocessFunnorm: when array dataset contains either control
-                                   samples (i.e., normal and tumor samples) or 
-                                   multiple OpenPedcan cancer groups (TRUE)
-              - preprocessQuantile: when an array dataset has only tumor samples 
-                                    from a single OpenPedcan cancer group (FALSE)
-              Default is TRUE (preprocessFunnorm)
-
-	--snp_filter
-		If TRUE, drops the probes that contain either a SNP at
-              the CpG interrogation or at the single nucleotide extension.
-              Default is TRUE
-
-	-h, --help
-		Show this help message and exit
-```
-
-
-#### `02-merge-methyl-matrices.R`
-Merges methylation beta-values, m-values, and cp-values matrices for all pre-processed array datasets.
+`run-preprocess-illumina-arrays.sh` validates its inputs, sorts mixed array types, preprocesses each detected supported array type, and intersects probe sets when two or more array types are present. Supply all run-specific paths on the command line; relative paths are resolved from the directory in which the wrapper is invoked.
 
 ```
-Rscript --vanilla 02-merge-methyl-matrices.R
+bash run-preprocess-illumina-arrays.sh \
+  --manifest_file controls_and_dicer_manifest.tsv \
+  --input_dir input-test \
+  --output_dir test-out \
+  --output_prefix test
+```
+
+The sorted-IDAT staging directory is `<output_dir>/<output_prefix>-sorted-idats_output_dir`. Per-array output files and merged outputs use `<output_dir>/<output_prefix>` as their prefix.
+
+### Running individual R scripts
+
+`scripts/00-unzip-and-sort.R` separates supported array types before preprocessing. Run `scripts/01-preprocess-illumina-arrays.R` once for each resulting array directory:
+
+```
+Rscript --vanilla scripts/01-preprocess-illumina-arrays.R \
+  --base_dir <sorted_idats_dir>/IlluminaHumanMethylationEPICv2 \
+  --manifest_file <manifest.tsv> \
+  --output_basename <output_dir>/<output_prefix> \
+  --funnorm TRUE \
+  --snp_filter TRUE \
+  --n_cores 4
+```
+
+`--funnorm` and `--snp_filter` accept `TRUE` or `FALSE`; both default to `TRUE`. The script writes a `*-zero-mad.txt` file only when samples are excluded for zero median absolute deviation in a control-probe channel.
+
+After preprocessing two or more array types, intersect their probe sets and write the combined matrices with:
+
+```
+Rscript --vanilla scripts/02-merge-methyl-matrices.R \
+  --output_dir <output_dir> \
+  --output_prefix <output_prefix>
 ```
 
 ## Input datasets
@@ -105,12 +80,16 @@ Methylation array datasets are avaliable on the CHOP HPC `Isilon` sever (locatio
 - `data/CBTN/*.idat` - Mutilple CBTN pediatric brian tumor sample arrays
 
 ## Results
-Result files of methylation `beta-values`, `M-values` , `cn-values` are too large to upload to this repository and available on OpenPedCan data release s3 Bucket.
-- `results/methyl-beta-values.rds`
-- `results/methyl-beta-values-masked.rds`
-- `results/methyl-m-values-unmasked.rds`
-- `results/methyl-m-values-masked.rds`
-- `results/methyl-cn-values.rds`
+
+Per-array results are written as parquet files using this pattern:
+
+```
+<output_prefix>-<array_type>-methyl-<measurement>.parquet
+```
+
+`<measurement>` is one of `beta-values-masked`, `m-values-unmasked`, `m-values-masked`, `cn-values`, or `p-values`. The supported array-type names are `IlluminaHumanMethylation450k`, `IlluminaHumanMethylationEPIC`, and `IlluminaHumanMethylationEPICv2`.
+
+When multiple array types are available, the merge step writes intersection matrices for beta values, masked and unmasked M values, and CN values. The filename records the participating array types, for example `<output_prefix>-IlluminaHumanMethylationEPICv1-EPICv2-methyl-beta-values-masked.parquet`. Detection p-values are used to select among duplicated EPICv2 probes and are not merged. With one array type, the merge script exits successfully after reporting that no intersection is needed and leaves the per-array outputs unchanged.
 
 
 ## High Performance Computing (HPC)
@@ -130,14 +109,7 @@ desired `image_name` and `image_version`:
 
 ### Common Workflow Language (CWL)
 
-In this module, there are two folders containing CWL files: `tools` and
-`workflows`. The tools directory contains many files that contain the necessary
-information to build the command lines for the various commands used to
-preprocess the Illumina Methylation IDAT files. The `workflows` directory
-contains CWL workflows. Workflows act as wrappers for the CWL tools. Workflows
-define what the user is allowed to hand in to the workflow, what the user will
-receive as an output, and how intermediate files and/or values are passed
-between the tools.
+The CWL definitions are in `tools/` and `workflow/`. `workflow/methylation-preprocessing.cwl` runs sorting and scatters preprocessing over detected array types. Set the optional `merge_array_types` input to `true` to then run `merge_methyl_matrices.cwl` and return merged intersection matrices; it defaults to `false`. The workflow always returns the per-array parquet files and detection p-values.
 
 ### CAVATICA
 
