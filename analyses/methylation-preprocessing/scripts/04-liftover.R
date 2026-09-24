@@ -25,6 +25,9 @@ chain_file <- opt$chain_file
 
 # Locate SEG files
 gistic_seg_files <- list.files(seg_dir, pattern = "gistic\\.seg$", full.names = TRUE)
+gistic_seg_files <- gistic_seg_files[
+  basename(gistic_seg_files) != "combined_hg38.gistic.seg"
+]
 
 if (length(gistic_seg_files) == 0) {
   stop("No GISTIC SEG files found in: ", seg_dir)
