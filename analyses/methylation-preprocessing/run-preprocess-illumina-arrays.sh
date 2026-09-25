@@ -161,3 +161,28 @@ run_cnv () {
 run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPICv2" "EPICv2" "EPICv2"
 run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPIC" "EPICv1" "EPIC"
 run_cnv "$SORTED_IDATS_DIR/IlluminaHumanMethylation450k" "450k" "450"
+
+has_array () {
+    local DIR=$1
+    [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]
+}
+
+# Standardize legacy-array GISTIC SEG files from hg19 to hg38 before combining
+# them with EPICv2 calls, which already use hg38 coordinates.
+if has_array "$SORTED_IDATS_DIR/IlluminaHumanMethylationEPIC" || \
+   has_array "$SORTED_IDATS_DIR/IlluminaHumanMethylation450k"; then
+    LIFTOVER_DIR="$OUTPUT_DIR/liftover"
+    CHAIN_FILE="$LIFTOVER_DIR/hg19ToHg38.over.chain"
+    mkdir -p "$LIFTOVER_DIR"
+
+    if [ ! -s "$CHAIN_FILE" ]; then
+        curl -fsSL "http://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg38.over.chain.gz" \
+            | gzip -dc > "$CHAIN_FILE"
+    fi
+
+    Rscript --vanilla "$SCRIPT_DIR/scripts/04-liftover.R" \
+        --seg_dir "$OUTPUT_DIR" \
+        --chain_file "$CHAIN_FILE"
+else
+    Rscript --vanilla "$SCRIPT_DIR/scripts/04-liftover.R" --seg_dir "$OUTPUT_DIR"
+fi
