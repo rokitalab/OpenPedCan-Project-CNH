@@ -67,6 +67,34 @@ seg_hg38 <- all_segs %>%
 seg_hg19 <- all_segs %>% filter(platform %in% c("450k", "EPIC"))
 
 
+resolve_liftover_overlaps <- function(df) {
+  # Chain gaps can move adjacent hg19 segment boundaries past one another in
+  # hg38.  GISTIC rejects overlapping segments for a sample/chromosome, so
+  # split each overlap at its midpoint after ordering the lifted intervals.
+  df <- df %>% arrange(Sample, Chromosome, Start_Position, End_Position)
+  groups <- split(seq_len(nrow(df)), interaction(df$Sample, df$Chromosome, drop = TRUE))
+
+  for (idx in groups) {
+    if (length(idx) < 2) next
+
+    for (i in 2:length(idx)) {
+      previous <- idx[i - 1]
+      current <- idx[i]
+
+      if (df$Start_Position[current] <= df$End_Position[previous]) {
+        overlap_start <- max(df$Start_Position[previous], df$Start_Position[current])
+        overlap_end <- min(df$End_Position[previous], df$End_Position[current])
+        boundary <- floor((overlap_start + overlap_end) / 2)
+        df$End_Position[previous] <- boundary
+        df$Start_Position[current] <- boundary + 1
+      }
+    }
+  }
+
+  df %>% filter(Start_Position <= End_Position)
+}
+
+
 lift_seg <- function(df, chain) {
   gr <- GRanges(
     seqnames = paste0("chr", df$Chromosome),
@@ -107,7 +135,7 @@ lift_seg <- function(df, chain) {
   df$Start_Position <- pmin(start(lifted_start), start(lifted_end))
   df$End_Position <- pmax(start(lifted_start), start(lifted_end))
   
-  df
+  resolve_liftover_overlaps(df)
 }
 
 # Standardize all legacy arrays to hg38 before producing the combined SEG.
