@@ -77,7 +77,8 @@ option_list <- list(
     make_option(
         opt_str = "--manifest_file", type = "character",
         help = "Input manifest file with 'file_name' and
-              'Bioassay_ID' columns"
+              'Bioassay_ID' columns. An optional 'unzipped_file_name' column
+              is used when the corresponding compressed file is unavailable."
     )
 )
 
@@ -86,8 +87,28 @@ opt <- parse_args(OptionParser(option_list = option_list))
 base_dir <- opt$base_dir
 out_base <- opt$output_basename
 
-man_df <- read_tsv(file = opt$manifest_file) %>%
-    select(file_name, Bioassay_ID) %>%
+manifest_df <- read_tsv(file = opt$manifest_file, show_col_types = FALSE)
+required_columns <- c("file_name", "Bioassay_ID")
+missing_columns <- setdiff(required_columns, names(manifest_df))
+if (length(missing_columns) > 0) {
+    stop("Manifest is missing required column(s): ",
+         paste(missing_columns, collapse = ", "))
+}
+
+# A rerun may occur after gunzip has removed the original .gz files. Use an
+# explicitly provided unzipped filename when available; otherwise derive it
+# from file_name by removing a trailing .gz suffix.
+unzipped_file_names <- sub("\\.gz$", "", manifest_df$file_name)
+if ("unzipped_file_name" %in% names(manifest_df)) {
+    supplied_unzipped_names <- manifest_df$unzipped_file_name
+    has_supplied_name <- !is.na(supplied_unzipped_names) &
+        nzchar(supplied_unzipped_names)
+    unzipped_file_names[has_supplied_name] <-
+        supplied_unzipped_names[has_supplied_name]
+}
+
+man_df <- manifest_df %>%
+    transmute(file_name, unzipped_file_name = unzipped_file_names, Bioassay_ID) %>%
     unique()
 
 message("Finding IDAT files in ", base_dir)
@@ -102,12 +123,24 @@ idat_files <- list.files(
 out_dir <- paste0(out_base, "_output_dir")
 dir.create(out_dir)
 
-# compare idat_files to man_df$file_name
-not_in_manifest <- setdiff(basename(idat_files), basename(man_df$file_name))
-not_in_folder <- setdiff(basename(man_df$file_name), basename(idat_files))
+# Match the compressed filename first. If it is unavailable, use the
+# uncompressed filename so the script can be rerun after the initial gunzip.
+manifest_file_names <- basename(man_df$file_name)
+unzipped_file_names <- basename(man_df$unzipped_file_name)
+idat_file_names <- basename(idat_files)
+matched_file_indices <- match(manifest_file_names, idat_file_names)
+use_unzipped_file <- is.na(matched_file_indices)
+matched_file_indices[use_unzipped_file] <- match(
+    unzipped_file_names[use_unzipped_file], idat_file_names
+)
+
+not_in_folder <- manifest_file_names[is.na(matched_file_indices)]
 
 out_file = paste0(out_base, "_additional_files.txt")
-writeLines(not_in_manifest, file.path(out_file))
+writeLines(
+    setdiff(idat_file_names, idat_file_names[matched_file_indices]),
+    file.path(out_file)
+)
 
 if (length(not_in_folder) > 0) {
     message("Error: Can't find the following files in base_dir:")
@@ -115,8 +148,9 @@ if (length(not_in_folder) > 0) {
     stop()
 }
 
-# remove idats that aren't in manifest
-idat_files <- idat_files[!basename(idat_files) %in% not_in_manifest]
+# Retain the file selected for each manifest entry. This prefers compressed
+# inputs, but falls back to their uncompressed counterparts on reruns.
+idat_files <- idat_files[matched_file_indices]
 
 message("Unzipping IDAT files")
 
