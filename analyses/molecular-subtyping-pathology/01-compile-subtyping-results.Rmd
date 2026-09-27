@@ -12,18 +12,19 @@ params:
 
 The purpose of this notebook is to aggregate molecular subtyping results from the following mature analysis modules:
 
-* [`molecular-subtyping-EWS`](https://github.com/d3b-center/OpenPedCan-analysis/tree/master/analyses/molecular-subtyping-EWS)
-* [`molecular-subtyping-HGG`](https://github.com/d3b-center/OpenPedCan-analysis/tree/master/analyses/molecular-subtyping-HGG)
-* [`molecular-subtyping-LGAT`](https://github.com/d3b-center/OpenPedCan-analysis/tree/master/analyses/molecular-subtyping-LGAT)
-* [`molecular-subtyping-embryonal`](https://github.com/d3b-center/OpenPedCan-analysis/tree/master/analyses/molecular-subtyping-embryonal)
-* [`molecular-subtyping-CRANIO`](https://github.com/d3b-center/OpenPedCan-analysis/tree/master/analyses/molecular-subtyping-CRANIO)
-* [`molecular-subtyping-EPN`](https://github.com/d3b-center/OpenPedCan-analysis/tree/master/analyses/molecular-subtyping-EPN)
-* [`molecular-subtyping-MB`](https://github.com/d3b-center/OpenPedCan-analysis/tree/master/analyses/molecular-subtyping-MB)
-* [`molecular-subtyping-neurocytoma`](https://github.com/d3b-center/OpenPedCan-analysis/tree/master/analyses/molecular-subtyping-neurocytoma)
-* [`molecular-subtyping-chordoma`](https://github.com/d3b-center/OpenPedCan-analysis/tree/master/analyses/molecular-subtyping-chordoma)
-* [`molecular-subtyping-ATRT`](https://github.com/d3b-center/OpenPedCan-analysis/tree/dev/analyses/molecular-subtyping-ATRT)
-* [`molecular-subtyping-PB`](https://github.com/d3b-center/OpenPedCan-analysis/tree/dev/analyses/molecular-subtyping-PB)
-* [`molecular-subtyping-NBL`](https://github.com/d3b-center/OpenPedCan-analysis/tree/dev/analyses/molecular-subtyping-NBL)
+* [`molecular-subtyping-EWS`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-EWS)
+* [`molecular-subtyping-HGG`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-HGG)
+* [`molecular-subtyping-LGAT`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-LGAT)
+* [`molecular-subtyping-embryonal`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-embryonal)
+* [`molecular-subtyping-CRANIO`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-CRANIO)
+* [`molecular-subtyping-EPN`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-EPN)
+* [`molecular-subtyping-MB`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-MB)
+* [`molecular-subtyping-neurocytoma`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-neurocytoma)
+* [`molecular-subtyping-chordoma`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-chordoma)
+* [`molecular-subtyping-ATRT`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-ATRT)
+* [`molecular-subtyping-PB`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-PB)
+* [`molecular-subtyping-NBL`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-NBL)
+* [`molecular-subtyping-Rare-CNS`](https://github.com/rokitalab/OpenPedCan-Project-CNH/tree/dev/analyses/molecular-subtyping-Rare-CNS)
 
 
 ## Set up
@@ -67,6 +68,7 @@ chordoma_dir <- file.path(analyses_dir, "molecular-subtyping-chordoma")
 atrt_dir <- file.path(analyses_dir, "molecular-subtyping-ATRT")
 pb_dir <- file.path(analyses_dir, "molecular-subtyping-PB")
 nbl_dir <- file.path(analyses_dir, "molecular-subtyping-NBL")
+rare_dir <- file.path(analyses_dir, "molecular-subtyping-Rare-CNS")
 
 # the folder that contains the tabular results is standardized across modules
 results_dir <- "results"
@@ -112,6 +114,7 @@ chordoma_results_file <- file.path(chordoma_dir, results_dir, "chordoma_smarcb1_
 atrt_results_file <- file.path(atrt_dir, results_dir, "ATRT-molecular-subtypes.tsv")
 pb_results_file <- file.path(pb_dir, results_dir, "pineo-molecular-subtypes.tsv")
 nbl_results_file <- file.path(nbl_dir, results_dir, "neuroblastoma_molecular_subtypes.tsv")
+rare_results_file <- file.path(rare_dir, results_dir, "rare-cns-molecular-subtypes.tsv")
 ```
 
 #### Output file
@@ -137,6 +140,7 @@ chordoma_results_df <- read_tsv(chordoma_results_file)
 atrt_results_df <- read_tsv(atrt_results_file)
 pb_results_df <- read_tsv(pb_results_file)
 nbl_results_df <- read_tsv(nbl_results_file)
+rare_results_df <- read_tsv(rare_results_file)
 ```
 
 ## Compile the subtyping resutls
@@ -148,16 +152,20 @@ embryonal_results_df <- embryonal_results_df %>%
   inner_join(select(histologies_df, all_of(join_cols)),
              by = "Kids_First_Biospecimen_ID") %>%
   mutate(integrated_diagnosis = case_when(molecular_subtype == "CNS Embryonal, NOS"~ "CNS Embryonal tumor, NEC/NOS",
-                                          molecular_subtype == "CNS HGNET-MN1"~ "CNS Embryonal tumor, HGNET-MN1",
-                                          molecular_subtype == "CNS NB-FOXR2" ~ "CNS neuroblastoma",
+                                          molecular_subtype == "Rare CNS, MN1::BEND2"~ "Rare CNS, MN1::BEND2",
+                                          molecular_subtype == "Rare CNS, MN1::CXXC5"~ "Rare CNS, MN1::CXXC5",
+                                          molecular_subtype == "Rare CNS, FOXR2 NBL" ~ "Rare CNS, FOXR2 NBL",
                                           molecular_subtype == "ETMR, C19MC-altered"~ "Embryonal tumor with multilayer rosettes, C19MC-altered",
-                                          molecular_subtype == "CNS BCOR" ~ "CNS with BCOR ITD",
+                                          molecular_subtype == "Rare CNS, BCOR ITD" ~ "Rare CNS, BCOR ITD",
                                           molecular_subtype == "ETMR, NOS"~"Embryonal tumor with multilayer rosettes, NOS",
                                           TRUE ~ NA_character_), 
-        short_histology = 
-          if_else(molecular_subtype %in% c("ETMR, C19MC-altered", "ETMR, NOS"),
-                "ETMR", "Embryonal tumor"),
-        broad_histology = "Embryonal tumor",
+        short_histology = case_when(molecular_subtype %in% c("ETMR, C19MC-altered", "ETMR, NOS") ~ "ETMR",
+                                    is.na(molecular_subtype) ~ "Embryonal tumor",
+                                    molecular_subtype == "CNS Embryonal, NOS" ~ "Embryonal tumor",
+                                    TRUE ~ "Rare CNS tumor"),
+        broad_histology = case_when(is.na(molecular_subtype) ~ "Embryonal tumor",
+                                    molecular_subtype %in% c("ETMR, C19MC-altered", "ETMR, NOS", "Rare CNS, FOXR2 NBL", "CNS Embryonal, NOS") ~ "Embryonal tumor", 
+                                    TRUE ~ "Mixed or indeterminate tumor"),
         Notes = if_else(!is.na(integrated_diagnosis), "Updated via OpenPedCan subtyping", Notes))
 
 ```
@@ -170,8 +178,8 @@ ews_results_df <- ews_results_df %>%
   unique() %>%
   inner_join(select(histologies_df, all_of(join_cols)),
              by = "Kids_First_Biospecimen_ID") %>%
-  mutate(integrated_diagnosis = "Ewing sarcoma",
-         broad_histology = "Mesenchymal non-meningothelial tumor",
+  mutate(integrated_diagnosis = "CNS Ewing sarcoma",
+         broad_histology = "Mixed or indeterminate tumor",
          short_histology = "EWS",
          Notes = if_else(!is.na(integrated_diagnosis), "Updated via OpenPedCan subtyping", Notes))
 ```
@@ -350,9 +358,7 @@ pb_results_df <-  pb_results_df %>%
          broad_histology = "Tumor of pineal region",
          short_histology = "Pineoblastoma",
          Notes = if_else(!is.na(integrated_diagnosis), "Subtype based on methylation;Updated via OpenPedCan subtyping", Notes))
-
 ```
-
 
 ### Handling NBL
 
@@ -367,9 +373,25 @@ nbl_results_df <- nbl_results_df %>%
          broad_histology = "Embryonal tumor",
          Notes = if_else(!is.na(integrated_diagnosis), "Updated via OpenPedCan subtyping", Notes))
 ```
+
+### Handling Rare CNS
+```{r}
+rare_results_df <-  rare_results_df %>%
+  unique() %>%
+  inner_join(select(histologies_df, all_of(join_cols)),
+             by = "Kids_First_Biospecimen_ID") %>%
+  mutate(integrated_diagnosis = case_when(grepl("Rare CNS,", molecular_subtype) ~ molecular_subtype,
+                                          TRUE ~ NA_character_),
+         broad_histology = case_when(molecular_subtype == "Rare CNS, FOXR2 NBL" ~ "Embryonal tumor",
+                                     TRUE ~ "Mixed or indeterminate tumor"),
+         short_histology = "Rare CNS",
+         Notes = if_else(!is.na(integrated_diagnosis), "Subtype based on methylation;Updated via OpenPedCan subtyping", Notes))
+```
+
+
 ### All results
 
-Compile results, sort, and write to file
+Compile results, replace rare tumors over old results, sort, and write to file
 
 ```{r}
 all_results_df <- bind_rows(embryonal_results_df,
@@ -383,8 +405,12 @@ all_results_df <- bind_rows(embryonal_results_df,
                             chordoma_results_df,
                             atrt_results_df, 
                             pb_results_df,
-                            nbl_results_df, 
-                            ) %>%
+                            nbl_results_df) 
+
+# swap rare tumors
+all_swap_rare <- all_results_df %>%
+  filter(!Kids_First_Biospecimen_ID %in% rare_results_df$Kids_First_Biospecimen_ID) %>%
+  bind_rows(rare_results_df) %>%
   select(Kids_First_Participant_ID, match_id, sample_id, Kids_First_Biospecimen_ID, broad_histology, short_histology, integrated_diagnosis, molecular_subtype, molecular_subtype_methyl, Notes) %>%
   arrange(Kids_First_Participant_ID, match_id) %>%
   unique() %>%
