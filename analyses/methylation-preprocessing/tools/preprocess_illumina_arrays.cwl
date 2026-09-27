@@ -56,6 +56,10 @@ outputs:
     type: File
     outputBinding:
       glob: '*-methyl-p-values.parquet'
+  sample_qc:
+    type: File
+    outputBinding:
+      glob: '*-methyl-sample-qc.parquet'
   rg_set:
     type: File
     outputBinding:

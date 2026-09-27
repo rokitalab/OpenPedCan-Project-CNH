@@ -38,7 +38,7 @@ This wrapper sorts mixed array types and runs the main preprocessing script for 
 
 ```
 bash run-preprocess-illumina-arrays.sh \
-  --manifest_file controls_and_dicer_manifest.tsv \
+  --manifest_file manifest.tsv \
   --input_dir input-test \
   --output_dir test-out \
   --output_prefix test

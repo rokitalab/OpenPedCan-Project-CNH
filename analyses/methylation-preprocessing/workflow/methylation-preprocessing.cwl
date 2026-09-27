@@ -42,6 +42,7 @@ outputs:
   m_values_masked: {type: 'File[]', outputSource: preprocess_illumina_arrays/m_values_masked }
   cn_values: {type: 'File[]', outputSource: preprocess_illumina_arrays/cn_values }
   p_values: {type: 'File[]', outputSource: preprocess_illumina_arrays/p_values }
+  sample_qc: {type: 'File[]', outputSource: preprocess_illumina_arrays/sample_qc }
   rg_sets: {type: 'File[]', outputSource: preprocess_illumina_arrays/rg_set }
   
 steps:
@@ -66,5 +67,5 @@ steps:
       output_basename: output_basename
       ram: ram
       cores: cores
-    out: [beta_values, m_values_masked, m_values_unmasked, cn_values, p_values, rg_set]
+    out: [beta_values, m_values_masked, m_values_unmasked, cn_values, p_values, sample_qc, rg_set]
   
