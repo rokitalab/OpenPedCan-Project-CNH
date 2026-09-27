@@ -8,6 +8,7 @@ suppressPackageStartupMessages(library(optparse))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(arrow))
+suppressPackageStartupMessages(library(qs2))
 
 
 
