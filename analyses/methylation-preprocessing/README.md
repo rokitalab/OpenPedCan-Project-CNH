@@ -28,6 +28,8 @@ The [Children's Brain Tumor Network (CBTN)](https://cbtn.org/) `Infinium HumanMe
 
 - In order to do funnorm normalization, a set of control probes must be correctly identified, and Median Absolute Deviation must be above 0 across these control probes. We had been seeing some errors for EPICv2 probes where MAD = 0, causing funnorm to fail, and have added an inspection and filtering step to check for MAD > 0 on the control probes, and skip and print out samples where MAD = 0. This array-level QC filtering step is applied before either normalization method.
 
+- Detection p-values are used to mask individual failed probes (setting them to `NA`), not to exclude entire failed samples. To support sample-level QC downstream, the `-methyl-sample-qc.parquet` output reports, for each sample, the fraction of probes with detection p-value > 0.01. Whole-sample exclusion decisions based on this metric are left to the consuming analysis, rather than applied in this harmonization step.
+
 ## General usage of scripts
 
 
@@ -119,6 +121,7 @@ Result files of methylation `beta-values`, `M-values` , `cn-values` are too larg
 - `results/methyl-m-values-unmasked.rds`
 - `results/methyl-m-values-masked.rds`
 - `results/methyl-cn-values.rds`
+- `results/methyl-sample-qc.rds`
 
 
 ## High Performance Computing (HPC)
