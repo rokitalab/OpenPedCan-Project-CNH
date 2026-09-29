@@ -27,3 +27,5 @@ Rscript -e "rmarkdown::render('01-subtype-using-fusions.Rmd', clean = TRUE)"
 # Subtype rare tumors using methylation
 Rscript -e "rmarkdown::render('02-subtype-using-methylation.Rmd', clean = TRUE)"
 
+# Identify cell lines from Rare-CNS-classified participant samples
+Rscript --vanilla 03-rare-cns-cell-lines.R
