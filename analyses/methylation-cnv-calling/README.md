@@ -32,8 +32,25 @@ bash run-methylation-cnv-calling.sh \
 The runner writes `<output-prefix>-segments.seg` and
 `<output-prefix>-gistic.seg` to the output directory.
 
+## Liftover and combine GISTIC segments
+
+`EPICv1` and `450k` calls use hg19 annotations, while `EPICv2` calls use
+hg38. After CNV calling has produced all per-array `*-gistic.seg` files, run:
+
+```bash
+bash run-liftover-methylation-segments.sh \
+  --seg-dir test-output \
+  --chain-file /path/to/hg19ToHg38.over.chain
+```
+
+The liftover is skipped for an EPICv2-only run. Otherwise the chain file is
+required. The result is `combined_hg38.gistic.seg` in `--seg-dir`.
+
 ## CWL
 
 `tools/methylation_cnv_calls.cwl` packages the same script for CWL runners.
 Supply the RGset and manifest as `File` inputs and choose a unique
 `output_basename` for each array type.
+
+`tools/liftover_methylation_segments.cwl` accepts the resulting per-array
+GISTIC SEG files plus the optional chain file and emits the combined hg38 SEG.
