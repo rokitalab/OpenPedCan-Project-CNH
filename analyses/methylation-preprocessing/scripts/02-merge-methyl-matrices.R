@@ -8,6 +8,7 @@ suppressPackageStartupMessages(library(optparse))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(arrow))
+suppressPackageStartupMessages(library(qs2))
 
 
 
@@ -216,12 +217,13 @@ if (all(c("EPICv1", "EPICv2") %in% array_types)) {
       arrange(ProbeID)
     # --- Optional safety check ---
     stopifnot(identical(df_v1$ProbeID, df_v2$ProbeID))
-    
-    # --- Combine ---
-    combined_df <- bind_rows(
-      df_v1,
-      df_v2
-    )
+
+    # --- Combine: join on ProbeID. Both sides share the same probe set here,
+    # so bind_rows would stack each probe into two NA-sparse rows (one with
+    # only EPICv1 sample columns filled, one with only EPICv2) instead of a
+    # single row with all samples from both arrays. ---
+    combined_df <- inner_join(df_v1, df_v2, by = "ProbeID")
+    stopifnot(nrow(combined_df) == length(df_v1$ProbeID))
     
     # --- Output filename ---
     out_fn <- file.path(
@@ -301,17 +303,13 @@ if (all(c("EPICv1", "EPICv2", "450k") %in% array_types)) {
     df_450k <- df_450k %>%
       arrange(ProbeID)
     
-    # --- Safety check ---
-    stopifnot(all(df_450k$ProbeID %in% df_v1v2$ProbeID))
-    
-    # Optional strict check (only if identical rows expected):
-    # stopifnot(identical(df_v1v2$ProbeID, df_450k$ProbeID))
-    
-    # --- Combine ---
-    combined_df <- bind_rows(
-      df_v1v2,
-      df_450k %>% mutate(Array = "450k")   # optional but recommended
-    )
+    # --- Safety check: both sides were filtered to the same common_probes ---
+    stopifnot(identical(df_v1v2$ProbeID, df_450k$ProbeID))
+
+    # --- Combine: join on ProbeID (see EPICv1+EPICv2 block above for why
+    # this isn't bind_rows) ---
+    combined_df <- inner_join(df_v1v2, df_450k, by = "ProbeID")
+    stopifnot(nrow(combined_df) == length(df_v1v2$ProbeID))
     
     # --- Output filename ---
     out_fn <- file.path(
@@ -424,12 +422,11 @@ if (all(c("EPICv1", "450k") %in% array_types) &&
     
     # --- Optional safety check ---
     stopifnot(identical(df_v1$ProbeID, df_450k$ProbeID))
-    
-    # --- Combine ---
-    combined_df <- bind_rows(
-      df_v1,
-      df_450k
-    )
+
+    # --- Combine: join on ProbeID (see EPICv1+EPICv2 block above for why
+    # this isn't bind_rows) ---
+    combined_df <- inner_join(df_v1, df_450k, by = "ProbeID")
+    stopifnot(nrow(combined_df) == length(df_v1$ProbeID))
     
     # --- Output filename ---
     out_fn <- file.path(
@@ -538,12 +535,11 @@ if (all(c("EPICv2", "450k") %in% array_types) &&
     
     # --- Safety check ---
     stopifnot(identical(df_450k$ProbeID, df_v2$ProbeID))
-    
-    # --- Combine ---
-    combined_df <- bind_rows(
-      df_450k,
-      df_v2
-    )
+
+    # --- Combine: join on ProbeID (see EPICv1+EPICv2 block above for why
+    # this isn't bind_rows) ---
+    combined_df <- inner_join(df_450k, df_v2, by = "ProbeID")
+    stopifnot(nrow(combined_df) == length(df_450k$ProbeID))
     
     # --- Output filename ---
     out_fn <- file.path(
