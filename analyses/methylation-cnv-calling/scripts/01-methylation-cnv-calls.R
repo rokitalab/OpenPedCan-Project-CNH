@@ -58,12 +58,33 @@ if (is.null(out_base) || !nzchar(out_base)) {
   stop("--output_basename is required.")
 }
 
-# read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
-man_df <- read_tsv(file = manifest_file, show_col_types = FALSE) %>% 
+# Normalize known platform naming variants before filtering. This accepts the
+# current manifest spellings (for example, HumanMethylationEPICv2 and Illumina
+# Infinium HumanMethylationEPICv2) as well as harmless spacing/punctuation and
+# v1 version suffixes.
+platform_matches_array <- function(platform, array_type) {
+  platform_key <- tolower(gsub("[^[:alnum:]]", "", platform))
+
+  switch(
+    array_type,
+    EPICv2 = grepl("humanmethylationepicv?2", platform_key),
+    EPIC = grepl("humanmethylationepic($|v?1)", platform_key),
+    `450k` = grepl("humanmethylation(450k|450)", platform_key),
+    HM450 = grepl("humanmethylation(450k|450)", platform_key),
+    `450` = grepl("humanmethylation(450k|450)", platform_key),
+    stop("Unsupported --array_type: ", array_type,
+         ". Expected EPIC, EPICv2, or 450k.", call. = FALSE)
+  )
+}
+
+# Read the manifest and retain the matching array platform.
+manifest_df <- read_tsv(file = manifest_file, show_col_types = FALSE) %>%
   dplyr::select(file_name, Bioassay_ID, sample_type, platform) %>%
   dplyr::mutate(file_name = gsub("(_Red|_Grn).*", "", file_name)) %>%
-  dplyr::mutate(file_name = basename(file_name)) %>%
-  dplyr::filter(platform %in% c(paste0("Illumina Infinium HumanMethylation",array_type),paste0("HumanMethylation",array_type))) %>%
+  dplyr::mutate(file_name = basename(file_name))
+
+man_df <- manifest_df %>%
+  dplyr::filter(platform_matches_array(platform, array_type)) %>%
   unique()
 
 
@@ -72,7 +93,12 @@ normals <- man_df %>%
   dplyr::select(Bioassay_ID)
 
 if (nrow(man_df) == 0) {
-  stop("No manifest rows matched array type '", array_type, "'.")
+  available_platforms <- sort(unique(manifest_df$platform))
+  stop(
+    "No manifest rows matched array type '", array_type, "'. Observed platform values: ",
+    paste(available_platforms, collapse = ", "),
+    call. = FALSE
+  )
 }
 
 # Load the QC-filtered RGChannelSet and apply Noob normalization here.  Conumee2
@@ -83,8 +109,7 @@ MSet <- minfi::preprocessNoob(RGset)
 rm(RGset)
 gc()
 
-#make mset names bioassay ids
-intersect_samples <- intersect(colnames(MSet), man_df$file_name)
+# Make MSet names Bioassay IDs.
 MSet <- MSet[, colnames(MSet) %in% man_df$file_name]
 name_map <- setNames(man_df$Bioassay_ID, man_df$file_name)
 colnames(MSet) <- name_map[colnames(MSet)]
@@ -182,7 +207,6 @@ data.table::fwrite(
   col.names = TRUE
 )
 
-#write gistic input ?? 
-gistic <- CNV.write(x, what="gistic", file=gistic_file)
-
+# Write GISTIC input.
+CNV.write(x, what="gistic", file=gistic_file)
 
