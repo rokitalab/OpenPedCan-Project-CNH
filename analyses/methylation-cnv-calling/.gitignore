@@ -1,0 +1,5 @@
+# Large local RGsets used for manual testing; never commit them.
+test-input/
+
+# Outputs from the local test runner.
+test-output/
