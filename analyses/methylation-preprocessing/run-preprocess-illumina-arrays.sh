@@ -111,7 +111,7 @@ run_preprocess () {
     local DIR=$1
     local LABEL=$2
 
-    if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
+if [ -d "$DIR" ] && [ "$(ls -A "$DIR")" ]; then
         echo "Processing $LABEL"
 
         Rscript "$SCRIPT_DIR/scripts/01-preprocess-illumina-arrays.R" \
