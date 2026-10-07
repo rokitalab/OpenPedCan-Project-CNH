@@ -897,11 +897,11 @@ PASWVY_01_Solid Tissue_Primary Tumor	77.32	4	gain	NBL, MYCN non-amplified	PASWVY
 PASWXG_01_Solid Tissue_Primary Tumor	379.57	NA	amplification	NBL, MYCN amplified	PASWXG	BS_GMH5C45K	01
 PASWXG_01_Solid Tissue_Primary Tumor	379.57	NA	amplification	NBL, MYCN amplified	PASWXG	BS_R13WNSAR	01
 PASWXG_01_Solid Tissue_Primary Tumor	379.57	NA	amplification	NBL, MYCN amplified	PASWXG	TARGET-30-PASWXG-01A-01D	01
-PASWYR_01_Solid Tissue_Primary Tumor	NA	93	gain, amplification	NBL, MYCN amplified	PASWYR	BS_8XDZQKSD	01
-PASWYR_01_Solid Tissue_Primary Tumor	NA	93	gain, amplification	NBL, MYCN amplified	PASWYR	BS_MPE34NYZ	01
-PASWYR_01_Solid Tissue_Primary Tumor	NA	93	gain, amplification	NBL, MYCN amplified	PASWYR	TARGET-30-PASWYR-01A-01D	01
-PASWYR_01_Solid Tissue_Primary Tumor	NA	93	gain, amplification	NBL, MYCN amplified	PASWYR	TARGET-30-PASWYR-01A-01D.M	01
-PASWYR_01_Solid Tissue_Primary Tumor	NA	93	gain, amplification	NBL, MYCN amplified	PASWYR	TARGET-30-PASWYR-01A-01R	01
+PASWYR_01_Solid Tissue_Primary Tumor	698.13	93	gain, amplification	NBL, MYCN amplified	PASWYR	BS_8XDZQKSD	01
+PASWYR_01_Solid Tissue_Primary Tumor	698.13	93	gain, amplification	NBL, MYCN amplified	PASWYR	BS_MPE34NYZ	01
+PASWYR_01_Solid Tissue_Primary Tumor	698.13	93	gain, amplification	NBL, MYCN amplified	PASWYR	TARGET-30-PASWYR-01A-01D	01
+PASWYR_01_Solid Tissue_Primary Tumor	698.13	93	gain, amplification	NBL, MYCN amplified	PASWYR	TARGET-30-PASWYR-01A-01D.M	01
+PASWYR_01_Solid Tissue_Primary Tumor	698.13	93	gain, amplification	NBL, MYCN amplified	PASWYR	TARGET-30-PASWYR-01A-01R	01
 PASXCG_01_Solid Tissue_Primary Tumor	NA	NA	NA	NBL, To be classified	PASXCG	TARGET-30-PASXCG-01A-01D	01
 PASXGP_01_Solid Tissue_Primary Tumor	53.89	2	neutral	NBL, MYCN non-amplified	PASXGP	TARGET-30-PASXGP-01A-01D	01
 PASXGP_01_Solid Tissue_Primary Tumor	53.89	2	neutral	NBL, MYCN non-amplified	PASXGP	TARGET-30-PASXGP-01A-01D.M	01
@@ -911,23 +911,23 @@ PASXHE_01_Solid Tissue_Primary Tumor	54.185	3	gain	NBL, MYCN non-amplified	PASXH
 PASXHE_01_Solid Tissue_Primary Tumor	54.185	3	gain	NBL, MYCN non-amplified	PASXHE	TARGET-30-PASXHE-01A-01D	01
 PASXHE_01_Solid Tissue_Primary Tumor	54.185	3	gain	NBL, MYCN non-amplified	PASXHE	TARGET-30-PASXHE-01A-01D.M	01
 PASXHE_01_Solid Tissue_Primary Tumor	54.185	3	gain	NBL, MYCN non-amplified	PASXHE	TARGET-30-PASXHE-01A-01R	01
-PASXIE_01_Solid Tissue_Primary Tumor	NA	5	gain	NBL, To be classified	PASXIE	BS_2N95EW0G	01
-PASXIE_01_Solid Tissue_Primary Tumor	NA	5	gain	NBL, To be classified	PASXIE	BS_9TKGBJH7	01
-PASXIE_01_Solid Tissue_Primary Tumor	NA	5	gain	NBL, To be classified	PASXIE	TARGET-30-PASXIE-01A-01D	01
-PASXIE_01_Solid Tissue_Primary Tumor	NA	5	gain	NBL, To be classified	PASXIE	TARGET-30-PASXIE-01A-01D.M	01
-PASXIE_01_Solid Tissue_Primary Tumor	NA	5	gain	NBL, To be classified	PASXIE	TARGET-30-PASXIE-01A-01R	01
+PASXIE_01_Solid Tissue_Primary Tumor	903.835	5	gain	NBL, MYCN amplified	PASXIE	BS_2N95EW0G	01
+PASXIE_01_Solid Tissue_Primary Tumor	903.835	5	gain	NBL, MYCN amplified	PASXIE	BS_9TKGBJH7	01
+PASXIE_01_Solid Tissue_Primary Tumor	903.835	5	gain	NBL, MYCN amplified	PASXIE	TARGET-30-PASXIE-01A-01D	01
+PASXIE_01_Solid Tissue_Primary Tumor	903.835	5	gain	NBL, MYCN amplified	PASXIE	TARGET-30-PASXIE-01A-01D.M	01
+PASXIE_01_Solid Tissue_Primary Tumor	903.835	5	gain	NBL, MYCN amplified	PASXIE	TARGET-30-PASXIE-01A-01R	01
 PASXMI_09_Bone Marrow_Primary Tumor	NA	NA	NA	NBL, To be classified	PASXMI	TARGET-30-PASXMI-09A-01D	09
 PASXNN_01_Solid Tissue_Primary Tumor	NA	2	loss	NBL, MYCN non-amplified	PASXNN	TARGET-30-PASXNN-01A-01D	01
-PASXRG_01_Solid Tissue_Primary Tumor	NA	NA	amplification	NBL, MYCN amplified	PASXRG	BS_9JBYGRQW	01
-PASXRG_01_Solid Tissue_Primary Tumor	NA	NA	amplification	NBL, MYCN amplified	PASXRG	BS_P6FPBJM8	01
-PASXRG_01_Solid Tissue_Primary Tumor	NA	NA	amplification	NBL, MYCN amplified	PASXRG	TARGET-30-PASXRG-01A-01D	01
-PASXRG_01_Solid Tissue_Primary Tumor	NA	NA	amplification	NBL, MYCN amplified	PASXRG	TARGET-30-PASXRG-01A-01D.M	01
-PASXRG_01_Solid Tissue_Primary Tumor	NA	NA	amplification	NBL, MYCN amplified	PASXRG	TARGET-30-PASXRG-01A-01R	01
-PASXRJ_01_Solid Tissue_Primary Tumor	NA	NA	neutral	NBL, MYCN non-amplified	PASXRJ	BS_1BKHK7AY	01
-PASXRJ_01_Solid Tissue_Primary Tumor	NA	NA	neutral	NBL, MYCN non-amplified	PASXRJ	BS_KXRFQF5N	01
-PASXRJ_01_Solid Tissue_Primary Tumor	NA	NA	neutral	NBL, MYCN non-amplified	PASXRJ	TARGET-30-PASXRJ-01A-01D	01
-PASXRJ_01_Solid Tissue_Primary Tumor	NA	NA	neutral	NBL, MYCN non-amplified	PASXRJ	TARGET-30-PASXRJ-01A-01D.M	01
-PASXRJ_01_Solid Tissue_Primary Tumor	NA	NA	neutral	NBL, MYCN non-amplified	PASXRJ	TARGET-30-PASXRJ-01A-01R	01
+PASXRG_01_Solid Tissue_Primary Tumor	233.685	NA	amplification	NBL, MYCN amplified	PASXRG	BS_9JBYGRQW	01
+PASXRG_01_Solid Tissue_Primary Tumor	233.685	NA	amplification	NBL, MYCN amplified	PASXRG	BS_P6FPBJM8	01
+PASXRG_01_Solid Tissue_Primary Tumor	233.685	NA	amplification	NBL, MYCN amplified	PASXRG	TARGET-30-PASXRG-01A-01D	01
+PASXRG_01_Solid Tissue_Primary Tumor	233.685	NA	amplification	NBL, MYCN amplified	PASXRG	TARGET-30-PASXRG-01A-01D.M	01
+PASXRG_01_Solid Tissue_Primary Tumor	233.685	NA	amplification	NBL, MYCN amplified	PASXRG	TARGET-30-PASXRG-01A-01R	01
+PASXRJ_01_Solid Tissue_Primary Tumor	24.35	NA	neutral	NBL, MYCN non-amplified	PASXRJ	BS_1BKHK7AY	01
+PASXRJ_01_Solid Tissue_Primary Tumor	24.35	NA	neutral	NBL, MYCN non-amplified	PASXRJ	BS_KXRFQF5N	01
+PASXRJ_01_Solid Tissue_Primary Tumor	24.35	NA	neutral	NBL, MYCN non-amplified	PASXRJ	TARGET-30-PASXRJ-01A-01D	01
+PASXRJ_01_Solid Tissue_Primary Tumor	24.35	NA	neutral	NBL, MYCN non-amplified	PASXRJ	TARGET-30-PASXRJ-01A-01D.M	01
+PASXRJ_01_Solid Tissue_Primary Tumor	24.35	NA	neutral	NBL, MYCN non-amplified	PASXRJ	TARGET-30-PASXRJ-01A-01R	01
 PASXSJ_01_Solid Tissue_Primary Tumor	261.14	106	amplification	NBL, MYCN amplified	PASXSJ	BS_9ZDR2H7D	01
 PASXSJ_01_Solid Tissue_Primary Tumor	261.14	106	amplification	NBL, MYCN amplified	PASXSJ	BS_XZQE9FBM	01
 PASXVW_01_Solid Tissue_Primary Tumor	NA	3	loss	NBL, MYCN non-amplified	PASXVW	BS_4G4PK2D4	01
@@ -990,20 +990,20 @@ PATBHY_01_Solid Tissue_Primary Tumor	16.32	NA	NA	NBL, MYCN amplified	PATBHY	TARG
 PATBJI_01_Solid Tissue_Primary Tumor	NA	NA	NA	NBL, To be classified	PATBJI	TARGET-30-PATBJI-01A-01D	01
 PATBKX_01_Solid Tissue_Primary Tumor	NA	NA	NA	NBL, To be classified	PATBKX	TARGET-30-PATBKX-01A-01D	01
 PATBLZ_01_Solid Tissue_Primary Tumor	NA	NA	NA	NBL, To be classified	PATBLZ	BS_7S8KSFRC	01
-PATBMM_01_Solid Tissue_Primary Tumor	NA	NA	loss	NBL, MYCN non-amplified	PATBMM	BS_3DJBSNGE	01
-PATBMM_01_Solid Tissue_Primary Tumor	NA	NA	loss	NBL, MYCN non-amplified	PATBMM	BS_D7442ACV	01
-PATBMM_01_Solid Tissue_Primary Tumor	NA	NA	loss	NBL, MYCN non-amplified	PATBMM	TARGET-30-PATBMM-01A-01D	01
-PATBMM_01_Solid Tissue_Primary Tumor	NA	NA	loss	NBL, MYCN non-amplified	PATBMM	TARGET-30-PATBMM-01A-01D.M	01
-PATBMM_01_Solid Tissue_Primary Tumor	NA	NA	loss	NBL, MYCN non-amplified	PATBMM	TARGET-30-PATBMM-01A-01R	01
+PATBMM_01_Solid Tissue_Primary Tumor	13.895	NA	loss	NBL, MYCN non-amplified	PATBMM	BS_3DJBSNGE	01
+PATBMM_01_Solid Tissue_Primary Tumor	13.895	NA	loss	NBL, MYCN non-amplified	PATBMM	BS_D7442ACV	01
+PATBMM_01_Solid Tissue_Primary Tumor	13.895	NA	loss	NBL, MYCN non-amplified	PATBMM	TARGET-30-PATBMM-01A-01D	01
+PATBMM_01_Solid Tissue_Primary Tumor	13.895	NA	loss	NBL, MYCN non-amplified	PATBMM	TARGET-30-PATBMM-01A-01D.M	01
+PATBMM_01_Solid Tissue_Primary Tumor	13.895	NA	loss	NBL, MYCN non-amplified	PATBMM	TARGET-30-PATBMM-01A-01R	01
 PATBPG_01_Solid Tissue_Primary Tumor	NA	NA	NA	NBL, To be classified	PATBPG	TARGET-30-PATBPG-01A-01D	01
 PATBRX_01_Solid Tissue_Primary Tumor	NA	NA	NA	NBL, To be classified	PATBRX	TARGET-30-PATBRX-01A-01D	01
 PATCDJ_01_Solid Tissue_Primary Tumor	NA	NA	NA	NBL, To be classified	PATCDJ	TARGET-30-PATCDJ-01A-01D	01
 PATCEM_01_Solid Tissue_Primary Tumor	NA	NA	NA	NBL, To be classified	PATCEM	TARGET-30-PATCEM-01A-01D	01
-PATCFL_01_Solid Tissue_Primary Tumor	NA	NA	neutral	NBL, MYCN non-amplified	PATCFL	BS_D3N3FG7Y	01
-PATCFL_01_Solid Tissue_Primary Tumor	NA	NA	neutral	NBL, MYCN non-amplified	PATCFL	BS_N05R3CT2	01
-PATCFL_01_Solid Tissue_Primary Tumor	NA	NA	neutral	NBL, MYCN non-amplified	PATCFL	TARGET-30-PATCFL-01A-01D	01
-PATCFL_01_Solid Tissue_Primary Tumor	NA	NA	neutral	NBL, MYCN non-amplified	PATCFL	TARGET-30-PATCFL-01A-01D.M	01
-PATCFL_01_Solid Tissue_Primary Tumor	NA	NA	neutral	NBL, MYCN non-amplified	PATCFL	TARGET-30-PATCFL-01A-01R	01
+PATCFL_01_Solid Tissue_Primary Tumor	5.07	NA	neutral	NBL, MYCN non-amplified	PATCFL	BS_D3N3FG7Y	01
+PATCFL_01_Solid Tissue_Primary Tumor	5.07	NA	neutral	NBL, MYCN non-amplified	PATCFL	BS_N05R3CT2	01
+PATCFL_01_Solid Tissue_Primary Tumor	5.07	NA	neutral	NBL, MYCN non-amplified	PATCFL	TARGET-30-PATCFL-01A-01D	01
+PATCFL_01_Solid Tissue_Primary Tumor	5.07	NA	neutral	NBL, MYCN non-amplified	PATCFL	TARGET-30-PATCFL-01A-01D.M	01
+PATCFL_01_Solid Tissue_Primary Tumor	5.07	NA	neutral	NBL, MYCN non-amplified	PATCFL	TARGET-30-PATCFL-01A-01R	01
 PATCJF_01_Solid Tissue_Primary Tumor	NA	NA	NA	NBL, To be classified	PATCJF	TARGET-30-PATCJF-01A-01D	01
 PATCJP_09_Bone Marrow_Primary Tumor	NA	NA	NA	NBL, To be classified	PATCJP	TARGET-30-PATCJP-09A-01D	09
 PATCKU_01_Solid Tissue_Primary Tumor	NA	NA	NA	NBL, To be classified	PATCKU	TARGET-30-PATCKU-01A-01D	01

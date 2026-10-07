@@ -911,11 +911,11 @@ PASXHE_01_Solid Tissue_Primary Tumor	NBL, MYCN non-amplified	PASXHE	BS_V4VGG98Y	
 PASXHE_01_Solid Tissue_Primary Tumor	NBL, MYCN non-amplified	PASXHE	TARGET-30-PASXHE-01A-01D	01
 PASXHE_01_Solid Tissue_Primary Tumor	NBL, MYCN non-amplified	PASXHE	TARGET-30-PASXHE-01A-01D.M	01
 PASXHE_01_Solid Tissue_Primary Tumor	NBL, MYCN non-amplified	PASXHE	TARGET-30-PASXHE-01A-01R	01
-PASXIE_01_Solid Tissue_Primary Tumor	NBL, To be classified	PASXIE	BS_2N95EW0G	01
-PASXIE_01_Solid Tissue_Primary Tumor	NBL, To be classified	PASXIE	BS_9TKGBJH7	01
-PASXIE_01_Solid Tissue_Primary Tumor	NBL, To be classified	PASXIE	TARGET-30-PASXIE-01A-01D	01
-PASXIE_01_Solid Tissue_Primary Tumor	NBL, To be classified	PASXIE	TARGET-30-PASXIE-01A-01D.M	01
-PASXIE_01_Solid Tissue_Primary Tumor	NBL, To be classified	PASXIE	TARGET-30-PASXIE-01A-01R	01
+PASXIE_01_Solid Tissue_Primary Tumor	NBL, MYCN amplified	PASXIE	BS_2N95EW0G	01
+PASXIE_01_Solid Tissue_Primary Tumor	NBL, MYCN amplified	PASXIE	BS_9TKGBJH7	01
+PASXIE_01_Solid Tissue_Primary Tumor	NBL, MYCN amplified	PASXIE	TARGET-30-PASXIE-01A-01D	01
+PASXIE_01_Solid Tissue_Primary Tumor	NBL, MYCN amplified	PASXIE	TARGET-30-PASXIE-01A-01D.M	01
+PASXIE_01_Solid Tissue_Primary Tumor	NBL, MYCN amplified	PASXIE	TARGET-30-PASXIE-01A-01R	01
 PASXMI_09_Bone Marrow_Primary Tumor	NBL, To be classified	PASXMI	TARGET-30-PASXMI-09A-01D	09
 PASXNN_01_Solid Tissue_Primary Tumor	NBL, MYCN non-amplified	PASXNN	TARGET-30-PASXNN-01A-01D	01
 PASXRG_01_Solid Tissue_Primary Tumor	NBL, MYCN amplified	PASXRG	BS_9JBYGRQW	01
