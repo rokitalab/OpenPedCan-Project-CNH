@@ -232,7 +232,7 @@ if (all(c("EPICv1", "EPICv2") %in% array_types)) {
     )
     
     # --- Save ---
-    write_parquet(combined_df, out_fn)
+    write_parquet(combined_df, out_fn, compression = "zstd")
     message("Saved: ", out_fn)
     rm(df_v1, df_v2, combined_df, epicv2_filtered, epicv2_vals, epicv1_filtered, epicv1_vals)
     gc()
@@ -317,7 +317,7 @@ if (all(c("EPICv1", "EPICv2", "450k") %in% array_types)) {
       paste0(out_pref, "-IlluminaHumanMethylationEPICv1-EPICv2-450k-methyl-", data_type, ".parquet")
     )
     # --- Save ---
-    write_parquet(combined_df, out_fn)
+    write_parquet(combined_df, out_fn, compression = "zstd")
     message("Saved: ", out_fn)
     rm(df_v1v2, df_450k, combined_df) #remove large objects
     gc()
@@ -435,7 +435,7 @@ if (all(c("EPICv1", "450k") %in% array_types) &&
     )
     
     # --- Save ---
-    write_parquet(combined_df, out_fn)
+    write_parquet(combined_df, out_fn, compression = "zstd")
     
     message("Saved: ", out_fn)
     rm(combined_df, df_450k, df_v1) #remove large objects 
@@ -548,7 +548,7 @@ if (all(c("EPICv2", "450k") %in% array_types) &&
     )
     
     # --- Save ---
-    write_parquet(combined_df, out_fn)
+    write_parquet(combined_df, out_fn, compression = "zstd")
     
     message("Saved: ", out_fn)
     rm(combined_df, df_v2, df_450k)
