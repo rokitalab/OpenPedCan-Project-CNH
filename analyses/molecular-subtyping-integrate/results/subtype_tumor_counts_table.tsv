@@ -58,8 +58,8 @@ Ganglioglioma	GNG, other MAPK	28
 Ganglioglioma	GNG, other MAPK, BRAF V600E	3
 Ganglioglioma	GNG, other MAPK, IDH	6
 Ganglioglioma	GNG, wildtype	55
-Ganglioneuroblastoma	NBL, MYCN amplified	41
-Ganglioneuroblastoma	NBL, MYCN non-amplified	100
+Ganglioneuroblastoma	NBL, MYCN amplified	10
+Ganglioneuroblastoma	NBL, MYCN non-amplified	131
 Ganglioneuroblastoma	NBL, To be classified	58
 Ganglioneuroma	NBL, To be classified	4
 Glial-neuronal tumor NOS	GNT, BRAF V600E	17
@@ -133,8 +133,8 @@ Medulloblastoma	MB, Group4	365
 Medulloblastoma	MB, SHH	263
 Medulloblastoma	MB, To be classified	60
 Medulloblastoma	MB, WNT	83
-Neuroblastoma	NBL, MYCN amplified	483
-Neuroblastoma	NBL, MYCN non-amplified	514
+Neuroblastoma	NBL, MYCN amplified	257
+Neuroblastoma	NBL, MYCN non-amplified	740
 Neuroblastoma	NBL, To be classified	603
 Pilocytic astrocytoma	LGG, To be classified	74
 Pineoblastoma	PB, Group 1	23

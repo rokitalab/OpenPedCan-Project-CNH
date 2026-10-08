@@ -113,9 +113,8 @@ PBTA	Ganglioglioma, other MAPK, BRAF V600E	Ganglioglioma	Yes	No
 PBTA	Ganglioglioma, RTK, FGFR	Ganglioglioma	Yes	No
 PBTA	Ganglioneuroblastoma, MYCN non-amplified	Ganglioneuroblastoma	Yes	No
 GMKF	Ganglioneuroblastoma, MYCN non-amplified	Ganglioneuroblastoma	Yes	No
-GMKF	Ganglioneuroblastoma, MYCN-amplified	Ganglioneuroblastoma	Yes	No
-PBTA	Ganglioneuroblastoma, MYCN-amplified	Ganglioneuroblastoma	Yes	No
 GMKF	Ganglioneuroblastoma, intermixed	Ganglioneuroblastoma	Yes	No
+GMKF	Ganglioneuroblastoma, MYCN-amplified	Ganglioneuroblastoma	Yes	No
 GMKF	Ganglioneuroblastoma, nodular	Ganglioneuroblastoma	Yes	No
 PBTA	Ganglioneuroblastoma	Ganglioneuroblastoma	No	No
 DGD	Ganglioneuroblastoma	Ganglioneuroblastoma	No	No
@@ -251,8 +250,8 @@ PBTA	Neuroblastoma, MYCN-amplified	Neuroblastoma	Yes	No
 PBTA	Neuroblastoma, MYCN non-amplified	Neuroblastoma	Yes	No
 Maris	Neuroblastoma, MYCN non-amplified	Neuroblastoma	Yes	No
 Maris	Neuroblastoma, MYCN-amplified	Neuroblastoma	Yes	No
-PPTC	Neuroblastoma, MYCN-amplified	Neuroblastoma	Yes	No
 PPTC	Neuroblastoma, MYCN non-amplified	Neuroblastoma	Yes	No
+PPTC	Neuroblastoma, MYCN-amplified	Neuroblastoma	Yes	No
 TARGET	Neuroblastoma, MYCN-amplified	Neuroblastoma	Yes	No
 TARGET	Neuroblastoma, MYCN non-amplified	Neuroblastoma	Yes	No
 TARGET	Neuroblastoma	Neuroblastoma	No	No

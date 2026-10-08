@@ -2939,9 +2939,9 @@ output_file &lt;- file.path(results_dir, &quot;meningioma_subtypes.tsv&quot;)</c
 <!-- rnb-source-begin eyJkYXRhIjoiaGlzdG9sb2dpZXNfZGYgPC0gcmVhZHI6OnJlYWRfdHN2KGhpc3RvbG9naWVzX2ZpbGUsIGd1ZXNzX21heCA9IDEwMDAwMCkifQ== -->
 <pre class="r"><code>histologies_df &lt;- readr::read_tsv(histologies_file, guess_max = 100000)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-message-begin eyJkYXRhIjoiUm93czogNDc4OTUgQ29sdW1uczogNjRcbuKUgOKUgCBDb2x1bW4gc3BlY2lmaWNhdGlvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbkRlbGltaXRlcjogXCJcXHRcIlxuY2hyICg0MSk6IEtpZHNfRmlyc3RfUGFydGljaXBhbnRfSUQsIEtpZHNfRmlyc3RfQmlvc3BlY2ltZW5fSUQsIHNhbXBsZV9pZCwgYS4uLlxuZGJsICgyMSk6IGNlbGxfbGluZV9wYXNzYWdlLCBPU19kYXlzLCBFRlNfZGF5cywgYWdlX2F0X2RpYWdub3Npc19kYXlzLCBhZ2VfYS4uLlxubGdsICAoMik6IG1vbGVjdWxhcl9zdWJ0eXBlLCBpbnRlZ3JhdGVkX2RpYWdub3Npc1xuXG7ihLkgVXNlIGBzcGVjKClgIHRvIHJldHJpZXZlIHRoZSBmdWxsIGNvbHVtbiBzcGVjaWZpY2F0aW9uIGZvciB0aGlzIGRhdGEuXG7ihLkgU3BlY2lmeSB0aGUgY29sdW1uIHR5cGVzIG9yIHNldCBgc2hvd19jb2xfdHlwZXMgPSBGQUxTRWAgdG8gcXVpZXQgdGhpcyBtZXNzYWdlLlxuIn0= -->
+<!-- rnb-message-begin eyJkYXRhIjoiUm93czogNDc4OTUgQ29sdW1uczogNjRcbuKUgOKUgCBDb2x1bW4gc3BlY2lmaWNhdGlvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbkRlbGltaXRlcjogXCJcXHRcIlxuY2hyICg0MSk6IEtpZHNfRmlyc3RfUGFydGljaXBhbnRfSUQsIEtpZHNfRmlyc3RfQmlvc3BlY2ltZW5fSUQsIHNhbXBsZV9pZCwgYS4uLlxuZGJsICgyMSk6IGNlbGxfbGluZV9wYXNzYWdlLCBPU19kYXlzLCBFRlNfZGF5cywgYWdlX2F0X2RpYWdub3Npc19kYXlzLCBhZ2VfYS4uLlxubGdsICAoMik6IG1vbGVjdWxhcl9zdWJ0eXBlLCBpbnRlZ3JhdGVkX2RpYWdub3Npc1xuXG7ihLkgVXNlIGBzcGVjKClgIHRvIHJldHJpZXZlIHRoZSBmdWxsIGNvbHVtbiBzcGVjaWZpY2F0aW9uIGZvciB0aGlzIGRhdGEuXG7ihLkgU3BlY2lmeSB0aGUgY29sdW1uIHR5cGVzIG9yIHNldCBgc2hvd19jb2xfdHlwZXMgPSBGQUxTRWAgdG8gcXVpZXQgdGhpcyBtZXNzYWdlLlxuIn0= -->
 <pre><code>Rows: 47895 Columns: 64
-── Column specification ────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
 chr (41): Kids_First_Participant_ID, Kids_First_Biospecimen_ID, sample_id, a...
 dbl (21): cell_line_passage, OS_days, EFS_days, age_at_diagnosis_days, age_a...
@@ -2962,13 +2962,11 @@ lgl  (2): molecular_subtype, integrated_diagnosis
   dplyr::select(pathology_free_text_diagnosis) %&gt;%
   dplyr::distinct()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPGRpdiBkYXRhLXBhZ2VkdGFibGU9XCJmYWxzZVwiPlxuICA8c2NyaXB0IGRhdGEtcGFnZWR0YWJsZS1zb3VyY2UgdHlwZT1cImFwcGxpY2F0aW9uL2pzb25cIj5cbntcImNvbHVtbnNcIjpbe1wibGFiZWxcIjpbXCJwYXRob2xvZ3lfZnJlZV90ZXh0X2RpYWdub3Npc1wiXSxcIm5hbWVcIjpbMV0sXCJ0eXBlXCI6W1wiY2hyXCJdLFwiYWxpZ25cIjpbXCJsZWZ0XCJdfV0sXCJkYXRhXCI6W3tcIjFcIjpcImF0eXBpY2FsIG1lbmluZ2lvbWEsIGNucyB3aG8gZ3JhZGUgMlwifSx7XCIxXCI6XCJtZW5pbmdpb21hIGF0eXBpY2FsLCBzcGVuIG11dGFudCwgbG9zcyBvZiB3aG9sZSBjaHJvbW9zb21lIDIyLCB3aG8gZ3JhZGUgaWlcIn0se1wiMVwiOlwibWVuaW5naW9tYVwifSx7XCIxXCI6XCJjbGVhciBjZWxsIG1lbmluZ2lvbWEsIHdobyBncmFkZSBpaVwifSx7XCIxXCI6XCJleHRyYS1heGlhbCBtZW5pbmdpb21hIGdyYWRlIGlpIHdob1wifSx7XCIxXCI6XCJhdHlwaWNhbCBjeXN0aWMgbWVuaW5naW9tYSB3aG8gZ3IgMlwifSx7XCIxXCI6XCJhdHlwaWNhbCBtZW5pbmdpb21hIHdobyBncmFkZSBpaVwifSx7XCIxXCI6XCJtZW5pbmdpb21hIHdobyBpaVwifSx7XCIxXCI6XCJtZW5pbmdpb2FuZ2lvbWF0b3NpcyB3aXRoIGFzc29jaWF0ZWQgbWVuaW5naW9tYSAoZ3JhZGUgaSB3aG8pXCJ9LHtcIjFcIjpcIm1lbmluZ2lvbWEsIHdobyBncmFkZSBpXCJ9LHtcIjFcIjpcIm1nbSAobWVuaW5naW9tYSk7IGF0eXBpY2FsIG1lbmluZ2lvbWEgd2hvIGdyIGlpXCJ9LHtcIjFcIjpcImF0eXBpY2FsIG1lbmluZ2lvbWEsIHdobyBncmFkZSBpaVwifSx7XCIxXCI6XCJyZWN1cnJlbnQgbWVuaW5naW9tYVwifSx7XCIxXCI6XCJhdHlwaWNhbCBtZW5pbmdpb21hIHdpdGggY29weSBudW1iZXIgdmFyaWF0aW9ucywgd2hvIGdyYWRlIGlpXCJ9LHtcIjFcIjpcImF0eXBpY2FsIG1lbmluZ2lvbWFcIn0se1wiMVwiOlwibWVuaW5naW9tYSB3aG8gZ3JhZGUgMVwifSx7XCIxXCI6XCJhdHlwaWNhbCBtZW5pbmdpb21hICh3aG8gZ3JhZGUgMilcIn0se1wiMVwiOlwibWVuaW5naW9tYSwgd2hvIGdyYWRlIDFcIn0se1wiMVwiOlwibWVuaW5naW9tYSB3aXRoIGxvc3Mgb2Ygd2hvbGUgY2hyb21vc29tZSAyMiBpbmNsdWRpbmcgbmYyLCB3aG8gZ3JhZGUgaVwifSx7XCIxXCI6XCJtZW5pbmdvdGhlbGlhbCBtZW5pbmdpb21hLCB3aG8gZ3JhZGUgaVwifSx7XCIxXCI6XCJhdHlwaWNhbCBtZW5pbmdpb25hICh3aG8gZ3IgaWkpXCJ9LHtcIjFcIjpcIm1lbmluZ2lvbWEsIHJlY3VycmVudCB3aXRoIG5mMiBzZXF1ZW5jZSB2YXJpYW50IGMuMTE0KzFnPmEgYW5kIGNudnMgaW5jbHVkaW5nIGxvc3Mgb2YgY2hyb21vc29tZSAyMlwifSx7XCIxXCI6XCJtZW5pbmdpb21hIHdpdGggbG9zcyBvZiBjaHJvbW9zb21lIDIyIGFuZCBvbmUgZ2VybWxpbmUgdmFyaWFudCBhc3NvY2lhdGVkIHdpdGggaGVyZWRpdGFyeSBjYW5jZXIgcHJlZGlzcG9zaXRpb24gbmYyLCBjLjU5MmM+dCAocC5hcmcxOTgqKVwifSx7XCIxXCI6XCJjbGVhciBjZWxscyBtZW5pbmdpb21hICh3aG8gaWkpXCJ9LHtcIjFcIjpcIm1lbmluZ2lvbWEgZ3IgaVwifSx7XCIxXCI6XCJyZWN1cnJlbnQvcmVzaWR1YWwgYXR5cGljYWwgbWVuaW5naW9tYVwifSx7XCIxXCI6XCJtZW5pbmdpb21hLCBtZW5pbmdvdGhlbGlhbCB0eXBlLCB3aG8gZ3JhZGUgaVwifSx7XCIxXCI6XCJyZWN1cnJlbnQgcmlnaHQgc3BoZW5vaWQgd2luZyBtZW5pbmdpb21hXCJ9LHtcIjFcIjpcImF0eXBpY2FsIGN5c3RpYyBtZW5pbmdpb21hIHdobyBncmFkZSAyXCJ9LHtcIjFcIjpcImF0eXBpY2FsIG1lbmluZ2lvbWEsIHdobyBncmFkZSBpaSwgZXh0ZW5kaW5nIHRvIHJlc2VjdGlvbiBtYXJnaW5zXCJ9LHtcIjFcIjpcIm1lbmluZ2lvbWEsIGF0eXBpY2FsIHdpdGggY29weSBudW1iZXIgdmFyaWF0aW9uIG9uIGNocm9tb3NvbWUgMjIgaW5jbHVkaW5nIG5mMiBnZW5lIGFuZCBnZXJtbGluZSB2YXJpYW50IG5mMixcIn0se1wiMVwiOlwiYXR5cGljYWwgbWVuaW5naW9tYSAod2hvIGlpKVwifSx7XCIxXCI6XCJVcHBlciBDbGl2dXMgTWVuaW5naW9tYVwifSx7XCIxXCI6XCJtZW5pbmdpb21hIHdpdGggbG9zcyBvZiBjaHJvbW9zb21lIDIyICwgIG9uZSBnZXJtbGluZSB2YXJpYW50IGFzc29jaWF0ZWQgd2l0aCBoZXJlZGl0YXJ5IGNhbmNlciBwcmVkaXNwb3NpdGlvbiBuZjIsIGMuNjM3ZGVsIChwLmFzcDIxM3RocmZzKjcpIGFuZCAxcCBsb3NzXCJ9LHtcIjFcIjpcIm1nbSAobWVuaW5naW9tYSk7ICNuL2FcIn0se1wiMVwiOlwiQXR5cGljYWwgTWVuaW5naW9tYVwifSx7XCIxXCI6XCJtZW5pbmdpb21hICh3aG8gZ3JhZGUgaSlcIn0se1wiMVwiOlwiYW5hcGxhc3RpYyBtZW5pbmdpb21hICh3aG8gZ3JhZGUgaWkpXCJ9LHtcIjFcIjpcIm1lbmluZ2lvbWEgZ3JhZGUgaVwifSx7XCIxXCI6XCJtZW5pbmdvdGhlbGlhbCBtZW5pbmdpb21hICh3aG8gZ3JhZGUgaSlcIn0se1wiMVwiOlwiaW50cmFvcmJpdGFsIG9wdGljIG5lcnZlIHNoZWF0aCBtZW5pbmdpb21hXCJ9XSxcIm9wdGlvbnNcIjp7XCJjb2x1bW5zXCI6e1wibWluXCI6e30sXCJtYXhcIjpbMTBdfSxcInJvd3NcIjp7XCJtaW5cIjpbMTBdLFwibWF4XCI6WzEwXX0sXCJwYWdlc1wiOnt9fX1cbiAgPFwvc2NyaXB0PlxuPFwvZGl2PiJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["pathology_free_text_diagnosis"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"atypical meningioma, cns who grade 2"},{"1":"meningioma atypical, spen mutant, loss of whole chromosome 22, who grade ii"},{"1":"meningioma"},{"1":"clear cell meningioma, who grade ii"},{"1":"extra-axial meningioma grade ii who"},{"1":"atypical cystic meningioma who gr 2"},{"1":"atypical meningioma who grade ii"},{"1":"meningioma who ii"},{"1":"meningioangiomatosis with associated meningioma (grade i who)"},{"1":"meningioma, who grade i"},{"1":"mgm (meningioma); atypical meningioma who gr ii"},{"1":"atypical meningioma, who grade ii"},{"1":"recurrent meningioma"},{"1":"atypical meningioma with copy number variations, who grade ii"},{"1":"atypical meningioma"},{"1":"meningioma who grade 1"},{"1":"atypical meningioma (who grade 2)"},{"1":"meningioma, who grade 1"},{"1":"meningioma with loss of whole chromosome 22 including nf2, who grade i"},{"1":"meningothelial meningioma, who grade i"},{"1":"atypical meningiona (who gr ii)"},{"1":"meningioma, recurrent with nf2 sequence variant c.114+1g>a and cnvs including loss of chromosome 22"},{"1":"meningioma with loss of chromosome 22 and one germline variant associated with hereditary cancer predisposition nf2, c.592c>t (p.arg198*)"},{"1":"clear cells meningioma (who ii)"},{"1":"meningioma gr i"},{"1":"recurrent/residual atypical meningioma"},{"1":"meningioma, meningothelial type, who grade i"},{"1":"recurrent right sphenoid wing meningioma"},{"1":"atypical cystic meningioma who grade 2"},{"1":"atypical meningioma, who grade ii, extending to resection margins"},{"1":"meningioma, atypical with copy number variation on chromosome 22 including nf2 gene and germline variant nf2,"},{"1":"atypical meningioma (who ii)"},{"1":"Upper Clivus Meningioma"},{"1":"meningioma with loss of chromosome 22 ,  one germline variant associated with hereditary cancer predisposition nf2, c.637del (p.asp213thrfs*7) and 1p loss"},{"1":"mgm (meningioma); #n/a"},{"1":"Atypical Meningioma"},{"1":"meningioma (who grade i)"},{"1":"anaplastic meningioma (who grade ii)"},{"1":"meningioma grade i"},{"1":"meningothelial meningioma (who grade i)"},{"1":"intraorbital optic nerve sheath meningioma"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -3101,38 +3099,43 @@ a <code>pathology_diagnosis</code> of Meningioma:</p>
 <!-- rnb-source-begin eyJkYXRhIjoic2Vzc2lvbkluZm8oKSJ9 -->
 <pre class="r"><code>sessionInfo()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUiB2ZXJzaW9uIDQuNC4yICgyMDI0LTEwLTMxKVxuUGxhdGZvcm06IGFhcmNoNjQtYXBwbGUtZGFyd2luMjBcblJ1bm5pbmcgdW5kZXI6IG1hY09TIDI2LjYuMlxuXG5NYXRyaXggcHJvZHVjdHM6IGRlZmF1bHRcbkJMQVM6ICAgL0xpYnJhcnkvRnJhbWV3b3Jrcy9SLmZyYW1ld29yay9WZXJzaW9ucy80LjQtYXJtNjQvUmVzb3VyY2VzL2xpYi9saWJSYmxhcy4wLmR5bGliIFxuTEFQQUNLOiAvTGlicmFyeS9GcmFtZXdvcmtzL1IuZnJhbWV3b3JrL1ZlcnNpb25zLzQuNC1hcm02NC9SZXNvdXJjZXMvbGliL2xpYlJsYXBhY2suZHlsaWI7ICBMQVBBQ0sgdmVyc2lvbiAzLjEyLjBcblxubG9jYWxlOlxuWzFdIEMuVVRGLTgvQy5VVEYtOC9DLlVURi04L0MvQy5VVEYtOC9DLlVURi04XG5cbnRpbWUgem9uZTogQW1lcmljYS9OZXdfWW9ya1xudHpjb2RlIHNvdXJjZTogaW50ZXJuYWxcblxuYXR0YWNoZWQgYmFzZSBwYWNrYWdlczpcblsxXSBzdGF0cyAgICAgZ3JhcGhpY3MgIGdyRGV2aWNlcyB1dGlscyAgICAgZGF0YXNldHMgIG1ldGhvZHMgICBiYXNlICAgICBcblxub3RoZXIgYXR0YWNoZWQgcGFja2FnZXM6XG5bMV0gbWFncml0dHJfMi4wLjRcblxubG9hZGVkIHZpYSBhIG5hbWVzcGFjZSAoYW5kIG5vdCBhdHRhY2hlZCk6XG4gWzFdIGNyYXlvbl8xLjUuMyAgICAgdmN0cnNfMC42LjUgICAgICBjbGlfMy42LjUgICAgICAgIGtuaXRyXzEuNTEgICAgICBcbiBbNV0gcmxhbmdfMS4xLjYgICAgICB4ZnVuXzAuNTYgICAgICAgIHN0cmluZ2lfMS44LjcgICAgb3RlbF8wLjIuMCAgICAgIFxuIFs5XSBnZW5lcmljc18wLjEuNCAgIGpzb25saXRlXzIuMC4wICAgYml0XzQuNi4wICAgICAgICBnbHVlXzEuOC4wICAgICAgXG5bMTNdIGh0bWx0b29sc18wLjUuOSAgc2Fzc18wLjQuMTAgICAgICBobXNfMS4xLjQgICAgICAgIHJtYXJrZG93bl8yLjMwICBcblsxN10gZXZhbHVhdGVfMS4wLjUgICBqcXVlcnlsaWJfMC4xLjQgIHRpYmJsZV8zLjMuMCAgICAgdHpkYl8wLjUuMCAgICAgIFxuWzIxXSBmYXN0bWFwXzEuMi4wICAgIHlhbWxfMi4zLjEyICAgICAgbGlmZWN5Y2xlXzEuMC40ICBzdHJpbmdyXzEuNi4wICAgXG5bMjVdIGNvbXBpbGVyXzQuNC4yICAgZHBseXJfMS4xLjQgICAgICBwa2djb25maWdfMi4wLjMgIGRpZ2VzdF8wLjYuMzkgICBcblsyOV0gUjZfMi42LjEgICAgICAgICB0aWR5c2VsZWN0XzEuMi4xIHJlYWRyXzIuMS42ICAgICAgcGFyYWxsZWxfNC40LjIgIFxuWzMzXSB2cm9vbV8xLjYuNyAgICAgIHBpbGxhcl8xLjExLjEgICAgYnNsaWJfMC45LjAgICAgICB3aXRocl8zLjAuMiAgICAgXG5bMzddIGJpdDY0XzQuNi4wLTEgICAgdG9vbHNfNC40LjIgICAgICBjYWNoZW1fMS4xLjAgICAgXG4ifQ== -->
-<pre><code>R version 4.4.2 (2024-10-31)
-Platform: aarch64-apple-darwin20
-Running under: macOS 26.6.2
+<!-- rnb-output-begin eyJkYXRhIjoiUiB2ZXJzaW9uIDQuNC4wICgyMDI0LTA0LTI0KVxuUGxhdGZvcm06IHg4Nl82NC1wYy1saW51eC1nbnVcblJ1bm5pbmcgdW5kZXI6IFVidW50dSAyMi4wNC40IExUU1xuXG5NYXRyaXggcHJvZHVjdHM6IGRlZmF1bHRcbkJMQVM6ICAgL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9vcGVuYmxhcy1wdGhyZWFkL2xpYmJsYXMuc28uMyBcbkxBUEFDSzogL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9vcGVuYmxhcy1wdGhyZWFkL2xpYm9wZW5ibGFzcC1yMC4zLjIwLnNvOyAgTEFQQUNLIHZlcnNpb24gMy4xMC4wXG5cbmxvY2FsZTpcbiBbMV0gTENfQ1RZUEU9ZW5fVVMuVVRGLTggICAgICAgTENfTlVNRVJJQz1DICAgICAgICAgICAgICBcbiBbM10gTENfVElNRT1lbl9VUy5VVEYtOCAgICAgICAgTENfQ09MTEFURT1lbl9VUy5VVEYtOCAgICBcbiBbNV0gTENfTU9ORVRBUlk9ZW5fVVMuVVRGLTggICAgTENfTUVTU0FHRVM9ZW5fVVMuVVRGLTggICBcbiBbN10gTENfUEFQRVI9ZW5fVVMuVVRGLTggICAgICAgTENfTkFNRT1DICAgICAgICAgICAgICAgICBcbiBbOV0gTENfQUREUkVTUz1DICAgICAgICAgICAgICAgTENfVEVMRVBIT05FPUMgICAgICAgICAgICBcblsxMV0gTENfTUVBU1VSRU1FTlQ9ZW5fVVMuVVRGLTggTENfSURFTlRJRklDQVRJT049QyAgICAgICBcblxudGltZSB6b25lOiBFdGMvVVRDXG50emNvZGUgc291cmNlOiBzeXN0ZW0gKGdsaWJjKVxuXG5hdHRhY2hlZCBiYXNlIHBhY2thZ2VzOlxuWzFdIHN0YXRzICAgICBncmFwaGljcyAgZ3JEZXZpY2VzIHV0aWxzICAgICBkYXRhc2V0cyAgbWV0aG9kcyAgIGJhc2UgICAgIFxuXG5vdGhlciBhdHRhY2hlZCBwYWNrYWdlczpcblsxXSBtYWdyaXR0cl8yLjAuM1xuXG5sb2FkZWQgdmlhIGEgbmFtZXNwYWNlIChhbmQgbm90IGF0dGFjaGVkKTpcbiBbMV0gY3JheW9uXzEuNS4yICAgICAgdmN0cnNfMC42LjUgICAgICAgY2xpXzMuNi4yICAgICAgICAga25pdHJfMS40NyAgICAgICBcbiBbNV0gcmxhbmdfMS4xLjQgICAgICAgeGZ1bl8wLjQ0ICAgICAgICAgc3RyaW5naV8xLjguNCAgICAgZ2VuZXJpY3NfMC4xLjMgICBcbiBbOV0ganNvbmxpdGVfMS44LjggICAgYml0XzQuMC41ICAgICAgICAgZ2x1ZV8xLjcuMCAgICAgICAgaHRtbHRvb2xzXzAuNS44LjFcblsxM10gc2Fzc18wLjQuOSAgICAgICAgaG1zXzEuMS4zICAgICAgICAgZmFuc2lfMS4wLjYgICAgICAgcm1hcmtkb3duXzIuMjcgICBcblsxN10gZXZhbHVhdGVfMC4yNC4wICAganF1ZXJ5bGliXzAuMS40ICAgdGliYmxlXzMuMi4xICAgICAgdHpkYl8wLjQuMCAgICAgICBcblsyMV0gZmFzdG1hcF8xLjIuMCAgICAgeWFtbF8yLjMuOCAgICAgICAgbGlmZWN5Y2xlXzEuMC40ICAgc3RyaW5ncl8xLjUuMSAgICBcblsyNV0gY29tcGlsZXJfNC40LjAgICAgZHBseXJfMS4xLjQgICAgICAgcGtnY29uZmlnXzIuMC4zICAgZGlnZXN0XzAuNi4zNSAgICBcblsyOV0gUjZfMi41LjEgICAgICAgICAgdGlkeXNlbGVjdF8xLjIuMSAgcmVhZHJfMi4xLjUgICAgICAgdXRmOF8xLjIuNCAgICAgICBcblszM10gcGFyYWxsZWxfNC40LjAgICAgdnJvb21fMS42LjUgICAgICAgcGlsbGFyXzEuOS4wICAgICAgYnNsaWJfMC43LjAgICAgICBcblszN10gd2l0aHJfMy4wLjAgICAgICAgYml0NjRfNC4wLjUgICAgICAgdG9vbHNfNC40LjAgICAgICAgY2FjaGVtXzEuMS4wICAgICBcbiJ9 -->
+<pre><code>R version 4.4.0 (2024-04-24)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 22.04.4 LTS
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 
-LAPACK: /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
-[1] C.UTF-8/C.UTF-8/C.UTF-8/C/C.UTF-8/C.UTF-8
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
-time zone: America/New_York
-tzcode source: internal
+time zone: Etc/UTC
+tzcode source: system (glibc)
 
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] magrittr_2.0.4
+[1] magrittr_2.0.3
 
 loaded via a namespace (and not attached):
- [1] crayon_1.5.3     vctrs_0.6.5      cli_3.6.5        knitr_1.51      
- [5] rlang_1.1.6      xfun_0.56        stringi_1.8.7    otel_0.2.0      
- [9] generics_0.1.4   jsonlite_2.0.0   bit_4.6.0        glue_1.8.0      
-[13] htmltools_0.5.9  sass_0.4.10      hms_1.1.4        rmarkdown_2.30  
-[17] evaluate_1.0.5   jquerylib_0.1.4  tibble_3.3.0     tzdb_0.5.0      
-[21] fastmap_1.2.0    yaml_2.3.12      lifecycle_1.0.4  stringr_1.6.0   
-[25] compiler_4.4.2   dplyr_1.1.4      pkgconfig_2.0.3  digest_0.6.39   
-[29] R6_2.6.1         tidyselect_1.2.1 readr_2.1.6      parallel_4.4.2  
-[33] vroom_1.6.7      pillar_1.11.1    bslib_0.9.0      withr_3.0.2     
-[37] bit64_4.6.0-1    tools_4.4.2      cachem_1.1.0    </code></pre>
+ [1] crayon_1.5.2      vctrs_0.6.5       cli_3.6.2         knitr_1.47       
+ [5] rlang_1.1.4       xfun_0.44         stringi_1.8.4     generics_0.1.3   
+ [9] jsonlite_1.8.8    bit_4.0.5         glue_1.7.0        htmltools_0.5.8.1
+[13] sass_0.4.9        hms_1.1.3         fansi_1.0.6       rmarkdown_2.27   
+[17] evaluate_0.24.0   jquerylib_0.1.4   tibble_3.2.1      tzdb_0.4.0       
+[21] fastmap_1.2.0     yaml_2.3.8        lifecycle_1.0.4   stringr_1.5.1    
+[25] compiler_4.4.0    dplyr_1.1.4       pkgconfig_2.0.3   digest_0.6.35    
+[29] R6_2.5.1          tidyselect_1.2.1  readr_2.1.5       utf8_1.2.4       
+[33] parallel_4.4.0    vroom_1.6.5       pillar_1.9.0      bslib_0.7.0      
+[37] withr_3.0.0       bit64_4.0.5       tools_4.4.0       cachem_1.1.0     </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->

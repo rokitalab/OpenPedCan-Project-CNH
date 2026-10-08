@@ -91,9 +91,10 @@ mycn_alterations <- alteration_df %>%
   # take mean of TPM and CN - these will yield the same status results in the end
   # na.rm = TRUE so that DNA-only rows (NA TPM) do not mask TPM from RNA rows
   summarize(MYCN_TPM = if (all(is.na(MYCN_TPM))) NA_real_ else mean(MYCN_TPM, na.rm = TRUE),
-            MYCN_CN = mean(MYCN_CN),
-            across(everything(), ~paste(unique(na.omit(.x)), collapse = ", ")), .groups = 'drop') %>%
-  mutate(across(everything(), ~na_if(trimws(.), "")))
+            MYCN_CN = if (all(is.na(MYCN_CN))) NA_real_ else mean(MYCN_CN, na.rm = TRUE),
+            across(-c(MYCN_TPM, MYCN_CN), ~paste(unique(na.omit(.x)), collapse = ", ")),
+            .groups = 'drop') %>%
+  mutate(across(where(is.character), ~na_if(trimws(.x), "")))
 
 ```
 
