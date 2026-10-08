@@ -1,0 +1,63 @@
+name: Methylation Preprocessing
+
+on:
+  pull_request:
+    paths:
+      - 'analyses/methylation-preprocessing/**'
+      - '.github/workflows/run_methylation_analysis.yml'
+  workflow_dispatch:
+
+jobs:
+  methylation_preprocessing:
+    name: Run Analysis - Methylation Preprocessing
+    runs-on: ubuntu-latest
+    env:
+      OPENPEDCAN_URL: https://s3.amazonaws.com/bti-openaccess-us-east-1-prd-opc
+      TESTING_DIR: methyl_testing
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
+      - name: free disk space
+        run: |
+          echo "Disk usage before cleanup:" && df -h
+          sudo swapoff -a || true
+          sudo rm -f /swapfile || true
+          sudo rm -rf /usr/share/dotnet || true
+          sudo rm -rf /opt/ghc || true
+          sudo rm -rf /usr/local/share/boost || true
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY" || true
+          sudo apt-get clean || true
+          docker system prune -af || true
+          echo "Disk usage after cleanup:" && df -h
+      - name: Download methylation testing data
+        run: |
+          set -euo pipefail
+          mkdir -p "data/$TESTING_DIR"
+          cd "data/$TESTING_DIR"
+          # md5sum.txt is the single point of truth for which files are in the testing set
+          curl -fsS --retry 3 "$OPENPEDCAN_URL/$TESTING_DIR/md5sum.txt" -o md5sum.txt
+          while read -r _ file; do
+            echo "Downloading $file"
+            curl -fsS --retry 3 "$OPENPEDCAN_URL/$TESTING_DIR/$file" -o "$file"
+          done < md5sum.txt
+          echo "Checking MD5 hashes..."
+          md5sum -c md5sum.txt
+      - name: Run Methylation Preprocessing
+        uses: docker://pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
+        with:
+          entrypoint: bash
+          args: >-
+            analyses/methylation-preprocessing/run-preprocess-illumina-arrays.sh
+            --manifest_file data/methyl_testing/methylation-testing-manifest.tsv
+            --input_dir data/methyl_testing
+            --output_dir methylation-test-out
+            --output_prefix test
+      - name: Check expected outputs
+        run: |
+          ls -lh methylation-test-out
+          # per-array outputs and sample QC must exist
+          for pattern in 'IlluminaHumanMethylation450k-methyl-beta-values-masked' \
+                         'IlluminaHumanMethylationEPIC-methyl-beta-values-masked' \
+                         'IlluminaHumanMethylationEPICv2-methyl-beta-values-masked' \
+                         'methyl-sample-qc'; do
+            ls methylation-test-out/*"$pattern"*.parquet > /dev/null
+          done
