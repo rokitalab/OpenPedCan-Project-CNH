@@ -124,6 +124,51 @@ jobs:
                          'methyl-sample-qc'; do
             ls methylation-test-out/*"$pattern"*.parquet > /dev/null
           done
+      # CNV calling needs the QC-filtered RGsets written by preprocessing above.
+      # Reference (control) samples are the sample_type == 'Normal' rows of the
+      # testing manifest, matched to each array by the manifest platform column.
+      - name: Run Methylation CNV Calling - EPICv2
+        uses: docker://pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
+        with:
+          entrypoint: bash
+          args: >-
+            analyses/methylation-cnv-calling/run-methylation-cnv-calling.sh
+            --rg-set-file methylation-test-out/test-IlluminaHumanMethylationEPICv2-rg-set.qs2
+            --manifest-file data/methyl_testing/methylation-testing-manifest.tsv
+            --output-dir methylation-cnv-test-out
+            --output-prefix test-EPICv2
+            --array-type EPICv2
+      - name: Run Methylation CNV Calling - EPIC
+        uses: docker://pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
+        with:
+          entrypoint: bash
+          args: >-
+            analyses/methylation-cnv-calling/run-methylation-cnv-calling.sh
+            --rg-set-file methylation-test-out/test-IlluminaHumanMethylationEPIC-rg-set.qs2
+            --manifest-file data/methyl_testing/methylation-testing-manifest.tsv
+            --output-dir methylation-cnv-test-out
+            --output-prefix test-EPIC
+            --array-type EPIC
+      - name: Run Methylation CNV Calling - 450k
+        uses: docker://pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
+        with:
+          entrypoint: bash
+          args: >-
+            analyses/methylation-cnv-calling/run-methylation-cnv-calling.sh
+            --rg-set-file methylation-test-out/test-IlluminaHumanMethylation450k-rg-set.qs2
+            --manifest-file data/methyl_testing/methylation-testing-manifest.tsv
+            --output-dir methylation-cnv-test-out
+            --output-prefix test-450k
+            --array-type 450k
+      - name: Check expected CNV outputs
+        run: |
+          ls -lh methylation-cnv-test-out
+          for array in EPICv2 EPIC 450k; do
+            for suffix in segments gistic; do
+              f="methylation-cnv-test-out/test-${array}-${suffix}.seg"
+              test -s "$f" || { echo "Missing or empty: $f"; exit 1; }
+            done
+          done
 
   run_analysis:
     name: Run Analysis
