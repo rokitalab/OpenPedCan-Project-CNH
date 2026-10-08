@@ -911,11 +911,11 @@ PASXHE	PASXHE_01_Solid Tissue_Primary Tumor	01	BS_V4VGG98Y	Embryonal tumor	Neuro
 PASXHE	PASXHE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXHE-01A-01D	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN non-amplified	NBL, MYCN non-amplified	NA	Updated via OpenPedCan subtyping
 PASXHE	PASXHE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXHE-01A-01D.M	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN non-amplified	NBL, MYCN non-amplified	NA	Updated via OpenPedCan subtyping
 PASXHE	PASXHE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXHE-01A-01R	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN non-amplified	NBL, MYCN non-amplified	NA	Updated via OpenPedCan subtyping
-PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	BS_2N95EW0G	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA
-PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	BS_9TKGBJH7	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA
-PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXIE-01A-01D	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA
-PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXIE-01A-01D.M	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA
-PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXIE-01A-01R	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA
+PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	BS_2N95EW0G	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN-amplified	NBL, MYCN amplified	NA	Updated via OpenPedCan subtyping
+PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	BS_9TKGBJH7	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN-amplified	NBL, MYCN amplified	NA	Updated via OpenPedCan subtyping
+PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXIE-01A-01D	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN-amplified	NBL, MYCN amplified	NA	Updated via OpenPedCan subtyping
+PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXIE-01A-01D.M	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN-amplified	NBL, MYCN amplified	NA	Updated via OpenPedCan subtyping
+PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXIE-01A-01R	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN-amplified	NBL, MYCN amplified	NA	Updated via OpenPedCan subtyping
 PASXMI	PASXMI_09_Bone Marrow_Primary Tumor	09	TARGET-30-PASXMI-09A-01D	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA
 PASXNN	PASXNN_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXNN-01A-01D	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN non-amplified	NBL, MYCN non-amplified	NA	Updated via OpenPedCan subtyping
 PASXRG	PASXRG_01_Solid Tissue_Primary Tumor	01	BS_9JBYGRQW	Embryonal tumor	Ganglioneuroblastoma	Ganglioneuroblastoma, MYCN-amplified	NBL, MYCN amplified	NA	Updated via OpenPedCan subtyping

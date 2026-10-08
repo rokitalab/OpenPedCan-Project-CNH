@@ -723,7 +723,7 @@ PT_HFQNKP5X	PT_HFQNKP5X_7316-4062_Solid Tissue_Deceased	7316-4062	BS_2MPNPD28	Ch
 PT_SCRJF38G	PT_SCRJF38G_7316-99_Solid Tissue_Initial CNS Tumor	7316-99	BS_2N15VQMP	Embryonal tumor	Medulloblastoma	Medulloblastoma, group 3	MB, Group3	MB, Group3	Subtype based on prediction;Updated via OpenPedCan subtyping	NA	NA
 PT_PRSP252Y	PT_PRSP252Y_7316-5256_Solid Tissue_Progressive	7316-5256	BS_2N53HYFM	Tumors of sellar region	Craniopharyngioma	Adamantinomatous craniopharyngioma	CRANIO, ADAM	NA	Updated via OpenPedCan subtyping	NA	NA
 PT_89XRZBSG	PT_89XRZBSG_7316-1789_Solid Tissue_Recurrence	7316-1789	BS_2N7G3R27	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma, IDH-wildtype and H3-wildtype	HGG, H3 wildtype, TP53	NA	Updated via OpenPedCan subtyping	NA	NA
-PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	BS_2N95EW0G	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA	NA	NA
+PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	BS_2N95EW0G	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN-amplified	NBL, MYCN amplified	NA	Updated via OpenPedCan subtyping	NA	NA
 PT_AY2BVCYP	PT_AY2BVCYP_7316-5890_Solid Tissue_Initial CNS Tumor	7316-5890	BS_2NCEKP94	Ependymal tumor	Ependymoma	Posterior fossa group B (PFB) ependymoma	EPN, PF B	EPN, PF B	Updated via OpenPedCan subtyping	NA	NA
 PT_RE6AXQM1	PT_RE6AXQM1_7316-5813_Solid Tissue_Initial CNS Tumor	7316-5813	BS_2NDRETB2	Diffuse astrocytic and oligodendroglial tumor	HGAT	Diffuse midline glioma, H3 K28-altered	DMG, H3 K28, TP53	NA	Updated via OpenPedCan subtyping	NA	NA
 PT_PPY9WF29	PT_PPY9WF29_7316-5217_Solid Tissue_Initial CNS Tumor	7316-5217	BS_2NEBNR18	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	NA	Updated via OpenPBTA subtyping and pathology_free_text_diagnosis	NA	Low-grade glioma, KIAA1549-BRAF
@@ -2606,7 +2606,7 @@ PT_TFCNV42Z	PT_TFCNV42Z_7316-4335_Solid Tissue_Initial CNS Tumor	7316-4335	BS_9T
 PT_C1M4YF1R	PT_C1M4YF1R_7316-127_Solid Tissue_Initial CNS Tumor	7316-127	BS_9T5JTWH3_PHOS	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	NA	Updated via OpenPBTA subtyping and pathology_free_text_diagnosis	NA	Low-grade glioma, KIAA1549-BRAF
 PT_C1M4YF1R	PT_C1M4YF1R_7316-127_Solid Tissue_Initial CNS Tumor	7316-127	BS_9T5JTWH3_WCP	Low-grade astrocytic tumor	LGAT	Low-grade glioma, KIAA1549-BRAF	LGG, KIAA1549-BRAF	NA	Updated via OpenPBTA subtyping and pathology_free_text_diagnosis	NA	Low-grade glioma, KIAA1549-BRAF
 PT_HSHPZAEZ	PT_HSHPZAEZ_7316-545_Solid Tissue_Deceased	7316-545	BS_9THYN9W6	Diffuse astrocytic and oligodendroglial tumor	HGAT	Diffuse midline glioma, H3 K28-altered	DMG, H3 K28	DMG, H3 K28	Updated via OpenPedCan subtyping	NA	NA
-PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	BS_9TKGBJH7	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA	NA	NA
+PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	BS_9TKGBJH7	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN-amplified	NBL, MYCN amplified	NA	Updated via OpenPedCan subtyping	NA	NA
 PT_XYS9EB2T	PT_XYS9EB2T_7316-6532_Solid Tissue_Initial CNS Tumor	7316-6532	BS_9TPM9HC4	Low-grade astrocytic tumor	LGAT	Low-grade glioma, wildtype	LGG, wildtype	NA	Updated via OpenPBTA subtyping and pathology_free_text_diagnosis	NA	Low-grade glioma, wildtype
 PT_5R8EWT55	PT_5R8EWT55_7316-8030_Solid Tissue_Initial CNS Tumor	7316-8030	BS_9TXEDSWB	Diffuse astrocytic and oligodendroglial tumor	HGAT	High-grade glioma, IDH-wildtype and H3-wildtype	HGG, H3 wildtype	NA	Updated via OpenPedCan subtyping	NA	NA
 PT_XETT8T7M	PT_XETT8T7M_U-CH17M-CL_Derived Cell Line_Metastatic	U-CH17M-CL	BS_9V222XXP	Chordoma	Chordoma	NA	CHDM, To be classified	NA	NA	NA	NA
@@ -9405,9 +9405,9 @@ PASXGP	PASXGP_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXGP-01A-01R	Embryona
 PASXHE	PASXHE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXHE-01A-01D	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN non-amplified	NBL, MYCN non-amplified	NA	Updated via OpenPedCan subtyping	NA	NA
 PASXHE	PASXHE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXHE-01A-01D.M	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN non-amplified	NBL, MYCN non-amplified	NA	Updated via OpenPedCan subtyping	NA	NA
 PASXHE	PASXHE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXHE-01A-01R	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN non-amplified	NBL, MYCN non-amplified	NA	Updated via OpenPedCan subtyping	NA	NA
-PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXIE-01A-01D	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA	NA	NA
-PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXIE-01A-01D.M	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA	NA	NA
-PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXIE-01A-01R	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA	NA	NA
+PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXIE-01A-01D	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN-amplified	NBL, MYCN amplified	NA	Updated via OpenPedCan subtyping	NA	NA
+PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXIE-01A-01D.M	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN-amplified	NBL, MYCN amplified	NA	Updated via OpenPedCan subtyping	NA	NA
+PASXIE	PASXIE_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXIE-01A-01R	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN-amplified	NBL, MYCN amplified	NA	Updated via OpenPedCan subtyping	NA	NA
 PASXMI	PASXMI_09_Bone Marrow_Primary Tumor	09	TARGET-30-PASXMI-09A-01D	Embryonal tumor	Neuroblastoma	NA	NBL, To be classified	NA	NA	NA	NA
 PASXNN	PASXNN_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXNN-01A-01D	Embryonal tumor	Neuroblastoma	Neuroblastoma, MYCN non-amplified	NBL, MYCN non-amplified	NA	Updated via OpenPedCan subtyping	NA	NA
 PASXRG	PASXRG_01_Solid Tissue_Primary Tumor	01	TARGET-30-PASXRG-01A-01D	Embryonal tumor	Ganglioneuroblastoma	Ganglioneuroblastoma, MYCN-amplified	NBL, MYCN amplified	NA	Updated via OpenPedCan subtyping	NA	NA
