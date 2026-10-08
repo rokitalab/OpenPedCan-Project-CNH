@@ -1,6 +1,6 @@
 #!/bin/bash
 # OPenPedCan 2022
-# J Daggett, updated 2026 
+# J Daggett, updated 2026
 set -e
 set -o pipefail
 
