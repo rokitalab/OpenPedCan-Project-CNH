@@ -53,7 +53,34 @@ Run once per array type. The runner writes `<output-prefix>-segments.seg` and
 `<output-prefix>-gistic.seg` to the output directory, so use a unique prefix
 for each array type.
 
+## Liftover and combine GISTIC segments
+
+`EPICv1` and `450k` calls use hg19 annotations, while `EPICv2` calls use
+hg38. After CNV calling has produced all per-array `*-gistic.seg` files, run the
+same runner in combine-only mode:
+
+```bash
+bash run-methylation-cnv-calling.sh \
+  --combine-only \
+  --output-dir <cnv_output_dir> \
+  --chain-file /path/to/hg19ToHg38.over.chain
+```
+
+Alternatively, add `--combine-segments` (and `--chain-file`) to the final
+per-array calling command to combine immediately after that call.
+
+The liftover is skipped for an EPICv2-only run. Otherwise the chain file is
+required. The result is `combined_hg38.gistic.seg` in `--output-dir`.
+
+## CWL
+
 `tools/methylation_cnv_calls.cwl` packages the same script for CWL runners.
+Supply the RGset and manifest as `File` inputs and choose a unique
+`output_basename` for each array type.
+
+`tools/liftover_methylation_segments.cwl` accepts the resulting per-array
+GISTIC SEG files plus the optional chain file and emits the combined hg38 SEG.
+Both tools are intended for running on CAVATICA.
 
 ## Continuous integration
 
