@@ -96,8 +96,11 @@ resolve_liftover_overlaps <- function(df) {
 
 
 lift_seg <- function(df, chain) {
+  # Accept chromosome names with or without a "chr" prefix and write them back
+  # in the same style.
+  chr_prefixed <- any(grepl("^chr", df$Chromosome))
   gr <- GRanges(
-    seqnames = paste0("chr", df$Chromosome),
+    seqnames = paste0("chr", sub("^chr", "", df$Chromosome)),
     ranges = IRanges(start = df$Start_Position, end = df$End_Position)
   )
   
@@ -113,7 +116,7 @@ lift_seg <- function(df, chain) {
   keep <- lengths(lifted_start) == 1 & lengths(lifted_end) == 1
 
   if (!any(keep)) {
-    return(df[FALSE, ])
+    stop("No hg19 segments could be lifted over; check the chain file and chromosome names.")
   }
 
   lifted_start <- unlist(lifted_start[keep])
@@ -122,16 +125,22 @@ lift_seg <- function(df, chain) {
     as.character(seqnames(lifted_end))
 
   if (!any(same_chromosome)) {
-    return(df[FALSE, ])
+    stop("No hg19 segments could be lifted over; check the chain file and chromosome names.")
   }
 
+  message(
+    "Lifted ", sum(same_chromosome), " of ", nrow(df), " hg19 segments; ",
+    nrow(df) - sum(same_chromosome), " dropped (boundary did not map uniquely to one chromosome)."
+  )
   df <- df[which(keep)[same_chromosome], , drop = FALSE]
   lifted_start <- lifted_start[same_chromosome]
   lifted_end <- lifted_end[same_chromosome]
   
   # Replace coordinates
   df$Chromosome <- as.character(seqnames(lifted_start))
-  df$Chromosome <- gsub("^chr", "", df$Chromosome)
+  if (!chr_prefixed) {
+    df$Chromosome <- gsub("^chr", "", df$Chromosome)
+  }
   df$Start_Position <- pmin(start(lifted_start), start(lifted_end))
   df$End_Position <- pmax(start(lifted_start), start(lifted_end))
   
