@@ -78,6 +78,10 @@ required. The result is `combined_hg38.gistic.seg` in `--output-dir`.
 Supply the RGset and manifest as `File` inputs and choose a unique
 `output_basename` for each array type.
 
+`tools/liftover_methylation_segments.cwl` accepts the resulting per-array
+GISTIC SEG files plus the optional chain file and emits the combined hg38 SEG.
+Both tools are intended for running on CAVATICA.
+
 ## Continuous integration
 
 The `methylation_preprocessing` job in `.github/workflows/run_analysis.yml`
