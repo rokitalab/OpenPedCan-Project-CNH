@@ -53,10 +53,13 @@ TP53 annotations come from `analyses/tp53_nf1_score` and are not part of the sub
 
 Outputs: `results/methylation_subtype_validation.tsv`, `results/subtypes_for_review.tsv` (discordant diagnosis or conflicting classifier versions), and `results/lesion_fallback_subtypes.tsv`.
 
+`04-compare-to-legacy.R` compares the module's subtypes (methylation, then lesion fallback) with the legacy per-module subtypes in `molecular-subtyping-pathology/results/compiled_molecular_subtypes.tsv`, per `match_id`, and writes `results/legacy_comparison.tsv` with an outcome of `same`, `newly assigned`, `different`, `legacy only (specific or unassigned)`, or `new only`.
+
 ### Usage
 
 ```
 Rscript --vanilla 01-build-methylation-calls.R
 Rscript --vanilla 02-prepare-lesion-tables.R
 Rscript --vanilla 03-validate-subtypes.R
+Rscript --vanilla 04-compare-to-legacy.R
 ```
