@@ -156,3 +156,30 @@ add_h3k27_mechanism <- function(df, h3_mutated, has_dna, has_rna) {
   )
   df
 }
+
+#' H3 mutation status for HGG, DMG and DHG tumors (annotation)
+#'
+#' @param df Table with match_id and OPC_molecular_subtype.
+#' @param h3_hits Lesion hits (match_id, evidence) for the H3 K27M/I and
+#'   G34/G35 R/V rules.
+#' @param dna_ids Table with match_id of tumors that have a DNA assay.
+#' @return `h3_status` (mutant, wildtype, or not assessed) and `h3_variant`.
+add_h3_status <- function(df, h3_hits, dna_ids,
+                          applies_regex = "^(HGG|DMG|DHG)") {
+  applies <- str_detect(df$OPC_molecular_subtype, applies_regex)
+  variants <- h3_hits %>%
+    group_by(match_id) %>%
+    summarise(h3_variant = paste(sort(unique(evidence)), collapse = "; "),
+              .groups = "drop")
+  df$h3_status <- case_when(
+    !applies ~ NA_character_,
+    df$match_id %in% variants$match_id ~ "mutant",
+    df$match_id %in% dna_ids$match_id ~ "wildtype",
+    TRUE ~ "not assessed"
+  )
+  df$h3_variant <- if_else(
+    applies, variants$h3_variant[match(df$match_id, variants$match_id)],
+    NA_character_
+  )
+  df
+}

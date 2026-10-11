@@ -105,6 +105,11 @@ lesion_hits <- find_lesion_hits(
   assay_ids = list(snv = dna_ids, arm = dna_ids, fusion = rna_ids)
 )
 
+# H3 K27M/I and G34/G35 R/V hits, for the h3_status annotation (H3 wildtype
+# means a DNA assay with none of these)
+h3_hits <- lesion_hits %>%
+  filter(rule_id %in% c("DMG_H3K28", "DHG_H3G35", "DMG_EGFR_H3K28"))
+
 ### Methylation-based subtypes -------------------------------------------------
 
 rule_assays <- rules %>%
@@ -180,6 +185,7 @@ validated <- calls %>%
   left_join(tp53, by = "match_id") %>%
   annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
   annotate_expression(expression_annotations, expression_long, rna_ids) %>%
+  add_h3_status(h3_hits, dna_ids) %>%
   add_h3k27_mechanism(h3_mutated = .$lesion_status == "confirmed",
                       has_dna = .$match_id %in% dna_ids$match_id,
                       has_rna = .$match_id %in% rna_ids$match_id) %>%
@@ -191,7 +197,7 @@ validated <- calls %>%
          ends_with("_mutation_status"), ends_with("_variants"),
          ends_with("_amplification"), ends_with("_activating_alteration"),
          ends_with("_tpm"), ends_with("_expression_status"),
-         starts_with("h3k27_"), evidence_level, needs_review)
+         starts_with("h3_"), starts_with("h3k27_"), evidence_level, needs_review)
 
 write_tsv(validated, file.path(results_dir, "methylation_subtype_validation.tsv"))
 validated %>%
@@ -276,12 +282,46 @@ fallback <- fallback %>%
   left_join(tp53, by = "match_id") %>%
   annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
   annotate_expression(expression_annotations, expression_long, rna_ids) %>%
+  add_h3_status(h3_hits, dna_ids) %>%
   # fallback DMG tumors are subtyped from the H3 K27M/I variant itself
   add_h3k27_mechanism(h3_mutated = TRUE,
                       has_dna = .$match_id %in% dna_ids$match_id,
                       has_rna = .$match_id %in% rna_ids$match_id)
 
 write_tsv(fallback, file.path(results_dir, "lesion_fallback_subtypes.tsv"))
+
+### Lesion-negative HGG -------------------------------------------------------
+# PBTA tumors with an HGG diagnosis, a DNA assay, and no methylation call or
+# lesion rule hit: no H3 or IDH variant means "HGG, H3 wildtype" by exclusion,
+# which keeps the legacy catch-all without claiming a methylation subtype.
+h3_idh_rule_ids <- c(h3_hits$rule_id, "HGG_IDH1", "HGG_IDH2", "OLIGO_IDH1",
+                     "OLIGO_IDH2", "DMG_H3K28", "DHG_H3G35", "DMG_EGFR_H3K28")
+has_any_rule_hit <- unique(lesion_hits$match_id)
+
+lesion_negative_hgg <- hist %>%
+  filter(sample_type == "Tumor", cohort == "PBTA", !is.na(match_id)) %>%
+  group_by(match_id) %>%
+  summarise(Kids_First_Participant_ID = first(Kids_First_Participant_ID),
+            sample_id = first(sample_id),
+            pathology_diagnosis = paste(sort(unique(na.omit(pathology_diagnosis))),
+                                        collapse = ";"),
+            .groups = "drop") %>%
+  mutate(pathology_diagnosis = na_if(pathology_diagnosis, ""),
+         dx_group = dx_to_groups(pathology_diagnosis, dx_groups)) %>%
+  filter(str_detect(replace_na(dx_group, ""), "HGG"),
+         match_id %in% dna_ids$match_id,
+         !match_id %in% c(validated$match_id, fallback$match_id,
+                          control_match_ids, has_any_rule_hit)) %>%
+  mutate(OPC_molecular_subtype = "HGG, H3 wildtype",
+         lesion_evidence = "no H3 or IDH variant",
+         evidence_level = "lesion negative",
+         dx_concordance = dx_concordance(OPC_molecular_subtype, dx_group,
+                                         family_compat)) %>%
+  left_join(tp53, by = "match_id") %>%
+  annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
+  add_h3_status(h3_hits, dna_ids)
+
+write_tsv(lesion_negative_hgg, file.path(results_dir, "lesion_negative_hgg.tsv"))
 
 ### Summary --------------------------------------------------------------------
 
@@ -290,6 +330,7 @@ print(count(validated, lesion_status))
 print(count(validated, dx_concordance))
 message("Flagged for review: ", sum(validated$needs_review))
 
+message("\n== Lesion-negative HGG, H3 wildtype: ", nrow(lesion_negative_hgg))
 message("\n== Lesion-only fallback: ", nrow(fallback), " tumors without methylation")
 print(count(fallback, OPC_molecular_subtype, assign, hold_reason))
 

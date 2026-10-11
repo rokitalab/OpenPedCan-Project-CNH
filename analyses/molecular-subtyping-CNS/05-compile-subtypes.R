@@ -27,6 +27,16 @@ evidence_types <- cols(tp53_snv_evidence = col_character(),
                        egfr_variants = col_character(),
                        .default = col_guess())
 
+# umbrella groups for subtypes (input/subtype_groups.tsv)
+subtype_groups <- read_tsv(file.path(module_dir, "input", "subtype_groups.tsv"),
+                           show_col_types = FALSE)
+
+umbrella_group <- function(subtype) {
+  if (is.na(subtype)) return(NA_character_)
+  hit <- subtype_groups %>% filter(str_detect(subtype, subtype_regex)) %>% slice(1)
+  if (nrow(hit) == 0) NA_character_ else hit$subtype_group
+}
+
 # LGG labels that do not name a specific lesion
 nonspecific <- "To be classified|wildtype|NOS"
 
@@ -58,6 +68,11 @@ fallback <- read_tsv(file.path(results_dir, "lesion_fallback_subtypes.tsv"),
   filter(assign, !match_id %in% methyl$match_id) %>%
   mutate(subtype_source = "lesion fallback")
 
+lesion_negative <- read_tsv(file.path(results_dir, "lesion_negative_hgg.tsv"),
+                            guess_max = 10000, col_types = evidence_types) %>%
+  filter(!match_id %in% c(methyl$match_id, fallback$match_id)) %>%
+  mutate(subtype_source = "lesion negative")
+
 shared <- c("match_id", "Kids_First_Participant_ID", "sample_id",
             "OPC_molecular_subtype", "subtype_source", "evidence_level",
             "lesion_evidence", "pathology_diagnosis", "dx_group",
@@ -69,12 +84,17 @@ compiled <- bind_rows(
                     ends_with("_mutation_status"), ends_with("_variants"),
                     ends_with("_amplification"), ends_with("_activating_alteration"),
                     ends_with("_tpm"), ends_with("_expression_status"),
-                    starts_with("h3k27_")),
+                    starts_with("h3_"), starts_with("h3k27_")),
+  lesion_negative %>% select(all_of(shared), starts_with("tp53_"),
+                             ends_with("_mutation_status"), ends_with("_variants"),
+                             ends_with("_amplification"),
+                             ends_with("_activating_alteration"),
+                             starts_with("h3_")),
   fallback %>% select(all_of(shared), starts_with("tp53_"),
                       ends_with("_mutation_status"), ends_with("_variants"),
                     ends_with("_amplification"), ends_with("_activating_alteration"),
                     ends_with("_tpm"), ends_with("_expression_status"),
-                    starts_with("h3k27_"))
+                    starts_with("h3_"), starts_with("h3k27_"))
 ) %>%
   full_join(lgg, by = "match_id") %>%
   mutate(
@@ -92,18 +112,30 @@ compiled <- bind_rows(
     ),
     evidence_level = if_else(subtype_source == "LGG lesion", "lesion only",
                              evidence_level),
-    methyl_conflict = replace_na(methyl_conflict, FALSE),
-    needs_review = dx_concordance %in% "discordant" | methyl_conflict
+    methyl_conflict = replace_na(methyl_conflict, FALSE)
+  ) %>%
+  # umbrella group (e.g. the pediatric H3-wildtype HGG classes), unless an H3
+  # variant was found, which contradicts the wildtype grouping
+  mutate(subtype_group = map_chr(molecular_subtype_cns, umbrella_group)) %>%
+  mutate(
+    h3_group_conflict = !is.na(subtype_group) & h3_status %in% "mutant",
+    subtype_group = case_when(
+      h3_group_conflict ~ molecular_subtype_cns,
+      !is.na(subtype_group) ~ subtype_group,
+      TRUE ~ molecular_subtype_cns
+    ),
+    needs_review = dx_concordance %in% "discordant" | methyl_conflict |
+      h3_group_conflict
   ) %>%
   select(match_id, Kids_First_Participant_ID, sample_id,
-         molecular_subtype_cns, lesion_refinement, subtype_source,
+         molecular_subtype_cns, subtype_group, lesion_refinement, subtype_source,
          evidence_level, lesion_status, lesion_evidence, methyl_class,
          methyl_score, methyl_conflict, pathology_diagnosis, dx_group,
          dx_concordance, needs_review, starts_with("tp53_"),
          ends_with("_mutation_status"), ends_with("_variants"),
          ends_with("_amplification"), ends_with("_activating_alteration"),
          ends_with("_tpm"), ends_with("_expression_status"),
-         starts_with("h3k27_")) %>%
+         starts_with("h3_"), starts_with("h3k27_")) %>%
   arrange(match_id)
 
 stopifnot(!anyDuplicated(compiled$match_id))
