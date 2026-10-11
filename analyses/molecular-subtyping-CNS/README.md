@@ -8,6 +8,8 @@ This module builds one resolved methylation call per biospecimen, which molecula
 
 ## Workflow
 
+Scripts run in order: `01` builds the methylation calls, `02` prepares lesion tables, `03` validates and applies the lesion fallback, `05` compiles the final table, and `04` compares with the legacy modules. Shared functions are in `utils/`.
+
 `01-build-methylation-calls.R` combines:
 
 - DKFZ v12.8 / NIH v3.1 calls from `input/bti_methylation_classifications.tsv`
@@ -53,7 +55,13 @@ TP53 annotations come from `analyses/tp53_nf1_score` and are not part of the sub
 
 Outputs: `results/methylation_subtype_validation.tsv`, `results/subtypes_for_review.tsv` (discordant diagnosis or conflicting classifier versions), and `results/lesion_fallback_subtypes.tsv`.
 
-`04-compare-to-legacy.R` compares the module's subtypes (methylation, then lesion fallback) with the legacy per-module subtypes in `molecular-subtyping-pathology/results/compiled_molecular_subtypes.tsv`, per `match_id`, and writes `results/legacy_comparison.tsv` with an outcome of `same`, `newly assigned`, `different`, `legacy only (specific or unassigned)`, or `new only`.
+`05-compile-subtypes.R` writes `results/molecular_subtype_cns.tsv`, one row per `match_id`. Subtype precedence is high-confidence methylation, then lesion-only fallback, then the LGAT module's lesion-level call (tumors with no other source). `lesion_refinement` adds the LGAT lesion-level subtype (`KIAA1549-BRAF`, `BRAF V600E`, `NF1`, ...) on top of the methylation family when LGAT made a specific call. TP53 and gene annotations are not part of the subtype.
+
+`04-compare-to-legacy.R` compares `molecular_subtype_cns.tsv` with the legacy per-module subtypes in `molecular-subtyping-pathology/results/compiled_molecular_subtypes.tsv`, per `match_id`, and writes `results/legacy_comparison.tsv` with an outcome of `same`, `same (lesion refinement)`, `newly assigned`, `different`, `legacy only (specific or unassigned)`, or `new only`.
+
+### Gene annotations
+
+`input/annotation_genes.tsv` lists genes whose mutation status is reported as an annotation for the subtypes matching `applies_to_subtype_regex` (currently `EGFR` for `^DMG`). Each gets `<gene>_mutation_status` (`mutated`, `not detected`, `no DNA assay`) and `<gene>_variants`. The `DMG_EGFR` methylation class stays visible in `methyl_class`.
 
 ### Usage
 
@@ -61,5 +69,6 @@ Outputs: `results/methylation_subtype_validation.tsv`, `results/subtypes_for_rev
 Rscript --vanilla 01-build-methylation-calls.R
 Rscript --vanilla 02-prepare-lesion-tables.R
 Rscript --vanilla 03-validate-subtypes.R
+Rscript --vanilla 05-compile-subtypes.R
 Rscript --vanilla 04-compare-to-legacy.R
 ```

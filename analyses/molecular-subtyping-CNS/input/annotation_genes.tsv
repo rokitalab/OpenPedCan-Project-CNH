@@ -1,0 +1,2 @@
+gene	applies_to_subtype_regex	note
+EGFR	^DMG	EGFR mutation status for DMG; the DMG_EGFR methylation class is a separate variant of DMG, H3 K28

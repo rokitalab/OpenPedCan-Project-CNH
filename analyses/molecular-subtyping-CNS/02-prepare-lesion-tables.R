@@ -2,7 +2,7 @@
 # 02-prepare-lesion-tables.R
 #
 # Subset the SNV consensus + hotspot MAF to the genes named in
-# input/subtype_lesion_rules.tsv and write a small parquet file, so that
+# input/subtype_lesion_rules.tsv and input/annotation_genes.tsv and write a small parquet file, so that
 # 03-validate-subtypes.R does not need to re-read the multi-GB MAF.
 #
 # The MAF is a single gzip stream, so it is scanned once here (single
@@ -27,11 +27,15 @@ out_file <- file.path(scratch_dir, "snv_lesion_genes.parquet")
 rules <- read_tsv(file.path(module_dir, "input", "subtype_lesion_rules.tsv"),
                   show_col_types = FALSE)
 
+annotation_genes <- read_tsv(file.path(module_dir, "input", "annotation_genes.tsv"),
+                             show_col_types = FALSE)
+
 genes <- rules %>%
   filter(lesion_type == "snv") %>%
   pull(gene) %>%
   str_split("\\|") %>%
   unlist() %>%
+  c(annotation_genes$gene) %>%
   unique()
 
 gene_sql <- paste0("'", genes, "'", collapse = ", ")
