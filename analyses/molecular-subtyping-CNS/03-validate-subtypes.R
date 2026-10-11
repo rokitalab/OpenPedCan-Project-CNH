@@ -140,12 +140,18 @@ validated <- calls %>%
       OPC_molecular_subtype == "PXA" ~ "LGG, PXA",
       TRUE ~ OPC_molecular_subtype
     ),
-    # DMG_EGFR methylation class: H3 K28-altered through EGFR; with an H3 K27M/I
-    # variant as well, the tumor is H3 K28-mutant and EGFR
-    OPC_molecular_subtype = if_else(
+    # "-mutant" is only used when the H3 variant was found. A methylation class
+    # without that evidence keeps the plain label ("DMG, H3 K28", "DHG, H3 G35"),
+    # and the DMG_EGFR class is H3 K28-altered, EGFR (or H3 K28-mutant, EGFR
+    # with the variant).
+    OPC_molecular_subtype = case_when(
+      OPC_molecular_subtype == "DMG, H3 K28" & lesion_status == "confirmed" ~
+        "DMG, H3 K28-mutant",
+      OPC_molecular_subtype == "DHG, H3 G35" & lesion_status == "confirmed" ~
+        "DHG, H3 G35-mutant",
       OPC_molecular_subtype == "DMG, H3 K28-altered, EGFR" &
-        lesion_status == "confirmed",
-      "DMG, H3 K28-mutant, EGFR", OPC_molecular_subtype
+        lesion_status == "confirmed" ~ "DMG, H3 K28-mutant, EGFR",
+      TRUE ~ OPC_molecular_subtype
     ),
     dx_group = dx_to_groups(pathology_diagnosis, dx_groups),
     dx_concordance = dx_concordance(OPC_molecular_subtype, dx_group,
@@ -230,6 +236,9 @@ fallback <- fallback %>%
         "oligodendroglioma diagnosis, 1p/19q not assessable (no WGS arm data)"
     ),
     OPC_molecular_subtype = case_when(
+      # subtyped from the H3 variant itself
+      OPC_molecular_subtype == "DMG, H3 K28" ~ "DMG, H3 K28-mutant",
+      OPC_molecular_subtype == "DHG, H3 G35" ~ "DHG, H3 G35-mutant",
       is_idh & is_codeleted ~ "Oligo, IDH",
       is_idh & !oligo_dx & dx_group == "LGG" ~ "LGG, IDH",
       TRUE ~ OPC_molecular_subtype
