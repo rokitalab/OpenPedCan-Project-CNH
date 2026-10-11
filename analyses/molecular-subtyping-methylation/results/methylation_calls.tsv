@@ -1,4 +1,4 @@
-Kids_First_Biospecimen_ID	methyl_confidence	methyl_source	methyl_class	methyl_score	OPC_molecular_subtype	methyl_no_call	rare	molecular_superfamily	molecular_family	methyl_conflict	methyl_conflicting_sources	unmapped_high_conf_call
+Kids_First_Biospecimen_ID	methyl_confidence	methyl_source	methyl_class	methyl_score	OPC_molecular_subtype	methyl_control	rare	molecular_superfamily	molecular_family	methyl_conflict	methyl_conflicting_sources	unmapped_high_conf_call
 BS_TME3CH5P	high	dkfz_v12.8	DMG_K27	0.999990458	DMG, H3 K28	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
 BS_V7BJFTRG	high	dkfz_v12.8	EPN_PFA_1D	0.995531615	EPN, PF A	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
 BS_CVAEDWP3	high	dkfz_v12.8	RGNT	0.955881423	GNT, FGFR	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade glioneuronal tumour	FALSE	NA	FALSE
