@@ -36,6 +36,8 @@ smarcb1 <- read_tsv(
   filter(!is.na(match_id)) %>%
   group_by(match_id) %>%
   summarise(
+    smarcb1_sample_id = first(sample_id),
+    smarcb1_participant = first(Kids_First_Participant_ID),
     smarcb1_focal_status = first(na.omit(focal_SMARCB1_status)),
     smarcb1_expression = first(na.omit(SMARCB1_expression)),
     .groups = "drop"
@@ -121,9 +123,13 @@ compiled <- bind_rows(
 ) %>%
   full_join(lgg, by = "match_id") %>%
   full_join(mb, by = "match_id") %>%
-  left_join(smarcb1, by = "match_id") %>%
+  # full join: chordoma tumors with no other source can still be subtyped
+  # from focal SMARCB1 loss
+  full_join(smarcb1, by = "match_id") %>%
   mutate(
-    sample_id = coalesce(sample_id, mb_sample_id),
+    sample_id = coalesce(sample_id, mb_sample_id, smarcb1_sample_id),
+    Kids_First_Participant_ID = coalesce(Kids_First_Participant_ID,
+                                         smarcb1_participant),
     lesion_refinement = if_else(lgg_specific %in% TRUE, lgg_subtype,
                                 NA_character_),
     # LGG is only the subtype when nothing else assigned one
