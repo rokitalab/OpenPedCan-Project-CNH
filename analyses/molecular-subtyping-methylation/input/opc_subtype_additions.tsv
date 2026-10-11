@@ -13,8 +13,8 @@ GCT_GERM	GCT, Germinoma KIT wildtype	NA	FALSE	Germinoma, KIT wildtype (GCT_GERM_
 GCT_GERM_KIT	GCT, Germinoma KIT mutant	KIT	FALSE	Germinoma, KIT mutant
 GCT_TERA	GCT, Teratoma	NA	FALSE	Teratoma
 GCT_YOLKSAC	GCT, Yolk sac tumor	NA	FALSE	Yolk sac tumour
-PPTID_A	PPTID, A	NA	FALSE	Pineal parenchymal tumour of intermediate differentiation, methylation subclass A
-PPTID_B	PPTID, B	NA	FALSE	Pineal parenchymal tumour of intermediate differentiation, methylation subclass B
+PPTID_A	PB, PPTID	NA	FALSE	Pineal parenchymal tumour of intermediate differentiation, methylation subclass A; condensed with B into the existing PB, PPTID label (subclass kept in methyl_class)
+PPTID_B	PB, PPTID	NA	FALSE	Pineal parenchymal tumour of intermediate differentiation, methylation subclass B; condensed with A into the existing PB, PPTID label (subclass kept in methyl_class)
 PTPR_A	PTPR, A	NA	FALSE	Papillary tumour of the pineal region, methylation subclass A
 PTPR_B	PTPR, B	NA	FALSE	Papillary tumour of the pineal region, methylation subclass B
 Pin_Cyt	Pineocytoma	NA	FALSE	Pineocytoma
@@ -42,5 +42,5 @@ PCNSL_PLAS	CNS plasmacytoma	NA	FALSE	Plasmacytoma of the CNS
 ENB	ONB	NA	FALSE	Olfactory neuroblastoma (esthesioneuroblastoma)
 ENB_IDH	SNUC, IDH2-mutant	IDH2 R172	TRUE	Sinonasal undifferentiated carcinoma, IDH2-mutant; not a primary CNS tumour, review
 HMPC_SFT	SFT	NAB2::STAT6	FALSE	Solitary fibrous tumour / haemangiopericytoma; NAB2::STAT6 fusion expected
-MYXGNT	GNT, Myxoid PDGFRA-mutant	PDGFRA	FALSE	Myxoid glioneuronal tumour, PDGFRA-mutant
-PGNT	GNT, Papillary PRKCA-fused	PRKCA::SLC44A1	FALSE	Papillary glioneuronal tumour; PRKCA::SLC44A1 fusion expected
+MYXGNT	GNT, Myxoid	PDGFRA	FALSE	Myxoid glioneuronal tumour, PDGFRA-mutant; lesion kept out of the label because the LGAT/GNT module's GNT, RTK group already includes PDGFRA alterations
+PGNT	GNT, Papillary	PRKCA::SLC44A1	FALSE	Papillary glioneuronal tumour; PRKCA::SLC44A1 fusion expected; lesion kept out of the label, matching GNT, Myxoid
