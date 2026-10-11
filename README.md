@@ -432,7 +432,7 @@ Do not hardcode sample names in your analytical code: there is no guarantee that
 If you would like to work with the files used in GA locally, e.g., for debugging, you can obtain them from AWS by running the following in the root directory of the project:
 
 ```
-bash scripts/download-testing-files.sh
+bash scripts/download-general-testing-files.sh
 ```
 
 Running this will change the symlinks in `data` to point to the files in `data/testing`.

@@ -3,10 +3,11 @@
 set -e
 set -o pipefail
 
-# download methylation files from the OpenPedCan data v13 data release s3 bucket
+# download methylation files from the OpenPedCan data release s3 bucket
+# (includes hg19ToHg38.over.chain.gz, used to lift EPIC/450k segments to hg38)
 
-URL="https://d3b-openaccess-us-east-1-prd-pbta.s3.amazonaws.com/open-targets"
-RELEASE="v14"
+URL=${OPENPEDCAN_URL:-https://s3.amazonaws.com/bti-openaccess-us-east-1-prd-opc}
+RELEASE=${OPENPEDCAN_RELEASE:-v15}
 
 # Set the working directory to the directory of this file
 cd "$(dirname "${BASH_SOURCE[0]}")"
@@ -38,6 +39,15 @@ do
   fi
 done
 
+# Download the hg19 -> hg38 liftover chain file from UCSC if it was not in the
+# release md5sum list. It is used to lift EPIC/450k segments to hg38.
+CHAIN="https://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg38.over.chain.gz"
+if [ ! -e "$BASEDIR/data/$RELEASE/${CHAIN##*/}" ]
+then
+  echo "Downloading ${CHAIN##*/}"
+  curl -fsS --retry 3 --create-dirs $CHAIN -o $BASEDIR/data/$RELEASE/${CHAIN##*/}
+fi
+
 #check md5sum
 cd $BASEDIR/data/$RELEASE
 echo "Checking MD5 hashes..."
@@ -49,3 +59,6 @@ for file in "${FILES[@]}"
 do
   ln -sfn $RELEASE/$file data/$file
 done
+
+# Same for the chain file, which is not always listed in methyl-md5sum.txt.
+ln -sfn $RELEASE/${CHAIN##*/} data/${CHAIN##*/}
