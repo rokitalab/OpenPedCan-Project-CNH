@@ -26,3 +26,6 @@ NST_PNF_NF1	NST, Plexiform neurofibroma	snv	NF1	.*	FALSE	NF1 variant (loss may b
 CPC_TP53	CPC, pediatric	snv	TP53	.*	FALSE	TP53 variant
 RB_RB1	RB, RB1-altered	snv	RB1	.*	FALSE	RB1 variant
 SNUC_IDH2	SNUC, IDH2-mutant	snv	IDH2	^p\.R172	FALSE	IDH2 R172
+OLIGO_IDH1	Oligo, IDH	snv	IDH1	^p\.R132	FALSE	IDH1 R132 (confirms O_IDH methylation class)
+OLIGO_IDH2	Oligo, IDH	snv	IDH2	^p\.R172	FALSE	IDH2 R172 (confirms O_IDH methylation class)
+OLIGO_1P19Q	Oligo, IDH	arm	1p;19q	-0.5	FALSE	1p and 19q both lost: GISTIC broad arm value <= cutoff (WGS only)

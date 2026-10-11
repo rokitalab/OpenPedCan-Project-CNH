@@ -43,6 +43,10 @@ Control tissues and the inflammatory microenvironment class (`INFLAM_ENV`) indic
 
 Tumors with no high-confidence methylation call (PBTA only, controls excluded) are subtyped from lesions alone for rules with `use_as_fallback = TRUE`.
 
+IDH-mutant gliomas are resolved with 1p/19q status (both arms <= -0.5 in the consensus GISTIC broad arm values, WGS only): IDH plus codeletion is `Oligo, IDH`. Without codeletion the grade comes from the diagnosis group (`LGG, IDH` or `HGG, IDH`), and a tumor with an oligodendroglioma diagnosis but no codeletion evidence is held unclassified (`hold_reason` says whether the arm was not codeleted or not assessable).
+
+`tp53_altered` (`loss`, `activated`, `Other`) and `tp53_classifier_score` come from `analyses/tp53_nf1_score` and are annotations only; they are not part of the subtype.
+
 Outputs: `results/methylation_subtype_validation.tsv`, `results/subtypes_for_review.tsv` (discordant diagnosis or conflicting classifier versions), and `results/lesion_fallback_subtypes.tsv`.
 
 ### Usage

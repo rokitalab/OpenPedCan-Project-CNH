@@ -82,6 +82,11 @@ rna_ids <- hist %>%
 
 snv_rules <- rules %>% filter(lesion_type == "snv")
 fusion_rules <- rules %>% filter(lesion_type == "fusion")
+arm_rules <- rules %>% filter(lesion_type == "arm")
+
+# GISTIC arm values (WGS only) for 1p/19q codeletion
+arm_values <- read_tsv(file.path(scratch_dir, "arm_1p19q.tsv"),
+                       show_col_types = FALSE)
 
 snv_hits <- snv_rules %>%
   mutate(gene_regex = paste0("^(", gene, ")$")) %>%
@@ -113,7 +118,48 @@ fusion_hits <- fusion_rules %>%
   inner_join(rna_ids, by = "rna_id", relationship = "many-to-many") %>%
   distinct(match_id, rule_id, OPC_molecular_subtype, evidence)
 
-lesion_hits <- bind_rows(snv_hits, fusion_hits)
+# an arm rule is met when every arm in `gene` (";" separated) is at or below the
+# cutoff in `pattern`
+arm_hits <- arm_rules %>%
+  rowwise() %>%
+  mutate(hits = list({
+    arms <- str_split(gene, ";")[[1]]
+    cutoff <- as.numeric(pattern)
+    arm_values %>%
+      filter(if_all(all_of(arms), ~ !is.na(.x) & .x <= cutoff)) %>%
+      transmute(dna_id = Kids_First_Biospecimen_ID,
+                evidence = paste0(paste(arms, collapse = "+"), " codeleted"))
+  })) %>%
+  ungroup() %>%
+  select(rule_id, OPC_molecular_subtype, hits) %>%
+  unnest(hits) %>%
+  inner_join(dna_ids, by = "dna_id", relationship = "many-to-many") %>%
+  distinct(match_id, rule_id, OPC_molecular_subtype, evidence)
+
+lesion_hits <- bind_rows(snv_hits, fusion_hits, arm_hits)
+
+# TP53 classifier / alteration status, kept as an annotation only (not part of
+# the subtype). One row per match_id: loss or activation wins over Other, and
+# the highest classifier score is kept.
+tp53 <- read_tsv(
+  file.path(root_dir, "analyses", "tp53_nf1_score", "results",
+            "tp53_altered_status.tsv"),
+  show_col_types = FALSE
+) %>%
+  filter(!is.na(match_id)) %>%
+  group_by(match_id) %>%
+  summarise(
+    tp53_altered = case_when(
+      any(tp53_altered == "loss") ~ "loss",
+      any(tp53_altered == "activated") ~ "activated",
+      any(tp53_altered == "Other") ~ "Other",
+      TRUE ~ NA_character_
+    ),
+    tp53_classifier_score = suppressWarnings(max(tp53_score, na.rm = TRUE)),
+    .groups = "drop"
+  ) %>%
+  mutate(tp53_classifier_score = if_else(is.infinite(tp53_classifier_score),
+                                         NA_real_, tp53_classifier_score))
 
 ### Diagnosis helpers ----------------------------------------------------------
 
@@ -178,7 +224,7 @@ has_dna <- unique(dna_ids$match_id)
 has_rna <- unique(rna_ids$match_id)
 rule_assays <- rules %>%
   group_by(OPC_molecular_subtype) %>%
-  summarise(needs_dna = any(lesion_type == "snv"),
+  summarise(needs_dna = any(lesion_type %in% c("snv", "arm")),
             needs_rna = any(lesion_type == "fusion"),
             has_rule = TRUE, .groups = "drop")
 
@@ -202,11 +248,13 @@ validated <- methyl %>%
     ),
     needs_review = dx_concordance == "discordant" | methyl_conflict
   ) %>%
+  left_join(tp53, by = "match_id") %>%
   select(Kids_First_Biospecimen_ID, Kids_First_Participant_ID, sample_id,
          match_id, OPC_molecular_subtype, methyl_class, methyl_source,
          methyl_score, methyl_conflict, methyl_conflicting_sources,
          lesion_status, lesion_evidence, pathology_diagnosis, dx_group,
-         dx_concordance, evidence_level, needs_review)
+         dx_concordance, tp53_altered, tp53_classifier_score, evidence_level,
+         needs_review)
 
 write_tsv(validated, file.path(results_dir, "methylation_subtype_validation.tsv"))
 validated %>%
@@ -247,12 +295,49 @@ fallback <- lesion_hits %>%
               distinct(match_id, Kids_First_Participant_ID, sample_id,
                        pathology_diagnosis),
             by = "match_id") %>%
+  mutate(dx_group = dx_to_groups(pathology_diagnosis))
+
+# IDH-mutant gliomas: 1p/19q codeletion makes an IDH-mutant oligodendroglioma.
+# Without codeletion evidence the grade comes from the diagnosis group, and an
+# oligodendroglioma diagnosis with no codeletion evidence is held unclassified.
+codeleted_match_ids <- arm_hits %>% filter(rule_id == "OLIGO_1P19Q") %>%
+  pull(match_id) %>% unique()
+# tumors with arm-level data at all (WGS GISTIC), so "not codeleted" can be told
+# apart from "not assessable"
+arm_assessed_match_ids <- dna_ids %>%
+  filter(dna_id %in% arm_values$Kids_First_Biospecimen_ID) %>%
+  pull(match_id) %>% unique()
+
+fallback <- fallback %>%
   mutate(
-    dx_group = dx_to_groups(pathology_diagnosis),
+    is_idh = OPC_molecular_subtype == "HGG, IDH",
+    codeleted = match_id %in% codeleted_match_ids,
+    oligo_dx = str_detect(replace_na(pathology_diagnosis, ""),
+                          regex("oligodendroglioma", ignore_case = TRUE)),
+    hold_reason = case_when(
+      is_idh & !codeleted & oligo_dx & match_id %in% arm_assessed_match_ids ~
+        "oligodendroglioma diagnosis, 1p/19q not codeleted",
+      is_idh & !codeleted & oligo_dx ~
+        "oligodendroglioma diagnosis, 1p/19q not assessable (no WGS arm data)",
+      TRUE ~ NA_character_
+    ),
+    OPC_molecular_subtype = case_when(
+      is_idh & codeleted ~ "Oligo, IDH",
+      is_idh & !codeleted & !oligo_dx & str_detect(dx_group, "^LGG$") ~ "LGG, IDH",
+      TRUE ~ OPC_molecular_subtype
+    ),
+    lesion_evidence = if_else(is_idh & codeleted,
+                              paste0(lesion_evidence, "; 1p+19q codeleted"),
+                              lesion_evidence)
+  ) %>%
+  select(-is_idh, -oligo_dx) %>%
+  left_join(tp53, by = "match_id") %>%
+  mutate(
     dx_concordance = dx_concordance(OPC_molecular_subtype, dx_group),
     evidence_level = "lesion only",
-    # a lesion-only call that the diagnosis contradicts is held, not assigned
-    assign = dx_concordance != "discordant"
+    # a lesion-only call that the diagnosis contradicts, or a held call, is not
+    # assigned
+    assign = dx_concordance != "discordant" & is.na(hold_reason)
   )
 
 write_tsv(fallback, file.path(results_dir, "lesion_fallback_subtypes.tsv"))
@@ -270,7 +355,7 @@ print(validated %>% count(dx_concordance))
 message("Flagged for review: ", sum(validated$needs_review))
 
 message("\n== Lesion-only fallback: ", nrow(fallback), " tumors without methylation")
-print(fallback %>% count(OPC_molecular_subtype, dx_concordance))
+print(fallback %>% count(OPC_molecular_subtype, assign, hold_reason))
 
 # subtype families the diagnosis table does not recognize
 unmapped_family <- validated %>%

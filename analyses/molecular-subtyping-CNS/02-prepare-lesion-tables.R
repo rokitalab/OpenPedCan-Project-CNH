@@ -55,3 +55,23 @@ start <- Sys.time()
 dbExecute(con, query)
 message("Wrote ", out_file, " in ",
         round(difftime(Sys.time(), start, units = "mins"), 1), " min")
+
+# 1p/19q arm-level values from the consensus GISTIC results (WGS only), used
+# for the 1p/19q codeletion rule. Only the two rows needed are kept.
+arm_zip <- file.path(root_dir, "data", "cnv-consensus-gistic.zip")
+arm_tmp <- tempfile("gistic")
+dir.create(arm_tmp)
+unzip(arm_zip, files = "cnv-consensus-gistic/broad_values_by_arm.txt",
+      exdir = arm_tmp, junkpaths = TRUE)
+
+arm_df <- data.table::fread(file.path(arm_tmp, "broad_values_by_arm.txt"),
+                            data.table = FALSE) %>%
+  filter(`Chromosome Arm` %in% c("1p", "19q")) %>%
+  column_to_rownames("Chromosome Arm") %>%
+  t() %>%
+  as.data.frame() %>%
+  rownames_to_column("Kids_First_Biospecimen_ID")
+
+write_tsv(arm_df, file.path(scratch_dir, "arm_1p19q.tsv"))
+message("Wrote 1p/19q arm values for ", nrow(arm_df), " biospecimens")
+unlink(arm_tmp, recursive = TRUE)
