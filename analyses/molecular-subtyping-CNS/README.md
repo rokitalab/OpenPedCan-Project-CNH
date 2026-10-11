@@ -45,7 +45,11 @@ Tumors with no high-confidence methylation call (PBTA only, controls excluded) a
 
 IDH-mutant gliomas are resolved with 1p/19q status (both arms <= -0.5 in the consensus GISTIC broad arm values, WGS only): IDH plus codeletion is `Oligo, IDH`. Without codeletion the grade comes from the diagnosis group (`LGG, IDH` or `HGG, IDH`), and a tumor with an oligodendroglioma diagnosis but no codeletion evidence is held unclassified (`hold_reason` says whether the arm was not codeleted or not assessable).
 
-`tp53_altered` (`loss`, `activated`, `Other`) and `tp53_classifier_score` come from `analyses/tp53_nf1_score` and are annotations only; they are not part of the subtype.
+TP53 annotations come from `analyses/tp53_nf1_score` and are not part of the subtype:
+
+- `tp53_altered` (`loss`, `activated`, `Other`) and `tp53_classifier_score`
+- `tp53_n_hits` and `tp53_two_hits`: hits are counted as in that module, with each SNV/indel as one hit and a CNV loss or SV as one more (CNV and SV are the same event); two or more suggests both alleles are affected
+- `tp53_hotspot`, `tp53_li_fraumeni` (a germline second hit is inferred from Li-Fraumeni predisposition in the module), and the SNV and CNV evidence strings
 
 Outputs: `results/methylation_subtype_validation.tsv`, `results/subtypes_for_review.tsv` (discordant diagnosis or conflicting classifier versions), and `results/lesion_fallback_subtypes.tsv`.
 

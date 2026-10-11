@@ -138,15 +138,22 @@ arm_hits <- arm_rules %>%
 
 lesion_hits <- bind_rows(snv_hits, fusion_hits, arm_hits)
 
-# TP53 classifier / alteration status, kept as an annotation only (not part of
-# the subtype). One row per match_id: loss or activation wins over Other, and
-# the highest classifier score is kept.
+# TP53 annotation (not part of the subtype), from tp53_nf1_score. Besides the
+# module's tp53_altered status and classifier score, report the number of hits
+# the way that module counts them: each SNV/indel is a hit, and a CNV loss or
+# SV is one more hit (CNV and SV are treated as the same event). Two or more
+# hits suggest both alleles are affected. One row per match_id, since DNA and RNA
+# biospecimens of the same tumor each carry a row.
 tp53 <- read_tsv(
   file.path(root_dir, "analyses", "tp53_nf1_score", "results",
             "tp53_altered_status.tsv"),
-  show_col_types = FALSE
+  col_types = cols(.default = col_character()), na = c("", "NA")
 ) %>%
   filter(!is.na(match_id)) %>%
+  mutate(across(c(SNV_indel_counts, CNV_loss_counts, SV_counts, hotspot,
+                  tp53_score), as.numeric),
+         li_fraumeni = str_detect(replace_na(cancer_predispositions, ""),
+                                  "Li-Fraumeni syndrome")) %>%
   group_by(match_id) %>%
   summarise(
     tp53_altered = case_when(
@@ -156,10 +163,28 @@ tp53 <- read_tsv(
       TRUE ~ NA_character_
     ),
     tp53_classifier_score = suppressWarnings(max(tp53_score, na.rm = TRUE)),
+    snv_hits = suppressWarnings(max(SNV_indel_counts, na.rm = TRUE)),
+    cnv_sv_hit = suppressWarnings(max(CNV_loss_counts, SV_counts,
+                                      na.rm = TRUE)) >= 1,
+    tp53_hotspot = suppressWarnings(max(hotspot, na.rm = TRUE)) == 1,
+    tp53_li_fraumeni = any(li_fraumeni),
+    tp53_snv_evidence = paste(na.omit(unique(HGVSp_Short[HGVSp_Short != "NA"])),
+                              collapse = "; "),
+    tp53_cnv_evidence = paste(na.omit(unique(CNV_loss_evidence)),
+                              collapse = "; "),
     .groups = "drop"
   ) %>%
-  mutate(tp53_classifier_score = if_else(is.infinite(tp53_classifier_score),
-                                         NA_real_, tp53_classifier_score))
+  mutate(
+    across(c(tp53_classifier_score, snv_hits), ~ if_else(is.infinite(.x), NA_real_, .x)),
+    snv_hits = replace_na(snv_hits, 0),
+    tp53_hotspot = replace_na(tp53_hotspot, FALSE),
+    cnv_sv_hit = replace_na(cnv_sv_hit, FALSE),
+    tp53_n_hits = snv_hits + as.integer(cnv_sv_hit),
+    tp53_two_hits = tp53_n_hits >= 2
+  ) %>%
+  select(match_id, tp53_altered, tp53_classifier_score, tp53_n_hits,
+         tp53_two_hits, tp53_hotspot, tp53_li_fraumeni, tp53_snv_evidence,
+         tp53_cnv_evidence)
 
 ### Diagnosis helpers ----------------------------------------------------------
 
@@ -253,8 +278,9 @@ validated <- methyl %>%
          match_id, OPC_molecular_subtype, methyl_class, methyl_source,
          methyl_score, methyl_conflict, methyl_conflicting_sources,
          lesion_status, lesion_evidence, pathology_diagnosis, dx_group,
-         dx_concordance, tp53_altered, tp53_classifier_score, evidence_level,
-         needs_review)
+         dx_concordance, tp53_altered, tp53_classifier_score, tp53_n_hits,
+         tp53_two_hits, tp53_hotspot, tp53_li_fraumeni, tp53_snv_evidence,
+         tp53_cnv_evidence, evidence_level, needs_review)
 
 write_tsv(validated, file.path(results_dir, "methylation_subtype_validation.tsv"))
 validated %>%
