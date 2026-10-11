@@ -29,3 +29,4 @@ SNUC_IDH2	SNUC, IDH2-mutant	snv	IDH2	^p\.R172	FALSE	IDH2 R172
 OLIGO_IDH1	Oligo, IDH	snv	IDH1	^p\.R132	FALSE	IDH1 R132 (confirms O_IDH methylation class)
 OLIGO_IDH2	Oligo, IDH	snv	IDH2	^p\.R172	FALSE	IDH2 R172 (confirms O_IDH methylation class)
 OLIGO_1P19Q	Oligo, IDH	arm	1p;19q	-0.5	FALSE	1p and 19q both lost: GISTIC broad arm value <= cutoff (WGS only)
+PXA_BRAF_V600E	PXA	snv	BRAF	^p\.V600E$	FALSE	splits PXA into BRAF V600E and BRAF V600E negative (issue 113)

@@ -6,10 +6,10 @@
 # Subtype precedence:
 #   1. high-confidence methylation (03-validate-subtypes.R)
 #   2. lesion-only fallback (03-validate-subtypes.R), when assigned
-#   3. LGAT lesion-level call, for tumors with no methylation or fallback call
+#   3. LGG lesion-level call, for tumors with no methylation or fallback call
 #
-# `lesion_refinement` adds the LGAT lesion-level subtype (KIAA1549-BRAF, BRAF
-# V600E, NF1, ...) on top of the methylation family when LGAT made a specific
+# `lesion_refinement` adds the LGG lesion-level subtype (KIAA1549-BRAF, BRAF
+# V600E, NF1, ...) on top of the methylation family when LGG made a specific
 # call. TP53 columns are annotations and are not part of the subtype.
 #
 # Usage: Rscript --vanilla 05-compile-subtypes.R
@@ -27,21 +27,21 @@ evidence_types <- cols(tp53_snv_evidence = col_character(),
                        EGFR_variants = col_character(),
                        .default = col_guess())
 
-# LGAT labels that do not name a specific lesion
+# LGG labels that do not name a specific lesion
 nonspecific <- "To be classified|wildtype|NOS"
 
-lgat <- read_tsv(
+lgg <- read_tsv(
   file.path(root_dir, "analyses", "molecular-subtyping-LGAT", "results",
             "lgat_subtyping.tsv"),
   show_col_types = FALSE
 ) %>%
   filter(!is.na(match_id), !is.na(molecular_subtype)) %>%
-  transmute(match_id, lgat_subtype = molecular_subtype) %>%
+  transmute(match_id, lgg_subtype = molecular_subtype) %>%
   distinct() %>%
   group_by(match_id) %>%
-  summarise(lgat_subtype = paste(sort(unique(lgat_subtype)), collapse = " | "),
+  summarise(lgg_subtype = paste(sort(unique(lgg_subtype)), collapse = " | "),
             .groups = "drop") %>%
-  mutate(lgat_specific = !str_detect(lgat_subtype, nonspecific))
+  mutate(lgg_specific = !str_detect(lgg_subtype, nonspecific))
 
 # one methylation call per tumor: highest score wins when several biospecimens
 methyl <- read_tsv(file.path(results_dir, "methylation_subtype_validation.tsv"),
@@ -70,21 +70,21 @@ compiled <- bind_rows(
   fallback %>% select(all_of(shared), starts_with("tp53_"),
                       ends_with("_mutation_status"), ends_with("_variants"))
 ) %>%
-  full_join(lgat, by = "match_id") %>%
+  full_join(lgg, by = "match_id") %>%
   mutate(
-    lesion_refinement = if_else(lgat_specific %in% TRUE, lgat_subtype,
+    lesion_refinement = if_else(lgg_specific %in% TRUE, lgg_subtype,
                                 NA_character_),
-    # LGAT is only the subtype when nothing else assigned one
+    # LGG is only the subtype when nothing else assigned one
     subtype_source = case_when(
       !is.na(subtype_source) ~ subtype_source,
-      lgat_specific %in% TRUE ~ "LGAT lesion",
+      lgg_specific %in% TRUE ~ "LGG lesion",
       TRUE ~ NA_character_
     ),
     molecular_subtype_cns = case_when(
       !is.na(OPC_molecular_subtype) ~ OPC_molecular_subtype,
-      subtype_source == "LGAT lesion" ~ lgat_subtype
+      subtype_source == "LGG lesion" ~ lgg_subtype
     ),
-    evidence_level = if_else(subtype_source == "LGAT lesion", "lesion only",
+    evidence_level = if_else(subtype_source == "LGG lesion", "lesion only",
                              evidence_level),
     methyl_conflict = replace_na(methyl_conflict, FALSE),
     needs_review = dx_concordance %in% "discordant" | methyl_conflict
