@@ -41,3 +41,20 @@ dx_concordance <- function(subtype, dx_group, family_compat) {
     }
   )
 }
+
+#' Tumor grade group from the free-text diagnosis
+#'
+#' Used when pathology_diagnosis is missing or uninformative ("Other").
+#' @return "HGG" when the text names a high-grade term (anaplastic, WHO grade
+#'   III/IV, high grade, glioblastoma, malignant), "LGG" for a low-grade term
+#'   (WHO grade I/II, low grade), and NA when the text does not say.
+free_text_grade_group <- function(text) {
+  text <- str_to_lower(replace_na(text, ""))
+  high <- "anaplastic|who grade (iii|3|iv|4)|grade (iii|iv|3|4)\\b|high.?grade|glioblastoma|gbm|malignant"
+  low <- "who grade (i|ii|1|2)\\b|grade (i|ii|1|2)\\b|low.?grade"
+  case_when(
+    str_detect(text, high) ~ "HGG",
+    str_detect(text, low) ~ "LGG",
+    TRUE ~ NA_character_
+  )
+}

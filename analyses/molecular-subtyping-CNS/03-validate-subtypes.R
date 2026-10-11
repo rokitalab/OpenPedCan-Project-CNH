@@ -50,7 +50,7 @@ hist <- read_tsv(file.path(root_dir, "data", "histologies-base.tsv"),
                  guess_max = 100000, show_col_types = FALSE) %>%
   select(Kids_First_Biospecimen_ID, Kids_First_Participant_ID, sample_id,
          match_id, cohort, sample_type, experimental_strategy,
-         pathology_diagnosis)
+         pathology_diagnosis, pathology_free_text_diagnosis)
 
 snv_file <- file.path(scratch_dir, "snv_lesion_genes.parquet")
 if (!file.exists(snv_file)) {
@@ -123,7 +123,7 @@ validated <- calls %>%
          !is.na(OPC_molecular_subtype)) %>%
   left_join(hist %>% select(Kids_First_Biospecimen_ID,
                             Kids_First_Participant_ID, sample_id, match_id,
-                            pathology_diagnosis),
+                            pathology_diagnosis, pathology_free_text_diagnosis),
             by = "Kids_First_Biospecimen_ID") %>%
   left_join(rule_assays, by = "OPC_molecular_subtype") %>%
   left_join(confirming, by = c("match_id", "OPC_molecular_subtype")) %>%
@@ -140,9 +140,16 @@ validated <- calls %>%
     # PXA (issue 113) is split by BRAF V600E (the PXA rule's lesion), for DKFZ
     # (score >= 0.8) and NIH (>= 0.9) high-confidence calls alike. Without a DNA
     # assay the status is not assessable, so the tumor stays plain PXA. The
-    # HGG / LGG prefix follows the pathology diagnosis (an HGG diagnosis is
-    # HGG, PXA; anything else is LGG, PXA as in issue 113).
-    pxa_prefix = if_else(str_detect(replace_na(dx_group, ""), "HGG"), "HGG", "LGG"),
+    # HGG / LGG prefix follows the pathology diagnosis, or the free-text
+    # diagnosis when that is missing or uninformative; LGG is the default
+    # (issue 113).
+    dx_informative = !is.na(dx_group) & !dx_group %in% c("UNINFORMATIVE", "UNMAPPED"),
+    pxa_prefix = case_when(
+      str_detect(replace_na(dx_group, ""), "HGG") ~ "HGG",
+      dx_informative ~ "LGG",
+      free_text_grade_group(pathology_free_text_diagnosis) %in% "HGG" ~ "HGG",
+      TRUE ~ "LGG"
+    ),
     OPC_molecular_subtype = case_when(
       OPC_molecular_subtype == "PXA" & lesion_status == "confirmed" ~
         paste0(pxa_prefix, ", PXA BRAF V600E"),
