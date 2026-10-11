@@ -169,8 +169,10 @@ jobs:
               test -s "$f" || { echo "Missing or empty: $f"; exit 1; }
             done
           done
-          f="methylation-cnv-test-out/combined_hg38.gistic.seg"
-          test -s "$f" || { echo "Missing or empty: $f"; exit 1; }
+          for f in methylation-cnv-test-out/combined_hg38.gistic.seg \
+                   methylation-cnv-test-out/gistic-cohort-qc.tsv; do
+            test -s "$f" || { echo "Missing or empty: $f"; exit 1; }
+          done
 
   run_analysis:
     name: Run Analysis
