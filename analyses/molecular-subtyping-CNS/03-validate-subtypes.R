@@ -136,15 +136,19 @@ validated <- calls %>%
       assay_available ~ "not_detected",
       TRUE ~ "no_assay"
     ),
+    dx_group = dx_to_groups(pathology_diagnosis, dx_groups),
     # PXA (issue 113) is split by BRAF V600E (the PXA rule's lesion), for DKFZ
     # (score >= 0.8) and NIH (>= 0.9) high-confidence calls alike. Without a DNA
-    # assay the status is not assessable, so the tumor stays "LGG, PXA".
+    # assay the status is not assessable, so the tumor stays plain PXA. The
+    # HGG / LGG prefix follows the pathology diagnosis (an HGG diagnosis is
+    # HGG, PXA; anything else is LGG, PXA as in issue 113).
+    pxa_prefix = if_else(str_detect(replace_na(dx_group, ""), "HGG"), "HGG", "LGG"),
     OPC_molecular_subtype = case_when(
       OPC_molecular_subtype == "PXA" & lesion_status == "confirmed" ~
-        "LGG, PXA BRAF V600E",
+        paste0(pxa_prefix, ", PXA BRAF V600E"),
       OPC_molecular_subtype == "PXA" & lesion_status == "not_detected" ~
-        "LGG, PXA BRAF V600E negative",
-      OPC_molecular_subtype == "PXA" ~ "LGG, PXA",
+        paste0(pxa_prefix, ", PXA BRAF V600E negative"),
+      OPC_molecular_subtype == "PXA" ~ paste0(pxa_prefix, ", PXA"),
       TRUE ~ OPC_molecular_subtype
     ),
     # "-mutant" is only used when the H3 variant was found. A methylation class
@@ -160,7 +164,6 @@ validated <- calls %>%
         lesion_status == "confirmed" ~ "DMG, H3 K28-mutant, EGFR",
       TRUE ~ OPC_molecular_subtype
     ),
-    dx_group = dx_to_groups(pathology_diagnosis, dx_groups),
     dx_concordance = dx_concordance(OPC_molecular_subtype, dx_group,
                                     family_compat),
     evidence_level = if_else(lesion_status == "confirmed",
