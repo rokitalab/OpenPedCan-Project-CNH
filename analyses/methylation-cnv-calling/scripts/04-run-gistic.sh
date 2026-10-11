@@ -17,8 +17,9 @@ Options:
   -h, --help            Show this help message.
 
 Environment:
-  GISTIC_DIR     GISTIC2 install directory.
-                 Default: /home/rstudio/gistic_install/share/gistic2-2.0.23-0
+  GISTIC_DIR     GISTIC2 install directory containing gp_gistic2_from_seg.
+                 Default: /home/rstudio/gistic_install (or its
+                 share/gistic2-2.0.23-0 subdirectory if that is where it is).
   REFGENE_FILE   hg38 reference-gene .mat file.
                  Default: \$GISTIC_DIR/refgenefiles/hg38.UCSC.add_miR.160920.refgene.mat
 EOS
@@ -27,7 +28,18 @@ EOS
 SEG_FILE=""
 OUTPUT_DIR=""
 BIOASSAY_IDS=""
-GISTIC_DIR="${GISTIC_DIR:-/home/rstudio/gistic_install/share/gistic2-2.0.23-0}"
+if [[ -z "${GISTIC_DIR:-}" ]]; then
+  # The openpedcanverse image unpacks GISTIC2 into gistic_install; some
+  # installs keep the same files under share/gistic2-2.0.23-0.
+  for candidate in /home/rstudio/gistic_install \
+                   /home/rstudio/gistic_install/share/gistic2-2.0.23-0; do
+    if [[ -x "$candidate/gp_gistic2_from_seg" ]]; then
+      GISTIC_DIR="$candidate"
+      break
+    fi
+  done
+fi
+GISTIC_DIR="${GISTIC_DIR:-/home/rstudio/gistic_install}"
 REFGENE_FILE="${REFGENE_FILE:-$GISTIC_DIR/refgenefiles/hg38.UCSC.add_miR.160920.refgene.mat}"
 
 while [[ $# -gt 0 ]]; do
@@ -43,6 +55,7 @@ done
 [[ -n "$SEG_FILE" && -n "$OUTPUT_DIR" ]] || { echo "Error: --seg_file and --output_dir are required." >&2; usage >&2; exit 2; }
 [[ -f "$SEG_FILE" ]] || { echo "Error: combined SEG file not found: $SEG_FILE" >&2; exit 2; }
 [[ -z "$BIOASSAY_IDS" || -f "$BIOASSAY_IDS" ]] || { echo "Error: bioassay ID file not found: $BIOASSAY_IDS" >&2; exit 2; }
+[[ -x "$GISTIC_DIR/gp_gistic2_from_seg" ]] || { echo "Error: gp_gistic2_from_seg not found in GISTIC_DIR: $GISTIC_DIR" >&2; exit 2; }
 [[ -f "$REFGENE_FILE" ]] || { echo "Error: hg38 reference-gene file not found: $REFGENE_FILE" >&2; exit 2; }
 
 mkdir -p "$OUTPUT_DIR"

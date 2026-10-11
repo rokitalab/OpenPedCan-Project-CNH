@@ -137,8 +137,10 @@ The filtered SEG (`combined_hg38.gistic.filtered.seg`) is written next to the
 GISTIC results, and the run stops if none of the IDs are found.
 
 `scripts/04-run-gistic.sh` expects GISTIC2 at `$GISTIC_DIR` (default
-`/home/rstudio/gistic_install/share/gistic2-2.0.23-0`) and the hg38
-reference-gene file at `$REFGENE_FILE`. The GISTIC step is not part of CI.
+`/home/rstudio/gistic_install`, as installed by `Dockerfile.base`; the
+`share/gistic2-2.0.23-0` subdirectory is also detected) and the hg38
+reference-gene file at `$REFGENE_FILE`. CI runs it on the combined testing
+segments with no ID list.
 
 ## CWL
 
@@ -172,10 +174,12 @@ The `methylation_preprocessing` job in `.github/workflows/run_analysis.yml`:
    that run (the Normal rows of the testing manifest provide the controls for
    each array), and
 4. unzips the chain file and runs liftover, combining, and cohort QC with
-   `--combine-only` and the chain file.
+   `--combine-only` and the chain file, and
+5. runs GISTIC2 on `combined_hg38.gistic.seg` with `scripts/04-run-gistic.sh`.
 
 The job fails if any `-segments.seg` or `-gistic.seg` output, or
-`combined_hg38.gistic.seg` or `gistic-cohort-qc.tsv`, is missing or empty.
+`combined_hg38.gistic.seg`, `gistic-cohort-qc.tsv`, or the GISTIC
+`all_lesions.conf_99.txt` and `scores.gistic`, is missing or empty.
 
 Local runs need `conumee2` and `minfi`; the `openpedcanverse` Docker image
 includes them.

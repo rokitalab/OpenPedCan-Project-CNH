@@ -160,6 +160,14 @@ jobs:
             --combine-only
             --output-dir methylation-cnv-test-out
             --chain-file data/methyl_testing/hg19ToHg38.over.chain
+      - name: Run GISTIC on combined methylation segments
+        uses: docker://pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
+        with:
+          entrypoint: bash
+          args: >-
+            analyses/methylation-cnv-calling/scripts/04-run-gistic.sh
+            --seg_file methylation-cnv-test-out/combined_hg38.gistic.seg
+            --output_dir methylation-cnv-test-out/gistic
       - name: Check expected CNV outputs
         run: |
           ls -lh methylation-cnv-test-out
@@ -170,7 +178,9 @@ jobs:
             done
           done
           for f in methylation-cnv-test-out/combined_hg38.gistic.seg \
-                   methylation-cnv-test-out/gistic-cohort-qc.tsv; do
+                   methylation-cnv-test-out/gistic-cohort-qc.tsv \
+                   methylation-cnv-test-out/gistic/all_lesions.conf_99.txt \
+                   methylation-cnv-test-out/gistic/scores.gistic; do
             test -s "$f" || { echo "Missing or empty: $f"; exit 1; }
           done
 
