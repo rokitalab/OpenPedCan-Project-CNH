@@ -1,0 +1,100 @@
+source	call	gap_reason	n_high_conf_biospecimens
+nih_v3.1	PA PF TYP	class not in crosswalk	129
+nih_v3.1	EPN ST ZFTA RELA	class not in crosswalk	56
+nih_v3.1	MB G4 VII	class not in crosswalk	48
+nih_v3.1	MB G4 VIII	class not in crosswalk	41
+nih_v3.1	PA ST	class not in crosswalk	31
+nih_v3.1	PA PF VAR	class not in crosswalk	29
+nih_v3.1	DNT	class not in crosswalk	28
+nih_v3.1	MB G3 II	class not in crosswalk	24
+nih_v3.1	MB G3 III	class not in crosswalk	19
+nih_v3.1	MB G4 V	class not in crosswalk	18
+nih_v3.1	MB G3 IV	class not in crosswalk	12
+nih_v3.1	CONTR INFLAM	class not in crosswalk	11
+nih_v3.1	EPN MPE B	class not in crosswalk	9
+nih_v3.1	CONTR CEBM	class not in crosswalk	8
+nih_v3.1	EPN MPE A	class not in crosswalk	7
+nih_v3.1	CONTR CORPCAL	class not in crosswalk	6
+nih_v3.1	ETMR non-C19MC	class not in crosswalk	6
+nih_v3.1	PB GROUP 1A	class not in crosswalk	6
+nih_v3.1	CONTR REACT	class not in crosswalk	5
+nih_v3.1	CHORDM PD	class not in crosswalk	4
+nih_v3.1	MB G3 I	class not in crosswalk	4
+nih_v3.1	PB MYC/FOXR2	class not in crosswalk	4
+dkfz_v12.8	GCG	class not in crosswalk	3
+nih_v3.1	CSA CC	class not in crosswalk	3
+nih_v3.1	EPN ST YAP	class not in crosswalk	3
+nih_v3.1	MB G4 VI	class not in crosswalk	3
+nih_v3.1	PB GROUP 2	class not in crosswalk	3
+nih_v2	CONTR_INFLAM	class not in crosswalk	2
+nih_v2	PA_PF_A	class not in crosswalk	2
+nih_v2	CONTR_REACT	class not in crosswalk	1
+nih_v3.1	CONTR ADENOPIT	class not in crosswalk	1
+nih_v3.1	CONTR OPTIC	class not in crosswalk	1
+nih_v3.1	CSA IDH GROUP A	class not in crosswalk	1
+nih_v3.1	CSA MES	class not in crosswalk	1
+nih_v3.1	GNT KinF A	class not in crosswalk	1
+nih_v3.1	MNG BAP1	class not in crosswalk	1
+nih_v3.1	PB GROUP 1B	class not in crosswalk	1
+nih_v3.1	PITAD STH DENSE A	class not in crosswalk	1
+nih_v3.1	SE EPN PF	class not in crosswalk	1
+dkfz_v12	SCHW	crosswalk row has no OPC_molecular_subtype	30
+dkfz_v12.8	SCHW	crosswalk row has no OPC_molecular_subtype	30
+dkfz_v12.8	CPT_PED_B	crosswalk row has no OPC_molecular_subtype	22
+nih_v3.1	CPC PED	crosswalk row has no OPC_molecular_subtype	22
+nih_v3.1	SCHW	crosswalk row has no OPC_molecular_subtype	22
+dkfz_v12.8	INFLAM_ENV	crosswalk row has no OPC_molecular_subtype	21
+dkfz_v12	CPC_PED	crosswalk row has no OPC_molecular_subtype	19
+dkfz_v12	CPP_PED	crosswalk row has no OPC_molecular_subtype	18
+nih_v3.1	NFIB PLEX	crosswalk row has no OPC_molecular_subtype	18
+dkfz_v12.8	CPT_PED_A	crosswalk row has no OPC_molecular_subtype	17
+nih_v3.1	CPP PED	crosswalk row has no OPC_molecular_subtype	17
+dkfz_v12	INFLAM_ENV	crosswalk row has no OPC_molecular_subtype	14
+dkfz_v12	CPP_AD	crosswalk row has no OPC_molecular_subtype	8
+dkfz_v12.8	CPT_AD_A	crosswalk row has no OPC_molecular_subtype	8
+dkfz_v12	NFIB_PLEX	crosswalk row has no OPC_molecular_subtype	7
+nih_v3.1	CPP AD	crosswalk row has no OPC_molecular_subtype	7
+dkfz_v12.8	NFIB_PLEX	crosswalk row has no OPC_molecular_subtype	6
+dkfz_v12	GCT_TERA	crosswalk row has no OPC_molecular_subtype	5
+dkfz_v12.8	GCT_TERA	crosswalk row has no OPC_molecular_subtype	5
+nih_v3.1	GCT TERA	crosswalk row has no OPC_molecular_subtype	5
+dkfz_v12.8	GCT_GERM_KIT	crosswalk row has no OPC_molecular_subtype	4
+dkfz_v12	GCT_GERM_KIT	crosswalk row has no OPC_molecular_subtype	3
+dkfz_v12.8	MPNST_ATYP	crosswalk row has no OPC_molecular_subtype	3
+nih_v3.1	GCT GERM	crosswalk row has no OPC_molecular_subtype	3
+dkfz_v12	GCT_YOLKSAC	crosswalk row has no OPC_molecular_subtype	2
+dkfz_v12	HMB	crosswalk row has no OPC_molecular_subtype	2
+dkfz_v12	LCH	crosswalk row has no OPC_molecular_subtype	2
+dkfz_v12	MPNST_ATYP	crosswalk row has no OPC_molecular_subtype	2
+dkfz_v12	PITAD_TSH	crosswalk row has no OPC_molecular_subtype	2
+dkfz_v12.8	GCT_YOLKSAC	crosswalk row has no OPC_molecular_subtype	2
+dkfz_v12.8	HMB	crosswalk row has no OPC_molecular_subtype	2
+dkfz_v12.8	PITNET_TSH	crosswalk row has no OPC_molecular_subtype	2
+nih_v3.1	GCT YOLKSAC	crosswalk row has no OPC_molecular_subtype	2
+nih_v3.1	MPNST ATYP	crosswalk row has no OPC_molecular_subtype	2
+nih_v3.1	PGNT	crosswalk row has no OPC_molecular_subtype	2
+nih_v3.1	PITAD TSH	crosswalk row has no OPC_molecular_subtype	2
+dkfz_v12	GCT_GERM_A	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12	MB_MYO	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12	MELN	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12	PGNT	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12	PITAD_ACTH	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12	PITAD_PRL	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12	PITAD_STH_DENSE1	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12.8	GCT_GERM_A	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12.8	IO_MEPL	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12.8	MB_MYO	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12.8	MELN	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12.8	MPNST_TYP	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12.8	PGNT	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12.8	PITNET_ACTH	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12.8	PITNET_PRL	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12.8	PITNET_STH_DENSE1	crosswalk row has no OPC_molecular_subtype	1
+dkfz_v12.8	PITUI	crosswalk row has no OPC_molecular_subtype	1
+nih_v3.1	DLBCL	crosswalk row has no OPC_molecular_subtype	1
+nih_v3.1	HMB	crosswalk row has no OPC_molecular_subtype	1
+nih_v3.1	LCH	crosswalk row has no OPC_molecular_subtype	1
+nih_v3.1	MB MYO	crosswalk row has no OPC_molecular_subtype	1
+nih_v3.1	MYXGNT	crosswalk row has no OPC_molecular_subtype	1
+nih_v3.1	PITAD ACTH	crosswalk row has no OPC_molecular_subtype	1
+nih_v3.1	PITAD PRL	crosswalk row has no OPC_molecular_subtype	1
