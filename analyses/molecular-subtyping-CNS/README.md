@@ -1,4 +1,4 @@
-# Methylation calls for molecular subtyping
+# Molecular subtyping of CNS tumors using methylation and genetic lesions
 
 **Module authors:** Jo Lynne Rokita
 

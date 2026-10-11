@@ -26,7 +26,7 @@ suppressPackageStartupMessages({
 })
 
 root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
-module_dir <- file.path(root_dir, "analyses", "molecular-subtyping-methylation")
+module_dir <- file.path(root_dir, "analyses", "molecular-subtyping-CNS")
 input_dir <- file.path(module_dir, "input")
 results_dir <- file.path(module_dir, "results")
 dir.create(results_dir, showWarnings = FALSE, recursive = TRUE)
