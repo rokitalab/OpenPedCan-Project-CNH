@@ -54,7 +54,7 @@ lgg <- read_tsv(
   mutate(lgg_specific = !str_detect(lgg_subtype, nonspecific))
 
 # medulloblastoma: expression classifier, concordance with methylation, and
-# the SHH subtype (06-validate-mb.R)
+# the SHH subtype (04-validate-mb.R)
 mb <- read_tsv(file.path(results_dir, "mb_validation.tsv"),
                guess_max = 10000, show_col_types = FALSE) %>%
   filter(!is.na(match_id)) %>%

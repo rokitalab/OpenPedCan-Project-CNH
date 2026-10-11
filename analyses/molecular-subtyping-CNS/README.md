@@ -8,7 +8,7 @@ This module builds one resolved methylation call per biospecimen, which molecula
 
 ## Workflow
 
-Scripts run in order: `01` builds the methylation calls, `02` prepares lesion tables, `03` validates and applies the lesion fallback, `06` validates medulloblastoma, `05` compiles the final table, and `04` compares with the legacy modules. Shared functions are in `utils/`.
+Scripts run in numeric order: `01` builds the methylation calls, `02` prepares lesion tables, `03` validates and applies the lesion fallback, `04` validates medulloblastoma, `05` compiles the final table (the last subtyping step), and `06` compares it with the legacy modules. Shared functions are in `utils/`.
 
 `01-build-methylation-calls.R` combines:
 
@@ -57,11 +57,11 @@ Outputs: `results/methylation_subtype_validation.tsv`, `results/subtypes_for_rev
 
 `05-compile-subtypes.R` writes `results/molecular_subtype_cns.tsv`, one row per `match_id`. Subtype precedence is high-confidence methylation, then lesion-only fallback, then the LGG module's lesion-level call (`molecular-subtyping-LGAT`) (tumors with no other source). `lesion_refinement` adds the LGG lesion-level subtype (`KIAA1549-BRAF`, `BRAF V600E`, `NF1`, ...) on top of the methylation family when LGG made a specific call. TP53 and gene annotations are not part of the subtype.
 
-`04-compare-to-legacy.R` compares `molecular_subtype_cns.tsv` with the legacy per-module subtypes in `molecular-subtyping-pathology/results/compiled_molecular_subtypes.tsv`, per `match_id`, and writes `results/legacy_comparison.tsv` with an outcome of `same`, `same (lesion refinement)`, `newly assigned`, `different`, `legacy only (specific or unassigned)`, or `new only`.
+`06-compare-to-legacy.R` compares `molecular_subtype_cns.tsv` with the legacy per-module subtypes in `molecular-subtyping-pathology/results/compiled_molecular_subtypes.tsv`, per `match_id`, and writes `results/legacy_comparison.tsv` with an outcome of `same`, `same (lesion refinement)`, `newly assigned`, `different`, `legacy only (specific or unassigned)`, or `new only`.
 
 ### Medulloblastoma
 
-Methylation sets the group (`MB, WNT`, `MB, SHH`, `MB, Group3`, `MB, Group4`), as for the other families, and lesion rules confirm it (CTNNB1 exon 3 hotspot for WNT; PTCH1, SMO, SUFU or GLI2 amplification for SHH; MYC amplification for Group 3). `06-validate-mb.R` compares it with the RNA-seq expression classifier (`medulloPackage`, read from `molecular-subtyping-MB/results/mb-classified.rds`) and adds the SHH subtype (alpha, beta, gamma, delta) from `molecular-subtyping-MB`:
+Methylation sets the group (`MB, WNT`, `MB, SHH`, `MB, Group3`, `MB, Group4`), as for the other families, and lesion rules confirm it (CTNNB1 exon 3 hotspot for WNT; PTCH1, SMO, SUFU or GLI2 amplification for SHH; MYC amplification for Group 3). `04-validate-mb.R` compares it with the RNA-seq expression classifier (`medulloPackage`, read from `molecular-subtyping-MB/results/mb-classified.rds`) and adds the SHH subtype (alpha, beta, gamma, delta) from `molecular-subtyping-MB`:
 
 - `mb_expression_group` and `mb_concordance` (`concordant`, `discordant`, `methylation only`, `expression only`); discordant tumors are flagged and listed in `results/mb_discordant.tsv`
 - `mb_shh_subtype` for SHH tumors, with the DKFZ SHH class vs subtype cross-tab printed by the script
@@ -100,7 +100,7 @@ For EGFR the activating alterations are amplification, A289/G598/R108 missense v
 Rscript --vanilla 01-build-methylation-calls.R
 Rscript --vanilla 02-prepare-lesion-tables.R
 Rscript --vanilla 03-validate-subtypes.R
-Rscript --vanilla 06-validate-mb.R
+Rscript --vanilla 04-validate-mb.R
 Rscript --vanilla 05-compile-subtypes.R
-Rscript --vanilla 04-compare-to-legacy.R
+Rscript --vanilla 06-compare-to-legacy.R
 ```

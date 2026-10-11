@@ -1,5 +1,5 @@
 ################################################################################
-# 04-compare-to-legacy.R
+# 06-compare-to-legacy.R
 #
 # Compare molecular_subtype_cns.tsv (05-compile-subtypes.R) with the legacy
 # per-module subtypes compiled in
@@ -9,7 +9,7 @@
 # A legacy lesion-level label that equals `lesion_refinement` counts
 # as agreement with the methylation family.
 #
-# Usage: Rscript --vanilla 04-compare-to-legacy.R
+# Usage: Rscript --vanilla 06-compare-to-legacy.R
 ################################################################################
 
 suppressPackageStartupMessages(library(tidyverse))
