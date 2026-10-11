@@ -66,9 +66,13 @@ shared <- c("match_id", "Kids_First_Participant_ID", "sample_id",
 compiled <- bind_rows(
   methyl %>% select(all_of(shared), methyl_class, methyl_score, lesion_status,
                     methyl_conflict, starts_with("tp53_"),
-                    ends_with("_mutation_status"), ends_with("_variants")),
+                    ends_with("_mutation_status"), ends_with("_variants"),
+                    ends_with("_amplification"), ends_with("_activating_alteration"),
+                    starts_with("h3k27_")),
   fallback %>% select(all_of(shared), starts_with("tp53_"),
-                      ends_with("_mutation_status"), ends_with("_variants"))
+                      ends_with("_mutation_status"), ends_with("_variants"),
+                    ends_with("_amplification"), ends_with("_activating_alteration"),
+                    starts_with("h3k27_"))
 ) %>%
   full_join(lgg, by = "match_id") %>%
   mutate(
@@ -94,7 +98,9 @@ compiled <- bind_rows(
          evidence_level, lesion_status, lesion_evidence, methyl_class,
          methyl_score, methyl_conflict, pathology_diagnosis, dx_group,
          dx_concordance, needs_review, starts_with("tp53_"),
-         ends_with("_mutation_status"), ends_with("_variants")) %>%
+         ends_with("_mutation_status"), ends_with("_variants"),
+                    ends_with("_amplification"), ends_with("_activating_alteration"),
+                    starts_with("h3k27_")) %>%
   arrange(match_id)
 
 stopifnot(!anyDuplicated(compiled$match_id))

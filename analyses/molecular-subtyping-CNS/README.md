@@ -61,7 +61,11 @@ Outputs: `results/methylation_subtype_validation.tsv`, `results/subtypes_for_rev
 
 ### Gene annotations
 
-`input/annotation_genes.tsv` lists genes whose mutation status is reported as an annotation for the subtypes matching `applies_to_subtype_regex` (currently `EGFR` for `^DMG`). Each gets `<gene>_mutation_status` (`mutated`, `not detected`, `no DNA assay`) and `<gene>_variants`. The `DMG_EGFR` methylation class stays visible in `methyl_class`.
+`input/annotation_genes.tsv` lists genes whose status is reported as an annotation for the subtypes matching `applies_to_subtype_regex` (currently `EGFR` for `^DMG`). Each gets `<gene>_mutation_status` (`mutated`, `not detected`, `no DNA assay`) with `<gene>_variants` (any coding variant), `<gene>_amplification` (a copy-number segment overlapping the gene above twice the ploidy, the `focal-cn-file-preparation` convention; `no CNV data` when there is no segment file), and `<gene>_activating_alteration` (a variant matching `alteration_pattern`, or amplification).
+
+For EGFR the activating alterations are amplification, A289/G598/R108 missense variants, and exon 20 insertions or duplications, as described for the `DMG_EGFR` methylation class.
+
+`h3k27_altered_mechanism` lists, for DMG, which DNA-detectable routes to the H3 K27-altered phenotype were found: `H3 K27M/I` and/or `EGFR alteration`. EZHIP overexpression needs expression data and is not assessed, so tumors with neither are `none detected (EZHIP overexpression not assessed)`, and tumors with no DNA are `no DNA assay`.
 
 ### Usage
 

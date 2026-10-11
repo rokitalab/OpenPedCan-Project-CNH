@@ -1,2 +1,2 @@
-gene	applies_to_subtype_regex	note
-EGFR	^DMG	EGFR mutation status for DMG; the DMG_EGFR methylation class is a separate variant of DMG, H3 K28
+gene	applies_to_subtype_regex	alteration_pattern	chrom	start	end	note
+EGFR	^DMG	^p\.(A289[A-Z]|G598[A-Z]|R108[A-Z])|^p\.[A-Z]7[6-8][0-9](_[A-Z]7[6-8][0-9])?(ins|dup)	chr7	55019017	55211628	EGFR alteration in DMG: amplification, A289/G598/R108 missense, or exon 20 insertion/duplication; the DMG_EGFR methylation class is a separate variant of H3 K27-altered DMG
