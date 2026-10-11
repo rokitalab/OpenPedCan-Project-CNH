@@ -63,7 +63,7 @@ Outputs: `results/methylation_subtype_validation.tsv`, `results/subtypes_for_rev
 
 `input/annotation_genes.tsv` lists genes whose status is reported as an annotation for the subtypes matching `applies_to_subtype_regex` (currently `EGFR` for `^DMG`). Each gets lowercase columns `<gene>_mutation_status` (`mutated`, `not detected`, `no DNA assay`) with `<gene>_variants` (any coding variant), `<gene>_amplification` (a copy-number segment overlapping the gene above twice the ploidy, the `focal-cn-file-preparation` convention; `no CNV data` when there is no segment file), and `<gene>_activating_alteration` (a variant matching `alteration_pattern`, or amplification).
 
-The `DMG_EGFR` methylation class is its own subtype, `DMG, H3 K27-altered, EGFR`. When an H3 K27M/I variant is also found, the tumor carries both labels (`DMG, H3 K28, EGFR`). A `DMG_EGFR` tumor with no DNA assay keeps `DMG, H3 K27-altered, EGFR`, since the class itself defines it.
+The `DMG_EGFR` methylation class is its own subtype, `DMG, H3 K28-altered, EGFR`. When an H3 K27M/I variant is also found, the tumor is `DMG, H3 K28-mutant, EGFR`. Tumors with an H3 K27M/I variant and any other methylation class are `DMG, H3 K28-mutant`. A `DMG_EGFR` tumor with no DNA assay keeps `DMG, H3 K28-altered, EGFR`, since the class itself defines it.
 
 For EGFR the activating alterations are amplification, A289/G598/R108 missense variants, and exon 20 insertions or duplications, as described for the `DMG_EGFR` methylation class.
 

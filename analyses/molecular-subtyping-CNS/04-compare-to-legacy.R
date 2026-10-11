@@ -5,7 +5,8 @@
 # per-module subtypes compiled in
 # molecular-subtyping-pathology/results/compiled_molecular_subtypes.tsv, per
 # match_id. The legacy ", TP53" suffix is dropped, since TP53 is now an
-# annotation. A legacy lesion-level label that equals `lesion_refinement` counts
+# annotation, and the legacy `DMG, H3 K28` label is mapped to the new
+# `DMG, H3 K28-mutant`. A legacy lesion-level label that equals `lesion_refinement` counts
 # as agreement with the methylation family.
 #
 # Usage: Rscript --vanilla 04-compare-to-legacy.R
@@ -27,7 +28,9 @@ legacy <- read_tsv(
 ) %>%
   filter(!is.na(match_id), !is.na(molecular_subtype)) %>%
   transmute(match_id,
-            legacy_subtype = str_remove(molecular_subtype, ", TP53$"),
+            legacy_subtype = str_remove(molecular_subtype, ", TP53$") %>%
+              # renamed in this module: H3 K28 is now H3 K28-mutant
+              str_replace("^DMG, H3 K28$", "DMG, H3 K28-mutant"),
             legacy_group = str_extract(legacy_subtype, "^[^,]+")) %>%
   distinct()
 
