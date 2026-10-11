@@ -63,6 +63,7 @@ Outputs: `results/methylation_subtype_validation.tsv`, `results/subtypes_for_rev
 
 - `h3_status` (`mutant`, `wildtype`, `not assessed`) and `h3_variant` for `HGG`, `DMG` and `DHG` subtypes. Wildtype means a DNA assay with no H3 K27M/I or G34/G35 R/V variant.
 - `subtype_group` rolls the pediatric H3-wildtype methylation classes (`HGG, RTK`, `MYCN`, `MES`, `chr6 CTX`, `HGAP`, `HGNET`, ...) up into `HGG, H3 wildtype` (`input/subtype_groups.tsv`); all other subtypes are their own group. The specific class stays in `molecular_subtype_cns`. A tumor in one of these classes with an H3 variant is not grouped and is flagged for review (`h3_group_conflict`).
+- `h3_variant_conflict` flags a methylation subtype that is not `DMG`/`DHG` in a tumor with an H3 K27M/I or G34/G35 R/V variant. `results/h3_variant_review.tsv` lists every such tumor, including those left without a subtype because the methylation call is a control (low purity) and the lesion fallback is not applied.
 - `HGG, H3 wildtype` is also assigned by exclusion (`subtype_source = lesion negative`) to PBTA tumors with an HGG diagnosis, a DNA assay and no methylation call, lesion rule hit, or control, with no H3 or IDH variant. Results are in `results/lesion_negative_hgg.tsv`.
 
 ### PXA

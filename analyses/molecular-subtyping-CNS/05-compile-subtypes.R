@@ -125,7 +125,7 @@ compiled <- bind_rows(
       TRUE ~ molecular_subtype_cns
     ),
     needs_review = dx_concordance %in% "discordant" | methyl_conflict |
-      h3_group_conflict
+      h3_group_conflict | h3_variant_conflict %in% TRUE
   ) %>%
   select(match_id, Kids_First_Participant_ID, sample_id,
          molecular_subtype_cns, subtype_group, lesion_refinement, subtype_source,

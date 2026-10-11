@@ -199,6 +199,13 @@ validated <- calls %>%
          ends_with("_tpm"), ends_with("_expression_status"),
          starts_with("h3_"), starts_with("h3k27_"), evidence_level, needs_review)
 
+# an H3 K27M/I or G34/G35 R/V variant defines DMG/DHG, so a methylation subtype
+# that is not DMG/DHG contradicts it and is flagged for review
+validated <- validated %>%
+  mutate(h3_variant_conflict = match_id %in% h3_hits$match_id &
+           !str_detect(OPC_molecular_subtype, "^(DMG|DHG)"),
+         needs_review = needs_review | h3_variant_conflict)
+
 write_tsv(validated, file.path(results_dir, "methylation_subtype_validation.tsv"))
 validated %>%
   filter(needs_review) %>%
@@ -290,6 +297,50 @@ fallback <- fallback %>%
 
 write_tsv(fallback, file.path(results_dir, "lesion_fallback_subtypes.tsv"))
 
+### H3 variants in tumors that are not DMG/DHG --------------------------------
+# Includes tumors with no subtype, e.g. where the methylation call is a control
+# (low purity) and the lesion fallback is therefore not applied.
+methyl_by_match <- calls %>%
+  filter(methyl_confidence == "high") %>%
+  inner_join(select(hist, Kids_First_Biospecimen_ID, match_id),
+             by = "Kids_First_Biospecimen_ID") %>%
+  distinct(match_id, methyl_class, methyl_control)
+
+h3_variant_review <- h3_hits %>%
+  filter(match_id %in% pbta_match_ids) %>%
+  group_by(match_id) %>%
+  summarise(h3_variant = paste(sort(unique(evidence)), collapse = "; "),
+            .groups = "drop") %>%
+  left_join(distinct(validated, match_id, methylation_subtype = OPC_molecular_subtype),
+            by = "match_id") %>%
+  left_join(select(fallback, match_id, fallback_subtype = OPC_molecular_subtype,
+                   fallback_assigned = assign),
+            by = "match_id") %>%
+  left_join(methyl_by_match, by = "match_id") %>%
+  left_join(hist %>%
+              filter(sample_type == "Tumor") %>%
+              group_by(match_id) %>%
+              summarise(sample_id = first(sample_id),
+                        pathology_diagnosis = paste(sort(unique(na.omit(pathology_diagnosis))),
+                                                    collapse = ";"),
+                        .groups = "drop"),
+            by = "match_id") %>%
+  mutate(
+    reason = case_when(
+      !is.na(methylation_subtype) & !str_detect(methylation_subtype, "^(DMG|DHG)") ~
+        "methylation subtype is not DMG/DHG",
+      methyl_control %in% TRUE ~
+        "methylation is a control / low-purity call, so the lesion fallback is not applied",
+      !is.na(fallback_assigned) & !fallback_assigned ~
+        "lesion call held by the diagnosis",
+      is.na(methylation_subtype) & is.na(fallback_subtype) ~ "no subtype assigned"
+    )
+  ) %>%
+  filter(!is.na(reason)) %>%
+  arrange(reason, sample_id)
+
+write_tsv(h3_variant_review, file.path(results_dir, "h3_variant_review.tsv"))
+
 ### Lesion-negative HGG -------------------------------------------------------
 # PBTA tumors with an HGG diagnosis, a DNA assay, and no methylation call or
 # lesion rule hit: no H3 or IDH variant means "HGG, H3 wildtype" by exclusion,
@@ -330,6 +381,8 @@ print(count(validated, lesion_status))
 print(count(validated, dx_concordance))
 message("Flagged for review: ", sum(validated$needs_review))
 
+message("\n== H3 variant but not DMG/DHG: ", nrow(h3_variant_review))
+print(count(h3_variant_review, reason))
 message("\n== Lesion-negative HGG, H3 wildtype: ", nrow(lesion_negative_hgg))
 message("\n== Lesion-only fallback: ", nrow(fallback), " tumors without methylation")
 print(count(fallback, OPC_molecular_subtype, assign, hold_reason))

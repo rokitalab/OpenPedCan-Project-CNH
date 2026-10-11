@@ -1,0 +1,16 @@
+match_id	h3_variant	methylation_subtype	fallback_subtype	fallback_assigned	methyl_class	methyl_control	sample_id	pathology_diagnosis	reason
+PT_R4T1V1K4_7316-2784_Solid Tissue_Initial CNS Tumor	H3-3A p.K28M	NA	NA	NA	CTRL_CBM	TRUE	7316-2784	Brainstem glioma- Diffuse intrinsic pontine glioma	methylation is a control / low-purity call, so the lesion fallback is not applied
+PT_Z0JKP1GY_7316-3158_Solid Tissue_Initial CNS Tumor	H3-3A p.K28M	NA	NA	NA	INFLAM_ENV	TRUE	7316-3158	High-grade glioma/astrocytoma (WHO grade III/IV)	methylation is a control / low-purity call, so the lesion fallback is not applied
+PT_63F63QY0_7316-3521_Solid Tissue_Progressive	H3-3A p.K28M	NA	NA	NA	INFLAM_ENV	TRUE	7316-3521	High-grade glioma/astrocytoma (WHO grade III/IV)	methylation is a control / low-purity call, so the lesion fallback is not applied
+PT_9CQA1W10_7316-6349_Solid Tissue_Deceased	H3-3A p.K28M	DMG, H3 K28-mutant	NA	NA	CTRL_CBM	TRUE	7316-6349	High-grade glioma/astrocytoma (WHO grade III/IV)	methylation is a control / low-purity call, so the lesion fallback is not applied
+PT_0J07HTRF_7316-6475_Solid Tissue_Deceased	H3-3A p.K28M	DMG, H3 K28-mutant	NA	NA	CTRL_CBM	TRUE	7316-6475	High-grade glioma/astrocytoma (WHO grade III/IV)	methylation is a control / low-purity call, so the lesion fallback is not applied
+PT_M72FHJXN_7316-6756_Solid Tissue_Deceased	H3-3A p.K28M	DMG, H3 K28-mutant	NA	NA	INFLAM_ENV	TRUE	7316-6756	Brainstem glioma- Diffuse intrinsic pontine glioma	methylation is a control / low-purity call, so the lesion fallback is not applied
+PT_M72FHJXN_7316-6756_Solid Tissue_Deceased	H3-3A p.K28M	DMG, H3 K28-mutant	NA	NA	CTRL_CBM	TRUE	7316-6756	Brainstem glioma- Diffuse intrinsic pontine glioma	methylation is a control / low-purity call, so the lesion fallback is not applied
+PT_GTHZF21E_7316-9066_Solid Tissue_Deceased	H3-3A p.K28M	DMG, H3 K28-mutant	NA	NA	CTRL_CBM	TRUE	7316-9066	High-grade glioma/astrocytoma (WHO grade III/IV)	methylation is a control / low-purity call, so the lesion fallback is not applied
+PT_3AR6AW9N_7316-9840_Solid Tissue_Deceased	H3-3A p.K28M	DMG, H3 K28-mutant	NA	NA	CTRL_CORPCAL	TRUE	7316-9840	High-grade glioma/astrocytoma (WHO grade III/IV)	methylation is a control / low-purity call, so the lesion fallback is not applied
+PT_DS0HZCSD_7316-9843_Solid Tissue_Deceased	H3-3A p.K28M	NA	NA	NA	INFLAM_ENV	TRUE	7316-9843	High-grade glioma/astrocytoma (WHO grade III/IV)	methylation is a control / low-purity call, so the lesion fallback is not applied
+PT_7E3V3JFX_7316-506_Solid Tissue_Initial CNS Tumor	H3C2 p.K28M	EPN, PF A	NA	NA	EPN PFA 1A	FALSE	7316-506	Ependymoma	methylation subtype is not DMG/DHG
+PT_6B8W4B6B_7316-5511_Solid Tissue_Initial CNS Tumor	H3C3 p.K28M	EPN, PF A	NA	NA	EPN_PFA_1F	FALSE	7316-5511	Ependymoma	methylation subtype is not DMG/DHG
+PT_ESWK06KQ_7316-6755_Solid Tissue_Deceased	H3-3A p.K28M	GNG, MAPK	NA	NA	DMG_K27	FALSE	7316-6755	High-grade glioma/astrocytoma (WHO grade III/IV)	methylation subtype is not DMG/DHG
+PT_ESWK06KQ_7316-6755_Solid Tissue_Deceased	H3-3A p.K28M	GNG, MAPK	NA	NA	GG	FALSE	7316-6755	High-grade glioma/astrocytoma (WHO grade III/IV)	methylation subtype is not DMG/DHG
+PT_SD4RJ57T_7316-9842_Solid Tissue_Deceased	H3-3A p.K28M	HGG, IDH	NA	NA	A_IDH_HG	FALSE	7316-9842	High-grade glioma/astrocytoma (WHO grade III/IV)	methylation subtype is not DMG/DHG
