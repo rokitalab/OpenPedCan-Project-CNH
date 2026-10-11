@@ -1513,7 +1513,7 @@ window.initializeCodeFolding = function(show) {
     $(this).detach().appendTo(div);
 
     // add a show code button right above
-    var showCodeText = $('<span>' + (showThis ? 'Hide' : 'Code') + '</span>');
+    var showCodeText = $('<span>' + (showThis ? 'Hide' : 'Show') + '</span>');
     var showCodeButton = $('<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm code-folding-btn pull-right float-right"></button>');
     showCodeButton.append(showCodeText);
     showCodeButton
@@ -1539,7 +1539,7 @@ window.initializeCodeFolding = function(show) {
     //   * Change text
     //   * add a class for intermediate states styling
     div.on('hide.bs.collapse', function () {
-      showCodeText.text('Code');
+      showCodeText.text('Show');
       showCodeButton.addClass('btn-collapsing');
     });
     div.on('hidden.bs.collapse', function () {
@@ -1842,9 +1842,9 @@ hist_df &lt;- readr::read_tsv(file.path(data_dir, &quot;histologies-base.tsv&quo
          sample_type == &quot;Tumor&quot;,
          pathology_diagnosis %in% path_dx_list$exact_path_dx)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-message-begin eyJkYXRhIjoiUm93czogNDc4OTUgQ29sdW1uczogNjRcbuKUgOKUgCBDb2x1bW4gc3BlY2lmaWNhdGlvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbkRlbGltaXRlcjogXCJcXHRcIlxuY2hyICg0MSk6IEtpZHNfRmlyc3RfUGFydGljaXBhbnRfSUQsIEtpZHNfRmlyc3RfQmlvc3BlY2ltZW5fSUQsIHNhbXBsZV9pZCwgYS4uLlxuZGJsICgyMSk6IGNlbGxfbGluZV9wYXNzYWdlLCBPU19kYXlzLCBFRlNfZGF5cywgYWdlX2F0X2RpYWdub3Npc19kYXlzLCBhZ2VfYS4uLlxubGdsICAoMik6IG1vbGVjdWxhcl9zdWJ0eXBlLCBpbnRlZ3JhdGVkX2RpYWdub3Npc1xuXG7ihLkgVXNlIGBzcGVjKClgIHRvIHJldHJpZXZlIHRoZSBmdWxsIGNvbHVtbiBzcGVjaWZpY2F0aW9uIGZvciB0aGlzIGRhdGEuXG7ihLkgU3BlY2lmeSB0aGUgY29sdW1uIHR5cGVzIG9yIHNldCBgc2hvd19jb2xfdHlwZXMgPSBGQUxTRWAgdG8gcXVpZXQgdGhpcyBtZXNzYWdlLlxuIn0= -->
+<!-- rnb-message-begin eyJkYXRhIjoiUm93czogNDc4OTUgQ29sdW1uczogNjRcbuKUgOKUgCBDb2x1bW4gc3BlY2lmaWNhdGlvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbkRlbGltaXRlcjogXCJcXHRcIlxuY2hyICg0MSk6IEtpZHNfRmlyc3RfUGFydGljaXBhbnRfSUQsIEtpZHNfRmlyc3RfQmlvc3BlY2ltZW5fSUQsIHNhbXBsZV9pZCwgYS4uLlxuZGJsICgyMSk6IGNlbGxfbGluZV9wYXNzYWdlLCBPU19kYXlzLCBFRlNfZGF5cywgYWdlX2F0X2RpYWdub3Npc19kYXlzLCBhZ2VfYS4uLlxubGdsICAoMik6IG1vbGVjdWxhcl9zdWJ0eXBlLCBpbnRlZ3JhdGVkX2RpYWdub3Npc1xuXG7ihLkgVXNlIGBzcGVjKClgIHRvIHJldHJpZXZlIHRoZSBmdWxsIGNvbHVtbiBzcGVjaWZpY2F0aW9uIGZvciB0aGlzIGRhdGEuXG7ihLkgU3BlY2lmeSB0aGUgY29sdW1uIHR5cGVzIG9yIHNldCBgc2hvd19jb2xfdHlwZXMgPSBGQUxTRWAgdG8gcXVpZXQgdGhpcyBtZXNzYWdlLlxuIn0= -->
 <pre><code>Rows: 47895 Columns: 64
-── Column specification ───────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
 chr (41): Kids_First_Participant_ID, Kids_First_Biospecimen_ID, sample_id, a...
 dbl (21): cell_line_passage, OS_days, EFS_days, age_at_diagnosis_days, age_a...
@@ -1863,9 +1863,9 @@ consensus_df &lt;-
   dplyr::filter(gene_symbol == &quot;MYCN&quot;,
          Kids_First_Biospecimen_ID %in% hist_df$Kids_First_Biospecimen_ID)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-message-begin eyJkYXRhIjoiUm93czogNTMxODczMjIgQ29sdW1uczogOFxu4pSA4pSAIENvbHVtbiBzcGVjaWZpY2F0aW9uIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuRGVsaW1pdGVyOiBcIlxcdFwiXG5jaHIgKDUpOiBiaW9zcGVjaW1lbl9pZCwgc3RhdHVzLCBlbnNlbWJsLCBnZW5lX3N5bWJvbCwgY3l0b2JhbmRcbmRibCAoMyk6IGNvcHlfbnVtYmVyLCBwbG9pZHksIHBjdF9vdmVybGFwXG5cbuKEuSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbuKEuSBTcGVjaWZ5IHRoZSBjb2x1bW4gdHlwZXMgb3Igc2V0IGBzaG93X2NvbF90eXBlcyA9IEZBTFNFYCB0byBxdWlldCB0aGlzIG1lc3NhZ2UuXG4ifQ== -->
+<!-- rnb-message-begin eyJkYXRhIjoiUm93czogNTMxODczMjIgQ29sdW1uczogOFxu4pSA4pSAIENvbHVtbiBzcGVjaWZpY2F0aW9uIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgFxuRGVsaW1pdGVyOiBcIlxcdFwiXG5jaHIgKDUpOiBiaW9zcGVjaW1lbl9pZCwgc3RhdHVzLCBlbnNlbWJsLCBnZW5lX3N5bWJvbCwgY3l0b2JhbmRcbmRibCAoMyk6IGNvcHlfbnVtYmVyLCBwbG9pZHksIHBjdF9vdmVybGFwXG5cbuKEuSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbuKEuSBTcGVjaWZ5IHRoZSBjb2x1bW4gdHlwZXMgb3Igc2V0IGBzaG93X2NvbF90eXBlcyA9IEZBTFNFYCB0byBxdWlldCB0aGlzIG1lc3NhZ2UuXG4ifQ== -->
 <pre><code>Rows: 53187322 Columns: 8
-── Column specification ───────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
 chr (5): biospecimen_id, status, ensembl, gene_symbol, cytoband
 dbl (3): copy_number, ploidy, pct_overlap
@@ -1906,14 +1906,14 @@ tpm_df &lt;-
 <!-- rnb-source-begin eyJkYXRhIjoic2Vzc2lvbkluZm8oKSAifQ== -->
 <pre class="r"><code>sessionInfo() </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUiB2ZXJzaW9uIDQuMi4zICgyMDIzLTAzLTE1KVxuUGxhdGZvcm06IHg4Nl82NC1wYy1saW51eC1nbnUgKDY0LWJpdClcblJ1bm5pbmcgdW5kZXI6IFVidW50dSAyMi4wNC4yIExUU1xuXG5NYXRyaXggcHJvZHVjdHM6IGRlZmF1bHRcbkJMQVM6ICAgL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9vcGVuYmxhcy1wdGhyZWFkL2xpYmJsYXMuc28uM1xuTEFQQUNLOiAvdXNyL2xpYi94ODZfNjQtbGludXgtZ251L29wZW5ibGFzLXB0aHJlYWQvbGlib3BlbmJsYXNwLXIwLjMuMjAuc29cblxubG9jYWxlOlxuIFsxXSBMQ19DVFlQRT1lbl9VUy5VVEYtOCAgICAgICBMQ19OVU1FUklDPUMgICAgICAgICAgICAgIFxuIFszXSBMQ19USU1FPWVuX1VTLlVURi04ICAgICAgICBMQ19DT0xMQVRFPWVuX1VTLlVURi04ICAgIFxuIFs1XSBMQ19NT05FVEFSWT1lbl9VUy5VVEYtOCAgICBMQ19NRVNTQUdFUz1lbl9VUy5VVEYtOCAgIFxuIFs3XSBMQ19QQVBFUj1lbl9VUy5VVEYtOCAgICAgICBMQ19OQU1FPUMgICAgICAgICAgICAgICAgIFxuIFs5XSBMQ19BRERSRVNTPUMgICAgICAgICAgICAgICBMQ19URUxFUEhPTkU9QyAgICAgICAgICAgIFxuWzExXSBMQ19NRUFTVVJFTUVOVD1lbl9VUy5VVEYtOCBMQ19JREVOVElGSUNBVElPTj1DICAgICAgIFxuXG5hdHRhY2hlZCBiYXNlIHBhY2thZ2VzOlxuWzFdIHN0YXRzICAgICBncmFwaGljcyAgZ3JEZXZpY2VzIHV0aWxzICAgICBkYXRhc2V0cyAgbWV0aG9kcyAgIGJhc2UgICAgIFxuXG5vdGhlciBhdHRhY2hlZCBwYWNrYWdlczpcbiBbMV0gbHVicmlkYXRlXzEuOS4yIGZvcmNhdHNfMS4wLjAgICBzdHJpbmdyXzEuNS4wICAgZHBseXJfMS4xLjEgICAgXG4gWzVdIHB1cnJyXzEuMC4xICAgICByZWFkcl8yLjEuNCAgICAgdGlkeXJfMS4zLjAgICAgIHRpYmJsZV8zLjIuMSAgIFxuIFs5XSBnZ3Bsb3QyXzMuNC4yICAgdGlkeXZlcnNlXzIuMC4wIGpzb25saXRlXzEuOC40IFxuXG5sb2FkZWQgdmlhIGEgbmFtZXNwYWNlIChhbmQgbm90IGF0dGFjaGVkKTpcbiBbMV0gYnNsaWJfMC40LjIgICAgICBjb21waWxlcl80LjIuMyAgIHBpbGxhcl8xLjkuMCAgICAganF1ZXJ5bGliXzAuMS40IFxuIFs1XSB0b29sc180LjIuMyAgICAgIGJpdF80LjAuNSAgICAgICAgZGlnZXN0XzAuNi4zMSAgICB0aW1lY2hhbmdlXzAuMi4wXG4gWzldIGV2YWx1YXRlXzAuMjAgICAgbGlmZWN5Y2xlXzEuMC4zICBndGFibGVfMC4zLjMgICAgIHBrZ2NvbmZpZ18yLjAuMyBcblsxM10gcmxhbmdfMS4xLjAgICAgICBjbGlfMy42LjEgICAgICAgIHBhcmFsbGVsXzQuMi4zICAgeWFtbF8yLjMuNyAgICAgIFxuWzE3XSB4ZnVuXzAuMzggICAgICAgIGZhc3RtYXBfMS4xLjEgICAgd2l0aHJfMi41LjAgICAgICBrbml0cl8xLjQyICAgICAgXG5bMjFdIGdlbmVyaWNzXzAuMS4zICAgdmN0cnNfMC42LjIgICAgICBzYXNzXzAuNC41ICAgICAgIGhtc18xLjEuMyAgICAgICBcblsyNV0gYml0NjRfNC4wLjUgICAgICBycHJvanJvb3RfMi4wLjMgIGdyaWRfNC4yLjMgICAgICAgdGlkeXNlbGVjdF8xLjIuMFxuWzI5XSBnbHVlXzEuNi4yICAgICAgIFI2XzIuNS4xICAgICAgICAgZmFuc2lfMS4wLjQgICAgICB2cm9vbV8xLjYuMSAgICAgXG5bMzNdIHJtYXJrZG93bl8yLjIxICAgdHpkYl8wLjMuMCAgICAgICBtYWdyaXR0cl8yLjAuMyAgIHNjYWxlc18xLjIuMSAgICBcblszN10gaHRtbHRvb2xzXzAuNS41ICBjb2xvcnNwYWNlXzIuMS0wIHV0ZjhfMS4yLjMgICAgICAgc3RyaW5naV8xLjcuMTIgIFxuWzQxXSBtdW5zZWxsXzAuNS4wICAgIGNhY2hlbV8xLjAuNyAgICAgY3JheW9uXzEuNS4yICAgIFxuIn0= -->
-<pre><code>R version 4.2.3 (2023-03-15)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 22.04.2 LTS
+<!-- rnb-output-begin eyJkYXRhIjoiUiB2ZXJzaW9uIDQuNC4wICgyMDI0LTA0LTI0KVxuUGxhdGZvcm06IHg4Nl82NC1wYy1saW51eC1nbnVcblJ1bm5pbmcgdW5kZXI6IFVidW50dSAyMi4wNC40IExUU1xuXG5NYXRyaXggcHJvZHVjdHM6IGRlZmF1bHRcbkJMQVM6ICAgL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9vcGVuYmxhcy1wdGhyZWFkL2xpYmJsYXMuc28uMyBcbkxBUEFDSzogL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9vcGVuYmxhcy1wdGhyZWFkL2xpYm9wZW5ibGFzcC1yMC4zLjIwLnNvOyAgTEFQQUNLIHZlcnNpb24gMy4xMC4wXG5cbmxvY2FsZTpcbiBbMV0gTENfQ1RZUEU9ZW5fVVMuVVRGLTggICAgICAgTENfTlVNRVJJQz1DICAgICAgICAgICAgICBcbiBbM10gTENfVElNRT1lbl9VUy5VVEYtOCAgICAgICAgTENfQ09MTEFURT1lbl9VUy5VVEYtOCAgICBcbiBbNV0gTENfTU9ORVRBUlk9ZW5fVVMuVVRGLTggICAgTENfTUVTU0FHRVM9ZW5fVVMuVVRGLTggICBcbiBbN10gTENfUEFQRVI9ZW5fVVMuVVRGLTggICAgICAgTENfTkFNRT1DICAgICAgICAgICAgICAgICBcbiBbOV0gTENfQUREUkVTUz1DICAgICAgICAgICAgICAgTENfVEVMRVBIT05FPUMgICAgICAgICAgICBcblsxMV0gTENfTUVBU1VSRU1FTlQ9ZW5fVVMuVVRGLTggTENfSURFTlRJRklDQVRJT049QyAgICAgICBcblxudGltZSB6b25lOiBFdGMvVVRDXG50emNvZGUgc291cmNlOiBzeXN0ZW0gKGdsaWJjKVxuXG5hdHRhY2hlZCBiYXNlIHBhY2thZ2VzOlxuWzFdIHN0YXRzICAgICBncmFwaGljcyAgZ3JEZXZpY2VzIHV0aWxzICAgICBkYXRhc2V0cyAgbWV0aG9kcyAgIGJhc2UgICAgIFxuXG5vdGhlciBhdHRhY2hlZCBwYWNrYWdlczpcbiBbMV0gbHVicmlkYXRlXzEuOS4zIGZvcmNhdHNfMS4wLjAgICBzdHJpbmdyXzEuNS4xICAgZHBseXJfMS4xLjQgICAgXG4gWzVdIHB1cnJyXzEuMC4yICAgICByZWFkcl8yLjEuNSAgICAgdGlkeXJfMS4zLjEgICAgIHRpYmJsZV8zLjIuMSAgIFxuIFs5XSBnZ3Bsb3QyXzMuNS4xICAgdGlkeXZlcnNlXzIuMC4wIGpzb25saXRlXzEuOC44IFxuXG5sb2FkZWQgdmlhIGEgbmFtZXNwYWNlIChhbmQgbm90IGF0dGFjaGVkKTpcbiBbMV0gYml0XzQuMC41ICAgICAgICAgZ3RhYmxlXzAuMy41ICAgICAgY3JheW9uXzEuNS4yICAgICAgY29tcGlsZXJfNC40LjAgICBcbiBbNV0gdGlkeXNlbGVjdF8xLjIuMSAgcGFyYWxsZWxfNC40LjAgICAganF1ZXJ5bGliXzAuMS40ICAgc2NhbGVzXzEuMy4wICAgICBcbiBbOV0geWFtbF8yLjMuOCAgICAgICAgZmFzdG1hcF8xLjIuMCAgICAgUjZfMi41LjEgICAgICAgICAgZ2VuZXJpY3NfMC4xLjMgICBcblsxM10ga25pdHJfMS40NyAgICAgICAgcnByb2pyb290XzIuMC40ICAgbXVuc2VsbF8wLjUuMSAgICAgYnNsaWJfMC43LjAgICAgICBcblsxN10gcGlsbGFyXzEuOS4wICAgICAgdHpkYl8wLjQuMCAgICAgICAgcmxhbmdfMS4xLjQgICAgICAgdXRmOF8xLjIuNCAgICAgICBcblsyMV0gc3RyaW5naV8xLjguNCAgICAgY2FjaGVtXzEuMS4wICAgICAgeGZ1bl8wLjQ0ICAgICAgICAgc2Fzc18wLjQuOSAgICAgICBcblsyNV0gYml0NjRfNC4wLjUgICAgICAgdGltZWNoYW5nZV8wLjMuMCAgY2xpXzMuNi4yICAgICAgICAgd2l0aHJfMy4wLjAgICAgICBcblsyOV0gbWFncml0dHJfMi4wLjMgICAgZGlnZXN0XzAuNi4zNSAgICAgZ3JpZF80LjQuMCAgICAgICAgdnJvb21fMS42LjUgICAgICBcblszM10gaG1zXzEuMS4zICAgICAgICAgbGlmZWN5Y2xlXzEuMC40ICAgdmN0cnNfMC42LjUgICAgICAgZXZhbHVhdGVfMC4yNC4wICBcblszN10gZ2x1ZV8xLjcuMCAgICAgICAgZmFuc2lfMS4wLjYgICAgICAgY29sb3JzcGFjZV8yLjEtMCAgcm1hcmtkb3duXzIuMjcgICBcbls0MV0gdG9vbHNfNC40LjAgICAgICAgcGtnY29uZmlnXzIuMC4zICAgaHRtbHRvb2xzXzAuNS44LjFcbiJ9 -->
+<pre><code>R version 4.4.0 (2024-04-24)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 22.04.4 LTS
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -1923,26 +1923,29 @@ locale:
  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
+time zone: Etc/UTC
+tzcode source: system (glibc)
+
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] lubridate_1.9.2 forcats_1.0.0   stringr_1.5.0   dplyr_1.1.1    
- [5] purrr_1.0.1     readr_2.1.4     tidyr_1.3.0     tibble_3.2.1   
- [9] ggplot2_3.4.2   tidyverse_2.0.0 jsonlite_1.8.4 
+ [1] lubridate_1.9.3 forcats_1.0.0   stringr_1.5.1   dplyr_1.1.4    
+ [5] purrr_1.0.2     readr_2.1.5     tidyr_1.3.1     tibble_3.2.1   
+ [9] ggplot2_3.5.1   tidyverse_2.0.0 jsonlite_1.8.8 
 
 loaded via a namespace (and not attached):
- [1] bslib_0.4.2      compiler_4.2.3   pillar_1.9.0     jquerylib_0.1.4 
- [5] tools_4.2.3      bit_4.0.5        digest_0.6.31    timechange_0.2.0
- [9] evaluate_0.20    lifecycle_1.0.3  gtable_0.3.3     pkgconfig_2.0.3 
-[13] rlang_1.1.0      cli_3.6.1        parallel_4.2.3   yaml_2.3.7      
-[17] xfun_0.38        fastmap_1.1.1    withr_2.5.0      knitr_1.42      
-[21] generics_0.1.3   vctrs_0.6.2      sass_0.4.5       hms_1.1.3       
-[25] bit64_4.0.5      rprojroot_2.0.3  grid_4.2.3       tidyselect_1.2.0
-[29] glue_1.6.2       R6_2.5.1         fansi_1.0.4      vroom_1.6.1     
-[33] rmarkdown_2.21   tzdb_0.3.0       magrittr_2.0.3   scales_1.2.1    
-[37] htmltools_0.5.5  colorspace_2.1-0 utf8_1.2.3       stringi_1.7.12  
-[41] munsell_0.5.0    cachem_1.0.7     crayon_1.5.2    </code></pre>
+ [1] bit_4.0.5         gtable_0.3.5      crayon_1.5.2      compiler_4.4.0   
+ [5] tidyselect_1.2.1  parallel_4.4.0    jquerylib_0.1.4   scales_1.3.0     
+ [9] yaml_2.3.8        fastmap_1.2.0     R6_2.5.1          generics_0.1.3   
+[13] knitr_1.47        rprojroot_2.0.4   munsell_0.5.1     bslib_0.7.0      
+[17] pillar_1.9.0      tzdb_0.4.0        rlang_1.1.4       utf8_1.2.4       
+[21] stringi_1.8.4     cachem_1.1.0      xfun_0.44         sass_0.4.9       
+[25] bit64_4.0.5       timechange_0.3.0  cli_3.6.2         withr_3.0.0      
+[29] magrittr_2.0.3    digest_0.6.35     grid_4.4.0        vroom_1.6.5      
+[33] hms_1.1.3         lifecycle_1.0.4   vctrs_0.6.5       evaluate_0.24.0  
+[37] glue_1.7.0        fansi_1.0.6       colorspace_2.1-0  rmarkdown_2.27   
+[41] tools_4.4.0       pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->

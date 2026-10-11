@@ -1,11 +1,11 @@
 Kids_First_Biospecimen_ID_GMKF	Kids_First_Biospecimen_ID_TARGET	Kids_First_Participant_ID	experimental_strategy_GMKF	experimental_strategy_TARGET	MYCN_TPM_GMKF	MYCN_TPM_TARGET	MYCN_CN_status_GMKF	MYCN_CN_status_TARGET	molecular_subtype_GMKF	molecular_subtype_TARGET
 BS_SYSZCYYZ	TARGET-30-PASCDX-01A-01D	PASCDX	WGS	WXS	181.39	181.39	amplification	amplification	NBL, MYCN amplified	NBL, MYCN amplified
 BS_MTQ7F28J	TARGET-30-PASFNY-01A-01D	PASFNY	WGS	WXS	NA	NA	amplification	amplification	NBL, MYCN amplified	NBL, MYCN amplified
-BS_8XDZQKSD	TARGET-30-PASWYR-01A-01D	PASWYR	WGS	WXS	NA	NA	gain, amplification	gain, amplification	NBL, MYCN amplified	NBL, MYCN amplified
+BS_8XDZQKSD	TARGET-30-PASWYR-01A-01D	PASWYR	WGS	WXS	698.13	698.13	gain, amplification	gain, amplification	NBL, MYCN amplified	NBL, MYCN amplified
 BS_V4VGG98Y	TARGET-30-PASXHE-01A-01D	PASXHE	WGS	WXS	54.185	54.185	gain	gain	NBL, MYCN non-amplified	NBL, MYCN non-amplified
-BS_2N95EW0G	TARGET-30-PASXIE-01A-01D	PASXIE	WGS	WXS	NA	NA	gain	gain	NBL, To be classified	NBL, To be classified
-BS_P6FPBJM8	TARGET-30-PASXRG-01A-01D	PASXRG	WGS	WXS	NA	NA	amplification	amplification	NBL, MYCN amplified	NBL, MYCN amplified
-BS_KXRFQF5N	TARGET-30-PASXRJ-01A-01D	PASXRJ	WGS	WXS	NA	NA	neutral	neutral	NBL, MYCN non-amplified	NBL, MYCN non-amplified
-BS_D7442ACV	TARGET-30-PATBMM-01A-01D	PATBMM	WGS	WXS	NA	NA	loss	loss	NBL, MYCN non-amplified	NBL, MYCN non-amplified
-BS_D3N3FG7Y	TARGET-30-PATCFL-01A-01D	PATCFL	WGS	WXS	NA	NA	neutral	neutral	NBL, MYCN non-amplified	NBL, MYCN non-amplified
+BS_2N95EW0G	TARGET-30-PASXIE-01A-01D	PASXIE	WGS	WXS	903.835	903.835	gain	gain	NBL, MYCN amplified	NBL, MYCN amplified
+BS_P6FPBJM8	TARGET-30-PASXRG-01A-01D	PASXRG	WGS	WXS	233.685	233.685	amplification	amplification	NBL, MYCN amplified	NBL, MYCN amplified
+BS_KXRFQF5N	TARGET-30-PASXRJ-01A-01D	PASXRJ	WGS	WXS	24.35	24.35	neutral	neutral	NBL, MYCN non-amplified	NBL, MYCN non-amplified
+BS_D7442ACV	TARGET-30-PATBMM-01A-01D	PATBMM	WGS	WXS	13.895	13.895	loss	loss	NBL, MYCN non-amplified	NBL, MYCN non-amplified
+BS_D3N3FG7Y	TARGET-30-PATCFL-01A-01D	PATCFL	WGS	WXS	5.07	5.07	neutral	neutral	NBL, MYCN non-amplified	NBL, MYCN non-amplified
 BS_2P6MH05V	TARGET-30-PATGLU-01A-01D	PATGLU	WGS	WXS	50.36	50.36	gain	gain	NBL, MYCN non-amplified	NBL, MYCN non-amplified

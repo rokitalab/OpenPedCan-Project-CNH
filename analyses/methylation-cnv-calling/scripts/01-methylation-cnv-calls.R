@@ -27,45 +27,64 @@ suppressPackageStartupMessages(library("conumee2"))
 
 # set up optparse options
 option_list <- list(
-  make_option(opt_str = "--base_dir", type = "character", default = NULL,
-              help = "The absolute path of the base directory containing sample 
-              array IDAT files.",
-              metavar = "character"),
+  make_option(opt_str = "--rg_set_file", type = "character", default = NULL,
+              help = "QC-filtered RGChannelSet serialized as a .qs2 file.",
+              metavar = "file"),
   make_option(opt_str = "--output_basename", type = "character", default = NULL,
-              help = "The same output basename for 01-preprocess-illumina-arrays",
+              help = "Path and prefix for the output segment files.",
               metavar = "character"),
   make_option(opt_str = "--manifest_file", type = "character",
               help = "Input manifest file with 'file_name' and
               'Bioassay_ID' columns"),
-  make_option(opt_str = "--n_cores", type = 'integer',
-              default=1, help="number of cores for parallelisation of minfi::detectionP. Default is 1"),
   make_option(opt_str = "--array_type", type = 'character',
-              default="EPIC", help="short form array type, either EPIC, EPICv2 or 450k")
+              default="EPIC", help="Array type: EPIC, EPICv2, or 450k.")
 )
 
 
 # parse parameter options
 opt <- parse_args(OptionParser(option_list = option_list))
-base_dir <- opt$base_dir
+rg_set_file <- opt$rg_set_file
 manifest_file <- opt$manifest_file
-n_cores <- opt$n_cores
 out_base <- opt$output_basename
 array_type <- opt$array_type
-#for local testing
-#base_dir <- 'sorted_idats_output_dir/IlluminaHumanMethylationEPICv2'
-#n_cores <- 4
-#manifest_file <- 'controls_and_dicer_manifest.tsv'
-#out_base <- 'test-out/test'
-#array_type <- 'EPICv2'
 
-dataset <- basename(base_dir)
+if (is.null(rg_set_file) || !file.exists(rg_set_file)) {
+  stop("--rg_set_file must name an existing .qs2 RGset file.")
+}
+if (is.null(manifest_file) || !file.exists(manifest_file)) {
+  stop("--manifest_file must name an existing manifest file.")
+}
+if (is.null(out_base) || !nzchar(out_base)) {
+  stop("--output_basename is required.")
+}
 
-# read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
-man_df <- read_tsv(file = manifest_file, show_col_types = FALSE) %>% 
+# Normalize known platform naming variants before filtering. This accepts the
+# current manifest spellings (for example, HumanMethylationEPICv2 and Illumina
+# Infinium HumanMethylationEPICv2) as well as harmless spacing/punctuation and
+# v1 version suffixes.
+platform_matches_array <- function(platform, array_type) {
+  platform_key <- tolower(gsub("[^[:alnum:]]", "", platform))
+
+  switch(
+    array_type,
+    EPICv2 = grepl("humanmethylationepicv?2", platform_key),
+    EPIC = grepl("humanmethylationepic($|v?1)", platform_key),
+    `450k` = grepl("humanmethylation(450k|450)", platform_key),
+    HM450 = grepl("humanmethylation(450k|450)", platform_key),
+    `450` = grepl("humanmethylation(450k|450)", platform_key),
+    stop("Unsupported --array_type: ", array_type,
+         ". Expected EPIC, EPICv2, or 450k.", call. = FALSE)
+  )
+}
+
+# Read the manifest and retain the matching array platform.
+manifest_df <- read_tsv(file = manifest_file, show_col_types = FALSE) %>%
   dplyr::select(file_name, Bioassay_ID, sample_type, platform) %>%
   dplyr::mutate(file_name = gsub("(_Red|_Grn).*", "", file_name)) %>%
-  dplyr::mutate(file_name = basename(file_name)) %>%
-  dplyr::filter(platform %in% c(paste0("Illumina Infinium HumanMethylation",array_type),paste0("HumanMethylation",array_type))) %>%
+  dplyr::mutate(file_name = basename(file_name))
+
+man_df <- manifest_df %>%
+  dplyr::filter(platform_matches_array(platform, array_type)) %>%
   unique()
 
 
@@ -73,17 +92,24 @@ normals <- man_df %>%
   dplyr::filter(sample_type == 'Normal') %>%
   dplyr::select(Bioassay_ID)
 
+if (nrow(man_df) == 0) {
+  available_platforms <- sort(unique(manifest_df$platform))
+  stop(
+    "No manifest rows matched array type '", array_type, "'. Observed platform values: ",
+    paste(available_platforms, collapse = ", "),
+    call. = FALSE
+  )
+}
+
 # Load the QC-filtered RGChannelSet and apply Noob normalization here.  Conumee2
 # segmentation needs the intensity signal that funnorm/quantile normalization
 # does not preserve.
-rg_set_file <- paste0(out_base, "-", dataset, "-rg-set.qs2")
 RGset <- qs_read(rg_set_file)
 MSet <- minfi::preprocessNoob(RGset)
 rm(RGset)
 gc()
 
-#make mset names bioassay ids
-intersect_samples <- intersect(colnames(MSet), man_df$file_name)
+# Make MSet names Bioassay IDs.
 MSet <- MSet[, colnames(MSet) %in% man_df$file_name]
 name_map <- setNames(man_df$Bioassay_ID, man_df$file_name)
 colnames(MSet) <- name_map[colnames(MSet)]
@@ -92,6 +118,12 @@ colnames(MSet) <- name_map[colnames(MSet)]
 sample_names <- colnames(MSet)
 reference_samples <- intersect(normals$Bioassay_ID, sample_names)
 query_samples     <- setdiff(sample_names, reference_samples)
+if (length(reference_samples) == 0) {
+  stop("No normal samples in the RGset matched the supplied manifest.")
+}
+if (length(query_samples) == 0) {
+  stop("No non-normal samples in the RGset matched the supplied manifest.")
+}
 #get ref vs query mset
 MSet_ref   <- MSet[, reference_samples]
 MSet_query <- MSet[, query_samples]
@@ -160,8 +192,8 @@ if (array_type %in% c("EPIC", "EPICv2")) {
 }
 
 
-segments_file <- paste0(out_base, "-", dataset, "-segments",".seg")
-gistic_file <- paste0(out_base, "-", dataset,"-gistic", ".seg")
+segments_file <- paste0(out_base, "-segments.seg")
+gistic_file <- paste0(out_base, "-gistic.seg")
 
 
 ## these will form the input files to gistic, after some post processing to get the headers in the right format
@@ -175,8 +207,6 @@ data.table::fwrite(
   col.names = TRUE
 )
 
-#write gistic input ?? 
-gistic <- CNV.write(x, what="gistic", file=gistic_file)
-
-
+# Write GISTIC input.
+CNV.write(x, what="gistic", file=gistic_file)
 

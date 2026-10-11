@@ -1513,7 +1513,7 @@ window.initializeCodeFolding = function(show) {
     $(this).detach().appendTo(div);
 
     // add a show code button right above
-    var showCodeText = $('<span>' + (showThis ? 'Hide' : 'Code') + '</span>');
+    var showCodeText = $('<span>' + (showThis ? 'Hide' : 'Show') + '</span>');
     var showCodeButton = $('<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm code-folding-btn pull-right float-right"></button>');
     showCodeButton.append(showCodeText);
     showCodeButton
@@ -1539,7 +1539,7 @@ window.initializeCodeFolding = function(show) {
     //   * Change text
     //   * add a class for intermediate states styling
     div.on('hide.bs.collapse', function () {
-      showCodeText.text('Code');
+      showCodeText.text('Show');
       showCodeButton.addClass('btn-collapsing');
     });
     div.on('hidden.bs.collapse', function () {
@@ -1877,7 +1877,7 @@ merged_subtypes</code></pre>
 <!-- rnb-source-end -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["Kids_First_Biospecimen_ID_GMKF"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Kids_First_Biospecimen_ID_TARGET"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Kids_First_Participant_ID"],"name":[3],"type":["chr"],"align":["left"]},{"label":["experimental_strategy_GMKF"],"name":[4],"type":["chr"],"align":["left"]},{"label":["experimental_strategy_TARGET"],"name":[5],"type":["chr"],"align":["left"]},{"label":["MYCN_TPM_GMKF"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["MYCN_TPM_TARGET"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["MYCN_CN_status_GMKF"],"name":[8],"type":["chr"],"align":["left"]},{"label":["MYCN_CN_status_TARGET"],"name":[9],"type":["chr"],"align":["left"]},{"label":["molecular_subtype_GMKF"],"name":[10],"type":["chr"],"align":["left"]},{"label":["molecular_subtype_TARGET"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"BS_SYSZCYYZ","2":"TARGET-30-PASCDX-01A-01D","3":"PASCDX","4":"WGS","5":"WXS","6":"181.390","7":"181.390","8":"amplification","9":"amplification","10":"NBL, MYCN amplified","11":"NBL, MYCN amplified"},{"1":"BS_MTQ7F28J","2":"TARGET-30-PASFNY-01A-01D","3":"PASFNY","4":"WGS","5":"WXS","6":"NA","7":"NA","8":"amplification","9":"amplification","10":"NBL, MYCN amplified","11":"NBL, MYCN amplified"},{"1":"BS_8XDZQKSD","2":"TARGET-30-PASWYR-01A-01D","3":"PASWYR","4":"WGS","5":"WXS","6":"NA","7":"NA","8":"gain, amplification","9":"gain, amplification","10":"NBL, MYCN amplified","11":"NBL, MYCN amplified"},{"1":"BS_V4VGG98Y","2":"TARGET-30-PASXHE-01A-01D","3":"PASXHE","4":"WGS","5":"WXS","6":"54.185","7":"54.185","8":"gain","9":"gain","10":"NBL, MYCN non-amplified","11":"NBL, MYCN non-amplified"},{"1":"BS_2N95EW0G","2":"TARGET-30-PASXIE-01A-01D","3":"PASXIE","4":"WGS","5":"WXS","6":"NA","7":"NA","8":"gain","9":"gain","10":"NBL, To be classified","11":"NBL, To be classified"},{"1":"BS_P6FPBJM8","2":"TARGET-30-PASXRG-01A-01D","3":"PASXRG","4":"WGS","5":"WXS","6":"NA","7":"NA","8":"amplification","9":"amplification","10":"NBL, MYCN amplified","11":"NBL, MYCN amplified"},{"1":"BS_KXRFQF5N","2":"TARGET-30-PASXRJ-01A-01D","3":"PASXRJ","4":"WGS","5":"WXS","6":"NA","7":"NA","8":"neutral","9":"neutral","10":"NBL, MYCN non-amplified","11":"NBL, MYCN non-amplified"},{"1":"BS_D7442ACV","2":"TARGET-30-PATBMM-01A-01D","3":"PATBMM","4":"WGS","5":"WXS","6":"NA","7":"NA","8":"loss","9":"loss","10":"NBL, MYCN non-amplified","11":"NBL, MYCN non-amplified"},{"1":"BS_D3N3FG7Y","2":"TARGET-30-PATCFL-01A-01D","3":"PATCFL","4":"WGS","5":"WXS","6":"NA","7":"NA","8":"neutral","9":"neutral","10":"NBL, MYCN non-amplified","11":"NBL, MYCN non-amplified"},{"1":"BS_2P6MH05V","2":"TARGET-30-PATGLU-01A-01D","3":"PATGLU","4":"WGS","5":"WXS","6":"50.360","7":"50.360","8":"gain","9":"gain","10":"NBL, MYCN non-amplified","11":"NBL, MYCN non-amplified"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["Kids_First_Biospecimen_ID_GMKF"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Kids_First_Biospecimen_ID_TARGET"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Kids_First_Participant_ID"],"name":[3],"type":["chr"],"align":["left"]},{"label":["experimental_strategy_GMKF"],"name":[4],"type":["chr"],"align":["left"]},{"label":["experimental_strategy_TARGET"],"name":[5],"type":["chr"],"align":["left"]},{"label":["MYCN_TPM_GMKF"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["MYCN_TPM_TARGET"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["MYCN_CN_status_GMKF"],"name":[8],"type":["chr"],"align":["left"]},{"label":["MYCN_CN_status_TARGET"],"name":[9],"type":["chr"],"align":["left"]},{"label":["molecular_subtype_GMKF"],"name":[10],"type":["chr"],"align":["left"]},{"label":["molecular_subtype_TARGET"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"BS_SYSZCYYZ","2":"TARGET-30-PASCDX-01A-01D","3":"PASCDX","4":"WGS","5":"WXS","6":"181.390","7":"181.390","8":"amplification","9":"amplification","10":"NBL, MYCN amplified","11":"NBL, MYCN amplified"},{"1":"BS_MTQ7F28J","2":"TARGET-30-PASFNY-01A-01D","3":"PASFNY","4":"WGS","5":"WXS","6":"NA","7":"NA","8":"amplification","9":"amplification","10":"NBL, MYCN amplified","11":"NBL, MYCN amplified"},{"1":"BS_8XDZQKSD","2":"TARGET-30-PASWYR-01A-01D","3":"PASWYR","4":"WGS","5":"WXS","6":"698.130","7":"698.130","8":"gain, amplification","9":"gain, amplification","10":"NBL, MYCN amplified","11":"NBL, MYCN amplified"},{"1":"BS_V4VGG98Y","2":"TARGET-30-PASXHE-01A-01D","3":"PASXHE","4":"WGS","5":"WXS","6":"54.185","7":"54.185","8":"gain","9":"gain","10":"NBL, MYCN non-amplified","11":"NBL, MYCN non-amplified"},{"1":"BS_2N95EW0G","2":"TARGET-30-PASXIE-01A-01D","3":"PASXIE","4":"WGS","5":"WXS","6":"903.835","7":"903.835","8":"gain","9":"gain","10":"NBL, MYCN amplified","11":"NBL, MYCN amplified"},{"1":"BS_P6FPBJM8","2":"TARGET-30-PASXRG-01A-01D","3":"PASXRG","4":"WGS","5":"WXS","6":"233.685","7":"233.685","8":"amplification","9":"amplification","10":"NBL, MYCN amplified","11":"NBL, MYCN amplified"},{"1":"BS_KXRFQF5N","2":"TARGET-30-PASXRJ-01A-01D","3":"PASXRJ","4":"WGS","5":"WXS","6":"24.350","7":"24.350","8":"neutral","9":"neutral","10":"NBL, MYCN non-amplified","11":"NBL, MYCN non-amplified"},{"1":"BS_D7442ACV","2":"TARGET-30-PATBMM-01A-01D","3":"PATBMM","4":"WGS","5":"WXS","6":"13.895","7":"13.895","8":"loss","9":"loss","10":"NBL, MYCN non-amplified","11":"NBL, MYCN non-amplified"},{"1":"BS_D3N3FG7Y","2":"TARGET-30-PATCFL-01A-01D","3":"PATCFL","4":"WGS","5":"WXS","6":"5.070","7":"5.070","8":"neutral","9":"neutral","10":"NBL, MYCN non-amplified","11":"NBL, MYCN non-amplified"},{"1":"BS_2P6MH05V","2":"TARGET-30-PATGLU-01A-01D","3":"PATGLU","4":"WGS","5":"WXS","6":"50.360","7":"50.360","8":"gain","9":"gain","10":"NBL, MYCN non-amplified","11":"NBL, MYCN non-amplified"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-chunk-end -->
@@ -1889,14 +1889,14 @@ merged_subtypes</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoic2Vzc2lvbkluZm8oKSAifQ== -->
 <pre class="r"><code>sessionInfo() </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUiB2ZXJzaW9uIDQuMi4zICgyMDIzLTAzLTE1KVxuUGxhdGZvcm06IHg4Nl82NC1wYy1saW51eC1nbnUgKDY0LWJpdClcblJ1bm5pbmcgdW5kZXI6IFVidW50dSAyMi4wNC4yIExUU1xuXG5NYXRyaXggcHJvZHVjdHM6IGRlZmF1bHRcbkJMQVM6ICAgL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9vcGVuYmxhcy1wdGhyZWFkL2xpYmJsYXMuc28uM1xuTEFQQUNLOiAvdXNyL2xpYi94ODZfNjQtbGludXgtZ251L29wZW5ibGFzLXB0aHJlYWQvbGlib3BlbmJsYXNwLXIwLjMuMjAuc29cblxubG9jYWxlOlxuIFsxXSBMQ19DVFlQRT1lbl9VUy5VVEYtOCAgICAgICBMQ19OVU1FUklDPUMgICAgICAgICAgICAgIFxuIFszXSBMQ19USU1FPWVuX1VTLlVURi04ICAgICAgICBMQ19DT0xMQVRFPWVuX1VTLlVURi04ICAgIFxuIFs1XSBMQ19NT05FVEFSWT1lbl9VUy5VVEYtOCAgICBMQ19NRVNTQUdFUz1lbl9VUy5VVEYtOCAgIFxuIFs3XSBMQ19QQVBFUj1lbl9VUy5VVEYtOCAgICAgICBMQ19OQU1FPUMgICAgICAgICAgICAgICAgIFxuIFs5XSBMQ19BRERSRVNTPUMgICAgICAgICAgICAgICBMQ19URUxFUEhPTkU9QyAgICAgICAgICAgIFxuWzExXSBMQ19NRUFTVVJFTUVOVD1lbl9VUy5VVEYtOCBMQ19JREVOVElGSUNBVElPTj1DICAgICAgIFxuXG5hdHRhY2hlZCBiYXNlIHBhY2thZ2VzOlxuWzFdIHN0YXRzICAgICBncmFwaGljcyAgZ3JEZXZpY2VzIHV0aWxzICAgICBkYXRhc2V0cyAgbWV0aG9kcyAgIGJhc2UgICAgIFxuXG5vdGhlciBhdHRhY2hlZCBwYWNrYWdlczpcbiBbMV0gbHVicmlkYXRlXzEuOS4yICAgZm9yY2F0c18xLjAuMCAgICAgc3RyaW5ncl8xLjUuMCAgICAgcHVycnJfMS4wLjEgICAgICBcbiBbNV0gcmVhZHJfMi4xLjQgICAgICAgdGlkeXJfMS4zLjAgICAgICAgdGliYmxlXzMuMi4xICAgICAgZ2dwbG90Ml8zLjQuMiAgICBcbiBbOV0gdGlkeXZlcnNlXzIuMC4wICAgZGF0YS50YWJsZV8xLjE0LjggZHBseXJfMS4xLjEgICAgICBcblxubG9hZGVkIHZpYSBhIG5hbWVzcGFjZSAoYW5kIG5vdCBhdHRhY2hlZCk6XG4gWzFdIHBpbGxhcl8xLjkuMCAgICAgYnNsaWJfMC40LjIgICAgICBjb21waWxlcl80LjIuMyAgIGpxdWVyeWxpYl8wLjEuNCBcbiBbNV0gdG9vbHNfNC4yLjMgICAgICBiaXRfNC4wLjUgICAgICAgIGRpZ2VzdF8wLjYuMzEgICAgdGltZWNoYW5nZV8wLjIuMFxuIFs5XSBqc29ubGl0ZV8xLjguNCAgIGV2YWx1YXRlXzAuMjAgICAgbGlmZWN5Y2xlXzEuMC4zICBndGFibGVfMC4zLjMgICAgXG5bMTNdIHBrZ2NvbmZpZ18yLjAuMyAgcmxhbmdfMS4xLjAgICAgICBjbGlfMy42LjEgICAgICAgIHBhcmFsbGVsXzQuMi4zICBcblsxN10geWFtbF8yLjMuNyAgICAgICB4ZnVuXzAuMzggICAgICAgIGZhc3RtYXBfMS4xLjEgICAgd2l0aHJfMi41LjAgICAgIFxuWzIxXSBrbml0cl8xLjQyICAgICAgIGhtc18xLjEuMyAgICAgICAgZ2VuZXJpY3NfMC4xLjMgICB2Y3Ryc18wLjYuMiAgICAgXG5bMjVdIHNhc3NfMC40LjUgICAgICAgYml0NjRfNC4wLjUgICAgICBycHJvanJvb3RfMi4wLjMgIGdyaWRfNC4yLjMgICAgICBcblsyOV0gdGlkeXNlbGVjdF8xLjIuMCBnbHVlXzEuNi4yICAgICAgIFI2XzIuNS4xICAgICAgICAgZmFuc2lfMS4wLjQgICAgIFxuWzMzXSB2cm9vbV8xLjYuMSAgICAgIHJtYXJrZG93bl8yLjIxICAgdHpkYl8wLjMuMCAgICAgICBtYWdyaXR0cl8yLjAuMyAgXG5bMzddIHNjYWxlc18xLjIuMSAgICAgaHRtbHRvb2xzXzAuNS41ICBjb2xvcnNwYWNlXzIuMS0wIHV0ZjhfMS4yLjMgICAgICBcbls0MV0gc3RyaW5naV8xLjcuMTIgICBtdW5zZWxsXzAuNS4wICAgIGNhY2hlbV8xLjAuNyAgICAgY3JheW9uXzEuNS4yICAgIFxuIn0= -->
-<pre><code>R version 4.2.3 (2023-03-15)
-Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 22.04.2 LTS
+<!-- rnb-output-begin eyJkYXRhIjoiUiB2ZXJzaW9uIDQuNC4wICgyMDI0LTA0LTI0KVxuUGxhdGZvcm06IHg4Nl82NC1wYy1saW51eC1nbnVcblJ1bm5pbmcgdW5kZXI6IFVidW50dSAyMi4wNC40IExUU1xuXG5NYXRyaXggcHJvZHVjdHM6IGRlZmF1bHRcbkJMQVM6ICAgL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9vcGVuYmxhcy1wdGhyZWFkL2xpYmJsYXMuc28uMyBcbkxBUEFDSzogL3Vzci9saWIveDg2XzY0LWxpbnV4LWdudS9vcGVuYmxhcy1wdGhyZWFkL2xpYm9wZW5ibGFzcC1yMC4zLjIwLnNvOyAgTEFQQUNLIHZlcnNpb24gMy4xMC4wXG5cbmxvY2FsZTpcbiBbMV0gTENfQ1RZUEU9ZW5fVVMuVVRGLTggICAgICAgTENfTlVNRVJJQz1DICAgICAgICAgICAgICBcbiBbM10gTENfVElNRT1lbl9VUy5VVEYtOCAgICAgICAgTENfQ09MTEFURT1lbl9VUy5VVEYtOCAgICBcbiBbNV0gTENfTU9ORVRBUlk9ZW5fVVMuVVRGLTggICAgTENfTUVTU0FHRVM9ZW5fVVMuVVRGLTggICBcbiBbN10gTENfUEFQRVI9ZW5fVVMuVVRGLTggICAgICAgTENfTkFNRT1DICAgICAgICAgICAgICAgICBcbiBbOV0gTENfQUREUkVTUz1DICAgICAgICAgICAgICAgTENfVEVMRVBIT05FPUMgICAgICAgICAgICBcblsxMV0gTENfTUVBU1VSRU1FTlQ9ZW5fVVMuVVRGLTggTENfSURFTlRJRklDQVRJT049QyAgICAgICBcblxudGltZSB6b25lOiBFdGMvVVRDXG50emNvZGUgc291cmNlOiBzeXN0ZW0gKGdsaWJjKVxuXG5hdHRhY2hlZCBiYXNlIHBhY2thZ2VzOlxuWzFdIHN0YXRzICAgICBncmFwaGljcyAgZ3JEZXZpY2VzIHV0aWxzICAgICBkYXRhc2V0cyAgbWV0aG9kcyAgIGJhc2UgICAgIFxuXG5vdGhlciBhdHRhY2hlZCBwYWNrYWdlczpcbiBbMV0gbHVicmlkYXRlXzEuOS4zICAgZm9yY2F0c18xLjAuMCAgICAgc3RyaW5ncl8xLjUuMSAgICAgcHVycnJfMS4wLjIgICAgICBcbiBbNV0gcmVhZHJfMi4xLjUgICAgICAgdGlkeXJfMS4zLjEgICAgICAgdGliYmxlXzMuMi4xICAgICAgZ2dwbG90Ml8zLjUuMSAgICBcbiBbOV0gdGlkeXZlcnNlXzIuMC4wICAgZGF0YS50YWJsZV8xLjE1LjQgZHBseXJfMS4xLjQgICAgICBcblxubG9hZGVkIHZpYSBhIG5hbWVzcGFjZSAoYW5kIG5vdCBhdHRhY2hlZCk6XG4gWzFdIGJpdF80LjAuNSAgICAgICAgIGd0YWJsZV8wLjMuNSAgICAgIGpzb25saXRlXzEuOC44ICAgIGNyYXlvbl8xLjUuMiAgICAgXG4gWzVdIGNvbXBpbGVyXzQuNC4wICAgIHRpZHlzZWxlY3RfMS4yLjEgIHBhcmFsbGVsXzQuNC4wICAgIGpxdWVyeWxpYl8wLjEuNCAgXG4gWzldIHNjYWxlc18xLjMuMCAgICAgIHlhbWxfMi4zLjggICAgICAgIGZhc3RtYXBfMS4yLjAgICAgIFI2XzIuNS4xICAgICAgICAgXG5bMTNdIGdlbmVyaWNzXzAuMS4zICAgIGtuaXRyXzEuNDcgICAgICAgIHJwcm9qcm9vdF8yLjAuNCAgIG11bnNlbGxfMC41LjEgICAgXG5bMTddIHR6ZGJfMC40LjAgICAgICAgIGJzbGliXzAuNy4wICAgICAgIHBpbGxhcl8xLjkuMCAgICAgIHJsYW5nXzEuMS40ICAgICAgXG5bMjFdIHV0ZjhfMS4yLjQgICAgICAgIHN0cmluZ2lfMS44LjQgICAgIGNhY2hlbV8xLjEuMCAgICAgIHhmdW5fMC40NCAgICAgICAgXG5bMjVdIHNhc3NfMC40LjkgICAgICAgIGJpdDY0XzQuMC41ICAgICAgIHRpbWVjaGFuZ2VfMC4zLjAgIGNsaV8zLjYuMiAgICAgICAgXG5bMjldIHdpdGhyXzMuMC4wICAgICAgIG1hZ3JpdHRyXzIuMC4zICAgIGRpZ2VzdF8wLjYuMzUgICAgIGdyaWRfNC40LjAgICAgICAgXG5bMzNdIHZyb29tXzEuNi41ICAgICAgIGhtc18xLjEuMyAgICAgICAgIGxpZmVjeWNsZV8xLjAuNCAgIHZjdHJzXzAuNi41ICAgICAgXG5bMzddIGV2YWx1YXRlXzAuMjQuMCAgIGdsdWVfMS43LjAgICAgICAgIGZhbnNpXzEuMC42ICAgICAgIGNvbG9yc3BhY2VfMi4xLTAgXG5bNDFdIHJtYXJrZG93bl8yLjI3ICAgIHRvb2xzXzQuNC4wICAgICAgIHBrZ2NvbmZpZ18yLjAuMyAgIGh0bWx0b29sc18wLjUuOC4xXG4ifQ== -->
+<pre><code>R version 4.4.0 (2024-04-24)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 22.04.4 LTS
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -1906,26 +1906,29 @@ locale:
  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
+time zone: Etc/UTC
+tzcode source: system (glibc)
+
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] lubridate_1.9.2   forcats_1.0.0     stringr_1.5.0     purrr_1.0.1      
- [5] readr_2.1.4       tidyr_1.3.0       tibble_3.2.1      ggplot2_3.4.2    
- [9] tidyverse_2.0.0   data.table_1.14.8 dplyr_1.1.1      
+ [1] lubridate_1.9.3   forcats_1.0.0     stringr_1.5.1     purrr_1.0.2      
+ [5] readr_2.1.5       tidyr_1.3.1       tibble_3.2.1      ggplot2_3.5.1    
+ [9] tidyverse_2.0.0   data.table_1.15.4 dplyr_1.1.4      
 
 loaded via a namespace (and not attached):
- [1] pillar_1.9.0     bslib_0.4.2      compiler_4.2.3   jquerylib_0.1.4 
- [5] tools_4.2.3      bit_4.0.5        digest_0.6.31    timechange_0.2.0
- [9] jsonlite_1.8.4   evaluate_0.20    lifecycle_1.0.3  gtable_0.3.3    
-[13] pkgconfig_2.0.3  rlang_1.1.0      cli_3.6.1        parallel_4.2.3  
-[17] yaml_2.3.7       xfun_0.38        fastmap_1.1.1    withr_2.5.0     
-[21] knitr_1.42       hms_1.1.3        generics_0.1.3   vctrs_0.6.2     
-[25] sass_0.4.5       bit64_4.0.5      rprojroot_2.0.3  grid_4.2.3      
-[29] tidyselect_1.2.0 glue_1.6.2       R6_2.5.1         fansi_1.0.4     
-[33] vroom_1.6.1      rmarkdown_2.21   tzdb_0.3.0       magrittr_2.0.3  
-[37] scales_1.2.1     htmltools_0.5.5  colorspace_2.1-0 utf8_1.2.3      
-[41] stringi_1.7.12   munsell_0.5.0    cachem_1.0.7     crayon_1.5.2    </code></pre>
+ [1] bit_4.0.5         gtable_0.3.5      jsonlite_1.8.8    crayon_1.5.2     
+ [5] compiler_4.4.0    tidyselect_1.2.1  parallel_4.4.0    jquerylib_0.1.4  
+ [9] scales_1.3.0      yaml_2.3.8        fastmap_1.2.0     R6_2.5.1         
+[13] generics_0.1.3    knitr_1.47        rprojroot_2.0.4   munsell_0.5.1    
+[17] tzdb_0.4.0        bslib_0.7.0       pillar_1.9.0      rlang_1.1.4      
+[21] utf8_1.2.4        stringi_1.8.4     cachem_1.1.0      xfun_0.44        
+[25] sass_0.4.9        bit64_4.0.5       timechange_0.3.0  cli_3.6.2        
+[29] withr_3.0.0       magrittr_2.0.3    digest_0.6.35     grid_4.4.0       
+[33] vroom_1.6.5       hms_1.1.3         lifecycle_1.0.4   vctrs_0.6.5      
+[37] evaluate_0.24.0   glue_1.7.0        fansi_1.0.6       colorspace_2.1-0 
+[41] rmarkdown_2.27    tools_4.4.0       pkgconfig_2.0.3   htmltools_0.5.8.1</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->

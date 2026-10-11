@@ -1,0 +1,64 @@
+{
+    "include_dkfz_subtypes": [
+        "ABM_MN1",
+        "ANTCON",
+        "CNS_BCOR_FUS",
+        "CNS_BCOR_ITD",
+        "CNS_NB_FOXR2",
+        "CNS_SARC_CIC",
+        "CNS_SARC_DICER",
+        "ERMS",
+        "ET_BRD4_LEUTX",
+        "ET_PLAG",
+        "EWS",
+        "NET_CXXC5",
+        "NET_PATZ1",
+        "NET_PLAGL1_FUS",
+        "RMS_MYOD1"
+    ],
+    "include_nih_subtypes": [
+        "HGNET_MN1",
+        "ANTCON",
+        "EP300_BCOR",
+        "HGNET_BCOR",
+        "CNS_NB_FOXR2",
+        "EFT_CIC",
+        "CNS_SCS_DICER",
+        "RMS_embryonal",
+        "ET_BRD4_LEUTX",
+        "HGNET_PLAG",
+        "EWS",
+        "HGNET_CXXC5",
+        "HGNET_PATZ",
+        "PLAGL1_FUS",
+        "RMS_MYOD1"
+    ],
+    "exclude_dx": [
+        "Meningioma",
+        "Atypical Teratoid Rhabdoid Tumor (ATRT)",
+        "Choroid plexus carcinoma",
+        "Brainstem glioma- Diffuse intrinsic pontine glioma",
+        "Medulloblastoma",
+        "Pineoblastoma",
+        "Chordoma"
+    ],
+    "exclude_free": [
+        "vascular lesion",
+        "fibroma",
+        "diffuse midline glioma h3.k27m mutation who grade iv",
+        "diffuse midline glioma who iv",
+        "epithelioid glioblastoma, arising from a pleiomorphic xanthoastrocytoma"
+    ],
+    "exclude_methyl": [
+        "DMG_K27",
+        "DMG_EGFR",
+        "DHG_G34",
+        "ETMR_C19MC",
+        "EPN_ST_ZFTA_RELA_A"
+    ],
+    "exclude_sample_ids": [
+        "7316-1959",
+        "7316-1968"
+    ]
+}
+

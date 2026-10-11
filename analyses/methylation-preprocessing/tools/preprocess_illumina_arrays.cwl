@@ -36,14 +36,14 @@ inputs:
     inputBinding:
       prefix: "--funnorm"
       position: 1
-      valueFrom: $(self ? "TRUE" : "FALSE")
+      valueFrom: '$(self ? "TRUE" : "FALSE")'
     doc: "Whether to use funnorm for normalization."
   snp_filter:
     type: 'boolean?'
     inputBinding:
       prefix: "--snp_filter"
       position: 1
-      valueFrom: $(self ? "TRUE" : "FALSE")
+      valueFrom: '$(self ? "TRUE" : "FALSE")'
     doc: "Whether to drop probes containing SNPs at the CpG interrogation or single nucleotide extension."
   ram: { type: 'int?', default: 32, doc: "GB of RAM to allocate to the task." }
   cores: { type: 'int?', default: 16, inputBinding: { prefix: "--n_cores", position: 1 }, doc: "Minimum reserved number of CPU cores for the task." }
@@ -68,6 +68,10 @@ outputs:
     type: File
     outputBinding:
       glob: '*-methyl-p-values.parquet'
+  sample_qc:
+    type: File
+    outputBinding:
+      glob: '*-methyl-sample-qc.parquet'
   rg_set:
     type: File
     outputBinding:

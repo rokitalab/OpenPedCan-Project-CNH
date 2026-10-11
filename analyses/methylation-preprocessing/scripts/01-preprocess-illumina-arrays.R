@@ -83,6 +83,12 @@ message("===============================================\n")
 message("Reading sample array data files...\n")
 
 # load array data into a RGChannelSet object
+# force = TRUE is required: IDAT batches of the same array type can still
+# report different array "sizes" to minfi (e.g. control-probe count differs
+# across manufacturing lots), which read.metharray.exp() otherwise treats as
+# an error. Confirmed 2026 (jharenza): removing force=TRUE fails on
+# real EPIC batches with "different array size but seemingly all of the
+# same type" even though 00-unzip-and-sort.R has already sorted by array type.
 RGset <- suppressWarnings(
   minfi::read.metharray.exp(base = base_dir, verbose = TRUE, force = TRUE, recursive = TRUE)
 )
@@ -226,6 +232,7 @@ m_value_file_masked <- paste0(out_base, "-", dataset, "-methyl-m-values-masked.p
 beta_value_file <- paste0(out_base, "-", dataset, "-methyl-beta-values-masked.parquet")
 cn_value_file <- paste0(out_base, "-", dataset, "-methyl-cn-values.parquet")
 p_value_file <- paste0(out_base, "-", dataset, "-methyl-p-values.parquet")
+sample_qc_file <- paste0(out_base, "-", dataset, "-methyl-sample-qc.parquet")
 
 
 message("Extracting m values")
@@ -237,7 +244,7 @@ m_values_unmasked <- m_values %>%
   as_tibble(rownames = "ProbeID") %>%
   rename_with(~ recode(.x, !!!setNames(man_df$Bioassay_ID, man_df$file_name)))
 
-write_parquet(m_values_unmasked, m_value_file)
+write_parquet(m_values_unmasked, m_value_file, compression = "zstd")
 
 # Free memory
 rm(m_values_unmasked)
@@ -252,7 +259,7 @@ m_values_masked <- m_values %>%
   as_tibble(rownames = "ProbeID") %>%
   rename_with(~ recode(.x, !!!setNames(man_df$Bioassay_ID, man_df$file_name)))
 
-write_parquet(m_values_masked, m_value_file_masked)
+write_parquet(m_values_masked, m_value_file_masked, compression = "zstd")
 
 # Free memory
 rm(m_values, m_values_masked)
@@ -270,7 +277,7 @@ beta_values_masked <- beta_values %>%
 # Free beta_values matrix
 rm(beta_values)
 gc()
-write_parquet(beta_values_masked, beta_value_file)
+write_parquet(beta_values_masked, beta_value_file, compression = "zstd")
 
 # ensure tibble
 detP <- as_tibble(detP, rownames = "ProbeID")
@@ -280,9 +287,19 @@ colnames(detP) <- dplyr::recode(
   !!!setNames(man_df$Bioassay_ID, man_df$file_name)
 )
 
-write_parquet(detP, p_value_file)
+write_parquet(detP, p_value_file, compression = "zstd")
+
+# Per-sample QC metric: fraction of probes failing detection (p > 0.01),
+# for a downstream analysis-level sample-exclusion QC step.
+sample_qc <- detP %>%
+  select(-ProbeID) %>%
+  summarise(across(everything(), ~ mean(.x > 0.01, na.rm = TRUE))) %>%
+  pivot_longer(everything(), names_to = "Bioassay_ID", values_to = "frac_failed_probes")
+
+write_parquet(sample_qc, sample_qc_file, compression = "zstd")
+
 # Free memory
-rm(detP, beta_values_masked)
+rm(detP, beta_values_masked, sample_qc)
 gc()
 
 message("Extracting copy number values")
@@ -298,7 +315,7 @@ colnames(cn_value) <- dplyr::recode(
 
 # write output file
 
-write_parquet(cn_value, cn_value_file)
+write_parquet(cn_value, cn_value_file, compression = "zstd")
 # delete GenomicRatioSet object to free memory
 rm(GRset)
 gc()

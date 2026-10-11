@@ -28,6 +28,8 @@ The [Children's Brain Tumor Network (CBTN)](https://cbtn.org/) `Infinium HumanMe
 
 - In order to do funnorm normalization, a set of control probes must be correctly identified, and Median Absolute Deviation must be above 0 across these control probes. We had been seeing some errors for EPICv2 probes where MAD = 0, causing funnorm to fail, and have added an inspection and filtering step to check for MAD > 0 on the control probes, and skip and print out samples where MAD = 0. This array-level QC filtering step is applied before either normalization method.
 
+- Detection p-values are used to mask individual failed probes (setting them to `NA`), not to exclude entire failed samples. To support sample-level QC downstream, the `-methyl-sample-qc.parquet` output reports, for each sample, the fraction of probes with detection p-value > 0.01. Whole-sample exclusion decisions based on this metric are left to the consuming analysis, rather than applied in this harmonization step.
+
 ## Running the analysis
 
 ### Recommended: shell wrapper
@@ -36,7 +38,7 @@ The [Children's Brain Tumor Network (CBTN)](https://cbtn.org/) `Infinium HumanMe
 
 ```
 bash run-preprocess-illumina-arrays.sh \
-  --manifest_file controls_and_dicer_manifest.tsv \
+  --manifest_file manifest.tsv \
   --input_dir input-test \
   --output_dir test-out \
   --output_prefix test
@@ -87,9 +89,9 @@ Per-array results are written as parquet files using this pattern:
 <output_prefix>-<array_type>-methyl-<measurement>.parquet
 ```
 
-`<measurement>` is one of `beta-values-masked`, `m-values-unmasked`, `m-values-masked`, `cn-values`, or `p-values`. The supported array-type names are `IlluminaHumanMethylation450k`, `IlluminaHumanMethylationEPIC`, and `IlluminaHumanMethylationEPICv2`.
+`<measurement>` is one of `beta-values-masked`, `m-values-unmasked`, `m-values-masked`, `cn-values`, `p-values`, or `sample-qc`. The supported array-type names are `IlluminaHumanMethylation450k`, `IlluminaHumanMethylationEPIC`, and `IlluminaHumanMethylationEPICv2`.
 
-When multiple array types are available, the merge step writes intersection matrices for beta values, masked and unmasked M values, and CN values. The filename records the participating array types, for example `<output_prefix>-IlluminaHumanMethylationEPICv1-EPICv2-methyl-beta-values-masked.parquet`. Detection p-values are used to select among duplicated EPICv2 probes and are not merged. With one array type, the merge script exits successfully after reporting that no intersection is needed and leaves the per-array outputs unchanged.
+When multiple array types are available, the merge step writes intersection matrices for beta values, masked and unmasked M values, and CN values. The filename records the participating array types, for example `<output_prefix>-IlluminaHumanMethylationEPICv1-EPICv2-methyl-beta-values-masked.parquet`. Detection p-values are used to select among duplicated EPICv2 probes and, like the per-sample QC file, are not merged. With one array type, the merge script exits successfully after reporting that no intersection is needed and leaves the per-array outputs unchanged.
 
 
 ## High Performance Computing (HPC)
@@ -109,7 +111,7 @@ desired `image_name` and `image_version`:
 
 ### Common Workflow Language (CWL)
 
-The CWL definitions are in `tools/` and `workflow/`. `workflow/methylation-preprocessing.cwl` runs sorting and scatters preprocessing over detected array types. Set the optional `merge_array_types` input to `true` to then run `merge_methyl_matrices.cwl` and return merged intersection matrices; it defaults to `false`. The workflow always returns the per-array parquet files and detection p-values.
+The CWL definitions are in `tools/` and `workflow/`. `workflow/methylation-preprocessing.cwl` runs sorting and scatters preprocessing over detected array types. Set the optional `merge_array_types` input to `true` to then run `merge_methyl_matrices.cwl` and return merged intersection matrices; it defaults to `false`. The workflow always returns the per-array parquet files, detection p-values, and per-sample QC metrics.
 
 ### CAVATICA
 
