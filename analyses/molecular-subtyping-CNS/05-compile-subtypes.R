@@ -53,6 +53,14 @@ lgg <- read_tsv(
             .groups = "drop") %>%
   mutate(lgg_specific = !str_detect(lgg_subtype, nonspecific))
 
+# medulloblastoma: expression classifier, concordance with methylation, and
+# the SHH subtype (06-validate-mb.R)
+mb <- read_tsv(file.path(results_dir, "mb_validation.tsv"),
+               guess_max = 10000, show_col_types = FALSE) %>%
+  filter(!is.na(match_id)) %>%
+  select(match_id, mb_sample_id = sample_id, mb_expression_group,
+         mb_concordance, mb_shh_subtype, mb_shh_source)
+
 # one methylation call per tumor: highest score wins when several biospecimens
 methyl <- read_tsv(file.path(results_dir, "methylation_subtype_validation.tsv"),
                    guess_max = 10000, col_types = evidence_types) %>%
@@ -97,21 +105,31 @@ compiled <- bind_rows(
                     starts_with("h3_"), starts_with("h3k27_"))
 ) %>%
   full_join(lgg, by = "match_id") %>%
+  full_join(mb, by = "match_id") %>%
   mutate(
+    sample_id = coalesce(sample_id, mb_sample_id),
     lesion_refinement = if_else(lgg_specific %in% TRUE, lgg_subtype,
                                 NA_character_),
     # LGG is only the subtype when nothing else assigned one
+    # expression classifier group, when it names a single group
+    mb_expression_single = if_else(str_detect(replace_na(mb_expression_group, ""), "\\|"),
+                                   NA_character_, mb_expression_group),
     subtype_source = case_when(
       !is.na(subtype_source) ~ subtype_source,
       lgg_specific %in% TRUE ~ "LGG lesion",
+      !is.na(mb_expression_single) ~ "expression classifier",
       TRUE ~ NA_character_
     ),
     molecular_subtype_cns = case_when(
       !is.na(OPC_molecular_subtype) ~ OPC_molecular_subtype,
-      subtype_source == "LGG lesion" ~ lgg_subtype
+      subtype_source == "LGG lesion" ~ lgg_subtype,
+      subtype_source == "expression classifier" ~ mb_expression_single
     ),
-    evidence_level = if_else(subtype_source == "LGG lesion", "lesion only",
-                             evidence_level),
+    evidence_level = case_when(
+      subtype_source == "LGG lesion" ~ "lesion only",
+      subtype_source == "expression classifier" ~ "expression only",
+      TRUE ~ evidence_level
+    ),
     methyl_conflict = replace_na(methyl_conflict, FALSE)
   ) %>%
   # umbrella group (e.g. the pediatric H3-wildtype HGG classes), unless an H3
@@ -125,11 +143,13 @@ compiled <- bind_rows(
       TRUE ~ molecular_subtype_cns
     ),
     needs_review = dx_concordance %in% "discordant" | methyl_conflict |
-      h3_group_conflict | h3_variant_conflict %in% TRUE
+      h3_group_conflict | h3_variant_conflict %in% TRUE |
+      mb_concordance %in% "discordant"
   ) %>%
   select(match_id, Kids_First_Participant_ID, sample_id,
          molecular_subtype_cns, subtype_group, lesion_refinement, subtype_source,
          evidence_level, lesion_status, lesion_evidence, methyl_class,
+         mb_expression_group, mb_concordance, mb_shh_subtype,
          methyl_score, methyl_conflict, pathology_diagnosis, dx_group,
          dx_concordance, needs_review, starts_with("tp53_"),
          ends_with("_mutation_status"), ends_with("_variants"),

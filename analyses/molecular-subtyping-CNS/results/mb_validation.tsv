@@ -1,0 +1,311 @@
+match_id	sample_id	mb_methylation_group	methyl_class	methyl_score	lesion_status	lesion_evidence	pathology_diagnosis	mb_expression_group	mb_expression_p	mb_shh_subtype	mb_shh_source	mb_concordance	mb_final_group	mb_group_source	needs_review
+PT_04YTK82N_7316-746_Solid Tissue_Initial CNS Tumor	7316-746	MB, Group3	MB_G34_II	0.999989202	not_detected	NA	Medulloblastoma	MB, Group3	4.795880754014976e-7	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_0DWRY9ZX_7316-1017_Solid Tissue_Recurrence	7316-1017	MB, Group4	MB_G34_VIII	0.981535396	no_rule	NA	Medulloblastoma	MB, Group4	2.1908100537687898e-9	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_0DWRY9ZX_7316-2221_Solid Tissue_Initial CNS Tumor	7316-2221	MB, Group4	MB_G34_VIII	0.981120699	no_rule	NA	Medulloblastoma	MB, Group4	4.457833831663291e-17	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_0DWRY9ZX_7316-3210_Solid Tissue_Recurrence	7316-3210	MB, Group4	MB_G34_VIII	0.943343761	no_rule	NA	Medulloblastoma	MB, Group4	1.186340049210281e-8	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_0Q0CX0GS_7316-6530_Solid Tissue_Initial CNS Tumor	7316-6530	MB, Group4	MB_G34_VIII	0.999455759	no_rule	NA	Medulloblastoma	MB, Group4	7.464283920902758e-6	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_0WMP712K_7316-922_Solid Tissue_Initial CNS Tumor	7316-922	MB, SHH	MB_SHH_1	0.981042353	not_detected	NA	Medulloblastoma	MB, SHH	0.002776399506744149	MB, SHH beta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_17NG0KW3_7316-1945_Solid Tissue_Initial CNS Tumor	7316-1945	MB, WNT	MB_WNT	0.999995091	confirmed	CTNNB1 p.S33F	Medulloblastoma	MB, WNT	1.1466528496967556e-15	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_1NZGDP3P_7316-1104_Solid Tissue_Initial CNS Tumor	7316-1104	MB, SHH	MB_SHH_1	0.82785975999999994	no_assay	NA	Medulloblastoma	MB, SHH	0.02124874904810576	MB, SHH	NA	concordant	MB, SHH	methylation	FALSE
+PT_1T7WF5S1_7316-2934_Solid Tissue_Initial CNS Tumor	7316-2934	MB, WNT	MB_WNT	0.999993099	confirmed	CTNNB1 p.G34E	Medulloblastoma	MB, WNT	4.104946244129631e-24	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_1TQA3ZS2_7316-8117_Solid Tissue_Initial CNS Tumor	7316-8117	MB, Group3	MB_G34_IV	0.995336684	not_detected	NA	Medulloblastoma	MB, Group3	3.8140546947744333e-4	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_23NZGSRJ_7316-2659_Solid Tissue_Initial CNS Tumor	7316-2659	MB, Group3	MB_G34_II	0.993370114	not_detected	NA	Medulloblastoma	MB, Group3	6.225734968551872e-13	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_24DDXEB5_7316-1715_Solid Tissue_Initial CNS Tumor	7316-1715	MB, Group4	MB_G34_VI	0.90955644405426	no_rule	NA	Medulloblastoma	MB, Group4	9.582247687161747e-13	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_288PVQGZ_7316-4284_Solid Tissue_Initial CNS Tumor	7316-4284	MB, Group4	MB_G34_V	0.831690654	no_rule	NA	Medulloblastoma	MB, Group4	1.7362439258010223e-4	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_2FK75B27_7316-1700_Solid Tissue_Initial CNS Tumor	7316-1700	MB, Group4	MB_G34_VII	0.975507576	no_rule	NA	Medulloblastoma	MB, Group4	2.1152653157106356e-7	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_2N647SBA_7316-6685_Solid Tissue_Initial CNS Tumor	7316-6685	MB, SHH	MB_SHH_4	0.993836299	confirmed	PTCH1 p.Q501*	Medulloblastoma	MB, SHH	0.060385025047030944	MB, SHH delta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_34MDR40C_7316-4535_Solid Tissue_Initial CNS Tumor	7316-4535	MB, Group3	MB_G34_III	0.99641772	not_detected	NA	Medulloblastoma	MB, Group3	5.715528086199499e-9	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_35X8ASEE_7316-5749_Solid Tissue_Initial CNS Tumor	7316-5749	MB, Group4	MB_G34_VIII	0.999603346	no_rule	NA	Medulloblastoma	MB, Group4	4.824916887135331e-13	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_39HBKSGG_7316-908_Solid Tissue_Initial CNS Tumor	7316-908	MB, Group4	MB_G34_VII	0.993767507	no_rule	NA	Medulloblastoma	MB, Group4	3.138578287328027e-6	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_3GP5H8Z0_7316-3170_Solid Tissue_Initial CNS Tumor	7316-3170	MB, WNT	MB_WNT	0.99999635	confirmed	CTNNB1 p.S33C	Medulloblastoma	MB, WNT	4.498094781278271e-6	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_3JNXBSHR_7316-3931_Solid Tissue_Initial CNS Tumor	7316-3931	MB, Group4	MB_G34_VIII	0.99987257	no_rule	NA	Medulloblastoma	MB, Group4	3.7650763724966154e-10	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_3VQEVNDD_7316-1680_Solid Tissue_Initial CNS Tumor	7316-1680	MB, SHH	MB_SHH_1	0.997738095	not_detected	NA	Medulloblastoma	MB, SHH	0.014976477896266655	MB, SHH beta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_45P9F9MD_7316-314_Solid Tissue_Initial CNS Tumor	7316-314	MB, Group4	MB_G34_VIII	0.99150544	no_rule	NA	Medulloblastoma	MB, Group4	4.106387773769873e-12	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_5AF1501D_7316-309_Solid Tissue_Initial CNS Tumor	7316-309	MB, Group4	MB_G34_VIII	0.976828758	no_rule	NA	Medulloblastoma	MB, Group4	0.00389955895514109	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_5HSJZPJ3_7316-9436_Solid Tissue_Initial CNS Tumor	7316-9436	MB, Group3	MB_G34_IV	0.992906039	not_detected	NA	Medulloblastoma	MB, Group3	3.1766626957514587e-18	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_5JA1N2H4_7316-839_Solid Tissue_Deceased	7316-839	MB, SHH	MB SHH 1	0.981	no_assay	NA	Medulloblastoma	MB, SHH	0.006376254200865882	MB, SHH gamma	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_64C7QNBP_7316-3949_Solid Tissue_Initial CNS Tumor	7316-3949	MB, Group4	MB_G34_VIII	0.999872882	no_rule	NA	Medulloblastoma	MB, Group4	1.8475274420256155e-6	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_65B5CGQG_7316-7110_Solid Tissue_Initial CNS Tumor	7316-7110	MB, WNT	MB_WNT	0.999953019	confirmed	CTNNB1 p.G34R	Medulloblastoma	MB, WNT	4.4096055801374476e-11	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_6PPHRJZB_7316-6792_Solid Tissue_Initial CNS Tumor	7316-6792	MB, Group4	MB_G34_VI	0.817433654000155	no_rule	NA	Medulloblastoma	MB, Group4	0.0020249847491881886	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_74XM7BV7_7316-312_Solid Tissue_Recurrence	7316-312	MB, Group3	MB_G34_III	0.972338431	no_assay	NA	Medulloblastoma	MB, Group3	4.560627282481175e-14	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_78NQ0QQS_7316-1651_Solid Tissue_Initial CNS Tumor	7316-1651	MB, WNT	MB_WNT	0.999998858	confirmed	CTNNB1 p.D32N	Medulloblastoma	MB, WNT	3.077584383762222e-19	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_7BJBEBZT_7316-1670_Solid Tissue_Initial CNS Tumor	7316-1670	MB, Group4	MB_G34_VI	0.887660419741012	no_rule	NA	Medulloblastoma	MB, Group4	2.7452043655282532e-11	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_7FQ6VECA_7316-3846_Solid Tissue_Initial CNS Tumor	7316-3846	MB, Group4	MB_G34_VIII	0.998814119	no_rule	NA	Medulloblastoma	MB, Group4	1.6013499380068587e-30	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_7KBMN6C2_7316-553_Solid Tissue_Initial CNS Tumor	7316-553	MB, Group4	MB_G34_VII	0.996078639	no_rule	NA	Medulloblastoma	MB, Group4	0.003397007855116658	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_7QKGGMKV_7316-347_Solid Tissue_Initial CNS Tumor	7316-347	MB, Group4	MB_G34_V	0.990131111	no_rule	NA	Medulloblastoma	MB, Group4	2.260113932426104e-7	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_7WYPEC3Q_7316-4529_Solid Tissue_Initial CNS Tumor	7316-4529	MB, SHH	MB_SHH_2	0.896781693	not_detected	NA	Medulloblastoma	MB, SHH	0.12108285561073934	MB, SHH gamma	Genomic/Expression	concordant	MB, SHH	methylation	FALSE
+PT_82MX6J77_7316-302_Solid Tissue_Initial CNS Tumor	7316-302	MB, Group3	MB_G34_IV	0.999348195	not_detected	NA	Medulloblastoma	MB, Group3	0.5868743380181913	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_8M6W215T_7316-305_Solid Tissue_Recurrence	7316-305	MB, Group4	MB_G34_VIII	0.985154276	no_rule	NA	Medulloblastoma	MB, Group4	6.694124816023429e-14	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_8RB3EKNP_7316-4028_Solid Tissue_Initial CNS Tumor	7316-4028	MB, Group4	MB_G34_VII	0.962513815	no_rule	NA	Medulloblastoma	MB, Group4	1.6112147577510574e-9	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_97EQQMT9_7316-3114_Solid Tissue_Initial CNS Tumor	7316-3114	MB, SHH	MB SHH 4	0.943	not_detected	NA	Medulloblastoma	MB, SHH	0.05979534273610543	MB, SHH alpha	Genomic/Expression	concordant	MB, SHH	methylation	FALSE
+PT_9A6RPJ97_7316-906_Solid Tissue_Initial CNS Tumor	7316-906	MB, WNT	MB_WNT	0.999998009	confirmed	CTNNB1 p.S33C	Medulloblastoma	MB, WNT	4.885802252979084e-8	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_9B3YD5DR_7316-411_Solid Tissue_Initial CNS Tumor	7316-411	MB, Group4	MB_G34_VII	0.824077124	no_rule	NA	Medulloblastoma	MB, Group4	5.315621536851959e-7	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_9HMVHQEH_7316-22_Solid Tissue_Initial CNS Tumor	7316-22	MB, Group4	MB_G34_VIII	0.998920843	no_rule	NA	Medulloblastoma	MB, Group4	6.648724634123976e-14	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_9MT2G8NE_7316-6781_Solid Tissue_Initial CNS Tumor	7316-6781	MB, Group3	MB_G34_III	0.98246139	not_detected	NA	Medulloblastoma	MB, Group3	1.0074072672427338e-9	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_9S6WMQ92_7316-278_Solid Tissue_Initial CNS Tumor	7316-278	MB, SHH	MB SHH 4	0.987	confirmed	PTCH1 p.V188Afs*32	Medulloblastoma	MB, SHH	0.0802989621533716	MB, SHH alpha	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_9S6WMQ92_7316-333_Solid Tissue_Progressive	7316-333	MB, SHH	MB_SHH_3	0.86484553	confirmed	PTCH1 p.V188Afs*32	Medulloblastoma	MB, SHH	0.018769541059557644	MB, SHH alpha	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_9SWHWA5Q_7316-4458_Solid Tissue_Initial CNS Tumor	7316-4458	MB, Group4	MB_G34_V	0.909185279	no_rule	NA	Medulloblastoma	MB, Group4	0.395703793551087	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_9YMRNZHH_7316-2178_Solid Tissue_Initial CNS Tumor	7316-2178	MB, Group4	MB_G34_V	0.986788422	no_rule	NA	Medulloblastoma	MB, Group4	0.013537578671966985	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_A0V7V4N0_7316-7495_Solid Tissue_Initial CNS Tumor	7316-7495	MB, Group4	MB_G34_VII	0.997975269	no_rule	NA	Medulloblastoma	MB, Group4	1.328191394911316e-8	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_A5S5BB3A_7316-3195_Solid Tissue_Initial CNS Tumor	7316-3195	MB, Group3	MB_G34_II	0.996430151	not_detected	NA	Medulloblastoma	MB, Group3	1.1205320443319168e-7	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_AAA7EET4_7316-4778_Solid Tissue_Initial CNS Tumor	7316-4778	MB, WNT	MB_WNT	0.999987795	confirmed	CTNNB1 p.S33C	Medulloblastoma	MB, WNT	9.99818584342774e-14	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_ABMAQYY2_7316-842_Solid Tissue_Recurrence	7316-842	MB, Group4	MB_G34_VIII	0.99985968	no_rule	NA	Medulloblastoma	MB, Group4	1.7655369616471742e-15	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_B4RTR0T5_7316-8916_Solid Tissue_Initial CNS Tumor	7316-8916	MB, Group4	MB_G34_VIII	0.999914857	no_rule	NA	Medulloblastoma	MB, Group4	1.1958895797749314e-8	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_BAH54SVM_7316-7965_Solid Tissue_Initial CNS Tumor	7316-7965	MB, Group3	MB_G34_III	0.91231179	not_detected	NA	Medulloblastoma	MB, Group3	9.463538775892792e-7	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_BG7GAFK6_7316-3626_Solid Tissue_Initial CNS Tumor	7316-3626	MB, Group4	MB_G34_VII	0.997034518	no_rule	NA	Medulloblastoma	MB, Group4	5.013784704184635e-6	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_BK06Z2Q1_7316-5187_Solid Tissue_Initial CNS Tumor	7316-5187	MB, Group4	MB_G34_VII	0.997634829	no_rule	NA	Medulloblastoma	MB, Group4	4.5673975306062963e-5	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_BRTVGGRK_7316-2893_Solid Tissue_Initial CNS Tumor	7316-2893	MB, Group4	MB_G34_VII	0.999542338	no_rule	NA	Medulloblastoma	MB, Group4	1.0455294527324157e-11	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_BTTM2HS5_7316-2287_Solid Tissue_Initial CNS Tumor	7316-2287	MB, Group3	MB_G34_III	0.957725682	not_detected	NA	Medulloblastoma	MB, Group3	1.5348719057181388e-6	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_BTYG7JR9_7316-4187_Solid Tissue_Progressive	7316-4187	MB, Group3	MB_G34_IV	0.915092919	not_detected	NA	Medulloblastoma	MB, Group3	3.7087208051074923e-9	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_C9F2B4QF_7316-4270_Solid Tissue_Initial CNS Tumor	7316-4270	MB, SHH	MB_SHH_4	0.993344582	not_detected	NA	Medulloblastoma	MB, SHH	0.03500411087058864	MB, SHH delta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_CHHBDNNJ_7316-4918_Solid Tissue_Initial CNS Tumor	7316-4918	MB, Group4	MB_G34_VIII	0.869989881022566	no_rule	NA	Medulloblastoma	MB, Group4	4.814194030125865e-8	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_CQ7EGCMB_7316-3809_Solid Tissue_Initial CNS Tumor	7316-3809	MB, SHH	MB_SHH_1	0.990590146	not_detected	NA	Medulloblastoma	MB, SHH	0.0033815998321918028	MB, SHH beta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_CTSQ5FHH_7316-438_Solid Tissue_Initial CNS Tumor	7316-438	MB, Group3	MB_G34_III	0.994186401	not_detected	NA	Medulloblastoma	MB, Group3	1.6704943073238742e-6	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_CWA1405H_7316-2252_Solid Tissue_Initial CNS Tumor	7316-2252	MB, WNT	MB_WNT	0.997063957	confirmed	CTNNB1 p.S33Y	Medulloblastoma	MB, WNT	2.399960632314421e-5	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_CZRDBM1Q_7316-435_Solid Tissue_Initial CNS Tumor	7316-435	MB, Group4	MB_G34_VI	0.927877897	no_rule	NA	Medulloblastoma	MB, Group4	3.907375912943444e-6	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_D215EQAP_7316-747_Solid Tissue_Initial CNS Tumor	7316-747	MB, Group4	MB_G34_VII	0.985173864	no_rule	NA	Medulloblastoma	MB, Group4	2.509004192767622e-7	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_D7KMPYTZ_7316-2133_Solid Tissue_Initial CNS Tumor	7316-2133	MB, WNT	MB_WNT	0.999993275	confirmed	CTNNB1 p.G34E	Medulloblastoma	MB, WNT	2.2259021990912827e-21	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_DESHZ91V_7316-2009_Solid Tissue_Initial CNS Tumor	7316-2009	MB, Group4	MB_G34_VII	0.989838452	no_rule	NA	Medulloblastoma	MB, Group4	0.005653532986983661	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_DFE9HK05_7316-6382_Solid Tissue_Initial CNS Tumor	7316-6382	MB, Group4	MB_G34_VII	0.998091112	no_rule	NA	Medulloblastoma	MB, Group4	6.516101886951339e-4	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_DFR8928F_7316-3032_Solid Tissue_Initial CNS Tumor	7316-3032	MB, Group3	MB_G34_III	0.996831869	not_detected	NA	Medulloblastoma	MB, Group3	4.216549570827264e-9	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_DFXQFYPV_7316-2155_Solid Tissue_Initial CNS Tumor	7316-2155	MB, Group4	MB_G34_VIII	0.999105136	no_rule	NA	Medulloblastoma	MB, Group4	9.308547086938199e-17	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_DY2D16CZ_7316-3635_Solid Tissue_Recurrence	7316-3635	MB, Group4	MB_G34_VIII	0.999688996	no_rule	NA	Medulloblastoma	MB, Group4	4.6861297679588374e-4	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_DY2GNA83_7316-8419_Solid Tissue_Deceased	7316-8419	MB, SHH	MB SHH 4	0.987	not_detected	NA	Medulloblastoma	MB, SHH	0.07520126958240825	MB, SHH delta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_E4ECAFEN_7316-38_Solid Tissue_Initial CNS Tumor	7316-38	MB, Group4	MB_G34_VIII	0.848118032590569	no_rule	NA	Medulloblastoma	MB, Group4	2.184025526353467e-12	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_EDWA0XTP_7316-670_Solid Tissue_Initial CNS Tumor	7316-670	MB, Group4	MB_G34_V	0.919497169	no_rule	NA	Medulloblastoma	MB, Group4	9.427939806242631e-8	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_EGGY1XC0_7316-2865_Solid Tissue_Initial CNS Tumor	7316-2865	MB, SHH	MB SHH 2	0.955	confirmed	PTCH1 p.A451Pfs*5	Medulloblastoma	MB, SHH	0.010877522065630262	MB, SHH gamma	Genomic/Expression	concordant	MB, SHH	methylation	FALSE
+PT_EZS4SRH6_7316-676_Solid Tissue_Initial CNS Tumor	7316-676	MB, Group4	MB_G34_VIII	0.999784314	no_rule	NA	Medulloblastoma	MB, Group4	6.252352283451975e-9	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_F3S9PB94_7316-2240_Solid Tissue_Initial CNS Tumor	7316-2240	MB, Group4	MB_G34_VII	0.999601591	no_rule	NA	Medulloblastoma	MB, Group4	1.3363050685095358e-6	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_FFCD5XD7_7316-9032_Solid Tissue_Recurrence	7316-9032	MB, Group3	MB_G34_II	0.956390663	not_detected	NA	Medulloblastoma	MB, Group3	2.166124056304339e-14	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_FN4GEEFR_7316-3010_Solid Tissue_Progressive	7316-3010	MB, SHH	MB_SHH_4	0.967265875	confirmed	PTCH1 p.V908Gfs*8	Medulloblastoma	MB, SHH	0.0021950481075766136	MB, SHH delta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_FN4GEEFR_7316-729_Solid Tissue_Initial CNS Tumor	7316-729	MB, SHH	MB_SHH_4	0.965957007	confirmed	PTCH1 p.Q196*; PTCH1 p.V908Gfs*8; PTCH1 p.Y93*	Medulloblastoma	MB, SHH	0.0013265133126626086	MB, SHH delta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_FX2D5BTD_7316-5879_Solid Tissue_Initial CNS Tumor	7316-5879	MB, Group3	MB_G34_III	0.890504103	not_detected	NA	Medulloblastoma	MB, Group3	9.205818011202485e-6	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_G3AVDN4E_7316-2227_Solid Tissue_Initial CNS Tumor	7316-2227	MB, Group4	MB_G34_VIII	0.999852276	no_rule	NA	Medulloblastoma	MB, Group4	9.072958993035872e-11	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_G9XKWA3N_7316-5463_Solid Tissue_Initial CNS Tumor	7316-5463	MB, Group4	MB_G34_VIII	0.999412332	no_rule	NA	Medulloblastoma	MB, Group4	6.24229296591369e-9	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_GGCQAGPS_7316-304_Solid Tissue_Initial CNS Tumor	7316-304	MB, Group3	MB_G34_III	0.994581934	not_detected	NA	Medulloblastoma	MB, Group3	2.8306850947151707e-18	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_GRRM8JXS_7316-2700_Solid Tissue_Initial CNS Tumor	7316-2700	MB, WNT	MB_WNT	0.999997477	confirmed	CTNNB1 p.D32Y	Medulloblastoma	MB, WNT	6.208166360880558e-10	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_GY0MCXR8_7316-683_Solid Tissue_Initial CNS Tumor	7316-683	MB, WNT	MB_WNT	0.999992424	confirmed	CTNNB1 p.S33C	Medulloblastoma	MB, WNT	1.984108982346743e-9	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_H0PXZWJ6_7316-7930_Solid Tissue_Initial CNS Tumor	7316-7930	MB, Group3	MB_G34_IV	0.996360674	not_detected	NA	Medulloblastoma	MB, Group3	3.518234477344541e-4	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_H0Y8DJA8_7316-7742_Solid Tissue_Initial CNS Tumor	7316-7742	MB, Group4	MB_G34_VII	0.995161908	no_rule	NA	Medulloblastoma	MB, Group4	1.3327590940231902e-4	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_H3WWDMW9_7316-2118_Solid Tissue_Deceased	7316-2118	MB, SHH	MB_SHH_1	0.909925093	no_assay	NA	Medulloblastoma	MB, SHH	9.877083861138244e-5	MB, SHH beta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_H3WWDMW9_7316-737_Solid Tissue_Initial CNS Tumor	7316-737	MB, SHH	MB_SHH_1	0.999375806	no_assay	NA	Medulloblastoma	MB, SHH	3.9775125105734255e-7	MB, SHH beta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_H6E09982_7316-5_Solid Tissue_Initial CNS Tumor	7316-5	MB, WNT	MB_WNT	0.99998952	confirmed	CTNNB1 p.S33F	Medulloblastoma	MB, WNT	4.1936304019912956e-14	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_HEGTYPQJ_7316-2562_Solid Tissue_Initial CNS Tumor	7316-2562	MB, Group4	MB_G34_VIII	0.999791233	no_rule	NA	Medulloblastoma	MB, Group4	3.939809556388543e-18	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_HFPCMNKX_7316-6986_Solid Tissue_Initial CNS Tumor	7316-6986	MB, Group3	MB_G34_IV	0.913073729221222	not_detected	NA	Medulloblastoma	MB, Group3	0.001546841343398875	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_HM2GMT2H_7316-6_Solid Tissue_Initial CNS Tumor	7316-6	MB, SHH	MB_SHH_1	0.994688691	not_detected	NA	Medulloblastoma	MB, SHH	0.017120977091930344	MB, SHH beta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_J6CREPMB_7316-6528_Solid Tissue_Initial CNS Tumor	7316-6528	MB, SHH	MB_SHH_1	0.998566662	confirmed	PTCH1 p.A497Nfs*15	Medulloblastoma	MB, SHH	0.023926706177633063	MB, SHH beta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_JEA0AEMZ_7316-2169_Solid Tissue_Initial CNS Tumor	7316-2169	MB, Group4	MB_G34_VII	0.999439526	no_rule	NA	Medulloblastoma	MB, Group4	0.013831840761926664	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_K2FGJ1X7_7316-3726_Solid Tissue_Initial CNS Tumor	7316-3726	MB, Group4	MB_G34_VIII	0.944924427	no_rule	NA	Medulloblastoma	MB, Group4	2.2509429646670545e-06	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_K6S2YJ8Y_7316-5883_Solid Tissue_Initial CNS Tumor	7316-5883	MB, Group4	MB_G34_VII	0.985198398	no_rule	NA	Medulloblastoma	MB, Group4	0.030094125248331473	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_KN25EYMG_7316-2309_Solid Tissue_Initial CNS Tumor	7316-2309	MB, Group3	MB_G34_III	0.996939987	not_detected	NA	Medulloblastoma	MB, Group3	4.617649516482008e-16	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_M0AP3Z15_7316-14_Solid Tissue_Initial CNS Tumor	7316-14	MB, Group4	MB_G34_VII	0.914504236	no_rule	NA	Medulloblastoma	MB, Group4	0.003882660790981098	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_M39RC0Y1_7316-4523_Solid Tissue_Initial CNS Tumor	7316-4523	MB, SHH	MB_SHH_1	0.999423128	not_detected	NA	Medulloblastoma	MB, SHH	0.054105792055164	MB, SHH beta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_MA8VSJ14_7316-6138_Solid Tissue_Initial CNS Tumor	7316-6138	MB, Group3	MB_G34_III	0.950624832652526	confirmed	MYC amplification	Medulloblastoma	MB, Group3	0.007692796179049374	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_MKZ7ESSF_7316-7753_Solid Tissue_Initial CNS Tumor	7316-7753	MB, Group4	MB_G34_VIII	0.999554225	no_rule	NA	Medulloblastoma	MB, Group4	8.120968393972405e-16	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_MR5ZNP8K_7316-5526_Solid Tissue_Initial CNS Tumor	7316-5526	MB, Group3	MB_G34_III	0.998015273	not_detected	NA	Medulloblastoma	MB, Group3	1.4850034749310083e-6	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_MSBPMJ56_7316-306_Solid Tissue_Initial CNS Tumor	7316-306	MB, Group4	MB_G34_VII	0.970644139	no_rule	NA	Medulloblastoma	MB, Group4	1.3696369019611818e-4	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_N1HWK3YS_7316-2603_Solid Tissue_Initial CNS Tumor	7316-2603	MB, WNT	MB_WNT	0.998718267	confirmed	CTNNB1 p.S33P	Medulloblastoma	MB, WNT	0.037007345856948363	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_N56EYD4Z_7316-3857_Solid Tissue_Initial CNS Tumor	7316-3857	MB, Group3	MB_G34_II	0.999472766	not_detected	NA	Medulloblastoma	MB, Group3	2.583661447664661e-32	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_NCDHZ8H8_7316-2780_Solid Tissue_Initial CNS Tumor	7316-2780	MB, SHH	MB_SHH_1	0.992294327	not_detected	NA	Medulloblastoma	MB, SHH	0.008007984328852146	MB, SHH beta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_NDVJE438_7316-2811_Solid Tissue_Initial CNS Tumor	7316-2811	MB, Group4	MB_G34_VIII	0.999765517	no_rule	NA	Medulloblastoma	MB, Group4	5.363541760251188e-21	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_NTEKMKTX_7316-1650_Solid Tissue_Initial CNS Tumor	7316-1650	MB, SHH	MB_SHH_2	0.999572659	not_detected	NA	Medulloblastoma	MB, SHH	0.005823295677252192	MB, SHH gamma	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_NTG1EJGA_7316-3008_Solid Tissue_Initial CNS Tumor	7316-3008	MB, Group3	MB_G34_III	0.985546727	not_detected	NA	Medulloblastoma	MB, Group3	6.431381163898755e-9	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_NV584F7Q_7316-3192_Solid Tissue_Initial CNS Tumor	7316-3192	MB, Group4	MB_G34_VII	0.992554237	no_rule	NA	Medulloblastoma	MB, Group4	0.027576395530606132	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_NZ85YSJ1_7316-4188_Solid Tissue_Initial CNS Tumor	7316-4188	MB, Group4	MB_G34_VII	0.940269321	no_rule	NA	Medulloblastoma	MB, Group4	0.9732696932743636	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_P4ZEFY19_7316-937_Solid Tissue_Initial CNS Tumor	7316-937	MB, Group4	MB_G34_VIII	0.99931434	no_rule	NA	Medulloblastoma	MB, Group4	5.60773162587481e-16	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_PABK01H0_7316-1669_Solid Tissue_Initial CNS Tumor	7316-1669	MB, SHH	MB_SHH_1	0.993230147	confirmed	PTCH1 p.W1051Cfs*7	Medulloblastoma	MB, SHH	0.01393739116128044	MB, SHH beta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_PHY9WJR1_7316-4283_Solid Tissue_Initial CNS Tumor	7316-4283	MB, SHH	MB_SHH_1	0.962422763	not_detected	NA	Medulloblastoma	MB, SHH	0.2008631079356387	MB, SHH beta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_PJSV0X4X_7316-843_Solid Tissue_Recurrence	7316-843	MB, Group3	MB_G34_II	0.999616774	no_assay	NA	Medulloblastoma	MB, Group3	6.536027228328311e-15	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_PTTBTPS6_7316-9028_Solid Tissue_Recurrence	7316-9028	MB, SHH	MB SHH 4	0.982	confirmed	GLI2 amplification	Medulloblastoma	MB, SHH	0.07691913570458353	MB, SHH alpha	Genomic/Expression	concordant	MB, SHH	methylation	FALSE
+PT_PX4E85V1_7316-1083_Solid Tissue_Initial CNS Tumor	7316-1083	MB, Group4	MB_G34_VIII	0.999874366	no_rule	NA	Medulloblastoma	MB, Group4	2.3860608297907854e-16	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_PZRWEBK5_7316-1988_Solid Tissue_Initial CNS Tumor	7316-1988	MB, Group4	MB_G34_VIII	0.841875105720927	no_rule	NA	Medulloblastoma	MB, Group4	5.3179243937326564e-8	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_Q0N3AG4D_7316-9804_Solid Tissue_Initial CNS Tumor	7316-9804	MB, SHH	MB_SHH_2	0.853501121	not_detected	NA	Medulloblastoma	MB, SHH	0.13189697861764635	MB, SHH gamma	Genomic/Expression	concordant	MB, SHH	methylation	FALSE
+PT_Q4GD8TFQ_7316-4221_Solid Tissue_Initial CNS Tumor	7316-4221	MB, WNT	MB_WNT	0.901653325	confirmed	CTNNB1 p.G34E	Medulloblastoma	MB, WNT	0.01241271674615822	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_Q90R6M3E_7316-897_Solid Tissue_Initial CNS Tumor	7316-897	MB, Group4	MB_G34_VIII	0.999563758	no_rule	NA	Medulloblastoma	MB, Group4	3.216995604708136e-10	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_QEP13FH4_7316-3025_Solid Tissue_Initial CNS Tumor	7316-3025	MB, WNT	MB_WNT	0.999913703	not_detected	NA	Medulloblastoma	MB, WNT	1.5888475501968265e-22	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_QF2ZH1V5_7316-680_Solid Tissue_Initial CNS Tumor	7316-680	MB, SHH	MB_SHH_2	0.999598262	not_detected	NA	Medulloblastoma	MB, SHH	0.0035018063307632238	MB, SHH gamma	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_QW5VW2PY_7316-313_Solid Tissue_Initial CNS Tumor	7316-313	MB, Group4	MB_G34_VII	0.910474422	no_rule	NA	Medulloblastoma	MB, Group4	7.911402251422018e-4	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_QYEF3JAT_7316-1460_Solid Tissue_Initial CNS Tumor	7316-1460	MB, Group4	MB_G34_VII	0.997110665	no_rule	NA	Medulloblastoma	MB, Group4	1.585405598411992e-21	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_R0H8JTQR_7316-4265_Solid Tissue_Initial CNS Tumor	7316-4265	MB, WNT	MB_WNT	0.999993871	confirmed	CTNNB1 p.D32Y	Medulloblastoma	MB, WNT	1.6854777663457402e-4	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_R604JG6B_7316-8817_Solid Tissue_Deceased	7316-8817	MB, Group4	MB_G34_VII	0.958819024	no_rule	NA	Medulloblastoma	MB, Group4	0.008559211452755712	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_R63RHJWX_7316-739_Solid Tissue_Initial CNS Tumor	7316-739	MB, Group4	MB_G34_VII	0.980350557	no_rule	NA	Medulloblastoma	MB, Group4	0.0011363192919170606	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_RFB07MZS_7316-2107_Solid Tissue_Initial CNS Tumor	7316-2107	MB, Group3	MB_G34_III	0.996874172	confirmed	MYC amplification	Medulloblastoma	MB, Group3	2.897095892375702e-11	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_RH59ET3M_7316-1655_Solid Tissue_Initial CNS Tumor	7316-1655	MB, Group4	MB_G34_V	0.984230468	no_rule	NA	Medulloblastoma	MB, Group4	2.6012527969735487e-9	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_RJ98S3KZ_7316-556_Solid Tissue_Initial CNS Tumor	7316-556	MB, Group4	MB_G34_VIII	0.99992811	no_rule	NA	Medulloblastoma	MB, Group4	1.981678996702007e-22	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_RM8V31DA_7316-5539_Solid Tissue_Initial CNS Tumor	7316-5539	MB, SHH	MB SHH 3	0.989	not_detected	NA	Medulloblastoma	MB, SHH	0.05703934225934478	MB, SHH alpha	Genomic/Expression	concordant	MB, SHH	methylation	FALSE
+PT_RQ21EBK9_7316-367_Solid Tissue_Initial CNS Tumor	7316-367	MB, Group4	MB_G34_VII	0.940914635	no_rule	NA	Medulloblastoma	MB, Group4	0.10282062857557052	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_S4A0R1PM_7316-2699_Solid Tissue_Initial CNS Tumor	7316-2699	MB, SHH	MB_SHH_4	0.95086262	not_detected	NA	Medulloblastoma	MB, SHH	5.314706117800273e-5	MB, SHH delta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_SBP79T7F_7316-315_Solid Tissue_Initial CNS Tumor	7316-315	MB, Group4	MB_G34_VII	0.861942308	no_rule	NA	Medulloblastoma	MB, Group4	3.3272851979758164e-12	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_SBSXK3XB_7316-8430_Solid Tissue_Initial CNS Tumor	7316-8430	MB, SHH	MB_SHH_4	0.990507494	confirmed	PTCH1 p.V442Afs*15	Medulloblastoma	MB, SHH	0.09959516399676865	MB, SHH delta	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_STRDJQ01_7316-1038_Solid Tissue_Initial CNS Tumor	7316-1038	MB, SHH	MB_SHH_2	0.999234807	no_assay	NA	Medulloblastoma	MB, SHH	3.1574937787241884e-4	MB, SHH gamma	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_T3REPTTC_7316-3488_Solid Tissue_Initial CNS Tumor	7316-3488	MB, Group3	MB_G34_III	0.957370292	not_detected	NA	Medulloblastoma	MB, Group3	5.650025882357489e-7	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_TKWTTRQ7_7316-2971_Solid Tissue_Initial CNS Tumor	7316-2971	MB, Group4	MB_G34_VIII	0.998908495	no_rule	NA	Medulloblastoma	MB, Group4	8.175049567934696e-21	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_TKWTTRQ7_7316-407_Solid Tissue_Progressive	7316-407	MB, Group4	MB_G34_VIII	0.999617418	no_rule	NA	Medulloblastoma	MB, Group4	3.75703668190772e-24	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_V0C2E99Z_7316-6991_Solid Tissue_Initial CNS Tumor	7316-6991	MB, SHH	MB_SHH_3	0.824930208	not_detected	NA	Medulloblastoma	MB, SHH	0.20436109107051628	MB, SHH alpha	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_V8714N9H_7316-2322_Solid Tissue_Initial CNS Tumor	7316-2322	MB, Group3	MB_G34_III	0.982827152	not_detected	NA	Medulloblastoma	MB, Group3	4.334188145092884e-8	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_VH6S71AC_7316-735_Solid Tissue_Initial CNS Tumor	7316-735	MB, Group4	MB_G34_VII	0.950644469	no_rule	NA	Medulloblastoma	MB, Group4	4.219805002297617e-6	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_VJZN69T9_7316-3510_Solid Tissue_Initial CNS Tumor	7316-3510	MB, Group3	MB_G34_IV	0.967864791	not_detected	NA	Medulloblastoma	MB, Group3	5.518757026716452e-15	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_VJZN69T9_7316-3669_Solid Tissue_Progressive	7316-3669	MB, Group3	MB_G34_IV	0.864848954	not_detected	NA	Medulloblastoma	MB, Group3	5.601073943156624e-11	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_WF4Q4SF2_7316-8860_Solid Tissue_Initial CNS Tumor	7316-8860	MB, SHH	MB_SHH_3	0.913464686	not_detected	NA	Medulloblastoma	MB, SHH	0.11848834434271222	MB, SHH alpha	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_WNS0AZQT_7316-8451_Solid Tissue_Initial CNS Tumor	7316-8451	MB, Group4	MB_G34_VIII	0.999671867	no_rule	NA	Medulloblastoma	MB, Group4	1.7174210081130912e-9	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_WWZ2Q14R_7316-3138_Solid Tissue_Initial CNS Tumor	7316-3138	MB, SHH	MB_SHH_2	0.999725398	confirmed	SUFU p.X152_splice	Medulloblastoma	MB, SHH	6.9649412439774e-4	MB, SHH gamma	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_X1XVE1XX_7316-3511_Solid Tissue_Initial CNS Tumor	7316-3511	MB, Group4	MB_G34_VIII	0.999854858	no_rule	NA	Medulloblastoma	MB, Group4	1.5985876536321842e-23	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_X4TT75N8_7316-3659_Solid Tissue_Initial CNS Tumor	7316-3659	MB, Group4	MB_G34_VII	0.890531189	no_rule	NA	Medulloblastoma	MB, Group4	0.026598357159671626	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_XA98HG1C_7316-3023_Solid Tissue_Progressive	7316-3023	MB, SHH	MB SHH 3	0.905	confirmed	PTCH1 p.A925_V927del; PTCH1 p.T924A	Medulloblastoma	MB, SHH	0.031574051974931724	MB, SHH alpha	Methylation	concordant	MB, SHH	methylation	FALSE
+PT_XWFW59VV_7316-9249_Solid Tissue_Initial CNS Tumor	7316-9249	MB, WNT	MB_WNT	0.999972157	confirmed	CTNNB1 p.S33C	Medulloblastoma	MB, WNT	5.970568687937015e-11	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_YFS3AWC0_7316-153_Solid Tissue_Initial CNS Tumor	7316-153	MB, Group3	MB_G34_II	0.999987444	not_detected	NA	Medulloblastoma	MB, Group3	3.6531634936477203e-16	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_YHTK536P_7316-1714_Solid Tissue_Recurrence	7316-1714	MB, Group3	MB_G34_III	0.971766467	no_assay	NA	Medulloblastoma	MB, Group3	6.890656290856812e-13	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_YV2S3ES7_7316-182_Solid Tissue_Initial CNS Tumor	7316-182	MB, SHH	MB SHH 4	0.982	confirmed	PTCH1 p.X68_splice	Medulloblastoma	MB, SHH	4.515598440316376e-5	MB, SHH delta	Genomic/Expression	concordant	MB, SHH	methylation	FALSE
+PT_ZG4J0EK0_7316-3774_Solid Tissue_Initial CNS Tumor	7316-3774	MB, Group4	MB_G34_VII	0.949738652	no_rule	NA	Medulloblastoma	MB, Group4	2.630334425225725e-9	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_ZG4J0EK0_7316-6664_Solid Tissue_Recurrence	7316-6664	MB, Group3	MB_G34_III	0.836380960052411	not_detected	NA	Medulloblastoma	MB, Group3	4.7749552169039784e-4	NA	NA	concordant	MB, Group3	methylation	FALSE
+PT_ZJVVRMHQ_7316-4940_Solid Tissue_Initial CNS Tumor	7316-4940	MB, Group4	MB_G34_VII	0.998058796	no_rule	NA	Medulloblastoma	MB, Group4	2.2643421432404283e-4	NA	NA	concordant	MB, Group4	methylation	FALSE
+PT_ZM9F20SY_7316-6124_Solid Tissue_Initial CNS Tumor	7316-6124	MB, WNT	MB_WNT	0.996052491	confirmed	CTNNB1 p.S33F	Medulloblastoma	MB, WNT	4.4663019553638407e-4	NA	NA	concordant	MB, WNT	methylation	FALSE
+PT_23NZGSRJ_7316-4509_Solid Tissue_Deceased	7316-4509	MB, Group3	MB_G34_II	0.999857046	not_detected	NA	Medulloblastoma	MB, Group3 | MB, SHH	3.3113590974157273e-17	NA	NA	discordant	MB, Group3	methylation	TRUE
+PT_HB3CXEX6_7316-6794_Solid Tissue_Initial CNS Tumor	7316-6794	MB, Group4	MB_G34_VII	0.811401692	no_rule	NA	Medulloblastoma	MB, Group3	0.029358633693196017	NA	NA	discordant	MB, Group4	methylation	TRUE
+PT_XX2VW3D9_7316-96_Solid Tissue_Initial CNS Tumor	7316-96	MB, Medullomyoblastoma	MB_MYO	0.9876645	no_rule	NA	Medulloblastoma	MB, Group3	0.17200835252610555	NA	NA	discordant	MB, Medullomyoblastoma	methylation	TRUE
+PPTC_P0117_ICb-1078MB_Patient Derived Xenograft_Primary Tumor	ICb-1078MB	NA	NA	NA	NA	NA	NA	MB, Group4	0.1010288914016201	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PPTC_P0118_ICb-1140MB_Patient Derived Xenograft_Primary Tumor	ICb-1140MB	NA	NA	NA	NA	NA	NA	MB, WNT	0.08104853752842417	NA	NA	expression only	MB, WNT	expression classifier	FALSE
+PPTC_P0119_ICb-1197MB_Patient Derived Xenograft_Primary Tumor	ICb-1197MB	NA	NA	NA	NA	NA	NA	MB, Group3	1.6303206577722473e-11	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PPTC_P0121_ICb-1338MB_Patient Derived Xenograft_Primary Tumor	ICb-1338MB	NA	NA	NA	NA	NA	NA	MB, SHH	0.05851980323970141	MB, SHH	NA	expression only	MB, SHH	expression classifier	FALSE
+PPTC_P0124_ICb-1494MB_Patient Derived Xenograft_Primary Tumor	ICb-1494MB	NA	NA	NA	NA	NA	NA	MB, Group3	6.821677629509931e-6	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PPTC_P0126_ICb-1595MB_Patient Derived Xenograft_Primary Tumor	ICb-1595MB	NA	NA	NA	NA	NA	NA	MB, Group3	0.22981941957495403	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PPTC_P0127_ICB-1744MB_Patient Derived Xenograft_Primary Tumor	ICB-1744MB	NA	NA	NA	NA	NA	NA	MB, Group3	1.764699690770702e-20	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PPTC_P0129_ICb-2123MB_Patient Derived Xenograft_Primary Tumor	ICb-2123MB	NA	NA	NA	NA	NA	NA	MB, SHH	0.13852764403087584	MB, SHH	NA	expression only	MB, SHH	expression classifier	FALSE
+PPTC_P0130_ICb-2164MB_Patient Derived Xenograft_Primary Tumor	ICb-2164MB	NA	NA	NA	NA	NA	NA	MB, Group3	1.7084317904666436e-9	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PPTC_P0131_ICb-2555MB_Patient Derived Xenograft_Primary Tumor	ICb-2555MB	NA	NA	NA	NA	NA	NA	MB, Group3	7.811641425284471e-22	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PPTC_P0132_ICb-3130MB_Patient Derived Xenograft_Primary Tumor	ICb-3130MB	NA	NA	NA	NA	NA	NA	MB, Group3	2.001585328526286e-18	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PPTC_P0133_ICb-3400MB_Patient Derived Xenograft_Relapse	ICb-3400MB	NA	NA	NA	NA	NA	NA	MB, SHH	0.06214619348877469	MB, SHH	NA	expression only	MB, SHH	expression classifier	FALSE
+PPTC_P0136_ICb-5610MB_Patient Derived Xenograft_Primary Tumor	ICb-5610MB	NA	NA	NA	NA	NA	NA	MB, SHH	0.10271298941336836	MB, SHH alpha	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PPTC_P0138_ICb-8008MB_Patient Derived Xenograft_Primary Tumor	ICb-8008MB	NA	NA	NA	NA	NA	NA	MB, Group4	7.782440726450944e-5	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PPTC_P0139_ICb-9508MB_Patient Derived Xenograft_Primary Tumor	ICb-9508MB	NA	NA	NA	NA	NA	NA	MB, SHH	0.05631435070499328	MB, SHH	NA	expression only	MB, SHH	expression classifier	FALSE
+PPTC_P0140_ICb-984MB_Patient Derived Xenograft_Primary Tumor	ICb-984MB	NA	NA	NA	NA	NA	NA	MB, SHH	0.016285798560289916	MB, SHH alpha	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PPTC_P0141_ICb-J1017MB_Patient Derived Xenograft_Relapse	ICb-J1017MB	NA	NA	NA	NA	NA	NA	MB, Group3	7.226792535712383e-4	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PPTC_P0179_NCH-MB-1_Patient Derived Xenograft_Primary Tumor	NCH-MB-1	NA	NA	NA	NA	NA	NA	MB, WNT	9.545436223032211e-11	NA	NA	expression only	MB, WNT	expression classifier	FALSE
+PT_0HCQEFYE_C4115580-Tumor_Solid Tissue_Initial CNS Tumor	C4115580-Tumor	NA	NA	NA	NA	NA	NA	MB, Group4	9.843825860542414e-12	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_0KTVJ74J_7316-7135_Solid Tissue_Deceased	7316-7135	NA	NA	NA	NA	NA	NA	MB, SHH	0.0296628407032248	MB, SHH	NA	expression only	MB, SHH	expression classifier	FALSE
+PT_0NMQYN1W_C4122468-Tumor_Solid Tissue_Initial CNS Tumor	C4122468-Tumor	NA	NA	NA	NA	NA	NA	MB, SHH	4.955661323568556e-16	MB, SHH beta	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_23NZGSRJ_7316-4509_Derived Cell Line_Deceased_Serum-free_8	7316-4509	NA	NA	NA	NA	NA	NA	MB, Group3	5.2212573933065785e-8	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_26V72ZXB_7316-3576_Solid Tissue_Initial CNS Tumor	7316-3576	NA	NA	NA	NA	NA	NA	MB, Group3	1.1762896885740286e-5	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_2S6A3RV8_7316-2711_Solid Tissue_Initial CNS Tumor	7316-2711	NA	NA	NA	NA	NA	NA	MB, SHH	0.017340918657464916	MB, SHH	NA	expression only	MB, SHH	expression classifier	FALSE
+PT_2ZTXV44P_7316-310_Solid Tissue_Initial CNS Tumor	7316-310	NA	NA	NA	NA	NA	NA	MB, Group3	1.9956620264893226e-23	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_32CD03EE_7316-4345_Solid Tissue_Initial CNS Tumor	7316-4345	NA	NA	NA	NA	NA	NA	MB, Group3	4.485601668685001e-5	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_5A01C4Z2_C4106970-Tumor_Solid Tissue_Initial CNS Tumor	C4106970-Tumor	NA	NA	NA	NA	NA	NA	MB, WNT	6.606823057945343e-10	NA	NA	expression only	MB, WNT	expression classifier	FALSE
+PT_5F4N0CAP_7316-219_Solid Tissue_Initial CNS Tumor	7316-219	NA	NA	NA	NA	NA	NA	MB, WNT	4.457061013330133e-14	NA	NA	expression only	MB, WNT	expression classifier	FALSE
+PT_5FR2YA6E_7316-109_Solid Tissue_Initial CNS Tumor	7316-109	NA	NA	NA	NA	NA	NA	MB, Group4	6.424078117960215e-9	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_5V6PRZX4_7316-8979_Solid Tissue_Initial CNS Tumor	7316-8979	NA	NA	NA	NA	NA	NA	MB, Group4	1.8465930165881905e-10	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_62VNQ8C4_7316-1884_Solid Tissue_Progressive	7316-1884	NA	NA	NA	NA	NA	NA	MB, SHH	0.26592431542957673	MB, SHH	NA	expression only	MB, SHH	expression classifier	FALSE
+PT_62VNQ8C4_7316-968_Solid Tissue_Initial CNS Tumor	7316-968	NA	NA	NA	NA	NA	NA	MB, SHH	0.22135672320323557	MB, SHH	NA	expression only	MB, SHH	expression classifier	FALSE
+PT_6PNAYE00_C4124928-Tumor_Solid Tissue_Initial CNS Tumor	C4124928-Tumor	NA	NA	NA	NA	NA	NA	MB, Group3	1.1212073483053478e-16	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_6XT5HH0S_7316-9450_Solid Tissue_Initial CNS Tumor	7316-9450	NA	NA	NA	NA	NA	NA	MB, SHH	0.022742275561653237	MB, SHH gamma	Methylation	expression only	MB, SHH	expression classifier	FALSE
+PT_7TNEA6C7_C4105248-Tumor_Solid Tissue_Initial CNS Tumor	C4105248-Tumor	NA	NA	NA	NA	NA	NA	MB, Group4	7.769670832934068e-12	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_85RSG67R_7316-2986_Solid Tissue_Initial CNS Tumor	7316-2986	NA	NA	NA	NA	NA	NA	MB, Group3	9.312621514190851e-6	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_98W7YNZ7_7316-9824_Solid Tissue_Initial CNS Tumor	7316-9824	NA	NA	NA	NA	NA	NA	MB, Group3	0.06110072598347773	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_9DER14KH_7316-2230_Solid Tissue_Initial CNS Tumor	7316-2230	NA	NA	NA	NA	NA	NA	MB, Group3	6.198615022563092e-10	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_9DMMZ08D_7316-1666_Solid Tissue_Initial CNS Tumor	7316-1666	NA	NA	NA	NA	NA	NA	MB, SHH	0.021423750185406175	MB, SHH beta	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_9DMMZ08D_7316-1676_Solid Tissue_Initial CNS Tumor	7316-1676	NA	NA	NA	NA	NA	NA	MB, SHH	0.05011946606119751	MB, SHH beta	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_9FHMK1ZR_C4105863-Tumor_Solid Tissue_Initial CNS Tumor	C4105863-Tumor	NA	NA	NA	NA	NA	NA	MB, Group4	2.5996258719395147e-13	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_9S6WMQ92_7316-95_Solid Tissue_Progressive	7316-95	NA	NA	NA	NA	NA	NA	MB, SHH	1.813976168780305e-4	MB, SHH alpha	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_9Y9S32VY_7316-4493_Solid Tissue_Initial CNS Tumor	7316-4493	NA	NA	NA	NA	NA	NA	MB, Group3	2.9570356490359105e-4	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_A4Q2TSC5_C4105125-Tumor_Solid Tissue_Initial CNS Tumor	C4105125-Tumor	NA	NA	NA	NA	NA	NA	MB, Group4	5.163158486472189e-8	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_B7QRTN72_7316-1802_Solid Tissue_Initial CNS Tumor	7316-1802	NA	NA	NA	NA	NA	NA	MB, Group4	5.322282378553383e-9	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_BA38VR93_7316-6522_Solid Tissue_Initial CNS Tumor	7316-6522	NA	NA	NA	NA	NA	NA	MB, SHH	0.059279071889832606	MB, SHH delta	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_BABHMV9E_C4123821-Tumor_Solid Tissue_Recurrence	C4123821-Tumor	NA	NA	NA	NA	NA	NA	MB, SHH	1.4383690782090659e-6	MB, SHH alpha	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_BAH54SVM_7316-7965_Derived Cell Line_Initial CNS Tumor_Serum-based_10	7316-7965	NA	NA	NA	NA	NA	NA	MB, SHH	0.39520781631645985	MB, SHH gamma	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_BPKVVWVB_7316-2250_Solid Tissue_Initial CNS Tumor	7316-2250	NA	NA	NA	NA	NA	NA	MB, Group4	0.010249798373964126	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_C3CKECKT_C4114350-Tumor_Solid Tissue_Initial CNS Tumor	C4114350-Tumor	NA	NA	NA	NA	NA	NA	MB, SHH	5.094636129361312e-10	MB, SHH alpha	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_CGAQ7KKY_7316-4956_Solid Tissue_Initial CNS Tumor	7316-4956	NA	NA	NA	NA	NA	NA	MB, Group3	0.7929986333501735	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_CMPNS3BQ_7316-4174_Solid Tissue_Initial CNS Tumor	7316-4174	NA	NA	NA	NA	NA	NA	MB, Group3	0.024511328132877007	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_CXT81GRM_7316-1772_Solid Tissue_Deceased	7316-1772	NA	NA	NA	NA	NA	NA	MB, SHH	0.836377995623685	MB, SHH beta	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_D1WJ3BJX_7316-358_Solid Tissue_Initial CNS Tumor	7316-358	NA	NA	NA	NA	NA	NA	MB, Group3	0.004805843579333674	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_DACV00WF_7316-489_Solid Tissue_Initial CNS Tumor	7316-489	NA	NA	NA	NA	NA	NA	MB, SHH	0.0024060558129755825	MB, SHH gamma	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_DVBVMBRP_C4122099-Tumor_Solid Tissue_Initial CNS Tumor	C4122099-Tumor	NA	NA	NA	NA	NA	NA	MB, Group3	0.766865164851811	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_EYQS4J99_7316-8850_Solid Tissue_Initial CNS Tumor	7316-8850	NA	NA	NA	NA	NA	NA	MB, Group4	0.4250296907066724	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_F0N89D15_7316-3756_Solid Tissue_Initial CNS Tumor	7316-3756	NA	NA	NA	NA	NA	NA	MB, Group3	0.0029389081436138275	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_FKTKKTMM_C4113366-Tumor_Solid Tissue_Initial CNS Tumor	C4113366-Tumor	NA	NA	NA	NA	NA	NA	MB, Group3	1.0342037742493985e-15	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_FRZQJNW9_7316-3542_Solid Tissue_Initial CNS Tumor	7316-3542	NA	NA	NA	NA	NA	NA	MB, Group3	3.8913364385315196e-10	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_FSPXH4P9_C4105494-Tumor_Solid Tissue_Initial CNS Tumor	C4105494-Tumor	NA	NA	NA	NA	NA	NA	MB, SHH	1.4305871110876832e-6	MB, SHH alpha	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_G1QNGVCZ_7316-1118_Solid Tissue_Initial CNS Tumor	7316-1118	NA	NA	NA	NA	NA	NA	MB, Group4	0.0022247528238943056	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_GGZVT7NJ_C4122345-Tumor_Solid Tissue_Initial CNS Tumor	C4122345-Tumor	NA	NA	NA	NA	NA	NA	MB, SHH	1.7648708816685107e-10	MB, SHH	NA	expression only	MB, SHH	expression classifier	FALSE
+PT_GH6HM5QF_7316-3202_Solid Tissue_Initial CNS Tumor	7316-3202	NA	NA	NA	NA	NA	NA	MB, SHH	0.07778592796606568	MB, SHH gamma	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_GR8P8NY5_7316-178_Solid Tissue_Initial CNS Tumor	7316-178	NA	NA	NA	NA	NA	NA	MB, SHH	0.06201570181883794	MB, SHH alpha	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_H9QTP1JF_7316-4162_Solid Tissue_Progressive	7316-4162	NA	NA	NA	NA	NA	NA	MB, SHH	0.1594749296537637	MB, SHH alpha	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_JGTXEKNV_7316-9742_Solid Tissue_Initial CNS Tumor	7316-9742	NA	NA	NA	NA	NA	NA	MB, Group3	1.386490516575194e-4	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_K71TQSF4_7316-8046_Solid Tissue_Deceased	7316-8046	NA	NA	NA	NA	NA	NA	MB, Group4	2.8484795578503046e-9	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_K94ZVZMX_7316-521_Solid Tissue_Initial CNS Tumor	7316-521	NA	NA	NA	NA	NA	NA	MB, WNT	1.3891236457167946e-20	NA	NA	expression only	MB, WNT	expression classifier	FALSE
+PT_KM0RP0DF_C4108077-Tumor_Solid Tissue_Recurrence	C4108077-Tumor	NA	NA	NA	NA	NA	NA	MB, Group4	0.001043837341394468	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_KMXP184J_C4107216-Tumor_Solid Tissue_Initial CNS Tumor	C4107216-Tumor	NA	NA	NA	NA	NA	NA	MB, Group4	1.4882995315622814e-5	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_KNJDVV4K_7316-4681_Solid Tissue_Initial CNS Tumor	7316-4681	NA	NA	NA	NA	NA	NA	MB, SHH	0.04010479162142277	MB, SHH alpha	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_M91MGM4K_7316-8938_Solid Tissue_Initial CNS Tumor	7316-8938	NA	NA	NA	NA	NA	NA	MB, SHH	0.11258295154568611	MB, SHH gamma	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_MCC2RZ5H_7316-6823_Solid Tissue_Initial CNS Tumor	7316-6823	NA	NA	NA	NA	NA	NA	MB, Group4	1.905620262302967e-5	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_MQWJ7FHV_7316-4296_Solid Tissue_Initial CNS Tumor	7316-4296	NA	NA	NA	NA	NA	NA	MB, Group3	4.273135594004054e-15	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_MSWWCWZP_C4120869-Tumor_Solid Tissue_Recurrence	C4120869-Tumor	NA	NA	NA	NA	NA	NA	MB, SHH	6.680401168252389e-36	MB, SHH	NA	expression only	MB, SHH	expression classifier	FALSE
+PT_MYNKT1TK_7316-9075_Solid Tissue_Deceased	7316-9075	NA	NA	NA	NA	NA	NA	MB, SHH	0.10610089701755601	MB, SHH beta	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_NF6R6YHR_7316-7064_Solid Tissue_Initial CNS Tumor	7316-7064	NA	NA	NA	NA	NA	NA	MB, SHH	0.06424700885766398	MB, SHH	NA	expression only	MB, SHH	expression classifier	FALSE
+PT_NWQHHDD0_C4124805-Tumor_Solid Tissue_Initial CNS Tumor	C4124805-Tumor	NA	NA	NA	NA	NA	NA	MB, Group4	3.2203765690895717e-9	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_RFGZ2JGP_7316-135_Solid Tissue_Initial CNS Tumor	7316-135	NA	NA	NA	NA	NA	NA	MB, WNT	1.0847992830795116e-20	NA	NA	expression only	MB, WNT	expression classifier	FALSE
+PT_RT1J9P8J_7316-307_Solid Tissue_Initial CNS Tumor	7316-307	NA	NA	NA	NA	NA	NA	MB, Group4	5.248010897282708e-5	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_SZHQTDKK_C4114965-Tumor_Solid Tissue_Initial CNS Tumor	C4114965-Tumor	NA	NA	NA	NA	NA	NA	MB, Group3	4.348443513778212e-13	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_T03AT4BJ_7316-2708_Solid Tissue_Initial CNS Tumor	7316-2708	NA	NA	NA	NA	NA	NA	MB, Group4	0.06851963723267765	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_T0MRCE9A_7316-8053_Solid Tissue_Deceased	7316-8053	NA	NA	NA	NA	NA	NA	MB, SHH	0.018923287903109837	MB, SHH alpha	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_TTZFTYB5_7316-6806_Solid Tissue_Initial CNS Tumor	7316-6806	NA	NA	NA	NA	NA	NA	MB, Group3	1.3162987875306994e-5	NA	NA	expression only	MB, Group3	expression classifier	FALSE
+PT_TVK2KY36_7316-2626_Solid Tissue_Initial CNS Tumor	7316-2626	NA	NA	NA	NA	NA	NA	MB, Group4	7.371970317729113e-4	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_VY45XTT7_7316-1801_Solid Tissue_Initial CNS Tumor	7316-1801	NA	NA	NA	NA	NA	NA	MB, Group4	0.09755538908848291	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_W4M7YD0J_7316-7598_Solid Tissue_Initial CNS Tumor	7316-7598	NA	NA	NA	NA	NA	NA	MB, SHH	0.05601986927228062	MB, SHH alpha	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_WH5PD8ZK_7316-6808_Solid Tissue_Initial CNS Tumor	7316-6808	NA	NA	NA	NA	NA	NA	MB, Group4	0.010228333867888977	NA	NA	expression only	MB, Group4	expression classifier	FALSE
+PT_XA98HG1C_7316-931_Solid Tissue_Initial CNS Tumor	7316-931	NA	NA	NA	NA	NA	NA	MB, SHH	0.029645241341160353	MB, SHH alpha	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
+PT_1A4HM6FR_7316-6980_Solid Tissue_Initial CNS Tumor	7316-6980	MB, Group4	MB_G34_V	0.992532052	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_1RP7V36W_7316-9730_Solid Tissue_Initial CNS Tumor	7316-9730	MB, WNT	MB_WNT	0.999996801	confirmed	CTNNB1 p.G34V	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, WNT	methylation	FALSE
+PT_21SSYTYN_7316-4856_Solid Tissue_Initial CNS Tumor	7316-4856	MB, Group4	MB_G34_VIII	0.999757482	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_26V72ZXB_7316-5473_Solid Tissue_Progressive	7316-5473	MB, Group3	MB_G34_II	0.998831009	confirmed	MYC amplification	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
+PT_27D0WQR9_7316-113_Solid Tissue_Initial CNS Tumor	7316-113	MB, Group3	MB_G34_III	0.997037896	no_assay	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
+PT_2WSNYKAC_7316-5320_Solid Tissue_Initial CNS Tumor	7316-5320	MB, SHH	MB_SHH_4	0.974363159	not_detected	NA	Medulloblastoma	NA	NA	MB, SHH delta	Methylation	methylation only	MB, SHH	methylation	FALSE
+PT_408A0GNB_7316-1045_Solid Tissue_Initial CNS Tumor	7316-1045	MB, Group4	MB_G34_V	0.80513826879836	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_4Y6DS6E7_7316-9036_Solid Tissue_Initial CNS Tumor	7316-9036	MB, WNT	MB_WNT	0.999472934	confirmed	CTNNB1 p.S37P	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, WNT	methylation	FALSE
+PT_59H1TPQS_7316-6054_Solid Tissue_Initial CNS Tumor	7316-6054	MB, Group4	MB_G34_VII	0.894820009	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_5YRJJ725_7316-2384_Solid Tissue_Initial CNS Tumor	7316-2384	MB, SHH	MB SHH 2	0.929	no_assay	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, SHH	methylation	FALSE
+PT_6A7123NH_7316-6533_Solid Tissue_Initial CNS Tumor	7316-6533	MB, Group4	MB_G34_VII	0.891980896264547	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_6H0WGQ6E_7316-7503_Solid Tissue_Initial CNS Tumor	7316-7503	MB, SHH	MB_SHH_3	0.872220751	not_detected	NA	Medulloblastoma	NA	NA	MB, SHH alpha	Methylation	methylation only	MB, SHH	methylation	FALSE
+PT_6VHGCV7M_7316-2624_Solid Tissue_Initial CNS Tumor	7316-2624	MB, Group4	MB_G34_VIII	0.99991847	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_76W7C93V_7316-7208_Solid Tissue_Initial CNS Tumor	7316-7208	MB, Group4	MB_G34_VII	0.832637051	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_7ENND7B2_7316-5816_Solid Tissue_Initial CNS Tumor	7316-5816	MB, Group4	MB_G34_VII	0.871840641	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_7WYPEC3Q_7316-5881_Solid Tissue_Progressive	7316-5881	MB, SHH	MB_SHH_2	0.948776613	not_detected	NA	Medulloblastoma	NA	NA	MB, SHH gamma	Methylation	methylation only	MB, SHH	methylation	FALSE
+PT_7Z0FF6A2_7316-7108_Solid Tissue_Initial CNS Tumor	7316-7108	MB, Group4	MB_G34_V	0.904523582	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_84ZTC7PV_7316-678_Solid Tissue_Initial CNS Tumor	7316-678	MB, Group4	MB_G34_VII	0.893154188	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_9KRSSPSF_7316-520_Solid Tissue_Initial CNS Tumor	7316-520	MB, SHH	MB_SHH_4	0.905649008	confirmed	PTCH1 p.R770*	Medulloblastoma	NA	NA	MB, SHH delta	Methylation	methylation only	MB, SHH	methylation	FALSE
+PT_AEN9D8NP_7316-2398_Solid Tissue_Initial CNS Tumor	7316-2398	MB, Group4	MB_G34_VIII	0.999931833	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_BDM0M83S_7316-3072_Solid Tissue_Initial CNS Tumor	7316-3072	MB, WNT	MB_WNT	0.999979009	confirmed	CTNNB1 p.S33F	Pineoblastoma	NA	NA	NA	NA	methylation only	MB, WNT	methylation	FALSE
+PT_BW36HGH4_7316-9488_Solid Tissue_Initial CNS Tumor	7316-9488	MB, Group4	MB_G34_VIII	0.999689482	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_CGPJY881_7316-891_Solid Tissue_Initial CNS Tumor	7316-891	MB, SHH	MB_SHH_2	0.999665186	not_detected	NA	Low-grade glioma/astrocytoma (WHO grade I/II)	NA	NA	NA	NA	methylation only	MB, SHH	methylation	FALSE
+PT_CXT81GRM_7316-883_Solid Tissue_Initial CNS Tumor	7316-883	MB, Group3	MB_G34_II	0.95226419	not_detected	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
+PT_DAKPNP7K_7316-6643_Solid Tissue_Progressive	7316-6643	MB, Group3	MB_G34_II	0.901198522	confirmed	MYC amplification	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
+PT_DTQE1NRN_7316-4865_Solid Tissue_Initial CNS Tumor	7316-4865	MB, SHH	MB_SHH_2	0.809681722220806	no_assay	NA	Medulloblastoma	NA	NA	MB, SHH gamma	Methylation	methylation only	MB, SHH	methylation	FALSE
+PT_ED13K2GD_7316-7609_Solid Tissue_Initial CNS Tumor	7316-7609	MB, Group3	MB_G34_IV	0.849189115	not_detected	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
+PT_FHGDAACP_7316-4513_Solid Tissue_Initial CNS Tumor	7316-4513	MB, Group4	MB_G34_VIII	0.976878391	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_FWWRWTV2_7316-2439_Solid Tissue_Initial CNS Tumor	7316-2439	MB, SHH	MB SHH 2	0.986	not_detected	NA	Medulloblastoma	NA	NA	MB, SHH gamma	Methylation	methylation only	MB, SHH	methylation	FALSE
+PT_FXCSG8EY_7316-2701_Solid Tissue_Initial CNS Tumor	7316-2701	MB, Group3	MB_G34_IV	0.800286085	not_detected	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
+PT_GFGHFJ3S_7316-4694_Solid Tissue_Initial CNS Tumor	7316-4694	MB, SHH	MB SHH 1	0.987	confirmed	PTCH1 p.X449_splice	Medulloblastoma	NA	NA	MB, SHH beta	Methylation	methylation only	MB, SHH	methylation	FALSE
+PT_GHFG41Q2_7316-8429_Solid Tissue_Initial CNS Tumor	7316-8429	MB, Group3	MB_G34_II	0.80912786995742	confirmed	MYC amplification	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
+PT_GK4GVW7A_7316-9037_Solid Tissue_Initial CNS Tumor	7316-9037	MB, Group4	MB_G34_V	0.988899611	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_GWD2Z5AM_7316-4912_Solid Tissue_Initial CNS Tumor	7316-4912	MB, Group4	MB_G34_VI	0.997977324	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_H9QTP1JF_7316-3334_Solid Tissue_Recurrence	7316-3334	MB, SHH	MB_SHH_3	0.879811737	not_detected	NA	Medulloblastoma	NA	NA	MB, SHH alpha	Methylation	methylation only	MB, SHH	methylation	FALSE
+PT_HRHWFPW7_7316-5238_Solid Tissue_Initial CNS Tumor	7316-5238	MB, Group4	MB_G34_VIII	0.999952354	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_J6CREPMB_7316-6525_Solid Tissue_Initial CNS Tumor	7316-6525	MB, SHH	MB SHH 1	0.987	confirmed	PTCH1 p.A497Nfs*15	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, SHH	methylation	FALSE
+PT_M26VF62B_7316-3124_Solid Tissue_Initial CNS Tumor	7316-3124	MB, SHH	MB_SHH_1	0.934419626	confirmed	PTCH1 p.W1051Cfs*7	Medulloblastoma	NA	NA	MB, SHH beta	Methylation	methylation only	MB, SHH	methylation	FALSE
+PT_MGJJBG0T_7316-7550_Solid Tissue_Recurrence	7316-7550	MB, WNT	MB_WNT	0.999998221	no_assay	NA	Glial-neuronal tumor NOS	NA	NA	NA	NA	methylation only	MB, WNT	methylation	FALSE
+PT_NWC0P29C_7316-3942_Solid Tissue_Initial CNS Tumor	7316-3942	MB, Group4	MB_G34_VII	0.999765445	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_PN1YJD1M_7316-7567_Solid Tissue_Initial CNS Tumor	7316-7567	MB, Group3	MB_G34_IV	0.844881862	no_assay	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
+PT_S0XSZAF2_7316-8068_Solid Tissue_Initial CNS Tumor	7316-8068	MB, SHH	MB_SHH_2	0.999578846	no_assay	NA	Medulloblastoma	NA	NA	MB, SHH gamma	Methylation	methylation only	MB, SHH	methylation	FALSE
+PT_SA94083W_7316-1856_Solid Tissue_Initial CNS Tumor	7316-1856	MB, Group4	MB_G34_VIII	0.999937265	no_rule	NA	Ewings Sarcoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_SCRJF38G_7316-99_Solid Tissue_Initial CNS Tumor	7316-99	MB, Group3	MB_G34_II	0.991189144	no_assay	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
+PT_SZJ7WZZW_7316-467_Solid Tissue_Initial CNS Tumor	7316-467	MB, Group4	MB_G34_VII	0.96132897	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_T1GR6607_7316-5532_Solid Tissue_Initial CNS Tumor	7316-5532	MB, Group3	MB_G34_I	0.996460501	not_detected	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
+PT_T3JEF4ZH_7316-3409_Solid Tissue_Initial CNS Tumor	7316-3409	MB, Group3	MB_G34_III	0.997773514	not_detected	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
+PT_T93J9EGZ_7316-2196_Solid Tissue_Initial CNS Tumor	7316-2196	MB, SHH	MB_SHH_2	0.999646445	not_detected	NA	Medulloblastoma	NA	NA	MB, SHH gamma	Methylation	methylation only	MB, SHH	methylation	FALSE
+PT_V4MF99XB_7316-5294_Solid Tissue_Initial CNS Tumor	7316-5294	MB, Group4	MB_G34_V	0.997848925	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_V9WP047R_7316-221_Solid Tissue_Initial CNS Tumor	7316-221	MB, Group4	MB_G34_VII	0.999481368	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_VW5Y6N97_7316-5515_Solid Tissue_Initial CNS Tumor	7316-5515	MB, SHH	MB_SHH_3	0.95829112	not_detected	NA	Medulloblastoma	NA	NA	MB, SHH alpha	Methylation	methylation only	MB, SHH	methylation	FALSE
+PT_W2G4Y7HG_7316-6887_Solid Tissue_Recurrence	7316-6887	MB, Group3	MB_G34_I	0.998988957	no_assay	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
+PT_W5PW7QVB_7316-6361_Solid Tissue_Initial CNS Tumor	7316-6361	MB, SHH	MB_SHH_2	0.997207248	not_detected	NA	Medulloblastoma	NA	NA	MB, SHH gamma	Methylation	methylation only	MB, SHH	methylation	FALSE
+PT_W6D0547F_7316-3681_Solid Tissue_Initial CNS Tumor	7316-3681	MB, Group4	MB_G34_VII	0.987395895	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
+PT_W9ZYNS8Y_7316-8109_Solid Tissue_Initial CNS Tumor	7316-8109	MB, Group3	MB_G34_II	0.999903062	not_detected	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
+PT_ZGWYMRV8_7316-378_Solid Tissue_Initial CNS Tumor	7316-378	MB, Group3	MB_G34_IV	0.999333203	not_detected	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE

@@ -70,6 +70,13 @@ fusion <- read_tsv(file.path(root_dir, "data", "fusion-annoFuse.tsv.gz"),
 arm_values <- read_tsv(file.path(scratch_dir, "arm_1p19q.tsv"),
                        show_col_types = FALSE)
 
+con <- dbConnect(duckdb::duckdb())
+cnv <- dbGetQuery(con, sprintf(
+  "SELECT * FROM read_parquet('%s')",
+  file.path(scratch_dir, "cnv_lesion_genes.parquet")
+)) %>% as_tibble()
+dbDisconnect(con, shutdown = TRUE)
+
 tp53 <- read_tp53_annotation(root_dir)
 annotation_genes <- read_tsv(file.path(input_dir, "annotation_genes.tsv"),
                              show_col_types = FALSE)
@@ -101,8 +108,8 @@ dna_ids <- assay_ids(c("WGS", "WXS", "Targeted Sequencing"))
 rna_ids <- assay_ids("RNA-Seq")
 
 lesion_hits <- find_lesion_hits(
-  rules, snv, fusion, arm_values,
-  assay_ids = list(snv = dna_ids, arm = dna_ids, fusion = rna_ids)
+  rules, snv, fusion, arm_values, cnv,
+  assay_ids = list(snv = dna_ids, arm = dna_ids, cnv = dna_ids, fusion = rna_ids)
 )
 
 # H3 K27M/I and G34/G35 R/V hits, for the h3_status annotation (H3 wildtype
@@ -114,7 +121,7 @@ h3_hits <- lesion_hits %>%
 
 rule_assays <- rules %>%
   group_by(OPC_molecular_subtype) %>%
-  summarise(needs_dna = any(lesion_type %in% c("snv", "arm")),
+  summarise(needs_dna = any(lesion_type %in% c("snv", "arm", "cnv")),
             needs_rna = any(lesion_type == "fusion"),
             has_rule = TRUE, .groups = "drop")
 

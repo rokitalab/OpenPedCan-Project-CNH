@@ -1,0 +1,4 @@
+match_id	sample_id	mb_methylation_group	methyl_class	methyl_score	lesion_status	lesion_evidence	pathology_diagnosis	mb_expression_group	mb_expression_p	mb_shh_subtype	mb_shh_source	mb_concordance	mb_final_group	mb_group_source	needs_review
+PT_23NZGSRJ_7316-4509_Solid Tissue_Deceased	7316-4509	MB, Group3	MB_G34_II	0.999857046	not_detected	NA	Medulloblastoma	MB, Group3 | MB, SHH	3.3113590974157273e-17	NA	NA	discordant	MB, Group3	methylation	TRUE
+PT_HB3CXEX6_7316-6794_Solid Tissue_Initial CNS Tumor	7316-6794	MB, Group4	MB_G34_VII	0.811401692	no_rule	NA	Medulloblastoma	MB, Group3	0.029358633693196017	NA	NA	discordant	MB, Group4	methylation	TRUE
+PT_XX2VW3D9_7316-96_Solid Tissue_Initial CNS Tumor	7316-96	MB, Medullomyoblastoma	MB_MYO	0.9876645	no_rule	NA	Medulloblastoma	MB, Group3	0.17200835252610555	NA	NA	discordant	MB, Medullomyoblastoma	methylation	TRUE

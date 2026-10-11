@@ -94,3 +94,31 @@ expr_long <- tpm[expr_genes$gene, , drop = FALSE] %>%
 write_tsv(expr_long, file.path(scratch_dir, "expression_annotation_genes.tsv"))
 message("Wrote expression for ", nrow(expr_genes), " gene(s) in ",
         n_distinct(expr_long$Kids_First_Biospecimen_ID), " biospecimens")
+
+# Gene-level copy-number status for the genes of cnv rules (e.g. MYC and GLI2
+# amplification in medulloblastoma), subset from the consensus gene-level file
+cnv_genes <- rules %>%
+  filter(lesion_type == "cnv") %>%
+  pull(gene) %>%
+  str_split("\\|") %>%
+  unlist() %>%
+  unique()
+
+if (length(cnv_genes) > 0) {
+  cnv_file <- file.path(root_dir, "data",
+    "consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only_autosomes.tsv.gz")
+  cnv_out <- file.path(scratch_dir, "cnv_lesion_genes.parquet")
+  cnv_query <- sprintf(
+    "COPY (
+       SELECT biospecimen_id AS Kids_First_Biospecimen_ID, gene_symbol, status
+       FROM read_csv('%s', delim = '\t', header = true, all_varchar = true,
+                     sample_size = 100, ignore_errors = true)
+       WHERE gene_symbol IN (%s) AND status NOT IN ('neutral', 'unchanged')
+     ) TO '%s' (FORMAT PARQUET)",
+    cnv_file, paste0("'", cnv_genes, "'", collapse = ", "), cnv_out
+  )
+  con2 <- dbConnect(duckdb::duckdb())
+  dbExecute(con2, cnv_query)
+  dbDisconnect(con2, shutdown = TRUE)
+  message("Wrote gene-level copy number for ", length(cnv_genes), " gene(s)")
+}
