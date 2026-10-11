@@ -123,15 +123,15 @@ validated <- calls %>%
       assay_available ~ "not_detected",
       TRUE ~ "no_assay"
     ),
-    # PXA (issue 113): DKFZ subclass PXA at score >= 0.8 is split by BRAF V600E
-    # (the PXA rule's lesion). Without a DNA assay the status is not assessable.
-    is_pxa = OPC_molecular_subtype == "PXA" &
-      methyl_source %in% c("dkfz_v12.8", "dkfz_v12") & methyl_score >= 0.8,
+    # PXA (issue 113) is split by BRAF V600E (the PXA rule's lesion), for DKFZ
+    # (score >= 0.8) and NIH (>= 0.9) high-confidence calls alike. Without a DNA
+    # assay the status is not assessable, so the tumor stays "LGG, PXA".
     OPC_molecular_subtype = case_when(
-      is_pxa & lesion_status == "confirmed" ~ "LGG, PXA BRAF V600E",
-      is_pxa & lesion_status == "not_detected" ~ "LGG, PXA BRAF V600E negative",
-      # PXA from a lower-confidence or NIH-only call is not split
-      is_pxa | OPC_molecular_subtype == "PXA" ~ "LGG, PXA",
+      OPC_molecular_subtype == "PXA" & lesion_status == "confirmed" ~
+        "LGG, PXA BRAF V600E",
+      OPC_molecular_subtype == "PXA" & lesion_status == "not_detected" ~
+        "LGG, PXA BRAF V600E negative",
+      OPC_molecular_subtype == "PXA" ~ "LGG, PXA",
       TRUE ~ OPC_molecular_subtype
     ),
     dx_group = dx_to_groups(pathology_diagnosis, dx_groups),
@@ -141,7 +141,6 @@ validated <- calls %>%
                              "methylation + lesion", "methylation only"),
     needs_review = dx_concordance == "discordant" | methyl_conflict
   ) %>%
-  select(-is_pxa) %>%
   left_join(tp53, by = "match_id") %>%
   annotate_genes(annotation_genes, snv, dna_ids) %>%
   select(Kids_First_Biospecimen_ID, Kids_First_Participant_ID, sample_id,
