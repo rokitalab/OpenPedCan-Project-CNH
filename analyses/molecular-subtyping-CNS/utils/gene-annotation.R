@@ -89,28 +89,70 @@ annotate_genes <- function(df, annotation_genes, snv, dna_ids, cnv_segments) {
   df
 }
 
+#' Gene overexpression as an annotation (not part of the subtype)
+#'
+#' For each gene in `expression_annotations`, adds `<gene>_tpm` (highest TPM
+#' across the tumor's RNA biospecimens) and `<gene>_expression_status`
+#' (overexpressed at or above `tpm_threshold`, not overexpressed, or no RNA
+#' assay) for the tumors whose subtype matches `applies_to_subtype_regex`.
+#'
+#' @param df Table with match_id and OPC_molecular_subtype.
+#' @param expression_annotations gene, applies_to_subtype_regex, tpm_threshold.
+#' @param expression_long gene, Kids_First_Biospecimen_ID and tpm.
+#' @param rna_ids Table with match_id and the RNA biospecimen `id`.
+annotate_expression <- function(df, expression_annotations, expression_long,
+                                rna_ids) {
+  for (i in seq_len(nrow(expression_annotations))) {
+    gene <- expression_annotations$gene[i]
+    applies <- str_detect(df$OPC_molecular_subtype,
+                          expression_annotations$applies_to_subtype_regex[i])
+
+    tpm <- expression_long %>%
+      filter(gene == !!gene) %>%
+      inner_join(rna_ids, by = c("Kids_First_Biospecimen_ID" = "id"),
+                 relationship = "many-to-many") %>%
+      group_by(match_id) %>%
+      summarise(tpm = max(tpm, na.rm = TRUE), .groups = "drop")
+
+    value <- tpm$tpm[match(df$match_id, tpm$match_id)]
+    df[[paste0(tolower(gene), "_tpm")]] <- if_else(applies, value, NA_real_)
+    df[[paste0(tolower(gene), "_expression_status")]] <- case_when(
+      !applies ~ NA_character_,
+      is.na(value) ~ "no RNA assay",
+      value >= expression_annotations$tpm_threshold[i] ~ "overexpressed",
+      TRUE ~ "not overexpressed"
+    )
+  }
+  df
+}
+
 #' H3 K27-altered mechanism for DMG
 #'
 #' H3 K27-altered (WHO CNS5) loss of H3K27me3 can come from an H3 K27M/I
 #' mutation, EZHIP overexpression, or an EGFR alteration. This lists the
-#' mechanisms detected from DNA. EZHIP overexpression needs expression data and
-#' is not assessed here.
+#' mechanisms detected, from DNA and RNA.
 #'
-#' @param df Table with OPC_molecular_subtype and egfr_activating_alteration.
+#' @param df Table with OPC_molecular_subtype, egfr_activating_alteration and
+#'   ezhip_expression_status.
 #' @param h3_mutated Logical vector, TRUE when an H3 K27M/I variant was found.
-#' @param has_dna Logical vector, TRUE when the tumor has a DNA assay.
-add_h3k27_mechanism <- function(df, h3_mutated, has_dna) {
+#' @param has_dna,has_rna Logical vectors, TRUE when the tumor has the assay.
+add_h3k27_mechanism <- function(df, h3_mutated, has_dna, has_rna) {
   is_dmg <- str_detect(df$OPC_molecular_subtype, "^DMG")
-  mech <- map2_chr(h3_mutated %in% TRUE, df$egfr_activating_alteration %in% TRUE,
-                   function(h3, egfr) {
-    found <- c(if (h3) "H3 K27M/I", if (egfr) "EGFR alteration")
-    if (length(found) == 0) NA_character_ else paste(found, collapse = " + ")
+  found <- cbind(
+    "H3 K27M/I" = h3_mutated %in% TRUE,
+    "EGFR alteration" = df$egfr_activating_alteration %in% TRUE,
+    "EZHIP overexpression" = df$ezhip_expression_status %in% "overexpressed"
+  )
+  mech <- apply(found, 1, function(r) {
+    if (any(r)) paste(colnames(found)[r], collapse = " + ") else NA_character_
   })
   df$h3k27_altered_mechanism <- case_when(
     !is_dmg ~ NA_character_,
     !is.na(mech) ~ mech,
-    has_dna ~ "none detected (EZHIP overexpression not assessed)",
-    TRUE ~ "no DNA assay"
+    has_dna & has_rna ~ "none detected",
+    has_dna ~ "none detected (no RNA assay for EZHIP)",
+    has_rna ~ "none detected (no DNA assay)",
+    TRUE ~ "no DNA or RNA assay"
   )
   df
 }

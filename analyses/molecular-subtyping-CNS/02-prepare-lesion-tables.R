@@ -79,3 +79,18 @@ arm_df <- data.table::fread(file.path(arm_tmp, "broad_values_by_arm.txt"),
 write_tsv(arm_df, file.path(scratch_dir, "arm_1p19q.tsv"))
 message("Wrote 1p/19q arm values for ", nrow(arm_df), " biospecimens")
 unlink(arm_tmp, recursive = TRUE)
+
+# Expression of the genes in input/expression_annotations.tsv (e.g. EZHIP
+# overexpression), subset from the collapsed TPM matrix
+expr_genes <- read_tsv(file.path(module_dir, "input", "expression_annotations.tsv"),
+                       show_col_types = FALSE)
+tpm <- readRDS(file.path(root_dir, "data", "gene-expression-rsem-tpm-collapsed.rds"))
+stopifnot(all(expr_genes$gene %in% rownames(tpm)))
+
+expr_long <- tpm[expr_genes$gene, , drop = FALSE] %>%
+  rownames_to_column("gene") %>%
+  pivot_longer(-gene, names_to = "Kids_First_Biospecimen_ID", values_to = "tpm")
+
+write_tsv(expr_long, file.path(scratch_dir, "expression_annotation_genes.tsv"))
+message("Wrote expression for ", nrow(expr_genes), " gene(s) in ",
+        n_distinct(expr_long$Kids_First_Biospecimen_ID), " biospecimens")

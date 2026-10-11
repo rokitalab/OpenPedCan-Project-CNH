@@ -73,6 +73,13 @@ arm_values <- read_tsv(file.path(scratch_dir, "arm_1p19q.tsv"),
 tp53 <- read_tp53_annotation(root_dir)
 annotation_genes <- read_tsv(file.path(input_dir, "annotation_genes.tsv"),
                              show_col_types = FALSE)
+expression_annotations <- read_tsv(
+  file.path(input_dir, "expression_annotations.tsv"), show_col_types = FALSE
+)
+expression_long <- read_tsv(
+  file.path(scratch_dir, "expression_annotation_genes.tsv"),
+  show_col_types = FALSE
+)
 cnv_segments <- read_tsv(
   file.path(root_dir, "data", "consensus_seg_with_status.tsv"),
   col_types = cols_only(Kids_First_Biospecimen_ID = "c", chrom = "c",
@@ -162,8 +169,10 @@ validated <- calls %>%
   ) %>%
   left_join(tp53, by = "match_id") %>%
   annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
+  annotate_expression(expression_annotations, expression_long, rna_ids) %>%
   add_h3k27_mechanism(h3_mutated = .$lesion_status == "confirmed",
-                      has_dna = .$match_id %in% dna_ids$match_id) %>%
+                      has_dna = .$match_id %in% dna_ids$match_id,
+                      has_rna = .$match_id %in% rna_ids$match_id) %>%
   select(Kids_First_Biospecimen_ID, Kids_First_Participant_ID, sample_id,
          match_id, OPC_molecular_subtype, methyl_class, methyl_source,
          methyl_score, methyl_conflict, methyl_conflicting_sources,
@@ -171,6 +180,7 @@ validated <- calls %>%
          dx_concordance, starts_with("tp53_"),
          ends_with("_mutation_status"), ends_with("_variants"),
          ends_with("_amplification"), ends_with("_activating_alteration"),
+         ends_with("_tpm"), ends_with("_expression_status"),
          starts_with("h3k27_"), evidence_level, needs_review)
 
 write_tsv(validated, file.path(results_dir, "methylation_subtype_validation.tsv"))
@@ -255,9 +265,11 @@ fallback <- fallback %>%
   select(-is_idh, -is_codeleted, -oligo_dx) %>%
   left_join(tp53, by = "match_id") %>%
   annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
+  annotate_expression(expression_annotations, expression_long, rna_ids) %>%
   # fallback DMG tumors are subtyped from the H3 K27M/I variant itself
   add_h3k27_mechanism(h3_mutated = TRUE,
-                      has_dna = .$match_id %in% dna_ids$match_id)
+                      has_dna = .$match_id %in% dna_ids$match_id,
+                      has_rna = .$match_id %in% rna_ids$match_id)
 
 write_tsv(fallback, file.path(results_dir, "lesion_fallback_subtypes.tsv"))
 

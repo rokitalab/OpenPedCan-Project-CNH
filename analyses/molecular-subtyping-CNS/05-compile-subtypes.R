@@ -68,10 +68,12 @@ compiled <- bind_rows(
                     methyl_conflict, starts_with("tp53_"),
                     ends_with("_mutation_status"), ends_with("_variants"),
                     ends_with("_amplification"), ends_with("_activating_alteration"),
+                    ends_with("_tpm"), ends_with("_expression_status"),
                     starts_with("h3k27_")),
   fallback %>% select(all_of(shared), starts_with("tp53_"),
                       ends_with("_mutation_status"), ends_with("_variants"),
                     ends_with("_amplification"), ends_with("_activating_alteration"),
+                    ends_with("_tpm"), ends_with("_expression_status"),
                     starts_with("h3k27_"))
 ) %>%
   full_join(lgg, by = "match_id") %>%
@@ -99,8 +101,9 @@ compiled <- bind_rows(
          methyl_score, methyl_conflict, pathology_diagnosis, dx_group,
          dx_concordance, needs_review, starts_with("tp53_"),
          ends_with("_mutation_status"), ends_with("_variants"),
-                    ends_with("_amplification"), ends_with("_activating_alteration"),
-                    starts_with("h3k27_")) %>%
+         ends_with("_amplification"), ends_with("_activating_alteration"),
+         ends_with("_tpm"), ends_with("_expression_status"),
+         starts_with("h3k27_")) %>%
   arrange(match_id)
 
 stopifnot(!anyDuplicated(compiled$match_id))
