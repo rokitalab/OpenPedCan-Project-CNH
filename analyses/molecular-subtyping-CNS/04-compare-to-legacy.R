@@ -18,6 +18,11 @@ root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
 results_dir <- file.path(root_dir, "analyses", "molecular-subtyping-CNS",
                          "results")
 
+# legacy labels renamed in this module to carry an HGG / LGG prefix
+legacy_renames <- c("HGAP" = "HGG, HGAP", "HGNET" = "HGG, HGNET",
+                    "IHG" = "HGG, IHG", "SEGA" = "LGG, SEGA",
+                    "GBM, MES" = "HGG, MES", "GBM, RTK" = "HGG, RTK")
+
 # legacy labels that mean "no specific subtype was assigned"
 unassigned <- "To be classified|, NOS$|wildtype$"
 
@@ -28,7 +33,9 @@ legacy <- read_tsv(
 ) %>%
   filter(!is.na(match_id), !is.na(molecular_subtype)) %>%
   transmute(match_id,
-            legacy_subtype = str_remove(molecular_subtype, ", TP53$"),
+            legacy_subtype = str_remove(molecular_subtype, ", TP53$") %>%
+              # labels renamed here to carry an HGG / LGG / GNT prefix
+              recode(!!!legacy_renames),
             legacy_group = str_extract(legacy_subtype, "^[^,]+")) %>%
   distinct()
 
