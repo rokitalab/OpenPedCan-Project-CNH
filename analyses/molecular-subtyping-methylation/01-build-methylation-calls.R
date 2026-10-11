@@ -54,7 +54,8 @@ crosswalk <- read_excel(
 # are never overwritten.
 additions <- read_tsv(file.path(input_dir, "opc_subtype_additions.tsv"),
                       show_col_types = FALSE, na = character()) %>%
-  select(Abbreviation_internal_NIHv2, subtype_addition = OPC_molecular_subtype)
+  select(Abbreviation_internal_NIHv2, subtype_addition = OPC_molecular_subtype,
+         non_cns)
 stopifnot(!anyDuplicated(additions$Abbreviation_internal_NIHv2),
           all(additions$Abbreviation_internal_NIHv2 %in%
                 crosswalk$Abbreviation_internal_NIHv2))
@@ -64,7 +65,10 @@ crosswalk <- crosswalk %>%
   mutate(
     subtype_addition = if_else(!is.na(OPC_molecular_subtype), NA_character_,
                                subtype_addition),
-    OPC_molecular_subtype = coalesce(OPC_molecular_subtype, subtype_addition)
+    OPC_molecular_subtype = coalesce(OPC_molecular_subtype, subtype_addition),
+    # classes that are not primary CNS tumors (kept so every classifier call
+    # resolves, but flagged for downstream exclusion or review)
+    non_cns = replace_na(as.logical(non_cns), FALSE)
   )
 
 key_cols <- c("dkfz_Abbreviation", "dkfz_Abbreviation_v12.8",
@@ -98,6 +102,7 @@ crosswalk_info <- crosswalk %>%
     OPC_molecular_subtype = if_else(no_call_class, NA_character_,
                                     OPC_molecular_subtype),
     rare = Rare %in% "Yes",
+    non_cns,
     molecular_superfamily = Molecular_superfamily,
     molecular_family = Molecular_family
   )
@@ -207,6 +212,7 @@ resolved <- all_calls %>%
     methyl_score = coalesce(class_score, score),
     OPC_molecular_subtype,
     methyl_control = no_call_class,
+    methyl_non_cns = non_cns,
     rare,
     molecular_superfamily,
     molecular_family,
@@ -224,7 +230,8 @@ methyl_calls <- tibble(Kids_First_Biospecimen_ID = all_methyl_ids) %>%
   mutate(
     methyl_confidence = replace_na(methyl_confidence, "low_or_none"),
     methyl_conflict = replace_na(methyl_conflict, FALSE),
-    methyl_control = replace_na(methyl_control, FALSE)
+    methyl_control = replace_na(methyl_control, FALSE),
+    methyl_non_cns = replace_na(methyl_non_cns, FALSE)
   ) %>%
   # high-confidence call exists in a class the crosswalk cannot resolve
   left_join(
