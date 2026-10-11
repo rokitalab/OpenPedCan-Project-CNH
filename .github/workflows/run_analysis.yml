@@ -92,18 +92,7 @@ jobs:
           docker system prune -af || true
           echo "Disk usage after cleanup:" && df -h
       - name: Download methylation testing data
-        run: |
-          set -euo pipefail
-          mkdir -p "data/$TESTING_DIR"
-          cd "data/$TESTING_DIR"
-          # md5sum.txt is the single point of truth for which files are in the testing set
-          curl -fsS --retry 3 "$OPENPEDCAN_URL/$TESTING_DIR/md5sum.txt" -o md5sum.txt
-          while read -r _ file; do
-            echo "Downloading $file"
-            curl -fsS --retry 3 "$OPENPEDCAN_URL/$TESTING_DIR/$file" -o "$file"
-          done < md5sum.txt
-          echo "Checking MD5 hashes..."
-          md5sum -c md5sum.txt
+        run: bash scripts/download-methyl-testing.sh
       - name: Run Methylation Preprocessing
         uses: docker://pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
         with:
@@ -160,6 +149,17 @@ jobs:
             --output-dir methylation-cnv-test-out
             --output-prefix test-450k
             --array-type 450k
+      - name: Unpack hg19ToHg38 chain file
+        run: gunzip -kf "data/$TESTING_DIR/hg19ToHg38.over.chain.gz"
+      - name: Run Methylation CNV Segment Liftover and Combine
+        uses: docker://pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
+        with:
+          entrypoint: bash
+          args: >-
+            analyses/methylation-cnv-calling/run-methylation-cnv-calling.sh
+            --combine-only
+            --output-dir methylation-cnv-test-out
+            --chain-file data/methyl_testing/hg19ToHg38.over.chain
       - name: Check expected CNV outputs
         run: |
           ls -lh methylation-cnv-test-out
@@ -169,6 +169,8 @@ jobs:
               test -s "$f" || { echo "Missing or empty: $f"; exit 1; }
             done
           done
+          f="methylation-cnv-test-out/combined_hg38.gistic.seg"
+          test -s "$f" || { echo "Missing or empty: $f"; exit 1; }
 
   run_analysis:
     name: Run Analysis

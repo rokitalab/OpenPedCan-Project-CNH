@@ -9,6 +9,9 @@ doc: |-
 requirements:
 - class: DockerRequirement
   dockerPull: pgc-images.sbgenomics.com/sicklera/openpedcanverse:latest
+- class: ResourceRequirement
+  ramMin: $(inputs.ram * 1000)
+  coresMin: $(inputs.cores)
 - class: InitialWorkDirRequirement
   listing:
   - entryname: 01-methylation-cnv-calls.R
@@ -40,6 +43,14 @@ inputs:
     doc: "Array type: EPIC, EPICv2, or 450k."
     inputBinding:
       prefix: --array_type
+  ram:
+    type: int
+    default: 32
+    doc: "Minimum RAM in GB."
+  cores:
+    type: int
+    default: 1
+    doc: "Minimum CPU cores."
 
 outputs:
   segments:
