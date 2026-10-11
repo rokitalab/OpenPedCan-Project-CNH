@@ -1596,7 +1596,7 @@ PT_49KEX2FK_7316-8066_Solid Tissue_Initial CNS Tumor	LGG, KIAA1549-BRAF	LGG	LGG,
 PT_49S84FRD_7316-6796_Solid Tissue_Initial CNS Tumor	LGG, To be classified	LGG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_4A2H0KNR_7316-2599_Solid Tissue_Recurrence	IHG, ROS1-altered	IHG	IHG	methylation	NA	TRUE	different
 PT_4A2H0KNR_7316-2600_Solid Tissue_Progressive	HGG, To be classified	HGG	NA	NA	NA	FALSE	legacy only (unassigned)
-PT_4ADZ9F53_7316-3060_Solid Tissue_Initial CNS Tumor	GNG, BRAF V600E, CDKN2A/B	GNG	LGG, PXA	methylation	GNG, BRAF V600E, CDKN2A/B	TRUE	same (lesion refinement)
+PT_4ADZ9F53_7316-3060_Solid Tissue_Initial CNS Tumor	GNG, BRAF V600E, CDKN2A/B	GNG	LGG, PXA BRAF V600E	methylation	GNG, BRAF V600E, CDKN2A/B	TRUE	same (lesion refinement)
 PT_4B34NTJB_7316-8042_Solid Tissue_Initial CNS Tumor	HGG, H3 wildtype	HGG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_4D8WG2DP_U-CH11R-CL_Derived Cell Line_Recurrence	CHDM, To be classified	CHDM	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_4DZ9B62P_7316-6289_Solid Tissue_Initial CNS Tumor	MB, To be classified	MB	NA	NA	NA	FALSE	legacy only (unassigned)
@@ -2340,7 +2340,7 @@ PT_D4JJMH7V_7316-5153_Solid Tissue_Initial CNS Tumor	ATRT, SHH	ATRT	ATRT, SHH	me
 PT_D4VFV3CW_7316-3407_Solid Tissue_Initial CNS Tumor	HGG, H3 wildtype	HGG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_D52NM7JY_7316-1110_Solid Tissue_Initial CNS Tumor	LGG, To be classified	LGG	IHG	methylation	NA	FALSE	newly assigned
 PT_D5KHK0SS_7316-882_Solid Tissue_Progressive	LGG, wildtype	LGG	LGG, MAPK	methylation	NA	FALSE	newly assigned
-PT_D5KKHPAE_7316-4337_Solid Tissue_Initial CNS Tumor	HGG, PXA	HGG	LGG, PXA	methylation	NA	TRUE	different
+PT_D5KKHPAE_7316-4337_Solid Tissue_Initial CNS Tumor	HGG, PXA	HGG	LGG, PXA BRAF V600E	methylation	NA	TRUE	different
 PT_D5KKHPAE_7316-4740_Solid Tissue_Recurrence	HGG, To be classified	HGG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_D5PE7B2H_7316-45_Solid Tissue_Initial CNS Tumor	DMG, H3 K28	DMG	DMG, H3 K28	methylation	NA	TRUE	same
 PT_D5W98C9T_7316-9731_Solid Tissue_Initial CNS Tumor	PB, To be classified	PB	NA	NA	NA	FALSE	legacy only (unassigned)
@@ -3803,7 +3803,7 @@ PT_X79W5C99_7316-3403_Solid Tissue_Initial CNS Tumor	HGG, To be classified	HGG	A
 PT_X79W5C99_7316-7545_Solid Tissue_Deceased	HGG, H3 wildtype	HGG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_X7GTQR9N_7316-7959_Derived Cell Line_Initial CNS Tumor_Serum-based_7	EPN, To be classified	EPN	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_X7GTQR9N_7316-7959_Solid Tissue_Initial CNS Tumor	EPN, PF A	EPN	EPN, PF A	methylation	NA	TRUE	same
-PT_X7HC5YCY_7316-255_Solid Tissue_Initial CNS Tumor	HGG, H3 wildtype	HGG	LGG, PXA	methylation	NA	FALSE	newly assigned
+PT_X7HC5YCY_7316-255_Solid Tissue_Initial CNS Tumor	HGG, H3 wildtype	HGG	LGG, PXA BRAF V600E negative	methylation	NA	FALSE	newly assigned
 PT_X7Z2NMSA_7316-3658_Solid Tissue_Initial CNS Tumor	GNG, To be classified	GNG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_X82W2SGQ_7316-7070_Solid Tissue_Initial CNS Tumor	LGG, BRAF V600E	LGG	LGG, BRAF V600E	LGG lesion	LGG, BRAF V600E	TRUE	same
 PT_X8JQPZMN_7316-9841_Solid Tissue_Deceased	HGG, H3 wildtype	HGG	HGG, MYCN	methylation	NA	FALSE	newly assigned
@@ -3902,7 +3902,7 @@ PT_Y7VBQFRC_ET_2R0N9H6S_Solid Tissue_Initial CNS Tumor	LGG, NF1-germline	LGG	LGG
 PT_Y879MGBY_7316-4866_Solid Tissue_Initial CNS Tumor	LGG, KIAA1549-BRAF	LGG	LGG, KIAA1549-BRAF	LGG lesion	LGG, KIAA1549-BRAF	TRUE	same
 PT_Y8GBEEJZ_7316-4739_Solid Tissue_Initial CNS Tumor	LGG, RTK	LGG	LGG, RTK	LGG lesion	LGG, RTK	TRUE	same
 PT_Y8HSH496_7316-196_Solid Tissue_Initial CNS Tumor	LGG, wildtype	LGG	NA	NA	NA	FALSE	legacy only (unassigned)
-PT_Y8RNS9JE_7316-1656_Solid Tissue_Recurrence	HGG, H3 wildtype	HGG	LGG, PXA	methylation	NA	FALSE	newly assigned
+PT_Y8RNS9JE_7316-1656_Solid Tissue_Recurrence	HGG, H3 wildtype	HGG	LGG, PXA BRAF V600E	methylation	NA	FALSE	newly assigned
 PT_Y90CENEZ_7316-4869_Solid Tissue_Initial CNS Tumor	IHG, To be classified	IHG	IHG	methylation	NA	FALSE	newly assigned
 PT_Y91BW08F_7316-6798_Solid Tissue_Initial CNS Tumor	LGG, NF1-somatic, RTK	LGG	LGG, NF1-somatic, RTK	LGG lesion	LGG, NF1-somatic, RTK	TRUE	same
 PT_Y9JQ3VPX_7316-4207_Solid Tissue_Initial CNS Tumor	ATRT, SHH	ATRT	ATRT, SHH	methylation	NA	TRUE	same

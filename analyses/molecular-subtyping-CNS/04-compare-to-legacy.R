@@ -35,7 +35,7 @@ new <- read_tsv(file.path(results_dir, "molecular_subtype_cns.tsv"),
                 guess_max = 10000, col_types = cols(.default = col_guess(),
                   tp53_snv_evidence = col_character(),
                   tp53_cnv_evidence = col_character(),
-                  EGFR_variants = col_character())) %>%
+                  egfr_variants = col_character())) %>%
   select(match_id, new_subtype = molecular_subtype_cns, subtype_source,
          lesion_refinement)
 

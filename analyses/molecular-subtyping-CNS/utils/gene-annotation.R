@@ -1,6 +1,7 @@
 #' Gene mutation status as an annotation (not part of the subtype)
 #'
-#' For each gene in `annotation_genes`, adds `<gene>_mutation_status`
+#' For each gene in `annotation_genes`, adds `<gene>_mutation_status` (gene in
+#' lowercase, e.g. `egfr_mutation_status`)
 #' (mutated, not detected, or no DNA assay) and `<gene>_variants` to the
 #' tumors whose subtype matches `applies_to_subtype_regex`; other tumors get NA.
 #'
@@ -68,19 +69,19 @@ annotate_genes <- function(df, annotation_genes, snv, dna_ids, cnv_segments) {
       inner_join(dna_ids, by = c("Kids_First_Biospecimen_ID" = "id")) %>%
       pull(match_id)
 
-    df[[paste0(gene, "_amplification")]] <- case_when(
+    df[[paste0(tolower(gene), "_amplification")]] <- case_when(
       !applies ~ NA_character_,
       df$match_id %in% amplified ~ "amplified",
       df$match_id %in% has_cnv ~ "not amplified",
       TRUE ~ "no CNV data"
     )
-    df[[paste0(gene, "_activating_alteration")]] <- case_when(
+    df[[paste0(tolower(gene), "_activating_alteration")]] <- case_when(
       !applies ~ NA,
       df$match_id %in% c(activating, amplified) ~ TRUE,
       TRUE ~ FALSE
     )
-    df[[paste0(gene, "_mutation_status")]] <- status
-    df[[paste0(gene, "_variants")]] <- if_else(
+    df[[paste0(tolower(gene), "_mutation_status")]] <- status
+    df[[paste0(tolower(gene), "_variants")]] <- if_else(
       applies, variants$variants[match(df$match_id, variants$match_id)],
       NA_character_
     )
@@ -95,12 +96,12 @@ annotate_genes <- function(df, annotation_genes, snv, dna_ids, cnv_segments) {
 #' mechanisms detected from DNA. EZHIP overexpression needs expression data and
 #' is not assessed here.
 #'
-#' @param df Table with OPC_molecular_subtype and EGFR_activating_alteration.
+#' @param df Table with OPC_molecular_subtype and egfr_activating_alteration.
 #' @param h3_mutated Logical vector, TRUE when an H3 K27M/I variant was found.
 #' @param has_dna Logical vector, TRUE when the tumor has a DNA assay.
 add_h3k27_mechanism <- function(df, h3_mutated, has_dna) {
   is_dmg <- str_detect(df$OPC_molecular_subtype, "^DMG")
-  mech <- map2_chr(h3_mutated %in% TRUE, df$EGFR_activating_alteration %in% TRUE,
+  mech <- map2_chr(h3_mutated %in% TRUE, df$egfr_activating_alteration %in% TRUE,
                    function(h3, egfr) {
     found <- c(if (h3) "H3 K27M/I", if (egfr) "EGFR alteration")
     if (length(found) == 0) NA_character_ else paste(found, collapse = " + ")

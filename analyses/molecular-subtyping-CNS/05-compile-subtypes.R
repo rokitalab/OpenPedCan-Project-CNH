@@ -24,7 +24,7 @@ results_dir <- file.path(module_dir, "results")
 # free-text evidence columns are often entirely empty, so force them to character
 evidence_types <- cols(tp53_snv_evidence = col_character(),
                        tp53_cnv_evidence = col_character(),
-                       EGFR_variants = col_character(),
+                       egfr_variants = col_character(),
                        .default = col_guess())
 
 # LGG labels that do not name a specific lesion
