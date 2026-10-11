@@ -70,10 +70,15 @@ if (nrow(ambiguous_keys) > 0) {
   key_table <- key_table %>% filter(!key %in% ambiguous_keys$key)
 }
 
+# the crosswalk marks deliberate no-call classes (control tissues, inflammatory
+# microenvironment) with the literal string "NA" in OPC_molecular_subtype; a
+# blank cell instead means the class has not been assigned a subtype yet
 crosswalk_info <- crosswalk %>%
   transmute(
     crosswalk_row,
-    OPC_molecular_subtype,
+    no_call_class = OPC_molecular_subtype %in% "NA",
+    OPC_molecular_subtype = if_else(no_call_class, NA_character_,
+                                    OPC_molecular_subtype),
     rare = Rare %in% "Yes",
     molecular_superfamily = Molecular_superfamily,
     molecular_family = Molecular_family
@@ -128,13 +133,24 @@ all_calls <- bind_rows(
     precedence = match(source, c("dkfz_v12.8", "nih_v3.1", "dkfz_v12", "nih_v2"))
   ) %>%
   left_join(key_table, by = "key") %>%
-  left_join(crosswalk_info, by = "crosswalk_row")
+  # NIH control-tissue codes (CONTR_*, CTRL_*) are never subtyped, regardless of
+  # what a crosswalk key resolves to (e.g., "CONTR HEMI" is listed as the NIH
+  # v3 code for the GG row, which would otherwise call controls GNG, MAPK)
+  mutate(is_control_code = grepl("^(CONTR|CTRL|NORM) ", key)) %>%
+  left_join(crosswalk_info, by = "crosswalk_row") %>%
+  mutate(
+    no_call_class = no_call_class | is_control_code,
+    OPC_molecular_subtype = if_else(is_control_code, NA_character_,
+                                    OPC_molecular_subtype),
+    rare = if_else(is_control_code, FALSE, rare)
+  )
 
 ### Gaps: classes seen in data that the crosswalk can't resolve ------------------
 
 gaps <- all_calls %>%
   filter(high_conf) %>%
   mutate(gap_reason = case_when(
+    no_call_class %in% TRUE ~ NA_character_,
     is.na(crosswalk_row) ~ "class not in crosswalk",
     is.na(OPC_molecular_subtype) ~ "crosswalk row has no OPC_molecular_subtype"
   )) %>%
@@ -149,14 +165,17 @@ write_tsv(gaps, file.path(results_dir, "methylation_crosswalk_gaps.tsv"))
 # only calls that resolve to a crosswalk row can set the subtype; high-confidence
 # calls that don't resolve are reported in the gaps table above
 resolved <- all_calls %>%
-  filter(high_conf, !is.na(crosswalk_row)) %>%
+  filter(high_conf, !is.na(crosswalk_row) | no_call_class) %>%
+  # all no-call classes count as the same call when looking for conflicts
+  mutate(call_identity = if_else(no_call_class, "no_call",
+                                 as.character(crosswalk_row))) %>%
   group_by(Kids_First_Biospecimen_ID) %>%
   arrange(precedence, .by_group = TRUE) %>%
   mutate(
     # disagreement: another high-confidence call maps to a different crosswalk row
-    n_distinct_rows = n_distinct(crosswalk_row),
+    n_distinct_rows = n_distinct(call_identity),
     conflicting_sources = paste(
-      source[crosswalk_row != first(crosswalk_row)],
+      source[call_identity != first(call_identity)],
       collapse = ";"
     )
   ) %>%
@@ -169,6 +188,7 @@ resolved <- all_calls %>%
     methyl_class = call,
     methyl_score = coalesce(class_score, score),
     OPC_molecular_subtype,
+    methyl_no_call = no_call_class,
     rare,
     molecular_superfamily,
     molecular_family,
@@ -185,12 +205,13 @@ methyl_calls <- tibble(Kids_First_Biospecimen_ID = all_methyl_ids) %>%
   left_join(resolved, by = "Kids_First_Biospecimen_ID") %>%
   mutate(
     methyl_confidence = replace_na(methyl_confidence, "low_or_none"),
-    methyl_conflict = replace_na(methyl_conflict, FALSE)
+    methyl_conflict = replace_na(methyl_conflict, FALSE),
+    methyl_no_call = replace_na(methyl_no_call, FALSE)
   ) %>%
   # high-confidence call exists in a class the crosswalk cannot resolve
   left_join(
     all_calls %>%
-      filter(high_conf, is.na(crosswalk_row)) %>%
+      filter(high_conf, is.na(crosswalk_row), !no_call_class) %>%
       distinct(Kids_First_Biospecimen_ID) %>%
       mutate(unmapped_high_conf_call = TRUE),
     by = "Kids_First_Biospecimen_ID"
@@ -204,8 +225,11 @@ write_tsv(methyl_calls, file.path(results_dir, "methylation_calls.tsv"))
 # quick summary to the log
 message("Biospecimens with methylation: ", nrow(methyl_calls))
 message("High confidence: ", sum(methyl_calls$methyl_confidence == "high"))
-message("High confidence, crosswalk row lacks OPC subtype: ",
+message("High confidence, deliberate no-call (control / non-tumor): ",
+        sum(methyl_calls$methyl_no_call))
+message("High confidence, class has no OPC subtype yet: ",
         sum(methyl_calls$methyl_confidence == "high" &
+              !methyl_calls$methyl_no_call &
               is.na(methyl_calls$OPC_molecular_subtype)))
 message("Only unmappable high-confidence calls (see gaps table): ",
         sum(methyl_calls$methyl_confidence == "low_or_none" &
