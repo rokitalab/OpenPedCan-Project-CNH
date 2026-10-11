@@ -69,6 +69,11 @@ Methylation sets the group (`MB, WNT`, `MB, SHH`, `MB, Group3`, `MB, Group4`), a
 
 The expression classifier and SHH subtyping stay in `molecular-subtyping-MB`; this module reads their results.
 
+### Craniopharyngioma and chordoma
+
+- **CRANIO:** methylation (`CPH_ADM`, `CPH_PAP`) sets `CRANIO, ADAM` or `CRANIO, PAP`. A CTNNB1 exon 3 hotspot (or in-frame deletion) confirms ADAM and BRAF V600E confirms PAP. Both are *definitive* lesions: a methylation subtype contradicted by a definitive lesion of another subtype in the same family is flagged (`lesion_contradiction`, shown in `subtypes_for_review.tsv`), and the methylation call is kept. Tumors with no methylation are subtyped from the lesion only when the diagnosis supports it (`fallback_requires_dx`), since CTNNB1 and BRAF V600E occur in many other tumors.
+- **Chordoma:** methylation `CHORDM` and `CHORDM_PD` (`CHORDM, poorly differentiated`; the NIH v3.1 class is added through `input/extra_methylation_classes.tsv` because the crosswalk lacks it). SMARCB1 focal status and expression from `molecular-subtyping-chordoma` are annotations (`smarcb1_focal_status`, `smarcb1_expression`), and a chordoma-diagnosis tumor with focal SMARCB1 loss and no methylation is `CHORDM, poorly differentiated` (`subtype_source = SMARCB1 focal loss`).
+
 ### HGG annotations and umbrella group
 
 - `h3_status` (`mutant`, `wildtype`, `not assessed`) and `h3_variant` for `HGG`, `DMG` and `DHG` subtypes. Wildtype means a DNA assay with no H3 K27M/I or G34/G35 R/V variant.

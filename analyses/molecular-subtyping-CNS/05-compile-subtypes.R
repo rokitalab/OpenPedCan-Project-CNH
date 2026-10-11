@@ -27,6 +27,20 @@ evidence_types <- cols(tp53_snv_evidence = col_character(),
                        egfr_variants = col_character(),
                        .default = col_guess())
 
+# chordoma: SMARCB1 focal copy status and expression, as annotations
+smarcb1 <- read_tsv(
+  file.path(root_dir, "analyses", "molecular-subtyping-chordoma", "results",
+            "chordoma_smarcb1_status.tsv"),
+  col_types = cols(.default = col_character())
+) %>%
+  filter(!is.na(match_id)) %>%
+  group_by(match_id) %>%
+  summarise(
+    smarcb1_focal_status = first(na.omit(focal_SMARCB1_status)),
+    smarcb1_expression = first(na.omit(SMARCB1_expression)),
+    .groups = "drop"
+  )
+
 # umbrella groups for subtypes (input/subtype_groups.tsv)
 subtype_groups <- read_tsv(file.path(module_dir, "input", "subtype_groups.tsv"),
                            show_col_types = FALSE)
@@ -88,6 +102,7 @@ shared <- c("match_id", "Kids_First_Participant_ID", "sample_id",
 
 compiled <- bind_rows(
   methyl %>% select(all_of(shared), methyl_class, methyl_score, lesion_status,
+                    lesion_contradiction,
                     methyl_conflict, starts_with("tp53_"),
                     ends_with("_mutation_status"), ends_with("_variants"),
                     ends_with("_amplification"), ends_with("_activating_alteration"),
@@ -106,6 +121,7 @@ compiled <- bind_rows(
 ) %>%
   full_join(lgg, by = "match_id") %>%
   full_join(mb, by = "match_id") %>%
+  left_join(smarcb1, by = "match_id") %>%
   mutate(
     sample_id = coalesce(sample_id, mb_sample_id),
     lesion_refinement = if_else(lgg_specific %in% TRUE, lgg_subtype,
@@ -118,15 +134,18 @@ compiled <- bind_rows(
       !is.na(subtype_source) ~ subtype_source,
       lgg_specific %in% TRUE ~ "LGG lesion",
       !is.na(mb_expression_single) ~ "expression classifier",
+      # chordoma diagnosis (the chordoma module's cohort) with focal SMARCB1 loss
+      smarcb1_focal_status %in% "loss" ~ "SMARCB1 focal loss",
       TRUE ~ NA_character_
     ),
     molecular_subtype_cns = case_when(
       !is.na(OPC_molecular_subtype) ~ OPC_molecular_subtype,
       subtype_source == "LGG lesion" ~ lgg_subtype,
-      subtype_source == "expression classifier" ~ mb_expression_single
+      subtype_source == "expression classifier" ~ mb_expression_single,
+      subtype_source == "SMARCB1 focal loss" ~ "CHORDM, poorly differentiated"
     ),
     evidence_level = case_when(
-      subtype_source == "LGG lesion" ~ "lesion only",
+      subtype_source %in% c("LGG lesion", "SMARCB1 focal loss") ~ "lesion only",
       subtype_source == "expression classifier" ~ "expression only",
       TRUE ~ evidence_level
     ),
@@ -144,12 +163,14 @@ compiled <- bind_rows(
     ),
     needs_review = dx_concordance %in% "discordant" | methyl_conflict |
       h3_group_conflict | h3_variant_conflict %in% TRUE |
-      mb_concordance %in% "discordant"
+      mb_concordance %in% "discordant" | !is.na(lesion_contradiction)
   ) %>%
   select(match_id, Kids_First_Participant_ID, sample_id,
          molecular_subtype_cns, subtype_group, lesion_refinement, subtype_source,
-         evidence_level, lesion_status, lesion_evidence, methyl_class,
+         evidence_level, lesion_status, lesion_evidence, lesion_contradiction,
+         methyl_class,
          mb_expression_group, mb_concordance, mb_shh_subtype,
+         smarcb1_focal_status, smarcb1_expression,
          methyl_score, methyl_conflict, pathology_diagnosis, dx_group,
          dx_concordance, needs_review, starts_with("tp53_"),
          ends_with("_mutation_status"), ends_with("_variants"),

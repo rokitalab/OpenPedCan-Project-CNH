@@ -37,7 +37,9 @@ calls <- read_tsv(file.path(results_dir, "methylation_calls.tsv"),
 rules <- read_tsv(file.path(input_dir, "subtype_lesion_rules.tsv"),
                   show_col_types = FALSE) %>%
   mutate(rule_order = row_number(),
-         use_as_fallback = as.logical(use_as_fallback))
+         use_as_fallback = as.logical(use_as_fallback),
+         fallback_requires_dx = as.logical(fallback_requires_dx),
+         definitive = as.logical(definitive))
 dx_groups <- read_tsv(file.path(input_dir, "pathology_dx_groups.tsv"),
                       show_col_types = FALSE)
 family_compat <- read_tsv(
@@ -208,10 +210,33 @@ validated <- calls %>%
 
 # an H3 K27M/I or G34/G35 R/V variant defines DMG/DHG, so a methylation subtype
 # that is not DMG/DHG contradicts it and is flagged for review
+# A definitive lesion (CTNNB1 exon 3 for MB WNT / CRANIO ADAM, BRAF V600E for
+# CRANIO PAP) that belongs to a different subtype of the same family
+# contradicts the methylation call. Methylation is kept and the tumor flagged.
+definitive_hits <- lesion_hits %>%
+  semi_join(filter(rules, definitive), by = "rule_id") %>%
+  group_by(match_id, OPC_molecular_subtype) %>%
+  summarise(evidence = paste(sort(unique(evidence)), collapse = "; "),
+            .groups = "drop") %>%
+  transmute(match_id, other_subtype = OPC_molecular_subtype,
+            other_family = str_extract(OPC_molecular_subtype, "^[^,]+"),
+            other_evidence = evidence)
+
+contradictions <- validated %>%
+  mutate(family = str_extract(OPC_molecular_subtype, "^[^,]+")) %>%
+  inner_join(definitive_hits, by = "match_id", relationship = "many-to-many") %>%
+  filter(family == other_family, OPC_molecular_subtype != other_subtype) %>%
+  group_by(match_id) %>%
+  summarise(lesion_contradiction = paste0(other_evidence, " (", other_subtype, ")",
+                                          collapse = "; "),
+            .groups = "drop")
+
 validated <- validated %>%
+  left_join(contradictions, by = "match_id") %>%
   mutate(h3_variant_conflict = match_id %in% h3_hits$match_id &
            !str_detect(OPC_molecular_subtype, "^(DMG|DHG)"),
-         needs_review = needs_review | h3_variant_conflict)
+         needs_review = needs_review | h3_variant_conflict |
+           !is.na(lesion_contradiction))
 
 write_tsv(validated, file.path(results_dir, "methylation_subtype_validation.tsv"))
 validated %>%
@@ -236,11 +261,13 @@ fallback <- lesion_hits %>%
          match_id %in% pbta_match_ids,
          !match_id %in% validated$match_id,
          !match_id %in% control_match_ids) %>%
-  left_join(select(rules, rule_id, rule_order), by = "rule_id") %>%
+  left_join(select(rules, rule_id, rule_order, fallback_requires_dx),
+            by = "rule_id") %>%
   group_by(match_id) %>%
   arrange(rule_order, evidence, .by_group = TRUE) %>%
   summarise(OPC_molecular_subtype = first(OPC_molecular_subtype),
             lesion_evidence = paste(unique(evidence), collapse = "; "),
+            requires_dx = first(fallback_requires_dx),
             .groups = "drop") %>%
   # a match_id can carry more than one diagnosis (e.g. cell-line rows), which
   # are joined with ";" as in the histologies
@@ -289,10 +316,13 @@ fallback <- fallback %>%
     dx_concordance = dx_concordance(OPC_molecular_subtype, dx_group,
                                     family_compat),
     evidence_level = "lesion only",
-    # a call the diagnosis contradicts, or a held call, is not assigned
-    assign = dx_concordance != "discordant" & is.na(hold_reason)
+    # a call the diagnosis contradicts, or a held call, is not assigned; a
+    # lesion that is not specific to the entity (BRAF V600E, CTNNB1 exon 3,
+    # SMARCB1 loss) is only assigned when the diagnosis supports it
+    assign = dx_concordance != "discordant" & is.na(hold_reason) &
+      (!requires_dx | dx_concordance %in% c("concordant", "compatible"))
   ) %>%
-  select(-is_idh, -is_codeleted, -oligo_dx) %>%
+  select(-is_idh, -is_codeleted, -oligo_dx, -requires_dx) %>%
   left_join(tp53, by = "match_id") %>%
   annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
   annotate_expression(expression_annotations, expression_long, rna_ids) %>%
@@ -387,6 +417,11 @@ message("\n== Methylation-based subtypes: ", nrow(validated))
 print(count(validated, lesion_status))
 print(count(validated, dx_concordance))
 message("Flagged for review: ", sum(validated$needs_review))
+message("Lesion contradicts the methylation subtype: ",
+        sum(!is.na(validated$lesion_contradiction)))
+print(validated %>% filter(!is.na(lesion_contradiction)) %>%
+        count(OPC_molecular_subtype, lesion_contradiction, sort = TRUE) %>%
+        head(12))
 
 message("\n== H3 variant but not DMG/DHG: ", nrow(h3_variant_review))
 print(count(h3_variant_review, reason))

@@ -82,6 +82,17 @@ key_table <- crosswalk %>%
   filter(!is.na(key)) %>%
   distinct(key, crosswalk_row)
 
+# classes seen in the classifier output that the crosswalk does not list yet get
+# a synthetic crosswalk row (input/extra_methylation_classes.tsv)
+extra_classes <- read_tsv(file.path(input_dir, "extra_methylation_classes.tsv"),
+                          show_col_types = FALSE) %>%
+  mutate(crosswalk_row = 10000L + row_number())
+
+key_table <- bind_rows(
+  key_table,
+  extra_classes %>% transmute(key = norm_key(class_key), crosswalk_row)
+)
+
 # a key must resolve to exactly one crosswalk row, otherwise calls are ambiguous
 ambiguous_keys <- key_table %>%
   count(key) %>%
@@ -95,7 +106,13 @@ if (nrow(ambiguous_keys) > 0) {
 # the crosswalk marks control classes (control tissues, inflammatory
 # microenvironment; low tumor purity) with "Control" in OPC_molecular_subtype;
 # a blank cell instead means the class has not been assigned a subtype yet
-crosswalk_info <- crosswalk %>%
+crosswalk_info <- bind_rows(
+  crosswalk %>% select(crosswalk_row, OPC_molecular_subtype, Rare,
+                       Molecular_superfamily, Molecular_family, non_cns),
+  extra_classes %>% transmute(crosswalk_row, OPC_molecular_subtype,
+                              Rare = NA_character_, Molecular_superfamily = NA_character_,
+                              Molecular_family = NA_character_, non_cns = FALSE)
+) %>%
   transmute(
     crosswalk_row,
     no_call_class = OPC_molecular_subtype %in% c("Control", "NA"),
