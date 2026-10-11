@@ -1,0 +1,28 @@
+rule_id	OPC_molecular_subtype	lesion_type	gene	pattern	use_as_fallback	note
+DMG_H3K28	DMG, H3 K28	snv	H3-3A|H3C2|H3C3|H3C14	^p\.K(27|28)[MI]$	TRUE	H3 K27/K28 M or I
+DHG_H3G35	DHG, H3 G35	snv	H3-3A	^p\.G(34|35)[RV]$	TRUE	H3 G34/G35 R or V
+HGG_IDH1	HGG, IDH	snv	IDH1	^p\.R132	TRUE	IDH1 R132
+HGG_IDH2	HGG, IDH	snv	IDH2	^p\.R172	TRUE	IDH2 R172
+EPN_ZFTA	EPN, ST ZFTA	fusion	ZFTA	(^|--)(ZFTA|C11orf95)(/|--|$)	TRUE	ZFTA (C11orf95) fusion
+EPN_YAP1	EPN, ST YAP1	fusion	YAP1	(^|--)YAP1(/|--|$)	TRUE	YAP1 fusion
+RARE_MN1_BEND2	Rare CNS, MN1::BEND2	fusion	MN1	(^|--)MN1(/|--|$).*BEND2|BEND2.*(^|--)MN1(/|--|$)	FALSE	MN1::BEND2
+RARE_MN1_CXXC5	Rare CNS, MN1::CXXC5	fusion	MN1	(^|--)MN1(/|--|$).*CXXC5|CXXC5.*(^|--)MN1(/|--|$)	FALSE	MN1::CXXC5
+RARE_CIC	Rare CNS, CIC SARC	fusion	CIC	(^|--)CIC(/|--|$)	FALSE	CIC fusion
+RARE_PLAGL1	Rare CNS, PLAGL1-fused	fusion	PLAGL1	(^|--)PLAGL1(/|--|$)	FALSE	PLAGL1 fusion
+RARE_PATZ1	Rare CNS, PATZ1-fused	fusion	PATZ1	(^|--)PATZ1(/|--|$)	FALSE	PATZ1 fusion
+RARE_BCOR_FUS	Rare CNS, BCOR-fused	fusion	BCOR	(^|--)BCOR(/|--|$)	FALSE	BCOR fusion
+RARE_EWS	Rare CNS, EWS	fusion	EWSR1	(^|--)EWSR1(/|--|$)	FALSE	EWSR1 fusion
+RARE_MYOD1	Rare CNS, MYOD1 RMS	snv	MYOD1	^p\.L122R$	FALSE	MYOD1 L122R
+RARE_DICER1	Rare CNS, DICER1 SARC	snv	DICER1	.*	FALSE	DICER1 variant
+GCT_KIT	GCT, Germinoma KIT mutant	snv	KIT	.*	FALSE	KIT variant
+GNT_PAP_PRKCA	GNT, Papillary	fusion	PRKCA	(^|--)PRKCA(/|--|$)	FALSE	PRKCA::SLC44A1
+GNT_MYX_PDGFRA	GNT, Myxoid	snv	PDGFRA	.*	FALSE	PDGFRA variant
+CHGL_PRKCA	CHGL, PRKCA-mutant	snv	PRKCA	^p\.D463H$	FALSE	PRKCA D463H
+LCH_BRAF	LCH	snv	BRAF	^p\.V600E$	FALSE	BRAF V600E
+SFT_NAB2	SFT	fusion	NAB2	(^|--)NAB2(/|--|$).*STAT6|STAT6.*(^|--)NAB2(/|--|$)	FALSE	NAB2::STAT6
+HMB_VHL	HMB	snv	VHL	.*	FALSE	VHL variant
+NST_SCHW_NF2	NST, Schwannoma	snv	NF2	.*	FALSE	NF2 variant (loss may be CNV)
+NST_PNF_NF1	NST, Plexiform neurofibroma	snv	NF1	.*	FALSE	NF1 variant (loss may be CNV)
+CPC_TP53	CPC, pediatric	snv	TP53	.*	FALSE	TP53 variant
+RB_RB1	RB, RB1-altered	snv	RB1	.*	FALSE	RB1 variant
+SNUC_IDH2	SNUC, IDH2-mutant	snv	IDH2	^p\.R172	FALSE	IDH2 R172
