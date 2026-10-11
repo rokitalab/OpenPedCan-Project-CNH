@@ -140,6 +140,13 @@ validated <- calls %>%
       OPC_molecular_subtype == "PXA" ~ "LGG, PXA",
       TRUE ~ OPC_molecular_subtype
     ),
+    # DMG_EGFR methylation class: H3 K27-altered through EGFR; with an H3 K27M/I
+    # variant as well, the tumor carries both the H3 K28 and EGFR labels
+    OPC_molecular_subtype = if_else(
+      OPC_molecular_subtype == "DMG, H3 K27-altered, EGFR" &
+        lesion_status == "confirmed",
+      "DMG, H3 K28, EGFR", OPC_molecular_subtype
+    ),
     dx_group = dx_to_groups(pathology_diagnosis, dx_groups),
     dx_concordance = dx_concordance(OPC_molecular_subtype, dx_group,
                                     family_compat),
