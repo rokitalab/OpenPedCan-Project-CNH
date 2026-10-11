@@ -49,6 +49,24 @@ crosswalk <- read_excel(
 ) %>%
   mutate(crosswalk_row = row_number())
 
+# Subtype names for classes that have no OPC_molecular_subtype in the crosswalk
+# yet, kept as a reviewable table with the rationale. Existing crosswalk values
+# are never overwritten.
+additions <- read_tsv(file.path(input_dir, "opc_subtype_additions.tsv"),
+                      show_col_types = FALSE, na = character()) %>%
+  select(Abbreviation_internal_NIHv2, subtype_addition = OPC_molecular_subtype)
+stopifnot(!anyDuplicated(additions$Abbreviation_internal_NIHv2),
+          all(additions$Abbreviation_internal_NIHv2 %in%
+                crosswalk$Abbreviation_internal_NIHv2))
+
+crosswalk <- crosswalk %>%
+  left_join(additions, by = "Abbreviation_internal_NIHv2") %>%
+  mutate(
+    subtype_addition = if_else(!is.na(OPC_molecular_subtype), NA_character_,
+                               subtype_addition),
+    OPC_molecular_subtype = coalesce(OPC_molecular_subtype, subtype_addition)
+  )
+
 key_cols <- c("dkfz_Abbreviation", "dkfz_Abbreviation_v12.8",
               "Abbreviation_internal_NIHv2", "Abbreviation_internal_NIHv3",
               "OPC_molecular_subtype_methyl")

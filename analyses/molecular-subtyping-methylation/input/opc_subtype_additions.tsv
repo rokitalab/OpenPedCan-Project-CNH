@@ -1,0 +1,46 @@
+Abbreviation_internal_NIHv2	OPC_molecular_subtype	expected_lesion	rationale
+CPP_AD	CPP, adult	NA	Choroid plexus papilloma, adult subtype (CPT_AD_A)
+CPP_INF	CPP, pediatric	NA	Choroid plexus papilloma, pediatric subtype (CPT_PED_A)
+CPC	CPC, pediatric	TP53	Choroid plexus carcinoma, pediatric subtype (CPT_PED_B); TP53 alteration expected and often germline (Li-Fraumeni)
+CPC_B	CPC, adult	NA	Choroid plexus carcinoma, adult subtype
+SCHW	NST, Schwannoma	NF2	Schwannoma; NF2 loss expected
+VGLL	NST, Schwannoma VGLL-fused	VGLL fusion	CNS schwannoma, VGLL-fused (WHO CNS5 emerging subtype)
+NFIB_PLEX	NST, Plexiform neurofibroma	NF1	Plexiform neurofibroma; NF1 loss expected
+MPNST	NST, MPNST typical	NF1/CDKN2A	Malignant peripheral nerve sheath tumour, typical type
+MPNST_Spine	NST, MPNST spinal/atypical	NA	Malignant peripheral nerve sheath tumour, spinal or atypical type
+MEL_SCHW	NST, Melanotic MPNST	PRKAR1A	Malignant melanotic nerve sheath tumour; PRKAR1A loss / Carney complex association
+GCT_GERM	GCT, Germinoma KIT wildtype	NA	Germinoma, KIT wildtype (GCT_GERM_A)
+GCT_GERM_KIT	GCT, Germinoma KIT mutant	KIT	Germinoma, KIT mutant
+GCT_TERA	GCT, Teratoma	NA	Teratoma
+GCT_YOLKSAC	GCT, Yolk sac tumor	NA	Yolk sac tumour
+PPTID_A	PPTID, A	NA	Pineal parenchymal tumour of intermediate differentiation, methylation subclass A
+PPTID_B	PPTID, B	NA	Pineal parenchymal tumour of intermediate differentiation, methylation subclass B
+PTPR_A	PTPR, A	NA	Papillary tumour of the pineal region, methylation subclass A
+PTPR_B	PTPR, B	NA	Papillary tumour of the pineal region, methylation subclass B
+Pin_Cyt	Pineocytoma	NA	Pineocytoma
+RB	RB, RB1-altered	RB1	Retinoblastoma (pineal/retinal RB1-related tumour)
+RB_MYCN	RB, MYCN-activated	MYCN amplification	Retinoblastoma, MYCN-activated
+PITAD_ACTH	PITNET, ACTH	NA	Pituitary neuroendocrine tumour (PitNET), ACTH-producing; WHO CNS5 / 2022 PitNET terminology
+PITAD_GON	PITNET, Gonadotroph	NA	PitNET, gonadotrophin-producing
+PITAD_PRL	PITNET, PRL	NA	PitNET, prolactin-producing
+PITAD_STH_DENSE1	PITNET, STH densely granulated A	NA	PitNET, STH-producing, densely granulated A
+PITAD_STH_DENSE2	PITNET, STH densely granulated B	NA	PitNET, STH-producing, densely granulated B
+PITAD_STH_SPARSE	PITNET, STH sparsely granulated	NA	PitNET, STH-producing, sparsely granulated
+PITAD_TSH	PITNET, TSH	NA	PitNET, TSH-producing
+PITUI	PITUI, Pituicytoma/GCTS/SCO	NA	Pituicytoma, granular cell tumour of the sellar region, spindle-cell oncocytoma (single TTF1-positive family)
+PGG	PGG, non-CIMP	NA	Cauda equina neuroendocrine tumour [paraganglioma], non-CIMP subtype
+CHD3V	CHGL, PRKCA-mutant	PRKCA D463H	Chordoid glioma; PRKCA D463H hotspot expected
+LIPN	LIPN	NA	Liponeurocytoma
+HMB	HMB	VHL	Haemangioblastoma; VHL alteration expected
+MB_MYO	MB, Medullomyoblastoma	NA	Medullomyoblastoma; reported as a medulloblastoma variant, confirm before merging with MB module
+MELN	MEL, Melanocytoma	GNAQ/GNA11	Circumscribed meningeal melanocytic neoplasm (melanocytoma)
+MET_MEL	MEL, Metastatic melanoma	BRAF/NRAS	Metastatic melanoma, not a primary CNS tumour; review
+IO_MEPL	MEPL, Intraocular medulloepithelioma	DICER1	Intraocular medulloepithelioma; DICER1 alteration expected
+LCH	LCH	BRAF V600E	Langerhans cell histiocytosis; BRAF V600E / MAPK pathway expected
+PCNSL_DLB	CNS lymphoma, DLBCL	NA	Primary diffuse large B-cell lymphoma of the CNS
+PCNSL_PLAS	CNS plasmacytoma	NA	Plasmacytoma of the CNS
+ENB	ONB	NA	Olfactory neuroblastoma (esthesioneuroblastoma)
+ENB_IDH	SNUC, IDH2-mutant	IDH2 R172	Sinonasal undifferentiated carcinoma, IDH2-mutant; not a primary CNS tumour, review
+HMPC_SFT	SFT	NAB2::STAT6	Solitary fibrous tumour / haemangiopericytoma; NAB2::STAT6 fusion expected
+MYXGNT	GNT, Myxoid PDGFRA-mutant	PDGFRA	Myxoid glioneuronal tumour, PDGFRA-mutant
+PGNT	GNT, Papillary PRKCA-fused	PRKCA::SLC44A1	Papillary glioneuronal tumour; PRKCA::SLC44A1 fusion expected
