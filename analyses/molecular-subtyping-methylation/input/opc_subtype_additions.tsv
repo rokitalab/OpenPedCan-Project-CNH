@@ -8,7 +8,7 @@ VGLL	NST, Schwannoma VGLL-fused	VGLL fusion	FALSE	CNS schwannoma, VGLL-fused (WH
 NFIB_PLEX	NST, Plexiform neurofibroma	NF1	FALSE	Plexiform neurofibroma; NF1 loss expected
 MPNST	NST, MPNST typical	NF1/CDKN2A	FALSE	Malignant peripheral nerve sheath tumour, typical type
 MPNST_Spine	NST, MPNST spinal/atypical	NA	FALSE	Malignant peripheral nerve sheath tumour, spinal or atypical type
-MEL_SCHW	NST, Melanotic MPNST	PRKAR1A	FALSE	Malignant melanotic nerve sheath tumour; PRKAR1A loss / Carney complex association
+MEL_SCHW	NST, MPNST melanotic	PRKAR1A	FALSE	Malignant melanotic nerve sheath tumour; PRKAR1A loss / Carney complex association
 GCT_GERM	GCT, Germinoma KIT wildtype	NA	FALSE	Germinoma, KIT wildtype (GCT_GERM_A)
 GCT_GERM_KIT	GCT, Germinoma KIT mutant	KIT	FALSE	Germinoma, KIT mutant
 GCT_TERA	GCT, Teratoma	NA	FALSE	Teratoma
