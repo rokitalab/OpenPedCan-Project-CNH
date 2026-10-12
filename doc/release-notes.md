@@ -12,6 +12,10 @@
         - tcga_gene-expression-rsem-tpm-collapsed.rds  
     - Files added:
         - tcga_gene-counts-rsem-expected_count-collapsed.rds
+    - Methylation testing data for CI (`methyl_testing/`), added to the bucket on 2026-10-08, separate from the v15 release files:
+        - 36 arrays (72 IDAT files, a `_Grn.idat` and `_Red.idat` pair per array) of a small test set used by the methylation CI job: 12 HumanMethylation450, 12 EPICv1 and 12 EPICv2 arrays (24 tumor and 12 normal). 28 arrays are public GEO GSM samples (`.idat.gz`, from `GEO_GSM_samples_manifest.tsv`) and 8 are from `concatenated_RBT_manifest.tsv` (`.idat`).
+        - `methylation-testing-manifest.tsv` describes each file (sample type, file name and format, platform, array type, Bioassay ID, source manifest and GEO accession), and `md5sum.txt` lists the 73 files.
+        - Download with `bash scripts/download-methyl-testing.sh` (it also fetches the hg19 to hg38 liftover chain from UCSC when it is not in the md5sum list). The CI methylation job uses it to run the copy number liftover and combine step.
     - Parquet copies (experimental), added to the v15 release on 2026-10-12 in a `parquet/` folder (`v15/parquet/`):
         - These are generated from the release files above with [`scripts/make-parquet.R`](../scripts/make-parquet.R) so that large tables can be queried (duckdb, duckplyr, arrow) without reading the whole TSV or RDS file. The TSV and RDS files remain the source of truth.
         - They are not listed in `md5sum.txt`, so `download-data.sh` does not download them. Use `bash scripts/download-parquet.sh`, which checks `md5sum-parquet.txt` and links the files in `data/parquet/`. `manifest.tsv` lists the tables, row counts and source files.
