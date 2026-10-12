@@ -81,6 +81,12 @@ cnv <- dbGetQuery(con, sprintf(
 dbDisconnect(con, shutdown = TRUE)
 
 tp53 <- read_tp53_annotation(root_dir)
+
+# manually reviewed subtypes decide which tumors the DMG annotations apply to
+manual_subtype <- read_tsv(file.path(input_dir, "manual_subtype_review.tsv"),
+                           show_col_types = FALSE) %>%
+  transmute(sample_id, annotation_subtype = molecular_subtype)
+with_manual <- function(df) left_join(df, manual_subtype, by = "sample_id")
 annotation_genes <- read_tsv(file.path(input_dir, "annotation_genes.tsv"),
                              show_col_types = FALSE)
 expression_annotations <- read_tsv(
@@ -193,6 +199,7 @@ validated <- calls %>%
     needs_review = dx_concordance == "discordant" | methyl_conflict
   ) %>%
   left_join(tp53, by = "match_id") %>%
+  with_manual() %>%
   annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
   annotate_expression(expression_annotations, expression_long, rna_ids) %>%
   add_h3_status(h3_hits, dna_ids) %>%
@@ -379,6 +386,7 @@ fallback <- fallback %>%
   ) %>%
   select(-is_idh, -is_codeleted, -oligo_dx, -requires_dx) %>%
   left_join(tp53, by = "match_id") %>%
+  with_manual() %>%
   annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
   annotate_expression(expression_annotations, expression_long, rna_ids) %>%
   add_h3_status(h3_hits, dna_ids) %>%
@@ -467,6 +475,7 @@ free_text_dmg <- tumor_text %>%
          dx_concordance = dx_concordance(OPC_molecular_subtype, dx_group,
                                          family_compat)) %>%
   left_join(tp53, by = "match_id") %>%
+  with_manual() %>%
   annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
   annotate_expression(expression_annotations, expression_long, rna_ids) %>%
   add_h3_status(h3_hits, dna_ids) %>%
@@ -506,8 +515,13 @@ lesion_negative_hgg <- hist %>%
          dx_concordance = dx_concordance(OPC_molecular_subtype, dx_group,
                                          family_compat)) %>%
   left_join(tp53, by = "match_id") %>%
+  with_manual() %>%
   annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
-  add_h3_status(h3_hits, dna_ids)
+  annotate_expression(expression_annotations, expression_long, rna_ids) %>%
+  add_h3_status(h3_hits, dna_ids) %>%
+  add_h3k27_mechanism(h3_mutated = FALSE,
+                      has_dna = .$match_id %in% dna_ids$match_id,
+                      has_rna = .$match_id %in% rna_ids$match_id)
 
 write_tsv(lesion_negative_hgg, file.path(results_dir, "lesion_negative_hgg.tsv"))
 

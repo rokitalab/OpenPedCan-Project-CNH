@@ -1,3 +1,17 @@
+#' The subtype used to decide which tumors an annotation applies to
+#'
+#' A manually reviewed subtype (`annotation_subtype`, from
+#' input/manual_subtype_review.tsv) wins over the automated one, so reviewed
+#' tumors (e.g. an EGFR-altered DMG the automated call labelled HGG) get the DMG
+#' annotations.
+annotation_subtype <- function(df) {
+  if ("annotation_subtype" %in% names(df)) {
+    coalesce(df$annotation_subtype, df$OPC_molecular_subtype)
+  } else {
+    df$OPC_molecular_subtype
+  }
+}
+
 #' Gene mutation status as an annotation (not part of the subtype)
 #'
 #' For each gene in `annotation_genes`, adds `<gene>_mutation_status` (gene in
@@ -22,7 +36,7 @@
 annotate_genes <- function(df, annotation_genes, snv, dna_ids, cnv_segments) {
   for (i in seq_len(nrow(annotation_genes))) {
     gene <- annotation_genes$gene[i]
-    applies <- str_detect(df$OPC_molecular_subtype,
+    applies <- str_detect(annotation_subtype(df),
                           annotation_genes$applies_to_subtype_regex[i])
 
     variants <- snv %>%
@@ -106,7 +120,7 @@ annotate_expression <- function(df, expression_annotations, expression_long,
                                 rna_ids) {
   for (i in seq_len(nrow(expression_annotations))) {
     gene <- expression_annotations$gene[i]
-    applies <- str_detect(df$OPC_molecular_subtype,
+    applies <- str_detect(annotation_subtype(df),
                           expression_annotations$applies_to_subtype_regex[i])
 
     per_tumor <- expression_long %>%
@@ -142,7 +156,7 @@ annotate_expression <- function(df, expression_annotations, expression_long,
 #' @param h3_mutated Logical vector, TRUE when an H3 K27M/I variant was found.
 #' @param has_dna,has_rna Logical vectors, TRUE when the tumor has the assay.
 add_h3k27_mechanism <- function(df, h3_mutated, has_dna, has_rna) {
-  is_dmg <- str_detect(df$OPC_molecular_subtype, "^DMG")
+  is_dmg <- str_detect(annotation_subtype(df), "^DMG")
   found <- cbind(
     "H3 K27M/I" = h3_mutated %in% TRUE,
     "EGFR alteration" = df$egfr_activating_alteration %in% TRUE,
@@ -171,7 +185,7 @@ add_h3k27_mechanism <- function(df, h3_mutated, has_dna, has_rna) {
 #' @return `h3_status` (mutant, wildtype, or not assessed) and `h3_variant`.
 add_h3_status <- function(df, h3_hits, dna_ids,
                           applies_regex = "^(HGG|DMG|DHG)") {
-  applies <- str_detect(df$OPC_molecular_subtype, applies_regex)
+  applies <- str_detect(annotation_subtype(df), applies_regex)
   variants <- h3_hits %>%
     group_by(match_id) %>%
     summarise(h3_variant = paste(sort(unique(evidence)), collapse = "; "),
