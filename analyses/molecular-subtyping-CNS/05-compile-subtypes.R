@@ -215,6 +215,41 @@ compiled <- bind_rows(
          h3_group_conflict | h3_variant_conflict %in% TRUE |
          mb_concordance %in% "discordant" | !is.na(lesion_contradiction))
   ) %>%
+  # the lesions that confirm the subtype, from the rule that matched (lesion_evidence),
+  # the H3 variant for H3-defined DMG / DHG, and the EGFR alteration for EGFR labels
+  mutate(
+    # EGFR evidence for EGFR labels, per tumor
+    egfr_variant_text = str_replace_all(egfr_activating_variants,
+                                        "(p\\.[^;]+)", "EGFR \\1"),
+    egfr_evidence = case_when(
+      !str_detect(replace_na(molecular_subtype_cns, ""), "EGFR") ~ NA_character_,
+      !is.na(egfr_variant_text) & egfr_amplification %in% "amplified" ~
+        paste(egfr_variant_text, "EGFR amplification", sep = "; "),
+      !is.na(egfr_variant_text) ~ egfr_variant_text,
+      egfr_amplification %in% "amplified" ~ "EGFR amplification",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  mutate(
+    subtype_lesions_confirmed = pmap_chr(
+      list(
+        if_else(lesion_status %in% "confirmed" |
+                  subtype_source %in% c("lesion fallback", "lesion overrides methylation"),
+                lesion_evidence, NA_character_),
+        if_else(h3_status %in% "mutant" & str_detect(replace_na(molecular_subtype_cns, ""),
+                                                     "-mutant"), h3_variant, NA_character_),
+        egfr_evidence,
+        if_else(subtype_source %in% "SMARCB1 focal loss", "SMARCB1 focal loss",
+                NA_character_)
+      ),
+      function(...) {
+        x <- unlist(strsplit(na.omit(c(...)), "; ", fixed = TRUE))
+        x <- unique(x[x != ""])
+        if (length(x) == 0) NA_character_ else paste(sort(x), collapse = "; ")
+      }
+    ),
+    lesion_confirmed = !is.na(subtype_lesions_confirmed)
+  ) %>%
   # provenance for the release file (a fresh vocabulary, not the legacy Notes
   # strings, since the subtypes are being redone); subtype_review_flag is a
   # short coded reason
@@ -253,7 +288,7 @@ compiled <- bind_rows(
   ) %>%
   select(match_id, Kids_First_Participant_ID, sample_id,
          molecular_subtype_cns, subtype_group, lesion_refinement, subtype_source,
-         subtype_review_flag, Notes,
+         subtype_lesions_confirmed, lesion_confirmed, subtype_review_flag, Notes,
          automated_subtype, manual_conflict, manual_source, manual_note,
          evidence_level, lesion_status, lesion_evidence, lesion_contradiction,
          methyl_class,

@@ -59,13 +59,16 @@ annotate_genes <- function(df, annotation_genes, snv, dna_ids, cnv_segments) {
       TRUE ~ "no DNA assay"
     )
     # variants matching the gene's activating pattern
-    activating <- snv %>%
+    activating_calls <- snv %>%
       filter(Hugo_Symbol == gene,
              str_detect(HGVSp_Short, annotation_genes$alteration_pattern[i])) %>%
       inner_join(dna_ids, by = c("Kids_First_Biospecimen_ID" = "id"),
                  relationship = "many-to-many") %>%
-      pull(match_id) %>%
-      unique()
+      group_by(match_id) %>%
+      summarise(activating_variants = paste(sort(unique(HGVSp_Short)),
+                                            collapse = "; "),
+                .groups = "drop")
+    activating <- activating_calls$match_id
 
     # amplification from copy-number segments overlapping the gene
     amplified <- cnv_segments %>%
@@ -93,6 +96,11 @@ annotate_genes <- function(df, annotation_genes, snv, dna_ids, cnv_segments) {
       !applies ~ NA,
       df$match_id %in% c(activating, amplified) ~ TRUE,
       TRUE ~ FALSE
+    )
+    df[[paste0(tolower(gene), "_activating_variants")]] <- if_else(
+      applies,
+      activating_calls$activating_variants[match(df$match_id, activating_calls$match_id)],
+      NA_character_
     )
     df[[paste0(tolower(gene), "_mutation_status")]] <- status
     df[[paste0(tolower(gene), "_variants")]] <- if_else(
