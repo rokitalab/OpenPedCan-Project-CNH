@@ -12,11 +12,16 @@ from anywhere: the shell scripts change to their own directory, and
 | [`download-methyl-testing.sh`](download-methyl-testing.sh) | Downloads the methylation test IDATs and manifest used by CI into `data/methyl_testing/` | `TESTING_DIR` |
 | [`generate-analysis-files.sh`](generate-analysis-files.sh) | Runs the pre-release analysis modules (copy number consensus, independent samples, fusion filtering, fusion summary, TMB, GSEA, TP53 score) and collects their outputs | `RUN_LOCAL=1` skips the time-intensive steps. Step 3 of the data release process in the root README |
 | [`run-for-subtyping.sh`](run-for-subtyping.sh) | Runs the molecular subtyping modules, then `molecular-subtyping-pathology` and `molecular-subtyping-integrate`, and the independent sample list | Step 4 of the data release process. Still runs the legacy per-tumor-type modules |
-| [`generate-mtp-tables.sh`](generate-mtp-tables.sh) | Runs the fusion, SNV, CNV and TPM frequency modules and copies the Open Targets (MTP) tables to the release folder | Needs the AWS CLI to upload |
 | [`make-parquet.R`](make-parquet.R) | Writes parquet copies of the large release tables to `data/<release>/parquet/` | See below |
 | [`download-parquet.sh`](download-parquet.sh) | Downloads the parquet copies (all, or the tables named as arguments), checks `md5sum-parquet.txt` and links them in `data/parquet/` | `OPENPEDCAN_RELEASE` (default `v15`) and `OPENPEDCAN_URL`. The files are not in `md5sum.txt`, so `download-data.sh` does not fetch them |
 | [`run_in_ci.sh`](run_in_ci.sh) | Builds the Docker image and runs a command inside it, as CI does | Passes the `OPENPBTA_*` environment variables |
 | [`check-python.sh`](check-python.sh) | Checks that the Python packages in the image match `requirements.txt` | Run from CI |
+
+### Archived scripts
+
+[`archive/`](archive/) holds scripts that are no longer part of the release process and are kept for reference:
+
+- [`archive/generate-mtp-tables.sh`](archive/generate-mtp-tables.sh) ran the fusion, SNV, CNV and TPM frequency modules and copied the Open Targets (MTP) tables to the release folder (last used for v12; the paths were adjusted for its new location).
 
 ### Parquet copies of the release tables
 

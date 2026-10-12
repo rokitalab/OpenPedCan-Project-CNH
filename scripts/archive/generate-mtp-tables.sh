@@ -20,14 +20,14 @@ SCRIPT_DIR="$(perl -e 'use File::Basename;
 cd "$SCRIPT_DIR" || exit
 
 # Set directories for modules that generate mtp tables
-FUSION_MODULE_DIR=$SCRIPT_DIR/../analyses/fusion-frequencies
-SNV_MODULE_DIR=$SCRIPT_DIR/../analyses/snv-frequencies
-CNV_MODULE_DIR=$SCRIPT_DIR/../analyses/cnv-frequencies
-TPM_MODULE_DIR=$SCRIPT_DIR/../analyses/rna-seq-expression-summary-stats
+FUSION_MODULE_DIR=$SCRIPT_DIR/../../analyses/fusion-frequencies
+SNV_MODULE_DIR=$SCRIPT_DIR/../../analyses/snv-frequencies
+CNV_MODULE_DIR=$SCRIPT_DIR/../../analyses/cnv-frequencies
+TPM_MODULE_DIR=$SCRIPT_DIR/../../analyses/rna-seq-expression-summary-stats
 
 # Compile all the files that need to be included in the release in one place
 # in the scratch directory
-SCRATCH_DIR=$SCRIPT_DIR/../scratch
+SCRATCH_DIR=$SCRIPT_DIR/../../scratch
 RELEASE_DIR="$SCRATCH_DIR/$MTP_DIR"
 mkdir -p $RELEASE_DIR 
 
