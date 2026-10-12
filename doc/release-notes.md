@@ -12,7 +12,7 @@
         - tcga_gene-expression-rsem-tpm-collapsed.rds  
     - Files added:
         - tcga_gene-counts-rsem-expected_count-collapsed.rds
-    - Parquet copies (experimental), added to the release after the initial release in a `parquet/` folder (`v15/parquet/`):
+    - Parquet copies (experimental), added to the v15 release on 2026-10-12 in a `parquet/` folder (`v15/parquet/`):
         - These are generated from the release files above with [`scripts/make-parquet.R`](../scripts/make-parquet.R) so that large tables can be queried (duckdb, duckplyr, arrow) without reading the whole TSV or RDS file. The TSV and RDS files remain the source of truth.
         - They are not listed in `md5sum.txt`, so `download-data.sh` does not download them. Use `bash scripts/download-parquet.sh`, which checks `md5sum-parquet.txt` and links the files in `data/parquet/`. `manifest.tsv` lists the tables, row counts and source files.
         - Tables: `snv-consensus-plus-hotspots`, `snv-mutect2-tumor-only-plus-hotspots`, `consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only`, `consensus_seg_with_status`, `cnvkit_with_status`, `fusion-annoFuse`, `fusion-arriba`, `fusion-starfusion`, `fusion-dgd`, `fusion-putative-oncogenic`, `sv-manta`, `gene-expression-rsem-tpm-collapsed` and `gene-counts-rsem-expected_count-collapsed` (genes by biospecimen, one column per biospecimen).
@@ -117,6 +117,22 @@ v15
 ├── onco1500-v4-targets-ucsc.100bp_padded.bed
 ├── onco1500-v6-targets-ucsc.100bp_padded.bed
 ├── onco1500-v6a-targets-ucsc.100bp_padded.bed
+├── parquet
+│   ├── cnvkit_with_status.parquet
+│   ├── consensus_seg_with_status.parquet
+│   ├── consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only.parquet
+│   ├── fusion-annoFuse.parquet
+│   ├── fusion-arriba.parquet
+│   ├── fusion-dgd.parquet
+│   ├── fusion-putative-oncogenic.parquet
+│   ├── fusion-starfusion.parquet
+│   ├── gene-counts-rsem-expected_count-collapsed.parquet
+│   ├── gene-expression-rsem-tpm-collapsed.parquet
+│   ├── manifest.tsv
+│   ├── md5sum-parquet.txt
+│   ├── snv-consensus-plus-hotspots.parquet
+│   ├── snv-mutect2-tumor-only-plus-hotspots.parquet
+│   └── sv-manta.parquet
 ├── release-notes.md
 ├── rna-dna-qc-stats.tsv
 ├── rna-isoform-expression-rsem-tpm.rds
