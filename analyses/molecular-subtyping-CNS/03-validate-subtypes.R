@@ -382,6 +382,7 @@ fallback <- fallback %>%
   annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
   annotate_expression(expression_annotations, expression_long, rna_ids) %>%
   add_h3_status(h3_hits, dna_ids) %>%
+  relabel_egfr_only() %>%
   # fallback DMG tumors are subtyped from the H3 K27M/I variant itself
   add_h3k27_mechanism(h3_mutated = TRUE,
                       has_dna = .$match_id %in% dna_ids$match_id,

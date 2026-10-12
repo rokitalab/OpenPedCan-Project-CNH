@@ -184,17 +184,22 @@ add_h3_status <- function(df, h3_hits, dna_ids,
   df
 }
 
-#' EGFR-altered DMG without an H3 variant
+#' EGFR in DMG labels
 #'
-#' A DMG that is only supported by methylation or the diagnosis ("DMG, H3 K28"),
-#' has a DNA assay with no H3 variant, and has an EGFR activating alteration is
-#' H3 K28-altered through EGFR. The free-text diagnosis can say "K27M mutant"
-#' without a variant being found, so the EGFR lesion is used instead.
+#' - A DMG supported only by methylation or the diagnosis ("DMG, H3 K28"), with
+#'   a DNA assay, an EGFR activating alteration and no H3 variant, is H3
+#'   K28-altered through EGFR. The free-text diagnosis can say "K27M mutant"
+#'   without a variant being found, so the EGFR lesion is used instead.
+#' - A DMG with a confirmed H3 variant ("DMG, H3 K28-mutant") that also has an
+#'   EGFR activating alteration carries both labels.
 relabel_egfr_only <- function(df) {
   df %>%
-    mutate(OPC_molecular_subtype = if_else(
+    mutate(OPC_molecular_subtype = case_when(
       OPC_molecular_subtype == "DMG, H3 K28" &
-        egfr_activating_alteration %in% TRUE & h3_status %in% "wildtype",
-      "DMG, H3 K28-altered, EGFR", OPC_molecular_subtype
+        egfr_activating_alteration %in% TRUE & h3_status %in% "wildtype" ~
+        "DMG, H3 K28-altered, EGFR",
+      OPC_molecular_subtype == "DMG, H3 K28-mutant" &
+        egfr_activating_alteration %in% TRUE ~ "DMG, H3 K28-mutant, EGFR",
+      TRUE ~ OPC_molecular_subtype
     ))
 }
