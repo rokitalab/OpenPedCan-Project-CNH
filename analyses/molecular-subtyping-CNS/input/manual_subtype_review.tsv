@@ -8,3 +8,4 @@ sample_id	molecular_subtype	source	note
 7316-7514	CRANIO, ADAM	pathology report	Reported as adamantinomatous type. Methylation called CPH_PAP (NIH v3.1 0.91, DKFZ v12.8 0.50) with CTNNB1 p.D32N; no BRAF V600E.
 7316-323	CRANIO, ADAM	pathology report	Reported as adamantinomatous type. Methylation called CPH_PAP (DKFZ v12.8 0.81, NIH v3.1 0.98) with CTNNB1 p.S33F; no BRAF V600E.
 7316-4551	CRANIO, ADAM	pathology report	Reported as adamantinomatous type. Methylation called CPH_PAP (DKFZ v12.8 0.84, NIH v3.1 0.98) with CTNNB1 p.Q27_D32delinsH; no BRAF V600E.
+7316-9049	DMG, H3 K28-altered, EGFR	pathology report	Pathology: diffuse midline glioma H3 K27M-altered, grade 4, thalamus; EGFR c.2300_2308dup p.Ala767_Val769dup (exon 20 in-frame duplication, p.A767_V769dup in WGS and targeted panel). No H3 or IDH variant in DNA; no methylation array. Legacy override was DMG, H3 K28.
