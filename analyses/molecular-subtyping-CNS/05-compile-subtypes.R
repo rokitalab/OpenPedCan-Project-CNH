@@ -43,6 +43,15 @@ smarcb1 <- read_tsv(
     .groups = "drop"
   )
 
+# manual review (input/manual_subtype_review.tsv): a subtype set by a pathology
+# report or clinical review. It has the highest precedence; the automated call is
+# kept in automated_subtype and disagreements with it are flagged.
+manual_review <- read_tsv(file.path(module_dir, "input", "manual_subtype_review.tsv"),
+                          show_col_types = FALSE) %>%
+  transmute(sample_id, manual_subtype = molecular_subtype,
+            manual_source = source, manual_note = note)
+stopifnot(!anyDuplicated(manual_review$sample_id))
+
 # umbrella groups for subtypes (input/subtype_groups.tsv)
 subtype_groups <- read_tsv(file.path(module_dir, "input", "subtype_groups.tsv"),
                            show_col_types = FALSE)
@@ -157,6 +166,16 @@ compiled <- bind_rows(
     ),
     methyl_conflict = replace_na(methyl_conflict, FALSE)
   ) %>%
+  # manual review overrides the automated subtype
+  left_join(manual_review, by = "sample_id") %>%
+  mutate(
+    automated_subtype = molecular_subtype_cns,
+    manual_conflict = !is.na(manual_subtype) & !is.na(automated_subtype) &
+      manual_subtype != automated_subtype,
+    subtype_source = if_else(!is.na(manual_subtype), "manual review", subtype_source),
+    evidence_level = if_else(!is.na(manual_subtype), "manual review", evidence_level),
+    molecular_subtype_cns = coalesce(manual_subtype, molecular_subtype_cns)
+  ) %>%
   # umbrella group (e.g. the pediatric H3-wildtype HGG classes), unless an H3
   # variant was found, which contradicts the wildtype grouping
   mutate(subtype_group = map_chr(molecular_subtype_cns, umbrella_group)) %>%
@@ -167,12 +186,14 @@ compiled <- bind_rows(
       !is.na(subtype_group) ~ subtype_group,
       TRUE ~ molecular_subtype_cns
     ),
-    needs_review = dx_concordance %in% "discordant" | methyl_conflict |
-      h3_group_conflict | h3_variant_conflict %in% TRUE |
-      mb_concordance %in% "discordant" | !is.na(lesion_contradiction)
+    needs_review = is.na(manual_subtype) &
+      (dx_concordance %in% "discordant" | methyl_conflict |
+         h3_group_conflict | h3_variant_conflict %in% TRUE |
+         mb_concordance %in% "discordant" | !is.na(lesion_contradiction))
   ) %>%
   select(match_id, Kids_First_Participant_ID, sample_id,
          molecular_subtype_cns, subtype_group, lesion_refinement, subtype_source,
+         automated_subtype, manual_conflict, manual_source, manual_note,
          evidence_level, lesion_status, lesion_evidence, lesion_contradiction,
          methyl_class,
          mb_expression_group, mb_concordance, mb_shh_subtype,

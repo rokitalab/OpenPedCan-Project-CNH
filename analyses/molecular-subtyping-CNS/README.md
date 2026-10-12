@@ -69,6 +69,10 @@ Methylation sets the group (`MB, WNT`, `MB, SHH`, `MB, Group3`, `MB, Group4`), a
 
 The expression classifier and SHH subtyping stay in `molecular-subtyping-MB`; this module reads their results.
 
+### Manual review
+
+`input/manual_subtype_review.tsv` holds subtypes set by a pathology report or clinical review, keyed on `sample_id`. They have the highest precedence (`subtype_source = manual review`). The automated call stays in `automated_subtype`, `manual_conflict` is TRUE when it differs from the reviewed subtype, and a reviewed tumor is no longer listed as needing review.
+
 ### Craniopharyngioma and chordoma
 
 - **CRANIO:** methylation (`CPH_ADM`, `CPH_PAP`) sets `CRANIO, ADAM` or `CRANIO, PAP`. A CTNNB1 exon 3 hotspot (or in-frame deletion) confirms ADAM and BRAF V600E confirms PAP. Both are *definitive* lesions: a methylation subtype contradicted by a definitive lesion of another subtype in the same family is flagged (`lesion_contradiction`, shown in `subtypes_for_review.tsv`), and the methylation call is kept, unless it is also weak (NIH-only, or a DKFZ score below 0.85): then it is set aside (`results/methylation_downgraded.tsv`) and the tumor is subtyped by the lesion fallback. Tumors with no methylation are subtyped from the lesion only when the diagnosis supports it (`fallback_requires_dx`), since CTNNB1 and BRAF V600E occur in many other tumors.

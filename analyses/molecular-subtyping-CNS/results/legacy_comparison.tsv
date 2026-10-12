@@ -3164,7 +3164,7 @@ PT_NPETR8RY_7316-160_Solid Tissue_Initial CNS Tumor	EPN, PF A	EPN	EPN, PF A	meth
 PT_NPETR8RY_7316-1784_Solid Tissue_Recurrence	EPN, PF A	EPN	EPN, PF A	methylation	NA	TRUE	same
 PT_NPHZQW6A_7316-1985_Solid Tissue_Initial CNS Tumor	GNG, KIAA1549-BRAF	GNG	GNG, KIAA1549-BRAF	LGG lesion	GNG, KIAA1549-BRAF	TRUE	same
 PT_NPPBNRVV_7316-1943_Solid Tissue_Initial CNS Tumor	LGG, RTK	LGG	LGG, BRAF/MAPK	methylation	LGG, RTK	TRUE	same (lesion refinement)
-PT_NQX618CD_7316-9042_Solid Tissue_Progressive	CRANIO, ADAM	CRANIO	CRANIO, PAP	methylation	NA	TRUE	different
+PT_NQX618CD_7316-9042_Solid Tissue_Progressive	CRANIO, ADAM	CRANIO	CRANIO, ADAM	manual review	NA	TRUE	same
 PT_NRSVBKV2_7316-3371_Solid Tissue_Recurrence	HGG, To be classified	HGG	HGG, MYCN	methylation	NA	FALSE	newly assigned
 PT_NS7A3YXQ_7316-7581_Solid Tissue_Deceased	HGG, To be classified	HGG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_NSN14GB6_7316-3320_Solid Tissue_Progressive	LGG, To be classified	LGG	NA	NA	NA	FALSE	legacy only (unassigned)
