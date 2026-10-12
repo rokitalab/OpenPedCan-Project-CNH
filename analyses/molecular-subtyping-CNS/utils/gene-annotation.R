@@ -121,7 +121,9 @@ annotate_genes <- function(df, annotation_genes, snv, dna_ids, cnv_segments) {
 #' `applies_to_subtype_regex`.
 #'
 #' @param df Table with match_id and OPC_molecular_subtype.
-#' @param expression_annotations gene, applies_to_subtype_regex, z_threshold.
+#' @param expression_annotations gene, applies_to_subtype_regex, z_threshold and
+#'   optionally exclude_library_groups (";" separated library groups the gene
+#'   cannot be called in).
 #' @param expression_long gene, Kids_First_Biospecimen_ID, tpm and z.
 #' @param rna_ids Table with match_id and the RNA biospecimen `id`.
 annotate_expression <- function(df, expression_annotations, expression_long,
@@ -131,13 +133,29 @@ annotate_expression <- function(df, expression_annotations, expression_long,
     applies <- str_detect(annotation_subtype(df),
                           expression_annotations$applies_to_subtype_regex[i])
 
-    per_tumor <- expression_long %>%
+    # RNA library groups the gene cannot be called in (exclude_library_groups,
+    # ";" separated): a tumor with only those libraries is not assessable
+    excluded <- if ("exclude_library_groups" %in% names(expression_annotations)) {
+      str_split(replace_na(expression_annotations$exclude_library_groups[i], ""),
+                ";")[[1]] %>% str_trim() %>% setdiff("")
+    } else {
+      character()
+    }
+
+    rows <- expression_long %>%
       filter(gene == !!gene) %>%
       inner_join(rna_ids, by = c("Kids_First_Biospecimen_ID" = "id"),
-                 relationship = "many-to-many") %>%
+                 relationship = "many-to-many")
+    per_tumor <- rows %>%
       group_by(match_id) %>%
-      summarise(tpm = max(tpm, na.rm = TRUE), z = max(z, na.rm = TRUE),
-                .groups = "drop")
+      summarise(tpm = max(tpm, na.rm = TRUE),
+                z = suppressWarnings(max(z[!library_group %in% excluded],
+                                         na.rm = TRUE)),
+                .groups = "drop") %>%
+      mutate(z = if_else(is.finite(z), z, NA_real_))
+    not_assessable <- per_tumor$match_id[is.na(per_tumor$z) & length(excluded) > 0 &
+                                           per_tumor$match_id %in%
+                                           rows$match_id[rows$library_group %in% excluded]]
 
     idx <- match(df$match_id, per_tumor$match_id)
     value_z <- per_tumor$z[idx]
@@ -145,6 +163,8 @@ annotate_expression <- function(df, expression_annotations, expression_long,
     df[[paste0(tolower(gene), "_z")]] <- if_else(applies, round(value_z, 2), NA_real_)
     df[[paste0(tolower(gene), "_expression_status")]] <- case_when(
       !applies ~ NA_character_,
+      is.na(value_z) & df$match_id %in% not_assessable ~
+        paste0("not assessable (", paste(excluded, collapse = ", "), " library)"),
       is.na(value_z) ~ "no RNA assay",
       value_z >= expression_annotations$z_threshold[i] ~ "overexpressed",
       TRUE ~ "not overexpressed"
@@ -176,6 +196,9 @@ add_h3k27_mechanism <- function(df, h3_mutated, has_dna, has_rna) {
   df$h3k27_altered_mechanism <- case_when(
     !is_dmg ~ NA_character_,
     !is.na(mech) ~ mech,
+    has_dna & has_rna &
+      str_detect(replace_na(df$ezhip_expression_status, ""), "^not assessable") ~
+      "none detected (EZHIP not assessable in an exome capture library)",
     has_dna & has_rna ~ "none detected",
     has_dna ~ "none detected (no RNA assay for EZHIP)",
     has_rna ~ "none detected (no DNA assay)",

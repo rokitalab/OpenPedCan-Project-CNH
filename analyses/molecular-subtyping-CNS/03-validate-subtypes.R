@@ -501,7 +501,13 @@ h3_variant_review <- h3_hits %>%
   group_by(match_id) %>%
   summarise(h3_variant = paste(sort(unique(evidence)), collapse = "; "),
             .groups = "drop") %>%
-  left_join(distinct(validated, match_id, methylation_subtype = OPC_molecular_subtype),
+  # a tumor with several arrays can carry more than one class; it is outside
+  # DMG/DHG only when none of them is a DMG/DHG subtype
+  left_join(validated %>%
+              group_by(match_id) %>%
+              summarise(methylation_subtype = paste(sort(unique(OPC_molecular_subtype)),
+                                                    collapse = ";"),
+                        .groups = "drop"),
             by = "match_id") %>%
   left_join(select(fallback, match_id, fallback_subtype = OPC_molecular_subtype,
                    fallback_assigned = assign),
@@ -518,7 +524,11 @@ h3_variant_review <- h3_hits %>%
   mutate(
     reason = case_when(
       fallback_assigned %in% TRUE ~ NA_character_,
-      !is.na(methylation_subtype) & !str_detect(methylation_subtype, "^(DMG|DHG)") ~
+      # a DMG / DHG subtype was assigned (e.g. by the control exception)
+      !is.na(methylation_subtype) &
+        str_detect(methylation_subtype, "(^|;)(DMG|DHG)") ~ NA_character_,
+      !is.na(methylation_subtype) &
+        !str_detect(methylation_subtype, "(^|;)(DMG|DHG)") ~
         "methylation subtype is not DMG/DHG",
       methyl_control %in% TRUE ~
         "methylation is a control / low-purity call, so the lesion fallback is not applied",

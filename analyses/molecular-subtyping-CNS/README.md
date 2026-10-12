@@ -155,6 +155,10 @@ LIN28A overexpression is the z-score within RNA library type, z >= 3 (the embryo
 
 Parity with `molecular-subtyping-LGAT/results/lgat_subtyping.tsv`: of 617 tumors with a lesion-level label in both, 616 are identical. The differences are one extra NF1-germline call (the predisposition sits on another biospecimen of the same tumor) and two IDH calls that the LGAT module made without a complete DNA/RNA pair. The fusion summary file, synonymous-variant removal and component order follow the LGAT module. Computed with `fusion_summary_lgg_hgg_foi.tsv` and the consensus gene-level copy number, as there.
 
+### Expression annotations
+
+`input/expression_annotations.tsv` lists genes called as overexpressed (z-score of log2(TPM+1) within RNA library type, against PBTA tumor RNA-seq, at or above `z_threshold`): `EZHIP` for `^DMG` and `LIN28A` for `^(ETMR|CNS Embryonal)`. `exclude_library_groups` names library types in which a gene cannot be called: EZHIP is not assessable in exome-capture libraries (46 tumors get `ezhip_expression_status = not assessable (exome capture library)` and `h3k27_altered_mechanism` says so). Exome capture reads about 2.2 TPM for EZHIP in every tumor type, 0 of 150 reference tumors reach z >= 3 and there is one PF-A positive control, so a threshold cannot be calibrated. LIN28A is called in every library type.
+
 ### Gene annotations
 
 `input/annotation_genes.tsv` lists genes whose status is reported as an annotation for the subtypes matching `applies_to_subtype_regex` (currently `EGFR` for `^DMG`). Each gets lowercase columns `<gene>_mutation_status` (`mutated`, `not detected`, `no DNA assay`) with `<gene>_variants` (any coding variant), `<gene>_amplification` (a copy-number segment overlapping the gene above twice the ploidy, the `focal-cn-file-preparation` convention; `no CNV data` when there is no segment file), and `<gene>_activating_alteration` (a variant matching `alteration_pattern`, or amplification).
