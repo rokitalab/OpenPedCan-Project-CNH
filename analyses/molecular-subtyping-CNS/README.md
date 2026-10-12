@@ -128,7 +128,7 @@ Not yet sourced: the PB, ATRT, ETMR, EPN and MB lesion rules (SMARCB1, DICER1, C
 
 ### Release columns
 
-`05-compile-subtypes.R` writes, for the integrate step to add to `histologies.tsv`: `molecular_subtype_cns`, `subtype_source`, `subtype_review_flag` (a short coded reason, or blank) and `Notes`. `Notes` reuses the vocabulary of the existing `Notes` column (for example `Subtype based on methylation;Updated via OpenPedCan subtyping`) and adds `Subtype based on lesion`, `Subtype based on lesion, overriding methylation` and `Updated by manual review of pathology report`. Free-text reviewer notes and report excerpts stay in `input/manual_subtype_review.tsv` and are not meant for the release.
+`05-compile-subtypes.R` writes, for the integrate step to add to `histologies.tsv`: `molecular_subtype_cns`, `subtype_source`, `subtype_review_flag` (a short coded reason, or blank) and `Notes`. `Notes` is generated from `subtype_source` with a new vocabulary (the legacy strings are not reused, since all subtypes are being redone): `Subtype from methylation`, `Subtype from lesion`, `Subtype from lesion, overriding methylation`, `Subtype by exclusion, no H3 or IDH variant`, `Subtype from expression classifier`, `Subtype from pathology free text diagnosis` and `Subtype from manual review of pathology report`. Free-text reviewer notes and report excerpts stay in `input/manual_subtype_review.tsv` and are not meant for the release.
 
 ### Decisions
 

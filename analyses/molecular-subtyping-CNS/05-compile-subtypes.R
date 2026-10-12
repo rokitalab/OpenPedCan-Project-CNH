@@ -215,8 +215,9 @@ compiled <- bind_rows(
          h3_group_conflict | h3_variant_conflict %in% TRUE |
          mb_concordance %in% "discordant" | !is.na(lesion_contradiction))
   ) %>%
-  # provenance for the release file, in the vocabulary of the existing Notes
-  # column (see DECISIONS.md); subtype_review_flag is a short coded reason
+  # provenance for the release file (a fresh vocabulary, not the legacy Notes
+  # strings, since the subtypes are being redone); subtype_review_flag is a
+  # short coded reason
   mutate(
     subtype_review_flag = pmap_chr(
       list(is.na(manual_subtype) & dx_concordance %in% "discordant",
@@ -235,18 +236,18 @@ compiled <- bind_rows(
     ),
     Notes = case_when(
       subtype_source == "manual review" ~
-        "Updated by manual review of pathology report;Updated via OpenPedCan subtyping",
-      subtype_source == "methylation" ~
-        "Subtype based on methylation;Updated via OpenPedCan subtyping",
+        "Subtype from manual review of pathology report",
+      subtype_source == "methylation" ~ "Subtype from methylation",
       subtype_source == "lesion overrides methylation" ~
-        "Subtype based on lesion, overriding methylation;Updated via OpenPedCan subtyping",
-      subtype_source %in% c("lesion fallback", "LGG lesion", "lesion negative",
-                            "SMARCB1 focal loss") ~
-        "Subtype based on lesion;Updated via OpenPedCan subtyping",
+        "Subtype from lesion, overriding methylation",
+      subtype_source %in% c("lesion fallback", "LGG lesion", "SMARCB1 focal loss") ~
+        "Subtype from lesion",
+      subtype_source == "lesion negative" ~
+        "Subtype by exclusion, no H3 or IDH variant",
       subtype_source == "expression classifier" ~
-        "Subtype based on prediction;Updated via OpenPedCan subtyping",
+        "Subtype from expression classifier",
       subtype_source == "pathology free text" ~
-        "Updated via OpenPedCan subtyping and pathology_free_text_diagnosis",
+        "Subtype from pathology free text diagnosis",
       TRUE ~ NA_character_
     )
   ) %>%

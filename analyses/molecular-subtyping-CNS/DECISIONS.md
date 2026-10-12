@@ -17,7 +17,7 @@ Decisions made while building this module, with the evidence and where they live
 | `broad_histology` is not used as evidence | it is a manual lookup of `pathology_diagnosis` upstream, not independent | README |
 | **Low-confidence DKFZ calls are uninformative** and are not used as evidence against an NIH call | reviewer decision | applies to all `methyl_source` handling |
 
-| Provenance goes in the existing `Notes` column plus `subtype_source` and `subtype_review_flag`, not a new free-text column | 8,458 rows already carry a coded `Notes`; report wording and reviewer interpretation do not belong in a release file | `05` |
+| Provenance goes in `Notes` plus `subtype_source` and `subtype_review_flag`, with a fresh vocabulary (legacy `Notes` strings are not reused) | all subtypes are being redone, so old strings would be misleading; report wording and reviewer interpretation do not belong in a release file | `05` |
 
 ## Evidence and rules
 
