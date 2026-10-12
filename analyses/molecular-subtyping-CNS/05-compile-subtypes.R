@@ -215,8 +215,10 @@ compiled <- bind_rows(
          h3_group_conflict | h3_variant_conflict %in% TRUE |
          mb_concordance %in% "discordant" | !is.na(lesion_contradiction))
   ) %>%
-  # the lesions that confirm the subtype, from the rule that matched (lesion_evidence),
-  # the H3 variant for H3-defined DMG / DHG, and the EGFR alteration for EGFR labels
+  # the genomic and expression alterations that confirm the subtype: the rule
+  # evidence that matched (lesion_evidence), the H3 variant for -mutant labels,
+  # the EGFR alteration for EGFR labels, EZHIP overexpression for EZHIP labels, and
+  # the expression classifier for medulloblastoma
   mutate(
     # EGFR evidence for EGFR labels, per tumor
     egfr_variant_text = str_replace_all(egfr_activating_variants,
@@ -231,7 +233,7 @@ compiled <- bind_rows(
     )
   ) %>%
   mutate(
-    subtype_lesions_confirmed = pmap_chr(
+    subtype_alterations_confirmed = pmap_chr(
       list(
         if_else(lesion_status %in% "confirmed" |
                   subtype_source %in% c("lesion fallback", "lesion overrides methylation"),
@@ -239,6 +241,13 @@ compiled <- bind_rows(
         if_else(h3_status %in% "mutant" & str_detect(replace_na(molecular_subtype_cns, ""),
                                                      "-mutant"), h3_variant, NA_character_),
         egfr_evidence,
+        if_else(str_detect(replace_na(molecular_subtype_cns, ""), "EZHIP"),
+                "EZHIP overexpression", NA_character_),
+        # expression evidence for medulloblastoma: the expression classifier
+        # agrees with the methylation group
+        if_else(mb_concordance %in% "concordant",
+                paste0("expression classifier agrees (", mb_expression_group, ")"),
+                NA_character_),
         if_else(subtype_source %in% "SMARCB1 focal loss", "SMARCB1 focal loss",
                 NA_character_)
       ),
@@ -248,7 +257,7 @@ compiled <- bind_rows(
         if (length(x) == 0) NA_character_ else paste(sort(x), collapse = "; ")
       }
     ),
-    lesion_confirmed = !is.na(subtype_lesions_confirmed)
+    alteration_confirmed = !is.na(subtype_alterations_confirmed)
   ) %>%
   # provenance for the release file (a fresh vocabulary, not the legacy Notes
   # strings, since the subtypes are being redone); subtype_review_flag is a
@@ -288,7 +297,7 @@ compiled <- bind_rows(
   ) %>%
   select(match_id, Kids_First_Participant_ID, sample_id,
          molecular_subtype_cns, subtype_group, lesion_refinement, subtype_source,
-         subtype_lesions_confirmed, lesion_confirmed, subtype_review_flag, Notes,
+         subtype_alterations_confirmed, alteration_confirmed, subtype_review_flag, Notes,
          automated_subtype, manual_conflict, manual_source, manual_note,
          evidence_level, lesion_status, lesion_evidence, lesion_contradiction,
          methyl_class,
