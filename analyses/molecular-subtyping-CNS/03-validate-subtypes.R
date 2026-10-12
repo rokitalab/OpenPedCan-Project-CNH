@@ -108,17 +108,28 @@ expression_long <- read_tsv(
   file.path(scratch_dir, "expression_annotation_genes.tsv"),
   show_col_types = FALSE
 )
+# copy number segments: the WGS consensus, plus CNVkit segments for the
+# biospecimens the consensus does not cover (WXS tumors, and WGS tumors without
+# a consensus call), so EGFR amplification can be assessed for them too
 con <- connect_duckdb()
-cnv_segments <- dbGetQuery(con, sprintf(
-  "SELECT Kids_First_Biospecimen_ID, chrom,
-          TRY_CAST(\"loc.start\" AS DOUBLE) AS \"loc.start\",
-          TRY_CAST(\"loc.end\" AS DOUBLE) AS \"loc.end\",
-          TRY_CAST(\"copy.num\" AS DOUBLE) AS \"copy.num\",
-          TRY_CAST(tumor_ploidy AS DOUBLE) AS tumor_ploidy
-   FROM %s",
+segment_query <- function(source) {
+  sprintf(
+    "SELECT Kids_First_Biospecimen_ID, chrom,
+            TRY_CAST(\"loc.start\" AS DOUBLE) AS \"loc.start\",
+            TRY_CAST(\"loc.end\" AS DOUBLE) AS \"loc.end\",
+            TRY_CAST(\"copy.num\" AS DOUBLE) AS \"copy.num\",
+            TRY_CAST(tumor_ploidy AS DOUBLE) AS tumor_ploidy
+     FROM %s", source)
+}
+consensus_segments <- dbGetQuery(con, segment_query(
   release_source("consensus_seg_with_status", "consensus_seg_with_status.tsv",
                  root_dir))) %>%
   as_tibble()
+cnvkit_segments <- dbGetQuery(con, segment_query(
+  release_source("cnvkit_with_status", "cnvkit_with_status.tsv", root_dir))) %>%
+  as_tibble() %>%
+  filter(!Kids_First_Biospecimen_ID %in% consensus_segments$Kids_First_Biospecimen_ID)
+cnv_segments <- bind_rows(consensus_segments, cnvkit_segments)
 dbDisconnect(con, shutdown = TRUE)
 
 ### Lesion hits ----------------------------------------------------------------
