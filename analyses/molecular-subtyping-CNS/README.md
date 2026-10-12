@@ -12,6 +12,8 @@ Scripts run in numeric order: `01` builds the methylation calls, `02` prepares l
 
 `01-build-methylation-calls.R` reads the DKFZ v12.8 and NIH v3.1 calls from `input/bti_methylation_classifications.tsv`. Earlier classifier versions (DKFZ v11 and v12, NIH v2) in `data/histologies-base.tsv` are not used, so the 779 TARGET arrays and any array without a v12.8 / v3.1 classification have no call (`low_or_none`).
 
+NIH v3.1 subclass names that the crosswalk does not list (`MB G4 VII`, `PA ST`, `DNT`, `PA PF TYP` and so on) are mapped to the crosswalk row of the DKFZ v12.8 subclass they match in the arrays where both classifiers are high confidence (`input/nih_v3.1_class_aliases.tsv`, 19 classes, 93% to 100% agreement). `PA PF VAR` is not mapped (its DKFZ partner is split between `CTRL_CBM` and `PA_INF`).
+
 Each call is mapped to a single row of `input/mnp_v12.5_v12.8_NIHv2_v3.1_annotation_with_OPC_subtypes.xlsx` through normalized keys (case and `_` vs. space), so classifier-version renames (e.g., DKFZ `ANTCON` to `GTAKA`) resolve without hand-maintained aliases.
 
 ### Confidence rule

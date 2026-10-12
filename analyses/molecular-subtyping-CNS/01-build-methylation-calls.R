@@ -81,6 +81,23 @@ key_table <- crosswalk %>%
   filter(!is.na(key)) %>%
   distinct(key, crosswalk_row)
 
+# NIH v3.1 subclass names that the crosswalk does not list, mapped to the
+# crosswalk row of the DKFZ v12.8 subclass they match one to one in the arrays
+# where both classifiers are high confidence (input/nih_v3.1_class_aliases.tsv)
+nih_aliases <- read_tsv(file.path(input_dir, "nih_v3.1_class_aliases.tsv"),
+                        show_col_types = FALSE) %>%
+  mutate(alias_key = norm_key(`nih_v3.1_subclass`),
+         dkfz_key = norm_key(`dkfz_v12.8_subclass`))
+alias_keys <- nih_aliases %>%
+  left_join(key_table %>% rename(dkfz_key = key), by = "dkfz_key",
+            relationship = "many-to-many")
+stopifnot(!anyNA(alias_keys$crosswalk_row))
+key_table <- bind_rows(
+  key_table,
+  alias_keys %>% transmute(key = alias_key, crosswalk_row)
+) %>%
+  distinct(key, crosswalk_row)
+
 # classes seen in the classifier output that the crosswalk does not list yet get
 # a synthetic crosswalk row (input/extra_methylation_classes.tsv)
 extra_classes <- read_tsv(file.path(input_dir, "extra_methylation_classes.tsv"),

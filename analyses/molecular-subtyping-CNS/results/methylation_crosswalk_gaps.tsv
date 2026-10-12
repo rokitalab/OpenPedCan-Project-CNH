@@ -1,26 +1,7 @@
 source	call	gap_reason	n_high_conf_biospecimens
-nih_v3.1	PA PF TYP	class not in crosswalk	129
-nih_v3.1	EPN ST ZFTA RELA	class not in crosswalk	56
-nih_v3.1	MB G4 VII	class not in crosswalk	48
-nih_v3.1	MB G4 VIII	class not in crosswalk	41
-nih_v3.1	PA ST	class not in crosswalk	31
 nih_v3.1	PA PF VAR	class not in crosswalk	29
-nih_v3.1	DNT	class not in crosswalk	28
-nih_v3.1	MB G3 II	class not in crosswalk	24
-nih_v3.1	MB G3 III	class not in crosswalk	19
-nih_v3.1	MB G4 V	class not in crosswalk	18
-nih_v3.1	MB G3 IV	class not in crosswalk	12
-nih_v3.1	EPN MPE B	class not in crosswalk	9
-nih_v3.1	EPN MPE A	class not in crosswalk	7
-nih_v3.1	ETMR non-C19MC	class not in crosswalk	6
-nih_v3.1	PB GROUP 1A	class not in crosswalk	6
-nih_v3.1	MB G3 I	class not in crosswalk	4
-nih_v3.1	PB MYC/FOXR2	class not in crosswalk	4
 dkfz_v12.8	GCG	class not in crosswalk	3
 nih_v3.1	CSA CC	class not in crosswalk	3
-nih_v3.1	EPN ST YAP	class not in crosswalk	3
-nih_v3.1	MB G4 VI	class not in crosswalk	3
-nih_v3.1	PB GROUP 2	class not in crosswalk	3
 nih_v3.1	CSA IDH GROUP A	class not in crosswalk	1
 nih_v3.1	CSA MES	class not in crosswalk	1
 nih_v3.1	GNT KinF A	class not in crosswalk	1
