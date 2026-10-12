@@ -10,16 +10,13 @@ This module builds one resolved methylation call per biospecimen, which molecula
 
 Scripts run in numeric order: `01` builds the methylation calls, `02` prepares lesion tables, `03` validates and applies the lesion fallback, `04` computes the LGG lesion-level subtypes, `05` validates medulloblastoma, `06` compiles the final table (the last subtyping step), and `07` compares it with the legacy modules. Shared functions are in `utils/` (`lesion-hits.R`, `dx-concordance.R`, `tp53-annotation.R`, `gene-annotation.R`, and `duckdb-connect.R`, which opens duckdb with `shared_home = FALSE` where the installed version supports it). The scripts use duckdb and duckplyr from the project docker image (duckdb 1.5.6, duckplyr 1.2.1, dbplyr 2.6.0). With a duckplyr frame use `summarise(.by = ...)`, since `group_by()` then `summarise()` is not supported there.
 
-`01-build-methylation-calls.R` combines:
-
-- DKFZ v12.8 / NIH v3.1 calls from `input/bti_methylation_classifications.tsv`
-- DKFZ v12 / NIH v2 calls from `data/histologies-base.tsv`
+`01-build-methylation-calls.R` reads the DKFZ v12.8 and NIH v3.1 calls from `input/bti_methylation_classifications.tsv`. Earlier classifier versions (DKFZ v11 and v12, NIH v2) in `data/histologies-base.tsv` are not used, so the 779 TARGET arrays and any array without a v12.8 / v3.1 classification have no call (`low_or_none`).
 
 Each call is mapped to a single row of `input/mnp_v12.5_v12.8_NIHv2_v3.1_annotation_with_OPC_subtypes.xlsx` through normalized keys (case and `_` vs. space), so classifier-version renames (e.g., DKFZ `ANTCON` to `GTAKA`) resolve without hand-maintained aliases.
 
 ### Confidence rule
 
-A call is high confidence if the DKFZ subclass score is >= 0.8, or the NIH superfamily and class scores are both >= 0.9. This is the same rule used in `molecular-subtyping-Rare-CNS`. Precedence among passing calls is DKFZ v12.8, NIH v3.1, DKFZ v12, NIH v2; only calls that resolve to a crosswalk row can set the subtype.
+A call is high confidence if the DKFZ subclass score is >= 0.8, or the NIH superfamily and class scores are both >= 0.9. This is the same rule used in `molecular-subtyping-Rare-CNS`. Precedence among passing calls is DKFZ v12.8, then NIH v3.1; only calls that resolve to a crosswalk row can set the subtype.
 
 ### Subtype additions
 

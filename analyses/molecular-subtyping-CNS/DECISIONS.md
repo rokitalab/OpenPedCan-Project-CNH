@@ -23,7 +23,7 @@ Decisions made while building this module, with the evidence and where they live
 
 | Decision | Reason / evidence | Where |
 |---|---|---|
-| High-confidence methylation: DKFZ subclass >= 0.8, else NIH superfamily and class >= 0.9; precedence DKFZ v12.8, NIH v3.1, DKFZ v12, NIH v2 | same rule as Rare CNS | `01` |
+| High-confidence methylation: DKFZ subclass >= 0.8, else NIH superfamily and class >= 0.9; precedence DKFZ v12.8, then NIH v3.1. **Earlier classifier versions (DKFZ v11 / v12, NIH v2) are not used**; classifier scores below 0.75 are not considered as evidence in review tables | same threshold rule as Rare CNS; reviewer decision (2026-10-12). 41 arrays lost a call and 20 tumors changed (12 became unsubtyped, the rest take a lesion fallback or the lesion-negative HGG label) | `01` |
 | Lesions confirm methylation; they never override it, **except in craniopharyngioma** | CTNNB1 exon 3 and BRAF V600E are mutually exclusive; 11 methylation-PAP calls all had CTNNB1 and no BRAF V600E; 9 had pathology reports saying adamantinomatous, 2 (7316-3070, 7316-6396) say "craniopharyngioma" only, none contradicted | `lesion_overrides_methylation` rules |
 | NIH v3.1 is not better than DKFZ for craniopharyngioma | among 65 CTNNB1-mutant tumors: DKFZ 73% correct (8 wrong), NIH 73% (11 wrong, same 8 plus 3); NIH scores on the errors were higher | analysis, not code |
 | A contradicted and weak (NIH-only, or DKFZ < 0.85) call is set aside | strong contradicted calls are kept and flagged | `03`, `methylation_downgraded.tsv` |

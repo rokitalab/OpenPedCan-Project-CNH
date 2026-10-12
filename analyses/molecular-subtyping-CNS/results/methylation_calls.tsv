@@ -4,7 +4,7 @@ BS_V7BJFTRG	high	dkfz_v12.8	EPN_PFA_1D	0.995531615	EPN, PF A	FALSE	FALSE	FALSE	E
 BS_CVAEDWP3	high	dkfz_v12.8	RGNT	0.955881423	GNT, FGFR	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade glioneuronal tumour	FALSE	NA	FALSE
 BS_PDNXHWQ8	high	dkfz_v12.8	PB_GRP1A	0.997497966	PB, Group 1	FALSE	FALSE	FALSE	Pineal parenchymal and retinal tumours	pineoblastoma	FALSE	NA	FALSE
 BS_DZK30R1H	high	dkfz_v12.8	MB_G34_VIII	0.999455759	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
-BS_MZN7GK89	high	dkfz_v12	pedHGG_MYCN	0.890062181759056	HGG, MYCN	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
+BS_MZN7GK89	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_F6N9A1V2	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_NDRBA7M5	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_Q7YA56VW	high	nih_v3.1	NFIB PLEX	0.987	NST, Plexiform neurofibroma	FALSE	FALSE	FALSE	Cranial and paraspinal nerve tumours	Cranial and paraspinal nerve tumours	FALSE	NA	FALSE
@@ -14,7 +14,7 @@ BS_1D4N9CKA	high	dkfz_v12.8	DMG_K27	0.999941296	DMG, H3 K28	FALSE	FALSE	FALSE	Pa
 BS_SKGSC6PE	high	nih_v3.1	CPH PAP	0.937	CRANIO, PAP	FALSE	FALSE	FALSE	tumours of the sellar region	craniopharyngioma	FALSE	NA	FALSE
 BS_N56WYDCZ	high	dkfz_v12.8	ATRT_SHH	0.999701909	ATRT, SHH	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
 BS_WMSJC65B	high	dkfz_v12.8	DNET	0.828675826	GNT, DNET	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade glioneuronal tumour	FALSE	NA	FALSE
-BS_DPN8T66Y	high	nih_v3.1	GG	0.952	GNG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	TRUE	dkfz_v12	FALSE
+BS_DPN8T66Y	high	nih_v3.1	GG	0.952	GNG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
 BS_8SAH8JDS	high	dkfz_v12.8	MNG_INT_A	0.858277513	MNG, Intermediate	FALSE	FALSE	FALSE	meningioma	meningioma	FALSE	NA	FALSE
 BS_MVWMFRQR	high	dkfz_v12.8	MB_G34_VII	0.962513815	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_GTSTAR3W	high	dkfz_v12.8	DMG_K27	0.999838577	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
@@ -42,7 +42,7 @@ BS_YBZ421J5	high	dkfz_v12.8	PA_CORT	0.999849348	LGG, PA ST	FALSE	FALSE	FALSE	Low
 BS_RBV58RF5	high	dkfz_v12.8	EPN_PFA_2A	0.994603681	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
 BS_RS0NPK3P	high	dkfz_v12.8	PXA	0.998992963	PXA	FALSE	FALSE	FALSE	diffuse glioma, MAPK altered, cell-cycle activated	pleomorphic xanthoastrocytoma(-like)	FALSE	NA	FALSE
 BS_7MWSK2SH	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
-BS_4TXDH2S8	high	dkfz_v12	PA_MID	0.911819559341443	LGG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
+BS_4TXDH2S8	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_JJ3NEG4A	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_M255G2TR	high	dkfz_v12.8	SCHW	0.994517833	NST, Schwannoma	FALSE	FALSE	FALSE	Cranial and paraspinal nerve tumours	schwann-cell tumours	FALSE	NA	FALSE
 BS_FZ3J46KM	high	dkfz_v12.8	MB_SHH_1	0.909925093	MB, SHH	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma, SHH-activated	FALSE	NA	FALSE
@@ -117,7 +117,7 @@ BS_GJ5YWQNJ	high	dkfz_v12.8	PITNET_TSH	0.88677582	PITNET, TSH	FALSE	FALSE	FALSE	
 BS_FZ2SY1NJ	high	nih_v3.1	MB SHH 3	0.905	MB, SHH	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma, SHH-activated	FALSE	NA	FALSE
 BS_CD906YAB	high	dkfz_v12.8	DHG_G34	0.99990339	DHG, H3 G35	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
 BS_5CWT1AFF	high	dkfz_v12.8	CTRL_REACTIVE	0.861683554	NA	TRUE	FALSE	FALSE	Control tissues	control tissue, reactive tumour microenvironment	FALSE	NA	FALSE
-BS_FVZMSC5K	high	dkfz_v12	MB_G34_VI	0.817433654000155	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
+BS_FVZMSC5K	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_CRX87C2V	high	dkfz_v12.8	EPN_PFA_2A	0.99999594	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
 BS_PYZ9Z042	high	dkfz_v12.8	MB_G34_V	0.919497169	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_8WNMPCSE	high	dkfz_v12.8	GG	0.838039924	GNG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
@@ -193,7 +193,7 @@ BS_WGBQB1HQ	high	dkfz_v12.8	MB_G34_II	0.998665385	MB, Group3	FALSE	FALSE	FALSE	M
 BS_AKYGQZS8	high	dkfz_v12.8	CTRL_CORPCAL	0.998399098	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	FALSE	NA	FALSE
 BS_FGPTXWAV	high	dkfz_v12.8	MB_G34_II	0.996430151	MB, Group3	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_5EBCN02A	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
-BS_BTVH61CD	high	dkfz_v12	MB_G34_II	0.80912786995742	MB, Group3	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
+BS_BTVH61CD	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_H0RT16GV	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_SNDPSMTW	high	dkfz_v12.8	NFIB_PLEX	0.866663818	NST, Plexiform neurofibroma	FALSE	FALSE	FALSE	Cranial and paraspinal nerve tumours	Cranial and paraspinal nerve tumours	FALSE	NA	FALSE
 BS_NVK7271A	high	dkfz_v12.8	EPN_YAP	0.99999937	EPN, ST YAP1	FALSE	FALSE	FALSE	Ependymal tumours	supratentorial ependymoma, YAP1-fused	FALSE	NA	FALSE
@@ -205,14 +205,14 @@ BS_Q0PBV7W5	high	dkfz_v12.8	CTRL_CBM	0.999987664	NA	TRUE	FALSE	FALSE	Control tis
 BS_W9PWP17B	high	dkfz_v12.8	EPN_PF_SE	0.999448519	EPN, PF SE	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group B & posterior fossa subependymoma	FALSE	NA	FALSE
 BS_846RA6HX	high	dkfz_v12.8	PA_INF	0.999474108	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_JM1J1NH8	high	dkfz_v12.8	EPN_MPE	0.999996589	EPN, MPE	FALSE	FALSE	FALSE	Ependymal tumours	myxopapillary ependymoma	FALSE	NA	FALSE
-BS_ZFCXH22E	high	dkfz_v12	NFIB_PLEX	0.831696853765113	NST, Plexiform neurofibroma	FALSE	FALSE	FALSE	Cranial and paraspinal nerve tumours	Cranial and paraspinal nerve tumours	FALSE	NA	FALSE
+BS_ZFCXH22E	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_9QS5KCPD	high	dkfz_v12.8	IHG	0.999999558	HGG, IHG	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Infant-type hemispheric glioma	FALSE	NA	FALSE
 BS_VXQV7GX2	high	dkfz_v12.8	SCHW	0.999161177	NST, Schwannoma	FALSE	FALSE	FALSE	Cranial and paraspinal nerve tumours	schwann-cell tumours	FALSE	NA	FALSE
 BS_TSMY09VT	high	dkfz_v12.8	DHG_G34	0.978567124	DHG, H3 G35	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
 BS_K1JR4YRA	high	dkfz_v12.8	HGG_E	0.999829185	HGG, HGNET	FALSE	FALSE	FALSE	Adult-type diffuse gliomas	diffuse high-grade neuroepithelial tumour [adult-type]	FALSE	NA	FALSE
 BS_B1EB1F4K	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_CQMW2QGX	high	nih_v3.1	EPN PFA 1C	0.981	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
-BS_S4489PHK	high	dkfz_v12	LGG_MYB_D	0.824125149570667	LGG, MYB/MYBL1	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	diffuse glioma, MYB- or MYBL1-altered	FALSE	NA	FALSE
+BS_S4489PHK	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_R6ES0HY1	high	dkfz_v12.8	PA_MID	0.999556006	LGG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_CT2WHMPY	high	dkfz_v12.8	CPH_ADM	0.83502296	CRANIO, ADAM	FALSE	FALSE	FALSE	tumours of the sellar region	craniopharyngioma	FALSE	NA	FALSE
 BS_H213BADH	high	dkfz_v12.8	EPN_PFA_1C	0.999627116	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
@@ -369,7 +369,7 @@ BS_2HT9GT2Y	high	dkfz_v12.8	ATRT_SHH	0.99994752	ATRT, SHH	FALSE	FALSE	FALSE	Othe
 BS_WZY34KWZ	high	dkfz_v12.8	MNG_BEN_3	0.96150397	MNG, Benign	FALSE	FALSE	FALSE	meningioma	meningioma	FALSE	NA	FALSE
 BS_FENJEHZ7	high	dkfz_v12.8	MB_G34_VII	0.999542338	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_Z62B53CW	high	dkfz_v12.8	ETMR_C19MC	0.999682267	ETMR, C19MC-altered	FALSE	FALSE	FALSE	Other CNS embryonal tumours	embryonal tumour with multilayered rosettes	FALSE	NA	FALSE
-BS_BDDFJP8C	high	dkfz_v12	MB_G34_VI	0.887660419741012	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
+BS_BDDFJP8C	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_YD8K8Z9Z	high	dkfz_v12.8	CPT_PED_A	0.999209853	CPP, pediatric	FALSE	FALSE	FALSE	choroid plexus tumours	choroid plexus tumours	FALSE	NA	FALSE
 BS_WY5X9J86	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_WRAG947K	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
@@ -563,12 +563,12 @@ BS_RCBCFYWA	high	nih_v3.1	EPN PFA 1C	0.941	EPN, PF A	FALSE	FALSE	FALSE	Ependymal
 BS_JRVK8WGZ	high	dkfz_v12.8	EPN_SPINE_MYCN	0.999884718	EPN, SP-MYCN	FALSE	FALSE	FALSE	Ependymal tumours	spinal ependymoma	FALSE	NA	FALSE
 BS_4JAZPN4H	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_KDDYKDV6	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
-BS_R3PD62P1	high	dkfz_v12	PA_INF	0.937701533333872	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
+BS_R3PD62P1	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_HCRJR7YP	high	dkfz_v12.8	SCHW	0.999934953	NST, Schwannoma	FALSE	FALSE	FALSE	Cranial and paraspinal nerve tumours	schwann-cell tumours	FALSE	NA	FALSE
 BS_S30DM7ZD	high	dkfz_v12.8	DNET	0.985166281	GNT, DNET	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade glioneuronal tumour	FALSE	NA	FALSE
 BS_ZEE8T4N1	high	dkfz_v12.8	PXA	0.999738533	PXA	FALSE	FALSE	FALSE	diffuse glioma, MAPK altered, cell-cycle activated	pleomorphic xanthoastrocytoma(-like)	FALSE	NA	FALSE
 BS_E5MT047Z	high	dkfz_v12.8	DMG_K27	0.999395229	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
-BS_N27CGYZB	high	dkfz_v12	CTRL_CBM	0.855575178699783	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	FALSE	NA	FALSE
+BS_N27CGYZB	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_M5HRCND3	high	dkfz_v12.8	EPN_ST_ZFTA_RELA_A	0.99949398	EPN, ST ZFTA	FALSE	FALSE	FALSE	Ependymal tumours	supratentorial ependymoma, ZFTA fusion-positive	FALSE	NA	FALSE
 BS_C5MRD4QQ	high	dkfz_v12.8	MB_G34_IV	0.999333203	MB, Group3	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_8VBXKGMD	high	dkfz_v12.8	GG	0.816643318	GNG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
@@ -608,7 +608,7 @@ BS_YZX742PQ	high	dkfz_v12.8	DMG_K27	0.999720402	DMG, H3 K28	FALSE	FALSE	FALSE	Pa
 BS_RZ4SDMXA	high	nih_v3.1	PXA	0.964	PXA	FALSE	FALSE	FALSE	diffuse glioma, MAPK altered, cell-cycle activated	pleomorphic xanthoastrocytoma(-like)	FALSE	NA	FALSE
 BS_XXQKWJQR	high	dkfz_v12.8	MB_G34_VII	0.893154188	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_90WXJSJY	high	dkfz_v12.8	MB_G34_V	0.831690654	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
-BS_9HS2YQ06	high	nih_v2	GG	0.944	GNG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
+BS_9HS2YQ06	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_P370P5S7	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_0K1E1H3F	high	dkfz_v12.8	DMG_K27	0.999988702	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
 BS_SHC5BMYM	high	nih_v3.1	GG	0.976	GNG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
@@ -636,7 +636,7 @@ BS_5F87T08B	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_NRHPSZRN	high	dkfz_v12.8	EPN_ST_ZFTA_FUS_E	0.999756569	EPN, ST ZFTA	FALSE	FALSE	FALSE	Ependymal tumours	supratentorial ependymoma, ZFTA fusion-positive	FALSE	NA	FALSE
 BS_FTF4DNPM	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_NE7CH6GG	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
-BS_SFD4VRYG	high	dkfz_v12	MB_G34_III	0.836380960052411	MB, Group3	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
+BS_SFD4VRYG	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_3V1YK5XG	high	dkfz_v12.8	pedHGG_A	0.998361307	HGG, chr6 CTX	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
 BS_9B13CNX5	high	dkfz_v12.8	DNET	0.998235477	GNT, DNET	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade glioneuronal tumour	FALSE	NA	FALSE
 BS_VPVJTN5N	high	dkfz_v12.8	PA_INF	0.999896017	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
@@ -759,7 +759,7 @@ BS_Y0WK0609	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_VK5DAZCB	high	dkfz_v12.8	PA_INF	0.999859069	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_YG39AE0N	high	dkfz_v12.8	MB_G34_I	0.998988957	MB, Group3	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_7NXX6BKF	high	dkfz_v12.8	ET_PLAG	0.999988426	Rare CNS, PLAG AMP	FALSE	FALSE	TRUE	Other CNS embryonal tumours	CNS Embryonal tumour with PLAG-family amplification	FALSE	NA	FALSE
-BS_WKCWT9J1	high	dkfz_v12	pedHGG_MYCN	0.914233659348587	HGG, MYCN	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
+BS_WKCWT9J1	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_WR25KFQG	high	dkfz_v12.8	MB_G34_VIII	0.976878391	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_4XRT5H2P	high	dkfz_v12.8	MB_G34_VII	0.861942308	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_78QHTGF8	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
@@ -787,17 +787,17 @@ BS_J6X7W25J	high	dkfz_v12.8	DMG_K27	0.999486322	DMG, H3 K28	FALSE	FALSE	FALSE	Pa
 BS_08GJ3JH4	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_20CDD4SQ	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_M1QNTVPM	high	dkfz_v12.8	CTRL_HEMI	0.998612086	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	FALSE	NA	FALSE
-BS_BDSACXZK	high	dkfz_v12	DMG_K27	0.845116553522708	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
+BS_BDSACXZK	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_CAQMF903	high	dkfz_v12.8	MB_SHH_2	0.999646445	MB, SHH	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma, SHH-activated	FALSE	NA	FALSE
 BS_KB0E8BVB	high	dkfz_v12.8	PA_MID	0.99849948	LGG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_26QQR1Z2	high	dkfz_v12.8	ABM_MN1	0.999404669	Rare CNS, MN1::BEND2	FALSE	FALSE	TRUE	high-grade neuroepithelial tumour with MN1:BEND2 fusion	high-grade neuroepithelial tumour with MN1:BEND2 fusion	FALSE	NA	FALSE
 BS_PWRJHMQV	high	dkfz_v12.8	PA_MID	0.999968143	LGG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_DX3Z7F1C	high	dkfz_v12.8	PXA	0.972072948	PXA	FALSE	FALSE	FALSE	diffuse glioma, MAPK altered, cell-cycle activated	pleomorphic xanthoastrocytoma(-like)	FALSE	NA	FALSE
 BS_DQ4MMXWD	high	dkfz_v12.8	DMG_K27	0.999987687	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
-BS_E911ZA14	high	dkfz_v12	PA_INF	0.846759385724558	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
+BS_E911ZA14	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_XMB6CECH	high	dkfz_v12.8	DMG_K27	0.999900802	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
 BS_CTR1KRKC	high	dkfz_v12.8	PA_INF	0.999979226	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
-BS_F3R5A5WV	high	dkfz_v12	PA_INF	0.933349653669456	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
+BS_F3R5A5WV	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_TBZX2FAK	high	dkfz_v12.8	CTRL_HEMI	0.949345971	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	FALSE	NA	FALSE
 BS_A46S5GG6	high	dkfz_v12.8	MB_SHH_4	0.869034132	MB, SHH	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma, SHH-activated	FALSE	NA	FALSE
 BS_871VFVQE	high	dkfz_v12.8	EPN_ST_ZFTA_RELA_A	0.999975289	EPN, ST ZFTA	FALSE	FALSE	FALSE	Ependymal tumours	supratentorial ependymoma, ZFTA fusion-positive	FALSE	NA	FALSE
@@ -907,7 +907,7 @@ BS_PYTJAVWN	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_77PJ1KE6	high	dkfz_v12.8	INFLAM_ENV	0.842070921	NA	TRUE	FALSE	FALSE	Inflammatory microenvironment	Inflammatory microenvironment	FALSE	NA	FALSE
 BS_V3200RYQ	high	dkfz_v12.8	PA_INF	0.999996666	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_PKYWRC61	high	nih_v3.1	HGG E	0.981	HGG, HGNET	FALSE	FALSE	FALSE	Adult-type diffuse gliomas	diffuse high-grade neuroepithelial tumour [adult-type]	FALSE	NA	FALSE
-BS_S367XK8A	high	dkfz_v12	PA_INF	0.890193353049315	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
+BS_S367XK8A	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_5V730EQB	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_7GR7VZ1K	high	nih_v3.1	DMG K27	0.933	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
 BS_DSXA9WZK	high	dkfz_v12.8	MB_SHH_3	0.872220751	MB, SHH	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma, SHH-activated	FALSE	NA	FALSE
@@ -930,7 +930,7 @@ BS_NMQD5VJY	high	dkfz_v12.8	MB_G34_VII	0.992554237	MB, Group4	FALSE	FALSE	FALSE	
 BS_62S9RVAC	high	dkfz_v12.8	PA_INF	0.853788467	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_HGE91384	high	dkfz_v12.8	DMG_K27	0.991649124	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
 BS_4TKBBY4C	high	dkfz_v12.8	MB_G34_VIII	0.976828758	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
-BS_HVMS7D5J	high	dkfz_v12	SCHW	0.849001887683462	NST, Schwannoma	FALSE	FALSE	FALSE	Cranial and paraspinal nerve tumours	schwann-cell tumours	FALSE	NA	FALSE
+BS_HVMS7D5J	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_N38F9VKE	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_1CGREZ80	high	dkfz_v12.8	RGNT	0.999997075	GNT, FGFR	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade glioneuronal tumour	FALSE	NA	FALSE
 BS_TAB4FCRP	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
@@ -980,7 +980,7 @@ BS_ER9RMSVG	high	dkfz_v12.8	EWS	0.998935392	Rare CNS, EWS	FALSE	FALSE	TRUE	Mesen
 BS_4N31JVE5	high	dkfz_v12.8	DNET	0.998822776	GNT, DNET	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade glioneuronal tumour	FALSE	NA	FALSE
 BS_5NEHMV02	high	dkfz_v12.8	PA_INF	0.998052431	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_FB8KQA9D	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
-BS_Y6CXCPED	high	dkfz_v12	pedHGG_RTK2B	0.897897795462676	HGG, RTK	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
+BS_Y6CXCPED	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_6HDWSD3P	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_E5SCQ99B	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_6AC8SY86	high	dkfz_v12.8	CTRL_ADENOPIT	0.998631566	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	FALSE	NA	FALSE
@@ -1081,11 +1081,11 @@ BS_C2TXWFS1	high	dkfz_v12.8	DMG_K27	0.918288044	DMG, H3 K28	FALSE	FALSE	FALSE	Pa
 BS_M4GKP5G2	high	dkfz_v12.8	ATRT_TYR	0.988328948	ATRT, TYR	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
 BS_3VFJ1SXF	high	dkfz_v12.8	DMG_K27	0.999964078	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
 BS_SVQPY6QM	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
-BS_VFF3WBQE	high	dkfz_v12	MB_G34_VIII	0.869989881022566	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
+BS_VFF3WBQE	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_4ZZTEM70	high	dkfz_v12.8	CPH_PAP	0.84155996	CRANIO, PAP	FALSE	FALSE	FALSE	tumours of the sellar region	craniopharyngioma	FALSE	NA	FALSE
 BS_F984HQZE	high	dkfz_v12.8	PA_INF	0.999999404	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_XJJ2X547	high	dkfz_v12.8	DMG_K27	0.998764855	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
-BS_03GC84XA	high	dkfz_v12	DNET	0.858722686799486	GNT, DNET	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade glioneuronal tumour	FALSE	NA	FALSE
+BS_03GC84XA	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_JMPH92EZ	high	dkfz_v12.8	AG_MYB	0.999906943	LGG, MYB/MYBL1	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	diffuse glioma, MYB- or MYBL1-altered	FALSE	NA	FALSE
 BS_HSAD17B7	high	dkfz_v12.8	PB_GRP2	0.99820263	PB, Group 2	FALSE	FALSE	FALSE	Pineal parenchymal and retinal tumours	pineoblastoma	FALSE	NA	FALSE
 BS_SAMTKYB0	high	dkfz_v12.8	DMG_EGFR	0.800524029	DMG, H3 K28-altered, EGFR	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
@@ -1107,7 +1107,7 @@ BS_VJF77FPE	high	dkfz_v12.8	PXA	0.99999998	PXA	FALSE	FALSE	FALSE	diffuse glioma,
 BS_34SNT6SK	high	dkfz_v12.8	PGNT	0.890504278	GNT, Papillary	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade glioneuronal tumour	FALSE	NA	FALSE
 BS_CK0BY1MB	high	dkfz_v12.8	CTRL_CBM	0.999812739	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	FALSE	NA	FALSE
 BS_7YFAMEK4	high	dkfz_v12.8	DMG_K27	0.999965097	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
-BS_6HCD9FNP	high	nih_v2	HGAP	0.981	HGG, HGAP	FALSE	FALSE	FALSE	diffuse glioma, MAPK altered, cell-cycle activated	high-grade astrocytoma with piloid features	FALSE	NA	FALSE
+BS_6HCD9FNP	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_5NG858V5	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_KTAJPKN4	high	nih_v3.1	A IDH HG	0.983	HGG, IDH	FALSE	FALSE	FALSE	Adult-type diffuse gliomas	diffuse glioma, IDH mutant	FALSE	NA	FALSE
 BS_Z8KNV5H1	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
@@ -1132,7 +1132,7 @@ BS_Z5THD41A	high	dkfz_v12.8	EPN_PFA_1C	0.917374327	EPN, PF A	FALSE	FALSE	FALSE	E
 BS_C7G3F912	high	dkfz_v12.8	MB_SHH_2	0.999578846	MB, SHH	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma, SHH-activated	FALSE	NA	FALSE
 BS_PW855N8A	high	dkfz_v12.8	DMG_K27	0.995360003	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
 BS_M1MPGKYJ	high	dkfz_v12.8	MB_SHH_1	0.994688691	MB, SHH	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma, SHH-activated	FALSE	NA	FALSE
-BS_645MT0R5	high	dkfz_v12	DMG_K27	0.8079996	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
+BS_645MT0R5	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_F9424DG3	high	dkfz_v12.8	MB_G34_VIII	0.999872882	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_68RWNB7N	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_Y54J0CXS	high	dkfz_v12.8	SCHW	0.999674632	NST, Schwannoma	FALSE	FALSE	FALSE	Cranial and paraspinal nerve tumours	schwann-cell tumours	FALSE	NA	FALSE
@@ -1142,10 +1142,10 @@ BS_KWNTNG0E	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_1FB32X31	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_PGWFHTSF	high	dkfz_v12.8	MNG_BEN_1	0.998843819	MNG, Benign	FALSE	FALSE	FALSE	meningioma	meningioma	FALSE	NA	FALSE
 BS_YDAZPDQW	high	dkfz_v12.8	MB_G34_VIII	0.999931833	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
-BS_R8NSV7XB	high	dkfz_v12	PA_INF_FGFR	0.814867291072935	LGG, FGFR	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
+BS_R8NSV7XB	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_CDX945Y7	high	dkfz_v12.8	DLGNT_2	0.987772444	GNT, MAPK	FALSE	FALSE	FALSE	diffuse glioneuronal tumours	diffuse glioneuronal tumours	FALSE	NA	FALSE
 BS_5XP7ZGRB	high	nih_v3.1	PA MID	0.977	LGG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
-BS_SJSGGF0Y	high	dkfz_v12	PA_CORT	0.898491004454069	LGG, PA ST	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
+BS_SJSGGF0Y	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_SNS2FM4K	high	nih_v3.1	CPH ADM	0.942	CRANIO, ADAM	FALSE	FALSE	FALSE	tumours of the sellar region	craniopharyngioma	FALSE	NA	FALSE
 BS_XK0FGTT0	high	dkfz_v12.8	MB_G34_VII	0.997634829	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_5NM9GXXV	high	dkfz_v12.8	DMG_K27	0.998644063	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
@@ -1155,7 +1155,7 @@ BS_H4T470NG	high	dkfz_v12.8	MB_G34_VIII	0.99931434	MB, Group4	FALSE	FALSE	FALSE	
 BS_VJPVRGDA	high	dkfz_v12.8	EPN_ST_ZFTA_RELA_A	0.999995571	EPN, ST ZFTA	FALSE	FALSE	FALSE	Ependymal tumours	supratentorial ependymoma, ZFTA fusion-positive	FALSE	NA	FALSE
 BS_JZ3RR9EK	high	dkfz_v12.8	EPN_PFA_1A	0.90308076	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
 BS_J5V9PEM9	high	dkfz_v12.8	DHG_G34	0.996968271	DHG, H3 G35	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
-BS_8KNTNGZF	high	dkfz_v12	MB_G34_VII	0.891980896264547	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
+BS_8KNTNGZF	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_533FYRG7	high	dkfz_v12.8	CPT_PED_A	0.999979789	CPP, pediatric	FALSE	FALSE	FALSE	choroid plexus tumours	choroid plexus tumours	FALSE	NA	FALSE
 BS_KFW4FHF6	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_JE0V6WMZ	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
@@ -1176,7 +1176,7 @@ BS_TA6KZ7QQ	high	dkfz_v12.8	EPN_PFA_1C	0.884478785	EPN, PF A	FALSE	FALSE	FALSE	E
 BS_RDFJD90R	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_NBY54GNQ	high	dkfz_v12.8	MB_SHH_4	0.95086262	MB, SHH	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma, SHH-activated	FALSE	NA	FALSE
 BS_JYJFGVXK	high	dkfz_v12.8	ATRT_SHH	0.999366794	ATRT, SHH	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
-BS_D4QZCSPK	high	dkfz_v12	MB_G34_IV	0.913073729221222	MB, Group3	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
+BS_D4QZCSPK	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_69VN9F8C	high	dkfz_v12.8	ATRT_TYR	0.978878408	ATRT, TYR	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
 BS_13VNAV6C	high	dkfz_v12.8	DMG_K27	0.99997321	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
 BS_55PHGKRC	high	dkfz_v12.8	DMG_K27	0.999971025	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
@@ -1227,7 +1227,7 @@ BS_AG74Q1GW	high	dkfz_v12.8	DNET	0.977744407	GNT, DNET	FALSE	FALSE	FALSE	Low-gra
 BS_39M951RF	high	dkfz_v12.8	ATRT_SHH	0.999999708	ATRT, SHH	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
 BS_95XVF293	high	dkfz_v12.8	EPN_PFB_3	0.824423829	EPN, PF B	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group B & posterior fossa subependymoma	FALSE	NA	FALSE
 BS_FR4K7JTC	high	dkfz_v12.8	DHG_G34	0.999967872	DHG, H3 G35	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
-BS_R50NQATQ	high	dkfz_v12	PA_INF	0.900123636434381	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
+BS_R50NQATQ	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_X36SF91S	high	dkfz_v12.8	NB_MYCN	0.999989588	Rare CNS, MYCN NBL	FALSE	FALSE	TRUE	neuroblastoma	neuroblastoma	FALSE	NA	FALSE
 BS_2HBMTAR9	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_H3MYZY2E	high	dkfz_v12.8	pedHGG_RTK2B	0.999267075	HGG, RTK	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
@@ -1245,7 +1245,7 @@ BS_9VWSP93Q	high	dkfz_v12.8	A_IDH_LG	0.999850128	LGG, IDH	FALSE	FALSE	FALSE	Adul
 BS_1JSG9783	high	dkfz_v12.8	DNET	0.994670625	GNT, DNET	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade glioneuronal tumour	FALSE	NA	FALSE
 BS_ZWY272GR	high	nih_v3.1	CPH ADM	0.929	CRANIO, ADAM	FALSE	FALSE	FALSE	tumours of the sellar region	craniopharyngioma	FALSE	NA	FALSE
 BS_6G81ZFP6	high	nih_v3.1	pedHGG MYCN	0.982	HGG, MYCN	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
-BS_9AZ2YW9W	high	dkfz_v12	MB_SHH_2	0.809681722220806	MB, SHH	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma, SHH-activated	FALSE	NA	FALSE
+BS_9AZ2YW9W	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_6F3TENEM	high	dkfz_v12.8	CPH_PAP	0.929362303	CRANIO, PAP	FALSE	FALSE	FALSE	tumours of the sellar region	craniopharyngioma	FALSE	NA	FALSE
 BS_79QJPZ3H	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_DQEQPEHF	high	nih_v3.1	EPN PFA 2A	0.982	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
@@ -1263,7 +1263,7 @@ BS_884GB32R	high	dkfz_v12.8	pedHGG_RTK2B	0.930465759	HGG, RTK	FALSE	FALSE	FALSE	
 BS_M4PAPSSW	high	dkfz_v12.8	PA_INF	0.999993808	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_S9H9WDCD	high	dkfz_v12.8	DMG_K27	0.999781815	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
 BS_6WRGGY1Y	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
-BS_F0PJ864S	high	dkfz_v12	MNG_BEN_1	0.951290117955646	MNG, Benign	FALSE	FALSE	FALSE	meningioma	meningioma	FALSE	NA	FALSE
+BS_F0PJ864S	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_1HY7YDZH	high	dkfz_v12.8	EPN_ST_ZFTA_RELA_A	0.971631011	EPN, ST ZFTA	FALSE	FALSE	FALSE	Ependymal tumours	supratentorial ependymoma, ZFTA fusion-positive	FALSE	NA	FALSE
 BS_C48B9VRK	high	dkfz_v12.8	PA_INF	0.999985368	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_1BDNZYMM	high	nih_v3.1	ATRT TYR	0.953	ATRT, TYR	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
@@ -1330,7 +1330,7 @@ BS_ZSE80RV1	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_HSYFHCEZ	high	nih_v3.1	EPN PFA 2A	0.984	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
 BS_EXTTYXYZ	high	dkfz_v12.8	ATRT_MYC	0.999228534	ATRT, MYC	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
 BS_8S9303PS	high	dkfz_v12.8	DMG_K27	0.999828588	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
-BS_AD4CSC2Y	high	dkfz_v12	MB_G34_VIII	0.841875105720927	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
+BS_AD4CSC2Y	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_TGYBV2KP	high	dkfz_v12.8	MB_G34_III	0.982827152	MB, Group3	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_0TSD8W2N	high	dkfz_v12.8	CTRL_HEMI	0.995819661	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	FALSE	NA	FALSE
 BS_AFRXFE5X	high	dkfz_v12.8	NET_PLAGL1_FUS	0.885514616	Rare CNS, PLAGL1-fused	FALSE	FALSE	TRUE	Neuroepithelial tumour, PLAGL1-fused	Neuroepithelial tumour, PLAGL1-fused	FALSE	NA	FALSE
@@ -1352,14 +1352,14 @@ BS_N6EPKXEX	high	dkfz_v12.8	DMG_K27	0.975905726	DMG, H3 K28	FALSE	FALSE	FALSE	Pa
 BS_0T1E1YBD	high	nih_v3.1	GG	0.984	GNG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
 BS_BE7W6QKW	high	dkfz_v12.8	CN	0.999101736	CNC	FALSE	FALSE	FALSE	central neurocytoma	central neurocytoma	FALSE	NA	FALSE
 BS_ASQSA9JQ	high	dkfz_v12.8	DMG_K27	0.928934191	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
-BS_2ZBTJ8FB	high	nih_v3.1	CPC PED	0.986	CPC, pediatric	FALSE	FALSE	FALSE	choroid plexus tumours	choroid plexus tumours	TRUE	dkfz_v12	FALSE
+BS_2ZBTJ8FB	high	nih_v3.1	CPC PED	0.986	CPC, pediatric	FALSE	FALSE	FALSE	choroid plexus tumours	choroid plexus tumours	FALSE	NA	FALSE
 BS_WNGTPP3E	high	dkfz_v12.8	CPT_PED_A	0.999363279	CPP, pediatric	FALSE	FALSE	FALSE	choroid plexus tumours	choroid plexus tumours	FALSE	NA	FALSE
 BS_48VF55QR	high	dkfz_v12.8	PA_MID	0.99996969	LGG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_BZHNA3TX	high	dkfz_v12.8	EPN_ST_ZFTA_FUS_E	0.999736169	EPN, ST ZFTA	FALSE	FALSE	FALSE	Ependymal tumours	supratentorial ependymoma, ZFTA fusion-positive	FALSE	NA	FALSE
 BS_VHP15D6R	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_3YAHMPSG	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_QJP4CS1Z	high	dkfz_v12.8	CTRL_HEMI	0.984673957	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	FALSE	NA	FALSE
-BS_YEJ0SYES	high	dkfz_v12.8	CTRL_HEMI	0.981660808	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	TRUE	nih_v2	FALSE
+BS_YEJ0SYES	high	dkfz_v12.8	CTRL_HEMI	0.981660808	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	FALSE	NA	FALSE
 BS_J81C76DJ	high	dkfz_v12.8	MNG_INT_A	0.999391794	MNG, Intermediate	FALSE	FALSE	FALSE	meningioma	meningioma	FALSE	NA	FALSE
 BS_HJ5C0C0M	high	nih_v3.1	CONTR REACT	0.916	NA	TRUE	FALSE	FALSE	NA	NA	FALSE	NA	FALSE
 BS_RFJWSR7P	high	dkfz_v12.8	DMG_K27	0.998669749	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
@@ -1436,7 +1436,7 @@ BS_6D06KM64	high	dkfz_v12.8	DMG_K27	0.999141495	DMG, H3 K28	FALSE	FALSE	FALSE	Pa
 BS_HR4P2SYZ	high	dkfz_v12.8	DMG_K27	0.999786422	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
 BS_S0CRDFF4	high	dkfz_v12.8	SEGA	0.994872984	LGG, SEGA	FALSE	FALSE	FALSE	Circumscribed astrocytic tumours	subependymal giant cell astrocytoma	FALSE	NA	FALSE
 BS_8K4E6C7A	high	dkfz_v12.8	CTRL_CORPCAL	0.999419224	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	FALSE	NA	FALSE
-BS_K1FS94Y6	high	dkfz_v12	MB_G34_III	0.950624832652526	MB, Group3	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
+BS_K1FS94Y6	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_RREMNJJB	high	dkfz_v12.8	pedHGG_A	0.993824036	HGG, chr6 CTX	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
 BS_RQ6FB1AF	high	nih_v3.1	A IDH LG	0.944	LGG, IDH	FALSE	FALSE	FALSE	Adult-type diffuse gliomas	diffuse glioma, IDH mutant	FALSE	NA	FALSE
 BS_YXXWVEYJ	high	dkfz_v12.8	DMG_K27	0.99924562	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
@@ -1455,7 +1455,7 @@ BS_F72KQ8DM	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_S0MW751E	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_EY0NRDDP	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_76MPTPTA	high	dkfz_v12.8	CPT_AD_A	0.999996691	CPP, adult	FALSE	FALSE	FALSE	choroid plexus tumours	choroid plexus tumours	FALSE	NA	FALSE
-BS_VTA6ZNX3	high	dkfz_v12	MB_G34_V	0.80513826879836	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
+BS_VTA6ZNX3	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_0JV00K8V	high	dkfz_v12.8	EPN_ST_ZFTA_RELA_A	0.995322436	EPN, ST ZFTA	FALSE	FALSE	FALSE	Ependymal tumours	supratentorial ependymoma, ZFTA fusion-positive	FALSE	NA	FALSE
 BS_FJKZ7952	high	dkfz_v12.8	EPN_PFA_1A	0.992149149	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
 BS_X08QR472	high	dkfz_v12.8	INFLAM_ENV	0.891725654	NA	TRUE	FALSE	FALSE	Inflammatory microenvironment	Inflammatory microenvironment	FALSE	NA	FALSE
@@ -1518,7 +1518,7 @@ BS_4TFNECS4	high	dkfz_v12.8	PA_CORT	0.928938137	LGG, PA ST	FALSE	FALSE	FALSE	Low
 BS_42V8EPRQ	high	dkfz_v12.8	PA_MID	0.852533019	LGG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_7S2N5ZM8	high	dkfz_v12.8	EPN_PFA_1E	0.998213672	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
 BS_56W96Q43	high	dkfz_v12.8	MB_G34_II	0.999903062	MB, Group3	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
-BS_B0GKQAWP	high	dkfz_v12	PA_CORT	0.960455004011336	LGG, PA ST	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
+BS_B0GKQAWP	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_4BQDTH10	high	dkfz_v12.8	CPT_PED_A	0.999990154	CPP, pediatric	FALSE	FALSE	FALSE	choroid plexus tumours	choroid plexus tumours	FALSE	NA	FALSE
 BS_RZPSHESX	high	nih_v3.1	GCT TERA	0.981	GCT, Teratoma	FALSE	FALSE	FALSE	Germ cell tumours	Germ cell tumours of the CNS	FALSE	NA	FALSE
 BS_SKJ6HZAK	high	dkfz_v12.8	EPN_ST_ZFTA_RELA_A	0.999993831	EPN, ST ZFTA	FALSE	FALSE	FALSE	Ependymal tumours	supratentorial ependymoma, ZFTA fusion-positive	FALSE	NA	FALSE
@@ -1584,7 +1584,7 @@ BS_N86NB8J0	high	dkfz_v12.8	PB_GRP2	0.99837504	PB, Group 2	FALSE	FALSE	FALSE	Pin
 BS_50V3AXSK	high	dkfz_v12.8	NET_PLAGL1_FUS	0.999999583	Rare CNS, PLAGL1-fused	FALSE	FALSE	TRUE	Neuroepithelial tumour, PLAGL1-fused	Neuroepithelial tumour, PLAGL1-fused	FALSE	NA	FALSE
 BS_YFCBQYB4	high	dkfz_v12.8	DHG_G34	0.97054447	DHG, H3 G35	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
 BS_GQRBK39P	high	dkfz_v12.8	CTRL_HEMI	0.994269403	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	FALSE	NA	FALSE
-BS_ZMPXP57K	high	dkfz_v12	EPN_PFA_2A	0.832042778274566	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
+BS_ZMPXP57K	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_1Q4DFV3T	high	nih_v3.1	NFIB PLEX	0.985	NST, Plexiform neurofibroma	FALSE	FALSE	FALSE	Cranial and paraspinal nerve tumours	Cranial and paraspinal nerve tumours	FALSE	NA	FALSE
 BS_ZQQPDGX4	high	dkfz_v12.8	PB_GRP1A	0.999053245	PB, Group 1	FALSE	FALSE	FALSE	Pineal parenchymal and retinal tumours	pineoblastoma	FALSE	NA	FALSE
 BS_57MSWRQZ	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
@@ -1749,7 +1749,7 @@ BS_JB2T24Y4	high	dkfz_v12.8	pedHGG_RTK1B	0.859517423	HGG, RTK	FALSE	FALSE	FALSE	
 BS_08TS9717	high	dkfz_v12.8	CTRL_CBM	0.999874969	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	FALSE	NA	FALSE
 BS_2N7G3R27	high	nih_v3.1	GBM MES TYP	0.988	HGG, MES	FALSE	FALSE	FALSE	Adult-type diffuse gliomas	Glioblastoma, IDH-wildtype	FALSE	NA	FALSE
 BS_8F50CHFP	high	dkfz_v12.8	SCHW	0.999730762	NST, Schwannoma	FALSE	FALSE	FALSE	Cranial and paraspinal nerve tumours	schwann-cell tumours	FALSE	NA	FALSE
-BS_F7HDH4GB	high	dkfz_v12.8	CTRL_HEMI	0.968216069	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	TRUE	nih_v2	FALSE
+BS_F7HDH4GB	high	dkfz_v12.8	CTRL_HEMI	0.968216069	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	FALSE	NA	FALSE
 BS_S1JQYAAW	high	dkfz_v12.8	CTRL_REACTIVE	0.95824136	NA	TRUE	FALSE	FALSE	Control tissues	control tissue, reactive tumour microenvironment	FALSE	NA	FALSE
 BS_C51P611V	high	dkfz_v12.8	EPN_PFA_2A	0.983607973	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
 BS_52AYVHZ7	high	nih_v3.1	pedHGG MYCN	0.951	HGG, MYCN	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
@@ -1779,7 +1779,7 @@ BS_AHX3C7QS	high	dkfz_v12.8	ATRT_TYR	0.965679536	ATRT, TYR	FALSE	FALSE	FALSE	Oth
 BS_S70ERMN0	high	dkfz_v12.8	DMG_K27	0.999916226	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
 BS_FP4757SN	high	dkfz_v12.8	MB_G34_III	0.957725682	MB, Group3	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_ZNZ19RZS	high	dkfz_v12.8	EPN_PFA_1A	0.815839101	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
-BS_VTWGK1DV	high	nih_v3.1	DMG K27	0.987	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	TRUE	dkfz_v12	FALSE
+BS_VTWGK1DV	high	nih_v3.1	DMG K27	0.987	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
 BS_W6T84FBY	high	dkfz_v12.8	ATRT_TYR	0.994685427	ATRT, TYR	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
 BS_SB4J8W73	high	dkfz_v12.8	MB_G34_VIII	0.998814119	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_P3EHKA6H	high	dkfz_v12.8	EPN_PFA_2B	0.900073236	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
@@ -1802,7 +1802,7 @@ BS_1GQZ81B4	high	nih_v3.1	EPN PFA 1D	0.988	EPN, PF A	FALSE	FALSE	FALSE	Ependymal
 BS_Q2CFP829	high	dkfz_v12.8	SCHW	0.999865419	NST, Schwannoma	FALSE	FALSE	FALSE	Cranial and paraspinal nerve tumours	schwann-cell tumours	FALSE	NA	FALSE
 BS_GF29GAAC	high	nih_v3.1	CRINET	0.983	Rare CNS, CRINET	FALSE	FALSE	FALSE	Other CNS embryonal tumours	cribriform neuroepithelial tumour	FALSE	NA	FALSE
 BS_5YM07796	high	dkfz_v12.8	CTRL_REACTIVE	0.870130856	NA	TRUE	FALSE	FALSE	Control tissues	control tissue, reactive tumour microenvironment	FALSE	NA	FALSE
-BS_78RQ01QQ	high	dkfz_v12	HGG_F	0.9965067	HGG, HGNET	FALSE	FALSE	FALSE	Adult-type diffuse gliomas	diffuse high-grade neuroepithelial tumour [adult-type]	FALSE	NA	FALSE
+BS_78RQ01QQ	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_4CTSVRTB	high	dkfz_v12.8	CPT_PED_A	0.996355087	CPP, pediatric	FALSE	FALSE	FALSE	choroid plexus tumours	choroid plexus tumours	FALSE	NA	FALSE
 BS_W0VT0DC9	high	dkfz_v12.8	MPNST_TYP	0.872750366	NST, MPNST typical	FALSE	FALSE	FALSE	Cranial and paraspinal nerve tumours	malignant peripheral nerve-sheath tumour	FALSE	NA	FALSE
 BS_9ZTH8XZA	high	nih_v3.1	MB SHH 1	0.981	MB, SHH	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma, SHH-activated	FALSE	NA	FALSE
@@ -1906,11 +1906,11 @@ BS_2ARHMFW0	high	dkfz_v12.8	CPT_PED_B	0.96014374	CPC, pediatric	FALSE	FALSE	FALS
 BS_0NPQFPZ9	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_KPEJSEDB	high	dkfz_v12.8	PB_GRP2	0.995218557	PB, Group 2	FALSE	FALSE	FALSE	Pineal parenchymal and retinal tumours	pineoblastoma	FALSE	NA	FALSE
 BS_RMP2RWNA	high	dkfz_v12.8	CPT_PED_B	0.968913998	CPC, pediatric	FALSE	FALSE	FALSE	choroid plexus tumours	choroid plexus tumours	FALSE	NA	FALSE
-BS_4039HAR9	high	dkfz_v12	MB_G34_VIII	0.848118032590569	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
+BS_4039HAR9	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_AQXCVDTJ	high	dkfz_v12.8	DNET	0.999144876	GNT, DNET	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade glioneuronal tumour	FALSE	NA	FALSE
 BS_TYV44Q7J	high	dkfz_v12.8	EPN_PFA_1C	0.978210565	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
 BS_0JZ4RSWQ	high	dkfz_v12.8	MNG_SMARCE1	0.99694912	MNG, SMARCE1-altered	FALSE	FALSE	FALSE	meningioma	meningioma	FALSE	NA	FALSE
-BS_8TEAVCT6	high	dkfz_v12	LCH	0.858938400313352	LCH	FALSE	FALSE	FALSE	Haematolymphoid tumours involving the CNS	Histiocytic tumours	FALSE	NA	FALSE
+BS_8TEAVCT6	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_NK7H671N	high	dkfz_v12.8	MB_SHH_3	0.95829112	MB, SHH	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma, SHH-activated	FALSE	NA	FALSE
 BS_JCSHMADP	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_PVHKMY7T	high	dkfz_v12.8	PA_INF	0.999434305	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
@@ -1926,7 +1926,7 @@ BS_BEH6A0QS	high	nih_v3.1	MPNST ATYP	0.986	NST, MPNST spinal/atypical	FALSE	FALS
 BS_P3A3FMWA	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_KP5F3FTJ	high	dkfz_v12.8	MB_G34_VIII	0.999617418	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
 BS_CB4QGWRF	high	dkfz_v12.8	MB_G34_III	0.998015273	MB, Group3	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
-BS_FJCWXV37	high	dkfz_v12	MB_G34_VI	0.90955644405426	MB, Group4	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
+BS_FJCWXV37	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_FJ8MRRDH	high	dkfz_v12.8	pedHGG_A	0.977951601	HGG, chr6 CTX	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
 BS_4N2R4TNP	high	dkfz_v12.8	EPN_PFA_2A	0.957715821	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
 BS_D0J34RBW	high	dkfz_v12.8	MB_G34_IV	0.996360674	MB, Group3	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
@@ -1938,7 +1938,7 @@ BS_TB9SQHA4	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_7ZC1599X	high	dkfz_v12.8	EPN_PFA_2B	0.967781494	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
 BS_PKCV80C3	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_STYGP160	high	dkfz_v12.8	ATRT_MYC	0.959848274	ATRT, MYC	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
-BS_EJK71EEZ	high	dkfz_v12	CTRL_REACTIVE	0.84414339223818	NA	TRUE	FALSE	FALSE	Control tissues	control tissue, reactive tumour microenvironment	FALSE	NA	FALSE
+BS_EJK71EEZ	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_FW4MCZSG	high	dkfz_v12.8	EPN_ST_ZFTA_RELA_A	0.999880958	EPN, ST ZFTA	FALSE	FALSE	FALSE	Ependymal tumours	supratentorial ependymoma, ZFTA fusion-positive	FALSE	NA	FALSE
 BS_0890HJY2	high	dkfz_v12.8	DMG_K27	0.999869516	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
 BS_5QFPZ2QW	high	dkfz_v12.8	PA_CORT	0.992835494	LGG, PA ST	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
@@ -2014,7 +2014,7 @@ BS_RPNFPF58	high	nih_v3.1	pedHGG MYCN	0.985	HGG, MYCN	FALSE	FALSE	FALSE	Paediatr
 BS_8S0S0135	high	dkfz_v12.8	CPH_ADM	0.991370449	CRANIO, ADAM	FALSE	FALSE	FALSE	tumours of the sellar region	craniopharyngioma	FALSE	NA	FALSE
 BS_VQ4E0ZSM	high	dkfz_v12.8	PA_MID	0.987598369	LGG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_CYJMA6Y7	high	dkfz_v12.8	EPN_PFA_1B	0.999996662	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
-BS_EAACSQ7E	high	nih_v2	CONTR_REACT	0.997	NA	TRUE	FALSE	FALSE	NA	NA	FALSE	NA	FALSE
+BS_EAACSQ7E	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_24EX2XSS	high	dkfz_v12.8	ATRT_SHH	0.992639811	ATRT, SHH	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
 BS_6JTXMCTT	high	dkfz_v12.8	PA_INF	0.985976967	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_ATR3CMEZ	high	dkfz_v12.8	DMG_K27	0.998115331	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
@@ -2036,7 +2036,7 @@ BS_HNF2XW64	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_HR8WK8WR	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_Q9XEFY7D	high	dkfz_v12.8	RGNT	0.999791076	GNT, FGFR	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade glioneuronal tumour	FALSE	NA	FALSE
 BS_MJKBDY5T	high	nih_v3.1	CHORDM PD	0.984	CHDM, poorly differentiated	FALSE	FALSE	FALSE	NA	NA	FALSE	NA	FALSE
-BS_243YNBAH	high	dkfz_v12	PA_CORT	0.832445225450549	LGG, PA ST	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
+BS_243YNBAH	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_5X8XV0CC	high	dkfz_v12.8	ATRT_SHH	0.997423704	ATRT, SHH	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
 TARGET-00-NAAENF-11A-01D.M	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 TARGET-00-NAAENG-11A-01D.M	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE

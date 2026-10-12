@@ -5,14 +5,13 @@
 # molecular subtyping modules consume instead of re-implementing thresholds and
 # classifier-version aliasing.
 #
-# Calls come from two sources:
-#   - DKFZ v12.8 / NIH v3.1: input/bti_methylation_classifications.tsv
-#   - DKFZ v12 / NIH v2:     histologies-base.tsv
+# Calls come from input/bti_methylation_classifications.tsv: DKFZ v12.8 and
+# NIH v3.1. Earlier classifier versions (DKFZ v11 / v12, NIH v2) are not used.
 #
 # Confidence rule (same as molecular-subtyping-Rare-CNS):
 #   high  = DKFZ subclass score >= 0.8, or (DKFZ missing / < 0.8) NIH
 #           superfamily and class scores >= 0.9
-# Precedence among passing calls: DKFZ v12.8, NIH v3.1, DKFZ v12, NIH v2
+# Precedence among passing calls: DKFZ v12.8, then NIH v3.1
 #
 # Class vocabularies differ between classifier versions, so every call is
 # mapped to a single crosswalk row via normalized keys instead of hand aliases.
@@ -130,8 +129,12 @@ bti <- read_tsv(file.path(input_dir, "bti_methylation_classifications.tsv"),
                 show_col_types = FALSE) %>%
   rename(Kids_First_Biospecimen_ID = Bioassay_ID)
 
+# every methylation biospecimen in the histologies (ids only: the calls are not
+# read from there), so arrays without a v12.8 / v3.1 classification are listed
+# as low_or_none
 hist_methyl <- read_tsv(
   file.path(root_dir, "data", "histologies-base.tsv"),
+  col_select = c(Kids_First_Biospecimen_ID, experimental_strategy),
   guess_max = 100000, show_col_types = FALSE
 ) %>%
   filter(experimental_strategy == "Methylation")
@@ -150,13 +153,7 @@ make_calls <- function(df, source, call, score, super_score = NA, class_score = 
 all_calls <- bind_rows(
   make_calls(bti, "dkfz_v12.8", "dkfz_v12.8_subclass", "dkfz_v12.8_subclass_maxscore"),
   make_calls(bti, "nih_v3.1", "NIH_v3.1_subclass", "NIH_v3.1_subclass_meanscore",
-             "NIH_v3.1_superfamily_meanscore", "NIH_v3.1_class_score"),
-  make_calls(hist_methyl, "dkfz_v12", "dkfz_v12_methylation_subclass",
-             "dkfz_v12_methylation_subclass_score"),
-  make_calls(hist_methyl, "nih_v2", "NIH_v2_methylation_Class",
-             "NIH_v2_methylation_Class_mean_score",
-             "NIH_v2_methylation_Superfamily_mean_score",
-             "NIH_v2_methylation_Class_mean_score")
+             "NIH_v3.1_superfamily_meanscore", "NIH_v3.1_class_score")
 ) %>%
   filter(!is.na(call)) %>%
   mutate(
@@ -170,7 +167,7 @@ all_calls <- bind_rows(
         super_score >= nih_cutoff & class_score >= nih_cutoff,
       !is.na(score) & score >= dkfz_cutoff
     ),
-    precedence = match(source, c("dkfz_v12.8", "nih_v3.1", "dkfz_v12", "nih_v2"))
+    precedence = match(source, c("dkfz_v12.8", "nih_v3.1"))
   ) %>%
   left_join(key_table, by = "key") %>%
   # NIH control-tissue codes (CONTR_*, CTRL_*) are never subtyped, regardless of
