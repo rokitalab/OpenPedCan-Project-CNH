@@ -2056,7 +2056,7 @@ PT_9PDE9KSB_7316-4723_Solid Tissue_Initial CNS Tumor	DHG, H3 G35	DHG	DHG, H3 G35
 PT_9PDE9KSB_ET_9ZZXCTH0_Solid Tissue_Primary Tumor	HGG, To be classified	HGG	HGG, H3 wildtype	lesion negative	NA	FALSE	newly assigned
 PT_9PSTCXRS_7316-3505_Solid Tissue_Initial CNS Tumor	LGG, To be classified	LGG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_9RACP1ZZ_7316-8127_Solid Tissue_Progressive	EPN, To be classified	EPN	NA	NA	NA	FALSE	legacy only (unassigned)
-PT_9RTMDPES_7316-4220_Solid Tissue_Initial CNS Tumor	HGG, H3 wildtype	HGG	DMG, H3 K28	methylation	NA	FALSE	newly assigned
+PT_9RTMDPES_7316-4220_Solid Tissue_Initial CNS Tumor	HGG, H3 wildtype	HGG	HGG, RTK	manual review	NA	FALSE	newly assigned
 PT_9S6WMQ92_7316-278_Solid Tissue_Initial CNS Tumor	MB, SHH	MB	MB, SHH	methylation	NA	TRUE	same
 PT_9S6WMQ92_7316-333_Solid Tissue_Progressive	MB, SHH	MB	MB, SHH	methylation	NA	TRUE	same
 PT_9S6WMQ92_7316-95_Solid Tissue_Progressive	MB, SHH	MB	MB, SHH	expression classifier	NA	TRUE	same
