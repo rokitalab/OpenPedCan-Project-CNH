@@ -39,7 +39,8 @@ rules <- read_tsv(file.path(input_dir, "subtype_lesion_rules.tsv"),
   mutate(rule_order = row_number(),
          use_as_fallback = as.logical(use_as_fallback),
          fallback_requires_dx = as.logical(fallback_requires_dx),
-         definitive = as.logical(definitive))
+         definitive = as.logical(definitive),
+         lesion_overrides_methylation = as.logical(lesion_overrides_methylation))
 dx_groups <- read_tsv(file.path(input_dir, "pathology_dx_groups.tsv"),
                       show_col_types = FALSE)
 family_compat <- read_tsv(
@@ -212,40 +213,65 @@ validated <- calls %>%
 # that is not DMG/DHG contradicts it and is flagged for review
 # A definitive lesion (CTNNB1 exon 3 for MB WNT / CRANIO ADAM, BRAF V600E for
 # CRANIO PAP) that belongs to a different subtype of the same family
-# contradicts the methylation call. Methylation is kept and the tumor flagged.
+# contradicts the methylation call. In craniopharyngioma the lesion decides:
+# CTNNB1 exon 3 and BRAF V600E are mutually exclusive, and pathology confirmed
+# adamantinomatous in 5 of 5 reviewed methylation-PAP tumors (see README). For
+# other families the methylation call is kept and the tumor flagged, unless the
+# call is also weak (NIH-only, or a DKFZ score within 0.05 of the 0.8 cutoff),
+# in which case it is set aside and the tumor is subtyped by the lesion
+# fallback.
+borderline_dkfz <- 0.85
+
 definitive_hits <- lesion_hits %>%
-  semi_join(filter(rules, definitive), by = "rule_id") %>%
-  group_by(match_id, OPC_molecular_subtype) %>%
+  inner_join(select(rules, rule_id, definitive, lesion_overrides_methylation),
+             by = "rule_id") %>%
+  filter(definitive) %>%
+  group_by(match_id, OPC_molecular_subtype, lesion_overrides_methylation) %>%
   summarise(evidence = paste(sort(unique(evidence)), collapse = "; "),
             .groups = "drop") %>%
   transmute(match_id, other_subtype = OPC_molecular_subtype,
             other_family = str_extract(OPC_molecular_subtype, "^[^,]+"),
-            other_evidence = evidence)
+            other_evidence = evidence, overrides = lesion_overrides_methylation)
 
 contradictions <- validated %>%
   mutate(family = str_extract(OPC_molecular_subtype, "^[^,]+")) %>%
   inner_join(definitive_hits, by = "match_id", relationship = "many-to-many") %>%
   filter(family == other_family, OPC_molecular_subtype != other_subtype) %>%
   group_by(match_id) %>%
-  summarise(lesion_contradiction = paste0(other_evidence, " (", other_subtype, ")",
-                                          collapse = "; "),
-            .groups = "drop")
-
-# A contradicted call that is also weak (NIH-only, or a DKFZ score within 0.05
-# of the 0.8 cutoff) is not trusted over the definitive lesion: it is set aside,
-# so the tumor is subtyped by the lesion fallback instead. Strong contradicted
-# calls keep the methylation subtype and are flagged for review.
-borderline_dkfz <- 0.85
+  summarise(
+    lesion_contradiction = paste0(other_evidence, " (", other_subtype, ")",
+                                  collapse = "; "),
+    override_subtype = first(other_subtype[overrides]),
+    override_evidence = first(other_evidence[overrides]),
+    .groups = "drop"
+  )
 
 validated <- validated %>%
   left_join(contradictions, by = "match_id") %>%
-  mutate(h3_variant_conflict = match_id %in% h3_hits$match_id &
-           !str_detect(OPC_molecular_subtype, "^(DMG|DHG)"),
-         weak_methylation = str_detect(methyl_source, "^nih") |
-           methyl_score < borderline_dkfz,
-         methylation_downgraded = !is.na(lesion_contradiction) & weak_methylation,
-         needs_review = needs_review | h3_variant_conflict |
-           !is.na(lesion_contradiction))
+  mutate(
+    h3_variant_conflict = match_id %in% h3_hits$match_id &
+      !str_detect(OPC_molecular_subtype, "^(DMG|DHG)"),
+    weak_methylation = str_detect(methyl_source, "^nih") |
+      methyl_score < borderline_dkfz,
+    # the lesion decides: relabel, keep the methylation subtype for the record
+    methylation_overridden = !is.na(override_subtype),
+    methylation_subtype = OPC_molecular_subtype,
+    OPC_molecular_subtype = coalesce(override_subtype, OPC_molecular_subtype),
+    lesion_status = if_else(methylation_overridden, "confirmed", lesion_status),
+    lesion_evidence = if_else(methylation_overridden, override_evidence,
+                              lesion_evidence),
+    evidence_level = if_else(methylation_overridden,
+                             "lesion overrides methylation", evidence_level),
+    # resolved by the rule, so no longer a contradiction to review
+    lesion_contradiction = if_else(methylation_overridden, NA_character_,
+                                   lesion_contradiction),
+    methylation_downgraded = !is.na(lesion_contradiction) & weak_methylation,
+    needs_review = if_else(
+      methylation_overridden,
+      dx_concordance == "discordant" | methyl_conflict | h3_variant_conflict,
+      needs_review | h3_variant_conflict | !is.na(lesion_contradiction)
+    )
+  )
 
 validated %>%
   filter(methylation_downgraded) %>%
@@ -254,9 +280,17 @@ validated %>%
          lesion_contradiction, pathology_diagnosis) %>%
   write_tsv(file.path(results_dir, "methylation_downgraded.tsv"))
 
+validated %>%
+  filter(methylation_overridden) %>%
+  select(Kids_First_Biospecimen_ID, sample_id, match_id, methyl_source,
+         methyl_class, methyl_score, methylation_subtype, lesion_subtype = OPC_molecular_subtype,
+         lesion_evidence, pathology_diagnosis) %>%
+  write_tsv(file.path(results_dir, "methylation_overridden_by_lesion.tsv"))
+
 validated <- validated %>%
   filter(!methylation_downgraded) %>%
-  select(-weak_methylation, -methylation_downgraded)
+  select(-weak_methylation, -methylation_downgraded, -override_subtype,
+         -override_evidence)
 
 write_tsv(validated, file.path(results_dir, "methylation_subtype_validation.tsv"))
 validated %>%
@@ -437,6 +471,8 @@ message("\n== Methylation-based subtypes: ", nrow(validated))
 print(count(validated, lesion_status))
 print(count(validated, dx_concordance))
 message("Flagged for review: ", sum(validated$needs_review))
+message("Methylation overridden by a definitive lesion: ",
+        sum(validated$methylation_overridden))
 message("Methylation calls set aside (weak and contradicted by a definitive lesion): ",
         nrow(read_tsv(file.path(results_dir, "methylation_downgraded.tsv"),
                       show_col_types = FALSE)))

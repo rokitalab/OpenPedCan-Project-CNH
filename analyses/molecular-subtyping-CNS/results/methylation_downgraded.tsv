@@ -1,6 +1,1 @@
 Kids_First_Biospecimen_ID	sample_id	match_id	methyl_source	methyl_class	methyl_score	methylation_subtype	lesion_contradiction	pathology_diagnosis
-BS_SKGSC6PE	7316-1748	PT_7RMS6K08_7316-1748_Solid Tissue_Initial CNS Tumor	nih_v3.1	CPH PAP	0.937	CRANIO, PAP	CTNNB1 p.T41A (CRANIO, ADAM)	Craniopharyngioma
-BS_HQ70M3HD	7316-7514	PT_KKE7HAEH_7316-7514_Solid Tissue_Recurrence	nih_v3.1	CPH PAP	0.913	CRANIO, PAP	CTNNB1 p.D32N (CRANIO, ADAM)	Craniopharyngioma
-BS_YS76FT7P	7316-323	PT_95S99RWE_7316-323_Solid Tissue_Recurrence	dkfz_v12.8	CPH_PAP	0.806128602	CRANIO, PAP	CTNNB1 p.S33F (CRANIO, ADAM)	Craniopharyngioma
-BS_4ZZTEM70	7316-4551	PT_SGYF4CMN_7316-4551_Solid Tissue_Initial CNS Tumor	dkfz_v12.8	CPH_PAP	0.84155996	CRANIO, PAP	CTNNB1 p.Q27_D32delinsH (CRANIO, ADAM)	Craniopharyngioma
-BS_FY9FVK53	7316-6396	PT_TP58N40V_7316-6396_Solid Tissue_Initial CNS Tumor	nih_v3.1	CPH PAP	0.982	CRANIO, PAP	CTNNB1 p.D32V (CRANIO, ADAM)	Craniopharyngioma

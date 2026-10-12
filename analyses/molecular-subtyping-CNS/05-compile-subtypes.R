@@ -94,7 +94,8 @@ methyl <- read_tsv(file.path(results_dir, "methylation_subtype_validation.tsv"),
   arrange(desc(methyl_score), .by_group = TRUE) %>%
   slice(1) %>%
   ungroup() %>%
-  mutate(subtype_source = "methylation")
+  mutate(subtype_source = if_else(methylation_overridden %in% TRUE,
+                                  "lesion overrides methylation", "methylation"))
 
 fallback <- read_tsv(file.path(results_dir, "lesion_fallback_subtypes.tsv"),
                      guess_max = 10000, col_types = evidence_types) %>%
