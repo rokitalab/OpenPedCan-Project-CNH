@@ -82,12 +82,12 @@ Decisions made while building this module, with the evidence and where they live
 
 `input/possible_methylation_mixups.tsv` lists tumors whose methylation class conflicts with the DNA, RNA or diagnosis in a way that a sample mix-up on the methylation side could explain (14 tumors: 7316-9842 and the two other H3 K27M tumors with an EPN PF-A class, 7316-5481, 7316-1856, 7316-1473, 7316-5310 and the 7 PA_MID tumors with a craniopharyngioma diagnosis), with the confidence of every array. It is a tracking list, not an input: the methylation call is kept and the existing flags apply until the specimens are checked. 7316-9842 is being investigated with CBTN. 7316-6755 was listed at first and removed: two of its three arrays are DMG_K27 at 1.0 (DKFZ v12.8), and the one GG array is NIH-only; its label is `DMG, H3 K28-mutant`.
 
+| PNOC003 clinical review (38 rows, `molecular-subtyping-pathology/input/pnoc003-clinical-review.tsv`) | no manual rows needed | all 36 rows with a tumor in the histologies agree with the module (58 tumors with K28M are `DMG`, the 3 H3 WT participants are not DMG); PT_FFHQ1B9R has no tumors because it is the same patient as PT_V1HNAC2Q (merged upstream; 7316-3240 is `DMG, H3 K28-mutant`) |
 ## Pending
 
 - 7316-9842 (being investigated with CBTN) and the other tumors in `input/possible_methylation_mixups.tsv`: 7316-506, -5511, -5481, -1856, -1473, -5310 and 7 PA_MID craniopharyngioma-diagnosis tumors. The H3 K28M tumors with a control array (6) are subtyped now; `h3_variant_review.tsv` lists the 3 tumors with a non-DMG class (7316-506, -5511, -9842).
 - The KIAA1549::BRAF SV check for the PA_MID craniopharyngioma-diagnosis tumors needs redoing against `sv-manta`.
 - 7316-1106: pathology review `HGG, PXA` vs methylation `LGG, PA ST` (PA_CORT 0.98, NIH v3.1 PA ST 0.99). Lesions do not decide it: BRAF V600E (26% VAF) fits both, no CDKN2A/B homozygous deletion (copy number 3), no fusion, no H3/IDH/TP53 hit. Kept as the methylation call; an HGG diagnosis with a low-grade class is for pathology review (possible anaplastic PA).
-- Manual-review rows not yet added: PT_FFHQ1B9R (PNOC clinical review `DMG, H3 K28`, control methylation) and a check of the other PNOC003 rows.
 - Seed the manual-review table from the remaining legacy path-review overrides (7316-9049, C4116318-Tumor, 7316-272, 7316-4220, the cranio and chordoma rows are done).
 - Citations for the PB, ATRT, ETMR, EPN and MB lesion rules.
 - Copy-number rules (NF2, NF1, RB1, VHL, CDKN2A/B for the NST, HMB and similar families) are not ported.
