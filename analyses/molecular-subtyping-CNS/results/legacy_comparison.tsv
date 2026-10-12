@@ -3639,7 +3639,7 @@ PT_VBJ02EY1_ET_7Z628WSS_Solid Tissue_Initial CNS Tumor	LGG, other MAPK	LGG	LGG, 
 PT_VBNP6JFB_7316-1095_Solid Tissue_Initial CNS Tumor	LGG, wildtype	LGG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_VBVZ2NAR_7316-2156_Solid Tissue_Initial CNS Tumor	EPN, ST ZFTA	EPN	EPN, ST ZFTA	lesion fallback	NA	TRUE	same
 PT_VC6YSGXM_7316-5895_Solid Tissue_Initial CNS Tumor	LGG, To be classified	LGG	NA	NA	NA	FALSE	legacy only (unassigned)
-PT_VC7WZMC4_7316-3652_Solid Tissue_Initial CNS Tumor	CRANIO, ADAM	CRANIO	CRANIO, PAP	methylation	NA	TRUE	different
+PT_VC7WZMC4_7316-3652_Solid Tissue_Initial CNS Tumor	CRANIO, ADAM	CRANIO	CRANIO, ADAM	manual review	NA	TRUE	same
 PT_VCD0W8HG_7316-2756_Solid Tissue_Initial CNS Tumor	DMG, H3 K28	DMG	DMG, H3 K28	methylation	NA	TRUE	same
 PT_VCD0W8HG_7316-4702_Solid Tissue_Deceased	DMG, H3 K28	DMG	DMG, H3 K28	methylation	NA	TRUE	same
 PT_VD2DHTMY_7316-2580_Solid Tissue_Recurrence	EPN, MPE	EPN	EPN, MPE	methylation	NA	TRUE	same
