@@ -7,6 +7,7 @@ EPN_ZFTA	EPN, ST ZFTA	fusion	ZFTA	(^|--)(ZFTA|C11orf95)(/|--|$)	TRUE	FALSE	FALSE
 EPN_YAP1	EPN, ST YAP1	fusion	YAP1	(^|--)YAP1(/|--|$)	TRUE	FALSE	FALSE	FALSE	YAP1 fusion
 RARE_MN1_BEND2	Rare CNS, MN1::BEND2	fusion	MN1	(^|--)MN1(/|--|$).*BEND2|BEND2.*(^|--)MN1(/|--|$)	TRUE	FALSE	FALSE	FALSE	MN1::BEND2
 RARE_MN1_CXXC5	Rare CNS, MN1::CXXC5	fusion	MN1	(^|--)MN1(/|--|$).*CXXC5|CXXC5.*(^|--)MN1(/|--|$)	TRUE	FALSE	FALSE	FALSE	MN1::CXXC5
+RARE_FOXR2	Rare CNS, FOXR2 NBL	fusion	FOXR2	(^|--)FOXR2(/|--|$)	TRUE	TRUE	FALSE	FALSE	FOXR2 fusion; fallback only with a concordant diagnosis
 RARE_CIC	Rare CNS, CIC SARC	fusion	CIC	(^|--)CIC(/|--|$)	FALSE	FALSE	FALSE	FALSE	CIC fusion
 RARE_PLAGL1	Rare CNS, PLAGL1-fused	fusion	PLAGL1	(^|--)PLAGL1(/|--|$)	FALSE	FALSE	FALSE	FALSE	PLAGL1 fusion
 RARE_PATZ1	Rare CNS, PATZ1-fused	fusion	PATZ1	(^|--)PATZ1(/|--|$)	FALSE	FALSE	FALSE	FALSE	PATZ1 fusion
@@ -29,7 +30,7 @@ SNUC_IDH2	SNUC, IDH2-mutant	snv	IDH2	^p\.R172	FALSE	FALSE	FALSE	FALSE	IDH2 R172
 OLIGO_IDH1	Oligo, IDH	snv	IDH1	^p\.R132	FALSE	FALSE	FALSE	FALSE	IDH1 R132 (confirms O_IDH methylation class)
 OLIGO_IDH2	Oligo, IDH	snv	IDH2	^p\.R172	FALSE	FALSE	FALSE	FALSE	IDH2 R172 (confirms O_IDH methylation class)
 OLIGO_1P19Q	Oligo, IDH	arm	1p;19q	-0.5	FALSE	FALSE	FALSE	FALSE	1p and 19q both lost: GISTIC broad arm value <= cutoff (WGS only)
-PXA_BRAF_V600E	PXA	snv	BRAF	^p\.V600E$	FALSE	FALSE	FALSE	FALSE	splits PXA into BRAF V600E and BRAF V600E negative (issue 113)
+PXA_BRAF_V600E	PXA	snv	BRAF	^p\.V600E$	TRUE	TRUE	FALSE	FALSE	splits PXA into BRAF V600E and BRAF V600E negative (issue 113); fallback only with a PXA diagnosis in the free text
 DMG_EGFR_H3K28	DMG, H3 K28-altered, EGFR	snv	H3-3A|H3C2|H3C3|H3C14	^p\.K(27|28)[MI]$	FALSE	FALSE	FALSE	FALSE	H3 K27M/I in a DMG_EGFR tumor; makes it DMG, H3 K28-mutant, EGFR
 MB_WNT_CTNNB1	MB, WNT	snv	CTNNB1	^p\.(D32|S33|G34|S37|T41|S45)|^p\.[A-Z]\d+_[A-Z]\d+del	FALSE	FALSE	TRUE	FALSE	CTNNB1 exon 3 hotspot or in-frame deletion
 MB_SHH_PTCH1	MB, SHH	snv	PTCH1	.*	FALSE	FALSE	FALSE	FALSE	PTCH1 variant

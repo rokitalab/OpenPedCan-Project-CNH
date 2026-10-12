@@ -52,6 +52,10 @@ Decisions made while building this module, with the evidence and where they live
 | 7316-4220 | `HGG, RTK` | report: "Histone H3 negative by IHC"; **H3K27me3 not stained**; reviewer interpretation: not H3 K27-altered DMG; DKFZ RTK1 class 0.63 and PDGFRA K385I support RTK; TERT c.-146C>T |
 | 7316-9842 | `HGG, IDH` kept, **flagged** | methylation `A_IDH_HG` 0.99 (2 arrays) vs WGS H3-3A K28M with no IDH variant and pathology DMG H3 K27M; CBTN contacted |
 | 7316-3240 | `DMG, H3 K28-mutant` | the missing subtype in the v15 comparison was a participant mismatch fixed in `opc-histologies-qc` v16 (ticket 5) |
+| 7316-1856 | `Rare CNS, EWS` | pathology: Ewing sarcoma metastatic to the CNS; MB_G34_VIII methylation likely a mismatched array (manual review) |
+| 7316-3166 | `Rare CNS, MN1::BEND2` | MN1--BEND2 fusion, no methylation; MN1 fusion rules now subtype tumors without methylation |
+| 7316-7091, -6484, -4698, C4110537-Tumor | `HGG, PXA BRAF V600E` | BRAF V600E plus a PXA free-text diagnosis, no methylation; 9 more tumors with LGG diagnosis and PXA free text become `LGG, PXA BRAF V600E` |
+| 7316-2784, -3158, -3521, -9843 | `DMG, H3 K28-mutant` | H3-3A K28M with a control / INFLAM_ENV methylation call; the H3 K27/K28 variant is specific, so the control exception applies to DMG only |
 
 ## Pending
 

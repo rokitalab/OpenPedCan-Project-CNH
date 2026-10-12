@@ -349,6 +349,11 @@ control_match_ids <- calls %>%
              by = "Kids_First_Biospecimen_ID") %>%
   pull(match_id) %>%
   unique()
+# an H3 K27/K28 M or I variant is specific to DMG, and a control methylation
+# call is uninformative (low tumor purity), so these tumors are still subtyped
+control_match_ids <- setdiff(
+  control_match_ids,
+  lesion_hits$match_id[lesion_hits$rule_id == "DMG_H3K28"])
 # PBTA, plus PPTC xenograft models (e.g. ependymoma PDX), which are only
 # assigned when the diagnosis is concordant or compatible
 pbta_match_ids <- unique(hist$match_id[hist$cohort %in% c("PBTA", "PPTC")])
@@ -377,6 +382,8 @@ fallback <- lesion_hits %>%
                         sample_id = first(sample_id),
                         pathology_diagnosis = paste(sort(unique(na.omit(pathology_diagnosis))),
                                                     collapse = ";"),
+                        free_text = paste(unique(na.omit(pathology_free_text_diagnosis)),
+                                          collapse = " | "),
                         .groups = "drop") %>%
               mutate(pathology_diagnosis = na_if(pathology_diagnosis, "")),
             by = "match_id") %>%
@@ -395,7 +402,18 @@ fallback <- fallback %>%
     is_codeleted = match_id %in% codeleted,
     oligo_dx = str_detect(replace_na(pathology_diagnosis, ""),
                           regex("oligodendroglioma", ignore_case = TRUE)),
+    # BRAF V600E is not specific, so PXA needs a PXA diagnosis in the free text
+    is_pxa = OPC_molecular_subtype == "PXA",
+    pxa_dx = str_detect(replace_na(free_text, ""),
+                        regex("xanthoastrocytoma|\\bpxa\\b", ignore_case = TRUE)),
+    pxa_prefix = case_when(
+      str_detect(replace_na(dx_group, ""), "HGG") ~ "HGG",
+      !is.na(dx_group) & !dx_group %in% c("UNINFORMATIVE", "UNMAPPED") ~ "LGG",
+      free_text_grade_group(free_text) %in% "HGG" ~ "HGG",
+      TRUE ~ "LGG"
+    ),
     hold_reason = case_when(
+      is_pxa & !pxa_dx ~ "BRAF V600E without a PXA diagnosis",
       is_idh & !is_codeleted & oligo_dx & match_id %in% arm_assessed ~
         "oligodendroglioma diagnosis, 1p/19q not codeleted",
       is_idh & !is_codeleted & oligo_dx ~
@@ -405,6 +423,7 @@ fallback <- fallback %>%
       # subtyped from the H3 variant itself
       OPC_molecular_subtype == "DMG, H3 K28" ~ "DMG, H3 K28-mutant",
       OPC_molecular_subtype == "DHG, H3 G35" ~ "DHG, H3 G35-mutant",
+      is_pxa ~ paste0(pxa_prefix, ", PXA BRAF V600E"),
       is_idh & is_codeleted ~ "Oligo, IDH",
       is_idh & !oligo_dx & dx_group == "LGG" ~ "LGG, IDH",
       TRUE ~ OPC_molecular_subtype
@@ -423,7 +442,8 @@ fallback <- fallback %>%
       (!match_id %in% pptc_only_match_ids |
          dx_concordance %in% c("concordant", "compatible"))
   ) %>%
-  select(-is_idh, -is_codeleted, -oligo_dx, -requires_dx) %>%
+  select(-is_idh, -is_codeleted, -oligo_dx, -requires_dx, -is_pxa, -pxa_dx,
+         -pxa_prefix, -free_text) %>%
   left_join(tp53, by = "match_id") %>%
   with_manual() %>%
   annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
@@ -467,6 +487,7 @@ h3_variant_review <- h3_hits %>%
             by = "match_id") %>%
   mutate(
     reason = case_when(
+      fallback_assigned %in% TRUE ~ NA_character_,
       !is.na(methylation_subtype) & !str_detect(methylation_subtype, "^(DMG|DHG)") ~
         "methylation subtype is not DMG/DHG",
       methyl_control %in% TRUE ~
