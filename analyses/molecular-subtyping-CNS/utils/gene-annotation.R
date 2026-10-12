@@ -220,5 +220,24 @@ relabel_egfr_only <- function(df) {
       OPC_molecular_subtype == "DMG, H3 K28-mutant" &
         egfr_activating_alteration %in% TRUE ~ "DMG, H3 K28-mutant, EGFR",
       TRUE ~ OPC_molecular_subtype
+    )) %>%
+    add_ezhip_label()
+}
+
+#' EZHIP overexpression in DMG labels
+#'
+#' EZHIP overexpression is added to the label of a DMG, after any EGFR term
+#' (`DMG, H3 K28-mutant, EZHIP`, `DMG, H3 K28-altered, EGFR, EZHIP`). A DMG with
+#' no H3 variant whose only support is methylation or the diagnosis
+#' ("DMG, H3 K28") becomes `DMG, H3 K28-altered, EZHIP`, since EZHIP
+#' overexpression is the route to H3 K27 alteration.
+add_ezhip_label <- function(df) {
+  df %>%
+    mutate(OPC_molecular_subtype = case_when(
+      !str_detect(OPC_molecular_subtype, "^DMG") ~ OPC_molecular_subtype,
+      !(ezhip_expression_status %in% "overexpressed") ~ OPC_molecular_subtype,
+      str_detect(OPC_molecular_subtype, "EZHIP") ~ OPC_molecular_subtype,
+      OPC_molecular_subtype == "DMG, H3 K28" ~ "DMG, H3 K28-altered, EZHIP",
+      TRUE ~ paste0(OPC_molecular_subtype, ", EZHIP")
     ))
 }

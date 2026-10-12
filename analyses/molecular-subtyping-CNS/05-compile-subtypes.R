@@ -190,7 +190,15 @@ compiled <- bind_rows(
       manual_subtype != automated_subtype,
     subtype_source = if_else(!is.na(manual_subtype), "manual review", subtype_source),
     evidence_level = if_else(!is.na(manual_subtype), "manual review", evidence_level),
-    molecular_subtype_cns = coalesce(manual_subtype, molecular_subtype_cns)
+    molecular_subtype_cns = coalesce(manual_subtype, molecular_subtype_cns),
+    # EZHIP overexpression is added to reviewed DMG labels as well
+    molecular_subtype_cns = case_when(
+      !str_detect(replace_na(molecular_subtype_cns, ""), "^DMG") ~ molecular_subtype_cns,
+      !(ezhip_expression_status %in% "overexpressed") ~ molecular_subtype_cns,
+      str_detect(molecular_subtype_cns, "EZHIP") ~ molecular_subtype_cns,
+      molecular_subtype_cns == "DMG, H3 K28" ~ "DMG, H3 K28-altered, EZHIP",
+      TRUE ~ paste0(molecular_subtype_cns, ", EZHIP")
+    )
   ) %>%
   # umbrella group (e.g. the pediatric H3-wildtype HGG classes), unless an H3
   # variant was found, which contradicts the wildtype grouping
