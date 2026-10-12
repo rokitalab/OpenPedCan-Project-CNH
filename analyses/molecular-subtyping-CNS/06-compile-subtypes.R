@@ -222,7 +222,8 @@ compiled <- bind_rows(
       !str_detect(replace_na(molecular_subtype_cns, ""), "^DMG") ~ molecular_subtype_cns,
       !(ezhip_expression_status %in% "overexpressed") ~ molecular_subtype_cns,
       str_detect(molecular_subtype_cns, "EZHIP") ~ molecular_subtype_cns,
-      molecular_subtype_cns == "DMG, H3 K28" ~ "DMG, H3 K28-altered, EZHIP",
+      molecular_subtype_cns %in% c("DMG, H3 K28", "DMG, H3 wildtype") ~
+        "DMG, H3 K28-altered, EZHIP",
       TRUE ~ paste0(molecular_subtype_cns, ", EZHIP")
     )
   ) %>%

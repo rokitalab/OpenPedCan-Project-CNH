@@ -58,7 +58,7 @@ PT_JSFBMK5V_7316-1769_Derived Cell Line_Progressive_Serum-free_11	7316-1769	DMG,
 PT_JXSTA5HB_7316-8128_Derived Cell Line_Recurrence_Serum-free-1_8	7316-8128	EPN, ST ZFTA	lesion fallback	EPN, ST ZFTA	same	shared: ZFTA--RELA
 PT_JXSTA5HB_7316-8128_Derived Cell Line_Recurrence_Serum-free-1_9	7316-8128	EPN, ST ZFTA	lesion fallback	EPN, ST ZFTA	same	shared: ZFTA--RELA
 PT_JXSTA5HB_7316-8128_Derived Cell Line_Recurrence_Serum-free-2_11	7316-8128	EPN, ST ZFTA	lesion fallback	EPN, ST ZFTA	same	shared: ZFTA--RELA
-PT_KBFM551M_7316-4447_Derived Cell Line_Initial CNS Tumor_Serum-free_0	7316-4447	HGG, H3 wildtype	lesion negative	HGG, H3 wildtype	same	NA
+PT_KBFM551M_7316-4447_Derived Cell Line_Initial CNS Tumor_Serum-free_0	7316-4447	HGG, H3 wildtype	lesion negative	DMG, H3 K28-altered, EZHIP;DMG, H3 wildtype	different	not assessable (no RNA): EZHIP overexpression
 PT_KEQ53KRH_7316-440_Derived Cell Line_Initial CNS Tumor_Serum-based_11	7316-440	DMG, H3 K28-altered, EGFR	lesion shared with tumor	DMG, H3 K28-altered, EGFR, EZHIP	same group	not assessable (no RNA): EZHIP overexpression; shared: EGFR p.A289V
 PT_KEQ53KRH_7316-440_Derived Cell Line_Initial CNS Tumor_Serum-free_21	7316-440	DMG, H3 K28-altered, EGFR, EZHIP	lesion shared with tumor	DMG, H3 K28-altered, EGFR, EZHIP	same	shared: EGFR p.A289V, EZHIP overexpression
 PT_KZ56XHJT_7316-3234_Derived Cell Line_Progressive_Serum-free_27	7316-3234	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
