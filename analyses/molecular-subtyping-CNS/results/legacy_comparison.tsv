@@ -2959,8 +2959,8 @@ PT_KBFM551M_7316-3232_Solid Tissue_Initial CNS Tumor	DIPG, H3 wildtype	DIPG	HGG,
 PT_KBFM551M_7316-3237_Solid Tissue_Progressive Disease Post-Mortem	DIPG, H3 wildtype	DIPG	HGG, H3 wildtype	lesion negative	NA	FALSE	newly assigned
 PT_KBFM551M_7316-4447_Derived Cell Line_Initial CNS Tumor_Serum-free_0	DIPG, H3 wildtype	DIPG	HGG, H3 wildtype	lesion negative	NA	FALSE	newly assigned
 PT_KBFM551M_A07082_Solid Tissue_Initial CNS Tumor	DIPG, H3 wildtype	DIPG	HGG, H3 wildtype	lesion negative	NA	FALSE	newly assigned
-PT_KEQ53KRH_7316-440_Derived Cell Line_Initial CNS Tumor_Serum-based_11	HGG, H3 wildtype	HGG	HGG, H3 wildtype	lesion negative	NA	FALSE	same
-PT_KEQ53KRH_7316-440_Derived Cell Line_Initial CNS Tumor_Serum-free_21	HGG, H3 wildtype	HGG	HGG, H3 wildtype	lesion negative	NA	FALSE	same
+PT_KEQ53KRH_7316-440_Derived Cell Line_Initial CNS Tumor_Serum-based_11	HGG, H3 wildtype	HGG	DMG, H3 K28	lesion shared with tumor	NA	FALSE	newly assigned
+PT_KEQ53KRH_7316-440_Derived Cell Line_Initial CNS Tumor_Serum-free_21	HGG, H3 wildtype	HGG	DMG, H3 K28	lesion shared with tumor	NA	FALSE	newly assigned
 PT_KEQ53KRH_7316-440_Solid Tissue_Initial CNS Tumor	HGG, H3 wildtype	HGG	DMG, H3 K28	methylation	NA	FALSE	newly assigned
 PT_KFYJBQB8_7316-3075_Solid Tissue_Initial CNS Tumor	HGG, IHG, ROS1-altered	HGG	HGG, IHG, ROS1-altered	methylation	NA	TRUE	same
 PT_KHCZB6GZ_7316-5112_Solid Tissue_Progressive	HGG, H3 wildtype	HGG	HGG, RTK	methylation	NA	FALSE	newly assigned

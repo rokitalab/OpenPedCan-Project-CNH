@@ -52,7 +52,7 @@ family_compat <- read_tsv(
 hist <- read_tsv(file.path(root_dir, "data", "histologies-base.tsv"),
                  guess_max = 100000, show_col_types = FALSE) %>%
   select(Kids_First_Biospecimen_ID, Kids_First_Participant_ID, sample_id,
-         match_id, cohort, sample_type, experimental_strategy, RNA_library,
+         match_id, cohort, sample_type, composition, experimental_strategy, RNA_library,
          primary_site, pathology_diagnosis, pathology_free_text_diagnosis)
 
 snv_file <- file.path(scratch_dir, "snv_lesion_genes.parquet")
@@ -753,6 +753,47 @@ lesion_negative_hgg <- hist %>%
                       has_rna = .$match_id %in% rna_ids$match_id)
 
 write_tsv(lesion_negative_hgg, file.path(results_dir, "lesion_negative_hgg.tsv"))
+
+### Alterations in the cell lines -----------------------------------------------
+# What each derived cell line carries, to compare with the alterations that
+# confirm the subtype of its tumor (06-compile-subtypes.R): the lesion rule hits,
+# EGFR activating variants and amplification and EZHIP overexpression, the last
+# two evaluated for every line (the annotations are otherwise only applied to
+# DMG subtypes). has_dna / has_rna say whether an alteration could have been seen.
+line_ids <- hist %>%
+  filter(composition %in% "Derived Cell Line", !is.na(match_id)) %>%
+  distinct(match_id)
+
+line_annotations <- line_ids %>%
+  mutate(OPC_molecular_subtype = "DMG") %>%
+  annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
+  annotate_expression(expression_annotations, expression_long, rna_ids)
+
+line_items <- bind_rows(
+  lesion_hits %>%
+    filter(match_id %in% line_ids$match_id) %>%
+    transmute(match_id, item = evidence),
+  line_annotations %>%
+    filter(!is.na(egfr_activating_variants)) %>%
+    separate_rows(egfr_activating_variants, sep = "; ") %>%
+    transmute(match_id, item = paste("EGFR", egfr_activating_variants)),
+  line_annotations %>%
+    filter(egfr_amplification %in% "amplified") %>%
+    transmute(match_id, item = "EGFR amplification"),
+  line_annotations %>%
+    filter(ezhip_expression_status %in% "overexpressed") %>%
+    transmute(match_id, item = "EZHIP overexpression")
+) %>%
+  distinct()
+
+line_alterations <- line_ids %>%
+  left_join(line_items %>% group_by(match_id) %>%
+              summarise(line_alterations = paste(sort(item), collapse = "; "),
+                        .groups = "drop"),
+            by = "match_id") %>%
+  mutate(has_dna = match_id %in% dna_ids$match_id,
+         has_rna = match_id %in% rna_ids$match_id)
+write_tsv(line_alterations, file.path(results_dir, "cell_line_alterations.tsv"))
 
 ### Summary --------------------------------------------------------------------
 

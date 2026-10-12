@@ -400,7 +400,107 @@ compiled <- compiled %>%
       TRUE ~ "different"
     )
   ) %>%
-  select(-tumor_subtype_p, -tumor_group_p, -is_cell_line) %>%
+  select(-tumor_subtype_p, -tumor_group_p, -is_cell_line)
+
+### Alterations the line shares with its tumor ----------------------------------
+# The alterations that confirm the tumor's subtype, checked in the line:
+# shared, not found (the assay was available) or not assessable (no DNA / RNA).
+# A line with no subtype of its own (no methylation, no lesion rule) that shares
+# a lesion with its tumor takes the tumor's subtype.
+line_alterations <- read_tsv(file.path(results_dir, "cell_line_alterations.tsv"),
+                             show_col_types = FALSE)
+
+# the alterations of the tumors, with the subtype they confirm
+tumor_alts <- compiled %>%
+  filter(!match_id %in% is_line, !is.na(subtype_alterations_confirmed),
+         !is.na(sample_id)) %>%
+  select(sample_id, Kids_First_Participant_ID, tumor_subtype = molecular_subtype_cns,
+         alts = subtype_alterations_confirmed) %>%
+  separate_rows(alts, sep = "; ") %>%
+  filter(!str_detect(alts, "^expression classifier"), alts != "") %>%
+  distinct()
+
+assess_line <- function(sample_id, participant, line_subtype, line_source, items,
+                        has_dna, has_rna) {
+  wanted <- tumor_alts %>%
+    filter(sample_id == !!sample_id |
+             (is.na(!!sample_id) & Kids_First_Participant_ID == !!participant))
+  if (nrow(wanted) == 0) wanted <- tumor_alts %>%
+    filter(Kids_First_Participant_ID == !!participant)
+  if (nrow(wanted) == 0) return(list(text = NA_character_, adopt = NA_character_,
+                                     shared = NA_character_))
+  have <- if (is.na(items)) character() else str_split(items, "; ")[[1]]
+  rna_item <- function(x) str_detect(x, "--|overexpression")
+  status <- map_chr(wanted$alts, function(a) {
+    case_when(
+      a %in% have ~ "shared",
+      rna_item(a) & !has_rna ~ "not assessable (no RNA)",
+      !rna_item(a) & !has_dna ~ "not assessable (no DNA)",
+      TRUE ~ "not found in line"
+    )
+  })
+  w <- wanted %>% mutate(status = status)
+  parts <- w %>% group_by(status) %>%
+    summarise(items = paste(sort(unique(alts)), collapse = ", "), .groups = "drop") %>%
+    mutate(text = paste0(status, ": ", items))
+  shared <- w %>% filter(status == "shared") %>% pull(alts) %>% unique()
+  adopt <- NA_character_
+  subtypes <- unique(w$tumor_subtype[w$status == "shared"])
+  # not the umbrella wildtype or an annotation-only item such as TP53
+  if (length(subtypes) == 1 && length(shared) > 0 &&
+      (is.na(line_subtype) || line_source %in% "lesion negative")) {
+    adopt <- subtypes
+    # EZHIP is part of the label only when the line overexpresses it
+    if (str_detect(adopt, ", EZHIP") && !"EZHIP overexpression" %in% shared) {
+      adopt <- str_remove(adopt, ", EZHIP")
+    }
+  }
+  list(text = paste(parts$text, collapse = "; "), adopt = adopt,
+       shared = paste(sort(shared), collapse = "; "))
+}
+
+line_rows <- compiled %>%
+  filter(!is.na(tumor_concordance)) %>%
+  left_join(line_alterations, by = "match_id") %>%
+  mutate(res = pmap(
+    list(sample_id, Kids_First_Participant_ID, molecular_subtype_cns,
+         subtype_source, line_alterations, has_dna, has_rna),
+    assess_line
+  )) %>%
+  transmute(match_id,
+            tumor_alterations_shared = map_chr(res, "text"),
+            adopt_subtype = map_chr(res, "adopt"),
+            adopt_alterations = map_chr(res, "shared"))
+
+compiled <- compiled %>%
+  left_join(line_rows, by = "match_id") %>%
+  mutate(
+    adopted = !is.na(adopt_subtype),
+    molecular_subtype_cns = if_else(adopted, adopt_subtype, molecular_subtype_cns),
+    subtype_group = if_else(adopted, adopt_subtype, subtype_group),
+    subtype_source = if_else(adopted, "lesion shared with tumor", subtype_source),
+    evidence_level = if_else(adopted, "lesion shared with tumor", evidence_level),
+    subtype_alterations_confirmed = if_else(adopted, adopt_alterations,
+                                            subtype_alterations_confirmed),
+    alteration_confirmed = alteration_confirmed | adopted,
+    Notes = if_else(adopted, "Subtype from lesion shared with the tumor", Notes),
+    tumor_concordance = case_when(
+      is.na(tumor_concordance) ~ NA_character_,
+      !is.na(molecular_subtype_cns) & molecular_subtype_cns == tumor_subtype ~ "same",
+      # one label is the other plus an annotation term (e.g. ", EGFR", "-mutant")
+      !is.na(molecular_subtype_cns) & !is.na(tumor_subtype) &
+        (str_starts(tumor_subtype, fixed(molecular_subtype_cns)) |
+           str_starts(molecular_subtype_cns, fixed(tumor_subtype))) ~ "same group",
+      adopted & subtype_group == tumor_group ~ "same group",
+      TRUE ~ tumor_concordance
+    )
+  ) %>%
+  select(-adopt_subtype, -adopt_alterations, -adopted)
+message("Cell lines taking the tumor subtype from a shared lesion: ",
+        sum(compiled$subtype_source %in% "lesion shared with tumor"))
+
+# a line that still differs from its tumor is flagged for review
+compiled <- compiled %>%
   mutate(
     needs_review = needs_review | tumor_concordance %in% "different",
     subtype_review_flag = case_when(
@@ -415,7 +515,7 @@ compiled <- compiled %>%
 write_tsv(
   compiled %>% filter(!is.na(tumor_concordance)) %>%
     select(match_id, sample_id, molecular_subtype_cns, subtype_source,
-           tumor_subtype, tumor_concordance),
+           tumor_subtype, tumor_concordance, tumor_alterations_shared),
   file.path(results_dir, "cell_line_tumor_concordance.tsv")
 )
 write_tsv(compiled, file.path(results_dir, "molecular_subtype_cns.tsv"))
