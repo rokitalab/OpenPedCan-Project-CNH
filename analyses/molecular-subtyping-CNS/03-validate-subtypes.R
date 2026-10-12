@@ -207,7 +207,7 @@ validated <- calls %>%
          dx_concordance, starts_with("tp53_"),
          ends_with("_mutation_status"), ends_with("_variants"),
          ends_with("_amplification"), ends_with("_activating_alteration"),
-         ends_with("_tpm"), ends_with("_expression_status"),
+         ends_with("_tpm"), ends_with("_z"), ends_with("_expression_status"),
          starts_with("h3_"), starts_with("h3k27_"), evidence_level, needs_review)
 
 # an H3 K27M/I or G34/G35 R/V variant defines DMG/DHG, so a methylation subtype

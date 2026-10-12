@@ -87,9 +87,35 @@ expr_genes <- read_tsv(file.path(module_dir, "input", "expression_annotations.ts
 tpm <- readRDS(file.path(root_dir, "data", "gene-expression-rsem-tpm-collapsed.rds"))
 stopifnot(all(expr_genes$gene %in% rownames(tpm)))
 
+# Overexpression is a z-score of log2(TPM + 1) within RNA library type, against
+# PBTA tumor RNA-seq biospecimens. Library type matters: exome-capture
+# libraries have much higher EZHIP TPM than poly-A or stranded ones.
+rna_meta <- read_tsv(file.path(root_dir, "data", "histologies-base.tsv"),
+                     guess_max = 100000, show_col_types = FALSE) %>%
+  filter(experimental_strategy == "RNA-Seq") %>%
+  transmute(Kids_First_Biospecimen_ID, cohort, sample_type,
+            library_group = case_when(
+              str_detect(RNA_library, "exome") ~ "exome capture",
+              str_detect(RNA_library, "poly-A") ~ "poly-A",
+              TRUE ~ "stranded"
+            ))
+
 expr_long <- tpm[expr_genes$gene, , drop = FALSE] %>%
   rownames_to_column("gene") %>%
-  pivot_longer(-gene, names_to = "Kids_First_Biospecimen_ID", values_to = "tpm")
+  pivot_longer(-gene, names_to = "Kids_First_Biospecimen_ID", values_to = "tpm") %>%
+  inner_join(rna_meta, by = "Kids_First_Biospecimen_ID") %>%
+  mutate(log2_tpm = log2(tpm + 1))
+
+reference <- expr_long %>%
+  filter(cohort == "PBTA", sample_type == "Tumor") %>%
+  group_by(gene, library_group) %>%
+  summarise(ref_mean = mean(log2_tpm), ref_sd = sd(log2_tpm), n_ref = n(),
+            .groups = "drop")
+
+expr_long <- expr_long %>%
+  left_join(reference, by = c("gene", "library_group")) %>%
+  mutate(z = (log2_tpm - ref_mean) / ref_sd) %>%
+  select(gene, Kids_First_Biospecimen_ID, library_group, tpm, z)
 
 write_tsv(expr_long, file.path(scratch_dir, "expression_annotation_genes.tsv"))
 message("Wrote expression for ", nrow(expr_genes), " gene(s) in ",

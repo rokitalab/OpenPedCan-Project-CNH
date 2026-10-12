@@ -1,2 +1,2 @@
-gene	applies_to_subtype_regex	tpm_threshold	note
-EZHIP	^DMG	1	EZHIP overexpression, an H3 K27-altered mechanism. 1 TPM captures 92% of PF-EPN-A tumors (median 3.2 TPM) and about 5% of non-PF-A tumors (95th percentile 1.2 TPM).
+gene	applies_to_subtype_regex	z_threshold	note
+EZHIP	^DMG	3	EZHIP overexpression, an H3 K27-altered mechanism. z-score of log2(TPM+1) within RNA library type, against PBTA tumor RNA-seq; z >= 3 captures 60% of PF-EPN-A tumors and 1% of H3 K27M-mutant DMG.

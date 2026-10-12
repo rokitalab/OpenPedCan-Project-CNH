@@ -91,14 +91,16 @@ annotate_genes <- function(df, annotation_genes, snv, dna_ids, cnv_segments) {
 
 #' Gene overexpression as an annotation (not part of the subtype)
 #'
-#' For each gene in `expression_annotations`, adds `<gene>_tpm` (highest TPM
-#' across the tumor's RNA biospecimens) and `<gene>_expression_status`
-#' (overexpressed at or above `tpm_threshold`, not overexpressed, or no RNA
-#' assay) for the tumors whose subtype matches `applies_to_subtype_regex`.
+#' For each gene in `expression_annotations`, adds `<gene>_tpm` and `<gene>_z`
+#' (highest across the tumor's RNA biospecimens; z is the z-score of
+#' log2(TPM + 1) within RNA library type, from 02-prepare-lesion-tables.R) and
+#' `<gene>_expression_status` (overexpressed at or above `z_threshold`, not
+#' overexpressed, or no RNA assay) for the tumors whose subtype matches
+#' `applies_to_subtype_regex`.
 #'
 #' @param df Table with match_id and OPC_molecular_subtype.
-#' @param expression_annotations gene, applies_to_subtype_regex, tpm_threshold.
-#' @param expression_long gene, Kids_First_Biospecimen_ID and tpm.
+#' @param expression_annotations gene, applies_to_subtype_regex, z_threshold.
+#' @param expression_long gene, Kids_First_Biospecimen_ID, tpm and z.
 #' @param rna_ids Table with match_id and the RNA biospecimen `id`.
 annotate_expression <- function(df, expression_annotations, expression_long,
                                 rna_ids) {
@@ -107,19 +109,22 @@ annotate_expression <- function(df, expression_annotations, expression_long,
     applies <- str_detect(df$OPC_molecular_subtype,
                           expression_annotations$applies_to_subtype_regex[i])
 
-    tpm <- expression_long %>%
+    per_tumor <- expression_long %>%
       filter(gene == !!gene) %>%
       inner_join(rna_ids, by = c("Kids_First_Biospecimen_ID" = "id"),
                  relationship = "many-to-many") %>%
       group_by(match_id) %>%
-      summarise(tpm = max(tpm, na.rm = TRUE), .groups = "drop")
+      summarise(tpm = max(tpm, na.rm = TRUE), z = max(z, na.rm = TRUE),
+                .groups = "drop")
 
-    value <- tpm$tpm[match(df$match_id, tpm$match_id)]
-    df[[paste0(tolower(gene), "_tpm")]] <- if_else(applies, value, NA_real_)
+    idx <- match(df$match_id, per_tumor$match_id)
+    value_z <- per_tumor$z[idx]
+    df[[paste0(tolower(gene), "_tpm")]] <- if_else(applies, per_tumor$tpm[idx], NA_real_)
+    df[[paste0(tolower(gene), "_z")]] <- if_else(applies, round(value_z, 2), NA_real_)
     df[[paste0(tolower(gene), "_expression_status")]] <- case_when(
       !applies ~ NA_character_,
-      is.na(value) ~ "no RNA assay",
-      value >= expression_annotations$tpm_threshold[i] ~ "overexpressed",
+      is.na(value_z) ~ "no RNA assay",
+      value_z >= expression_annotations$z_threshold[i] ~ "overexpressed",
       TRUE ~ "not overexpressed"
     )
   }

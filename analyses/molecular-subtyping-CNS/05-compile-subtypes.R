@@ -123,7 +123,7 @@ compiled <- bind_rows(
                     methyl_conflict, starts_with("tp53_"),
                     ends_with("_mutation_status"), ends_with("_variants"),
                     ends_with("_amplification"), ends_with("_activating_alteration"),
-                    ends_with("_tpm"), ends_with("_expression_status"),
+                    ends_with("_tpm"), ends_with("_z"), ends_with("_expression_status"),
                     starts_with("h3_"), starts_with("h3k27_")),
   free_text %>% select(all_of(shared), starts_with("tp53_"),
                        ends_with("_mutation_status"), ends_with("_variants"),
@@ -138,7 +138,7 @@ compiled <- bind_rows(
   fallback %>% select(all_of(shared), starts_with("tp53_"),
                       ends_with("_mutation_status"), ends_with("_variants"),
                     ends_with("_amplification"), ends_with("_activating_alteration"),
-                    ends_with("_tpm"), ends_with("_expression_status"),
+                    ends_with("_tpm"), ends_with("_z"), ends_with("_expression_status"),
                     starts_with("h3_"), starts_with("h3k27_"))
 ) %>%
   full_join(lgg, by = "match_id") %>%
@@ -214,7 +214,7 @@ compiled <- bind_rows(
          dx_concordance, needs_review, starts_with("tp53_"),
          ends_with("_mutation_status"), ends_with("_variants"),
          ends_with("_amplification"), ends_with("_activating_alteration"),
-         ends_with("_tpm"), ends_with("_expression_status"),
+         ends_with("_tpm"), ends_with("_z"), ends_with("_expression_status"),
          starts_with("h3_"), starts_with("h3k27_")) %>%
   arrange(match_id)
 
