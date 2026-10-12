@@ -118,7 +118,9 @@ DKFZ or NIH high-confidence PXA calls are split by BRAF V600E (issue 113): `PXA 
 
 ### Supratentorial pilocytic astrocytoma (PA_CORT / PA ST)
 
-The DKFZ `PA_CORT` class (NIH v3.1 `PA ST`) is `LGG, PA ST`, and the family prefix follows the primary diagnosis, as for PXA: a ganglioglioma diagnosis gives `GNG, PA ST`, a DNET or glial-neuronal tumor diagnosis `GNT, PA ST`, and anything else `LGG, PA ST`. The DLGNT classes stay `GNT, MAPK`.
+The DKFZ `PA_CORT` class (NIH v3.1 `PA ST`) is `LGG, PA ST`, and the family prefix follows the primary diagnosis, as for PXA: a ganglioglioma diagnosis gives `GNG, PA ST`, a DNET or glial-neuronal tumor diagnosis `GNT, PA ST`, and anything else `LGG, PA ST`. The DLGNT classes stay `GNT, MAPK`. The class carries its lesion term from the LGG lesion module (`04-lgg-lesions.R`) in the label, so these tumors are `LGG, PA ST, BRAF V600E`, `GNG, PA ST, KIAA1549-BRAF`, `GNT, PA ST, other MAPK` and so on. A tumor with no lesion term stays at `LGG, PA ST` / `GNG, PA ST` / `GNT, PA ST`.
+
+`lesion_refinement_status` (LGG, GNG, GNT and SEGA families) says what the lesion module could see: `specific` (a lesion term), `none detected (DNA and RNA)`, or `incomplete: no DNA`, `incomplete: no RNA` or `incomplete: no DNA or RNA`. An incomplete tumor is still to be determined, not lesion-negative. The legacy `To be classified` labels are not used: a tumor without lesion evidence keeps its methylation label, and the status and `alteration_confirmed` carry the rest.
 
 ### Label prefixes
 
@@ -173,6 +175,8 @@ Not yet sourced: the PB, ATRT, ETMR, EPN and MB lesion rules (SMARCB1, DICER1, C
 ### Release columns
 
 `06-compile-subtypes.R` writes, for the integrate step to add to `histologies.tsv`: `molecular_subtype_cns`, `subtype_source`, `subtype_alterations_confirmed`, `alteration_confirmed`, `subtype_review_flag` (a short coded reason, or blank) and `Notes`. `subtype_alterations_confirmed` lists the molecular alterations that support the subtype: mutations (`H3-3A p.K28M`, `CTNNB1 p.T41I`, `IDH1 p.R132H`), fusions (`ZFTA--RELA`, `EWSR1--FLI1`), copy-number changes (`1p+19q codeleted`, `EGFR amplification`, `SMARCB1 focal loss`) and expression evidence: `EZHIP overexpression` for labels that carry it, and `expression classifier agrees (MB, Group4)` for medulloblastoma tumors where the expression classifier matches the methylation group. It is blank when none was found or the tumor has no DNA/RNA assay, and `alteration_confirmed` is whether it is non-blank. `Notes` is generated from `subtype_source` with a new vocabulary (the legacy strings are not reused, since all subtypes are being redone): `Subtype from methylation`, `Subtype from lesion`, `Subtype from lesion, overriding methylation`, `Subtype by exclusion, no H3 or IDH variant`, `Subtype from expression classifier`, `Subtype from pathology free text diagnosis`, `Subtype from pathology diagnosis and primary site`, `Subtype from lesion shared with the tumor` and `Subtype from manual review of pathology report`. Free-text reviewer notes and report excerpts stay in `input/manual_subtype_review.tsv` and are not meant for the release.
+
+`lesion_refinement_status` is `specific`, `none detected (DNA and RNA)`, `incomplete: no DNA`, `incomplete: no RNA` or `incomplete: no DNA or RNA` for the LGG, GNG, GNT and SEGA families.
 
 `subtype_review_flag` values: `diagnosis discordant`, `classifier versions disagree`, `lesion contradicts methylation`, `H3 variant outside DMG/DHG`, `H3 variant in wildtype group`, `expression classifier discordant`, `free-text diagnosis differs from methylation` and `cell line differs from tumor` (several are joined with `;`). Cell lines also carry `tumor_subtype`, `tumor_group`, `tumor_concordance` and `tumor_alterations_shared`.
 

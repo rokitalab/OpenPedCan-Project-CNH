@@ -76,7 +76,9 @@ umbrella_group <- function(subtype) {
 lgg <- read_tsv(file.path(results_dir, "lgg_lesions.tsv"),
                 show_col_types = FALSE) %>%
   transmute(match_id, lgg_subtype = lgg_lesion_label, lgg_alterations,
-            lgg_cohort, lgg_specific = lgg_lesion_status == "specific")
+            lgg_cohort, lgg_specific = lgg_lesion_status == "specific",
+            lgg_status = lgg_lesion_status, lgg_has_dna = has_dna,
+            lgg_has_rna = has_rna)
 
 # medulloblastoma: expression classifier, concordance with methylation, and
 # the SHH subtype (05-validate-mb.R)
@@ -232,6 +234,32 @@ compiled <- bind_rows(
          subtype_source %in% "LGG lesion"),
     lgg_subtype, NA_character_
   )) %>%
+  # what the lesion refinement could see: specific (a lesion term), none
+  # detected (DNA and RNA available), or incomplete (a missing assay, so the
+  # lesion is still to be determined, not absent)
+  mutate(
+    in_lgg_families = str_detect(replace_na(molecular_subtype_cns, ""),
+                                 "^(LGG|GNT|GNG|SEGA)") |
+      subtype_source %in% "LGG lesion",
+    lesion_refinement_status = case_when(
+      !in_lgg_families | is.na(lgg_status) ~ NA_character_,
+      !is.na(lesion_refinement) ~ "specific",
+      lgg_status == "none detected" ~ "none detected (DNA and RNA)",
+      lgg_has_dna %in% FALSE & lgg_has_rna %in% FALSE ~ "incomplete: no DNA or RNA",
+      lgg_has_dna %in% FALSE ~ "incomplete: no DNA",
+      lgg_has_rna %in% FALSE ~ "incomplete: no RNA",
+      TRUE ~ NA_character_
+    )
+  ) %>%
+  # the supratentorial pilocytic astrocytoma classes carry their lesion term in
+  # the subtype (e.g. GNG, PA ST, BRAF V600E); without a lesion the label stays
+  # at the class and lesion_refinement_status says why
+  mutate(molecular_subtype_cns = if_else(
+    str_detect(replace_na(molecular_subtype_cns, ""), ", PA ST$") &
+      !is.na(lesion_refinement),
+    paste0(molecular_subtype_cns, ", ", str_remove(lesion_refinement, "^[^,]*, ")),
+    molecular_subtype_cns
+  )) %>%
   # umbrella group (e.g. the pediatric H3-wildtype HGG classes), unless an H3
   # variant was found, which contradicts the wildtype grouping
   mutate(subtype_group = map_chr(molecular_subtype_cns, umbrella_group)) %>%
@@ -340,7 +368,8 @@ compiled <- bind_rows(
     )
   ) %>%
   select(match_id, Kids_First_Participant_ID, sample_id,
-         molecular_subtype_cns, subtype_group, lesion_refinement, subtype_source,
+         molecular_subtype_cns, subtype_group, lesion_refinement,
+         lesion_refinement_status, subtype_source,
          subtype_alterations_confirmed, alteration_confirmed, subtype_review_flag, Notes,
          automated_subtype, manual_conflict, manual_source, manual_note,
          evidence_level, lesion_status, lesion_evidence, lesion_contradiction,
