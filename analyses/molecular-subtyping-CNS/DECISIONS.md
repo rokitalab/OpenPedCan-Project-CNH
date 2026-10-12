@@ -59,7 +59,7 @@ Decisions made while building this module, with the evidence and where they live
 | 7316-921, 7316-3632, 7316-4062 | `CHDM, conventional` / `CHDM, poorly differentiated` | chordoma pathology review (legacy ticket 608); methylation calls differ or are absent. The module label is `CHDM` again (was `CHORDM`) |
 | 12 PBTA tumors with "adamantinomatous" in the free text | `CRANIO, ADAM` | free-text rule where no methylation, CTNNB1 or BRAF rule gave a subtype; includes 5 control-methylation arrays. High-confidence conflicting methylation stands and is flagged (7316-5310 PITUI, 7316-6135 `LGG, MAPK`) |
 | 4 neurocytoma tumors (7316-280, C4117794-Tumor, 7316-10377, 7316-6779) | `CNC` / `EVN` | ported from molecular-subtyping-neurocytoma: diagnosis, with primary site Ventricles = CNC |
-| Derived cell lines | own match_id | subtyped from their own methylation and lesions; `parent_subtype` and `parent_concordance` compare with the solid-tissue tumors of the same sample; `different` is flagged (16) in `results/cell_line_parent_concordance.tsv` |
+| Derived cell lines | own match_id | subtyped from their own methylation and lesions; `tumor_subtype` and `tumor_concordance` compare with the solid-tissue tumors of the same sample; `different` is flagged (16) in `results/cell_line_tumor_concordance.tsv` |
 
 ## Pending
 

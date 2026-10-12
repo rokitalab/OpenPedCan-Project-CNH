@@ -357,30 +357,30 @@ compiled <- bind_rows(
 
 stopifnot(!anyDuplicated(compiled$match_id))
 
-### Cell lines versus the parental tumor --------------------------------------
+### Cell lines versus the tumor --------------------------------------
 # A derived cell line is subtyped from its own methylation and lesions (its own
-# match_id). The parental tumors are the solid-tissue tumors of the same sample
+# match_id). The tumors are the solid-tissue tumors of the same sample
 # (or, failing that, of the same participant). Concordance: same = identical
 # subtype, same group = the same umbrella group (e.g. HGG, H3 wildtype for an
-# HGG, RTK parent), different = another subtype, and no subtype on either side.
+# HGG, RTK tumor), different = another subtype, and no subtype on either side.
 composition <- read_tsv(file.path(root_dir, "data", "histologies-base.tsv"),
                         guess_max = 100000, show_col_types = FALSE) %>%
   filter(!is.na(match_id)) %>%
   distinct(match_id, composition)
 is_line <- composition$match_id[composition$composition %in% "Derived Cell Line"]
 
-parents <- compiled %>%
+tumors_by_line <- compiled %>%
   filter(!match_id %in% is_line, !is.na(molecular_subtype_cns),
          !is.na(sample_id), !is.na(Kids_First_Participant_ID)) %>%
-  select(Kids_First_Participant_ID, sample_id, parent_subtype = molecular_subtype_cns,
-         parent_group = subtype_group)
-by_sample <- parents %>% group_by(sample_id) %>%
-  summarise(parent_subtype = paste(sort(unique(parent_subtype)), collapse = ";"),
-            parent_group = paste(sort(unique(parent_group)), collapse = ";"),
+  select(Kids_First_Participant_ID, sample_id, tumor_subtype = molecular_subtype_cns,
+         tumor_group = subtype_group)
+by_sample <- tumors_by_line %>% group_by(sample_id) %>%
+  summarise(tumor_subtype = paste(sort(unique(tumor_subtype)), collapse = ";"),
+            tumor_group = paste(sort(unique(tumor_group)), collapse = ";"),
             .groups = "drop")
-by_participant <- parents %>% group_by(Kids_First_Participant_ID) %>%
-  summarise(parent_subtype_p = paste(sort(unique(parent_subtype)), collapse = ";"),
-            parent_group_p = paste(sort(unique(parent_group)), collapse = ";"),
+by_participant <- tumors_by_line %>% group_by(Kids_First_Participant_ID) %>%
+  summarise(tumor_subtype_p = paste(sort(unique(tumor_subtype)), collapse = ";"),
+            tumor_group_p = paste(sort(unique(tumor_group)), collapse = ";"),
             .groups = "drop")
 
 compiled <- compiled %>%
@@ -388,35 +388,35 @@ compiled <- compiled %>%
   left_join(by_sample, by = "sample_id", na_matches = "never") %>%
   left_join(by_participant, by = "Kids_First_Participant_ID", na_matches = "never") %>%
   mutate(
-    parent_subtype = if_else(is_cell_line, coalesce(parent_subtype, parent_subtype_p),
+    tumor_subtype = if_else(is_cell_line, coalesce(tumor_subtype, tumor_subtype_p),
                              NA_character_),
-    parent_group = if_else(is_cell_line, coalesce(parent_group, parent_group_p),
+    tumor_group = if_else(is_cell_line, coalesce(tumor_group, tumor_group_p),
                            NA_character_),
-    parent_concordance = case_when(
+    tumor_concordance = case_when(
       !is_cell_line ~ NA_character_,
-      is.na(molecular_subtype_cns) | is.na(parent_subtype) ~ "no subtype to compare",
-      molecular_subtype_cns == parent_subtype ~ "same",
-      subtype_group == parent_group ~ "same group",
+      is.na(molecular_subtype_cns) | is.na(tumor_subtype) ~ "no subtype to compare",
+      molecular_subtype_cns == tumor_subtype ~ "same",
+      subtype_group == tumor_group ~ "same group",
       TRUE ~ "different"
     )
   ) %>%
-  select(-parent_subtype_p, -parent_group_p, -is_cell_line) %>%
+  select(-tumor_subtype_p, -tumor_group_p, -is_cell_line) %>%
   mutate(
-    needs_review = needs_review | parent_concordance %in% "different",
+    needs_review = needs_review | tumor_concordance %in% "different",
     subtype_review_flag = case_when(
-      parent_concordance %in% "different" & is.na(subtype_review_flag) ~
-        "cell line differs from parental tumor",
-      parent_concordance %in% "different" ~
-        paste(subtype_review_flag, "cell line differs from parental tumor", sep = ";"),
+      tumor_concordance %in% "different" & is.na(subtype_review_flag) ~
+        "cell line differs from tumor",
+      tumor_concordance %in% "different" ~
+        paste(subtype_review_flag, "cell line differs from tumor", sep = ";"),
       TRUE ~ subtype_review_flag
     )
   )
 
 write_tsv(
-  compiled %>% filter(!is.na(parent_concordance)) %>%
+  compiled %>% filter(!is.na(tumor_concordance)) %>%
     select(match_id, sample_id, molecular_subtype_cns, subtype_source,
-           parent_subtype, parent_concordance),
-  file.path(results_dir, "cell_line_parent_concordance.tsv")
+           tumor_subtype, tumor_concordance),
+  file.path(results_dir, "cell_line_tumor_concordance.tsv")
 )
 write_tsv(compiled, file.path(results_dir, "molecular_subtype_cns.tsv"))
 

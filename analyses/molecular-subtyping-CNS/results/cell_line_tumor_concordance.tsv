@@ -1,4 +1,4 @@
-match_id	sample_id	molecular_subtype_cns	subtype_source	parent_subtype	parent_concordance
+match_id	sample_id	molecular_subtype_cns	subtype_source	tumor_subtype	tumor_concordance
 PT_0J07HTRF_7316-6475_Derived Cell Line_Deceased_Serum-free_5	7316-6475	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same
 PT_0JEBFP0E_UM-Chor1-CL_Derived Cell Line_Primary Tumor	UM-Chor1-CL	NA	NA	NA	no subtype to compare
 PT_0PT33SCF_7316-1100_Derived Cell Line_Recurrence_Serum-based_9	7316-1100	CNS Embryonal, NOS	embryonal rules	CNS Embryonal, NOS	same
