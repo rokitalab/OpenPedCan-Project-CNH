@@ -14,6 +14,7 @@ from anywhere: the shell scripts change to their own directory, and
 | [`run-for-subtyping.sh`](run-for-subtyping.sh) | Runs the molecular subtyping modules, then `molecular-subtyping-pathology` and `molecular-subtyping-integrate`, and the independent sample list | Step 4 of the data release process. Still runs the legacy per-tumor-type modules |
 | [`generate-mtp-tables.sh`](generate-mtp-tables.sh) | Runs the fusion, SNV, CNV and TPM frequency modules and copies the Open Targets (MTP) tables to the release folder | Needs the AWS CLI to upload |
 | [`make-parquet.R`](make-parquet.R) | Writes parquet copies of the large release tables to `data/<release>/parquet/` | See below |
+| [`download-parquet.sh`](download-parquet.sh) | Downloads the parquet copies (all, or the tables named as arguments), checks `md5sum-parquet.txt` and links them in `data/parquet/` | `OPENPEDCAN_RELEASE` (default `v15`) and `OPENPEDCAN_URL`. The files are not in `md5sum.txt`, so `download-data.sh` does not fetch them |
 | [`run_in_ci.sh`](run_in_ci.sh) | Builds the Docker image and runs a command inside it, as CI does | Passes the `OPENPBTA_*` environment variables |
 | [`check-python.sh`](check-python.sh) | Checks that the Python packages in the image match `requirements.txt` | Run from CI |
 
@@ -47,6 +48,6 @@ How the tables are built:
 
 To run only some tables, set `PARQUET_TABLES` to a comma-separated list of table names; the manifest keeps the other rows. The conversion needs `duckdb` (and `dbplyr` 2.6.0 with `duckdb` 1.5.6, as in the Dockerfile) and about 10 GB of memory; larger-than-memory sorts spill to `scratch/parquet-duckdb-tmp/`.
 
-The parquet files are not listed in a release `md5sum.txt`, so `download-data.sh` does not download them; upload the folder to `<release>/parquet/` next to the release files. The TSV / RDS files stay the source of truth.
+The parquet files are not listed in a release `md5sum.txt`, so `download-data.sh` does not download them; upload the folder to `<release>/parquet/` next to the release files, then users fetch them with `bash scripts/download-parquet.sh` (md5 check, links in `data/parquet/`). The TSV / RDS files stay the source of truth.
 
 Not converted: histologies, methylation beta values, TCGA and GTEx expression, rMATS splice events and isoform expression (to add for v16).

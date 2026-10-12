@@ -12,6 +12,11 @@
         - tcga_gene-expression-rsem-tpm-collapsed.rds  
     - Files added:
         - tcga_gene-counts-rsem-expected_count-collapsed.rds
+    - Parquet copies (experimental), added to the release after the initial release in a `parquet/` folder (`v15/parquet/`):
+        - These are generated from the release files above with [`scripts/make-parquet.R`](../scripts/make-parquet.R) so that large tables can be queried (duckdb, duckplyr, arrow) without reading the whole TSV or RDS file. The TSV and RDS files remain the source of truth.
+        - They are not listed in `md5sum.txt`, so `download-data.sh` does not download them. Use `bash scripts/download-parquet.sh`, which checks `md5sum-parquet.txt` and links the files in `data/parquet/`. `manifest.tsv` lists the tables, row counts and source files.
+        - Tables: `snv-consensus-plus-hotspots`, `snv-mutect2-tumor-only-plus-hotspots`, `consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only`, `consensus_seg_with_status`, `cnvkit_with_status`, `fusion-annoFuse`, `fusion-arriba`, `fusion-starfusion`, `fusion-dgd`, `fusion-putative-oncogenic`, `sv-manta`, `gene-expression-rsem-tpm-collapsed` and `gene-counts-rsem-expected_count-collapsed` (genes by biospecimen, one column per biospecimen).
+        - In `consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only.parquet` the `status` values are lowercase. The v15 TSV has both `Gain` / `Loss` / `Neutral` (from the Control-FREEC tumor-only input) and lowercase `gain` / `loss` / `neutral` for these rows; this is fixed upstream for later releases in `analyses/focal-cn-file-preparation/04-prepare-cn-file.R`.
 
 ```
 v15

@@ -200,10 +200,12 @@ Tables are sorted by gene (or position) with small row groups, so a gene lookup 
 ```r
 library(duckplyr)
 # all H3-3A variants, without reading the 2 GB MAF
-read_parquet_duckdb("data/v15/parquet/snv-consensus-plus-hotspots.parquet") |>
+read_parquet_duckdb("data/parquet/snv-consensus-plus-hotspots.parquet") |>
   filter(Hugo_Symbol == "H3-3A") |>
   collect()
 ```
+
+To download them, run `bash scripts/download-parquet.sh` (all tables) or name the tables you want (`bash scripts/download-parquet.sh snv-consensus-plus-hotspots fusion-annoFuse`). The script checks `md5sum-parquet.txt` and links the files in `data/parquet/`.
 
 With duckplyr frames use `summarise(.by = ...)`; `group_by()` followed by `summarise()` is not supported there. Remote files can be read with duckdb's `httpfs` extension. The TSV / RDS files remain the source of truth, and no analysis requires the parquet files.
 
