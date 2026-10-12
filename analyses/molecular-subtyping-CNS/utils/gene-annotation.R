@@ -249,3 +249,26 @@ add_ezhip_label <- function(df) {
       TRUE ~ paste0(OPC_molecular_subtype, ", EZHIP")
     ))
 }
+
+#' RTK fusion term for infant-type hemispheric glioma
+#'
+#' `HGG, IHG` (methylation) becomes `HGG, IHG, <NTRK|ALK|ROS1|MET>-altered`
+#' when the tumor has that fusion in the in-frame, kinase-retained fusion
+#' summary (priority NTRK, ALK, ROS1, MET, as in the HGG module). The fusion is
+#' then the confirmed alteration.
+#'
+#' @param ihg Table with match_id, ihg_term and ihg_evidence.
+relabel_ihg <- function(df, ihg) {
+  df %>%
+    left_join(ihg, by = "match_id") %>%
+    mutate(
+      is_ihg = OPC_molecular_subtype == "HGG, IHG" & !is.na(ihg_term),
+      OPC_molecular_subtype = if_else(
+        is_ihg, paste0("HGG, IHG, ", ihg_term, "-altered"), OPC_molecular_subtype
+      ),
+      lesion_status = if_else(is_ihg, "confirmed", lesion_status),
+      lesion_evidence = if_else(is_ihg, ihg_evidence, lesion_evidence),
+      evidence_level = if_else(is_ihg, "methylation + lesion", evidence_level)
+    ) %>%
+    select(-is_ihg, -ihg_term, -ihg_evidence)
+}

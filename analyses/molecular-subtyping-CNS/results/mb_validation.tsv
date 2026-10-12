@@ -305,7 +305,7 @@ PT_V4MF99XB_7316-5294_Solid Tissue_Initial CNS Tumor	7316-5294	MB, Group4	MB_G34
 PT_V9WP047R_7316-221_Solid Tissue_Initial CNS Tumor	7316-221	MB, Group4	MB_G34_VII	0.999481368	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
 PT_VW5Y6N97_7316-5515_Solid Tissue_Initial CNS Tumor	7316-5515	MB, SHH	MB_SHH_3	0.95829112	not_detected	NA	Medulloblastoma	NA	NA	MB, SHH alpha	Methylation	methylation only	MB, SHH	methylation	FALSE
 PT_W2G4Y7HG_7316-6887_Solid Tissue_Recurrence	7316-6887	MB, Group3	MB_G34_I	0.998988957	no_assay	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
-PT_W5PW7QVB_7316-6361_Solid Tissue_Initial CNS Tumor	7316-6361	MB, SHH	MB_SHH_2	0.997207248	not_detected	NA	Medulloblastoma	NA	NA	MB, SHH gamma	Methylation	methylation only	MB, SHH	methylation	FALSE
+PT_W5PW7QVB_7316-6361_Solid Tissue_Initial CNS Tumor	7316-6361	MB, SHH	MB_SHH_2	0.997207248	no_assay	NA	Medulloblastoma	NA	NA	MB, SHH gamma	Methylation	methylation only	MB, SHH	methylation	FALSE
 PT_W6D0547F_7316-3681_Solid Tissue_Initial CNS Tumor	7316-3681	MB, Group4	MB_G34_VII	0.987395895	no_rule	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group4	methylation	FALSE
 PT_W9ZYNS8Y_7316-8109_Solid Tissue_Initial CNS Tumor	7316-8109	MB, Group3	MB_G34_II	0.999903062	not_detected	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE
 PT_ZGWYMRV8_7316-378_Solid Tissue_Initial CNS Tumor	7316-378	MB, Group3	MB_G34_IV	0.999333203	not_detected	NA	Medulloblastoma	NA	NA	NA	NA	methylation only	MB, Group3	methylation	FALSE

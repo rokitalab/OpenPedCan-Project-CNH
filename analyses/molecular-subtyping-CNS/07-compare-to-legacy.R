@@ -19,7 +19,12 @@ results_dir <- file.path(root_dir, "analyses", "molecular-subtyping-CNS",
                          "results")
 
 # legacy labels renamed in this module to carry an HGG / LGG prefix
-legacy_renames <- c("HGAP" = "HGG, HGAP", "HGNET" = "HGG, HGNET",
+legacy_renames <- c("IHG, NTRK-altered" = "HGG, IHG, NTRK-altered",
+                    "IHG, ROS1-altered" = "HGG, IHG, ROS1-altered",
+                    "IHG, ALK-altered" = "HGG, IHG, ALK-altered",
+                    "IHG, MET-altered" = "HGG, IHG, MET-altered",
+                    "IHG, To be classified" = "HGG, IHG",
+                    "HGAP" = "HGG, HGAP", "HGNET" = "HGG, HGNET",
                     "IHG" = "HGG, IHG", "SEGA" = "LGG, SEGA",
                     "GBM, MES" = "HGG, MES", "GBM, RTK" = "HGG, RTK")
 

@@ -52,7 +52,7 @@ family_compat <- read_tsv(
 hist <- read_tsv(file.path(root_dir, "data", "histologies-base.tsv"),
                  guess_max = 100000, show_col_types = FALSE) %>%
   select(Kids_First_Biospecimen_ID, Kids_First_Participant_ID, sample_id,
-         match_id, cohort, sample_type, experimental_strategy,
+         match_id, cohort, sample_type, experimental_strategy, RNA_library,
          pathology_diagnosis, pathology_free_text_diagnosis)
 
 snv_file <- file.path(scratch_dir, "snv_lesion_genes.parquet")
@@ -66,8 +66,13 @@ snv <- dbGetQuery(con, sprintf("SELECT * FROM read_parquet('%s')", snv_file)) %>
   distinct()
 dbDisconnect(con, shutdown = TRUE)
 
-fusion <- read_tsv(file.path(root_dir, "data", "fusion-annoFuse.tsv.gz"),
-                   show_col_types = FALSE) %>%
+# annoFuse RNA-Seq fusions plus the DGD panel fusions
+fusion <- bind_rows(
+  read_tsv(file.path(root_dir, "data", "fusion-annoFuse.tsv.gz"),
+           show_col_types = FALSE) %>% select(Sample, FusionName),
+  read_tsv(file.path(root_dir, "data", "fusion-dgd.tsv.gz"),
+           show_col_types = FALSE) %>% select(Sample, FusionName)
+) %>%
   distinct(Kids_First_Biospecimen_ID = Sample, FusionName)
 
 arm_values <- read_tsv(file.path(scratch_dir, "arm_1p19q.tsv"),
@@ -108,13 +113,40 @@ cnv_segments <- read_tsv(
 # fusions are keyed on the DNA / RNA biospecimens of the same tumor, so they
 # are linked through match_id
 
-assay_ids <- function(strategies) {
-  hist %>%
-    filter(experimental_strategy %in% strategies, !is.na(match_id)) %>%
-    distinct(match_id, id = Kids_First_Biospecimen_ID)
-}
-dna_ids <- assay_ids(c("WGS", "WXS", "Targeted Sequencing"))
-rna_ids <- assay_ids("RNA-Seq")
+# DNA: WGS, WXS and DNA panels; RNA: RNA-Seq and RNA panels (a targeted
+# sequencing biospecimen with an RNA library, e.g. DGD fusions), as in the LGG
+# module
+dna_ids <- hist %>%
+  filter(experimental_strategy %in% c("WGS", "WXS", "Targeted Sequencing"),
+         is.na(RNA_library), !is.na(match_id)) %>%
+  distinct(match_id, id = Kids_First_Biospecimen_ID)
+rna_ids <- hist %>%
+  filter(experimental_strategy == "RNA-Seq" |
+           (experimental_strategy == "Targeted Sequencing" & !is.na(RNA_library)),
+         !is.na(match_id)) %>%
+  distinct(match_id, id = Kids_First_Biospecimen_ID)
+
+# IHG RTK fusions from the in-frame, kinase-retained fusion summary (priority
+# NTRK, ALK, ROS1, MET, as in the HGG module)
+ihg <- read_tsv(file.path(root_dir, "data", "fusion_summary_lgg_hgg_foi.tsv"),
+                show_col_types = FALSE) %>%
+  pivot_longer(-Kids_First_Biospecimen_ID, names_to = "fusion", values_to = "n") %>%
+  filter(n > 0) %>%
+  inner_join(rna_ids, by = c("Kids_First_Biospecimen_ID" = "id"),
+             relationship = "many-to-many") %>%
+  mutate(term = case_when(
+    str_detect(fusion, "NTRK") ~ "NTRK",
+    str_detect(fusion, "ALK") ~ "ALK",
+    str_detect(fusion, "ROS1") ~ "ROS1",
+    str_detect(fusion, "MET") ~ "MET"
+  )) %>%
+  filter(!is.na(term)) %>%
+  mutate(priority = match(term, c("NTRK", "ALK", "ROS1", "MET"))) %>%
+  group_by(match_id) %>%
+  filter(priority == min(priority)) %>%
+  summarise(ihg_term = first(term),
+            ihg_evidence = paste0(sort(unique(fusion)), " fusion", collapse = "; "),
+            .groups = "drop")
 
 lesion_hits <- find_lesion_hits(
   rules, snv, fusion, arm_values, cnv,
@@ -207,6 +239,7 @@ validated <- calls %>%
   add_h3k27_mechanism(h3_mutated = .$lesion_status == "confirmed",
                       has_dna = .$match_id %in% dna_ids$match_id,
                       has_rna = .$match_id %in% rna_ids$match_id) %>%
+  relabel_ihg(ihg) %>%
   select(Kids_First_Biospecimen_ID, Kids_First_Participant_ID, sample_id,
          match_id, OPC_molecular_subtype, methyl_class, methyl_source,
          methyl_score, methyl_conflict, methyl_conflicting_sources,
@@ -316,7 +349,11 @@ control_match_ids <- calls %>%
              by = "Kids_First_Biospecimen_ID") %>%
   pull(match_id) %>%
   unique()
-pbta_match_ids <- unique(hist$match_id[hist$cohort == "PBTA"])
+# PBTA, plus PPTC xenograft models (e.g. ependymoma PDX), which are only
+# assigned when the diagnosis is concordant or compatible
+pbta_match_ids <- unique(hist$match_id[hist$cohort %in% c("PBTA", "PPTC")])
+pptc_only_match_ids <- setdiff(unique(hist$match_id[hist$cohort == "PPTC"]),
+                               unique(hist$match_id[hist$cohort == "PBTA"]))
 
 fallback <- lesion_hits %>%
   filter(rule_id %in% rules$rule_id[rules$use_as_fallback],
@@ -382,7 +419,9 @@ fallback <- fallback %>%
     # lesion that is not specific to the entity (BRAF V600E, CTNNB1 exon 3,
     # SMARCB1 loss) is only assigned when the diagnosis supports it
     assign = dx_concordance != "discordant" & is.na(hold_reason) &
-      (!requires_dx | dx_concordance %in% c("concordant", "compatible"))
+      (!requires_dx | dx_concordance %in% c("concordant", "compatible")) &
+      (!match_id %in% pptc_only_match_ids |
+         dx_concordance %in% c("concordant", "compatible"))
   ) %>%
   select(-is_idh, -is_codeleted, -oligo_dx, -requires_dx) %>%
   left_join(tp53, by = "match_id") %>%
@@ -484,7 +523,27 @@ free_text_dmg <- tumor_text %>%
                       has_dna = .$match_id %in% dna_ids$match_id,
                       has_rna = .$match_id %in% rna_ids$match_id)
 
-write_tsv(free_text_dmg, file.path(results_dir, "free_text_dmg.tsv"))
+# infant-type hemispheric glioma named in the free text, with the RTK fusion
+# term when there is one
+free_text_ihg <- tumor_text %>%
+  filter(str_detect(str_to_lower(replace_na(free_text, "")),
+                    "infant.?type hemispheric glioma"),
+         !match_id %in% c(validated$match_id, fallback$match_id[fallback$assign],
+                          control_match_ids, free_text_dmg$match_id)) %>%
+  left_join(ihg, by = "match_id") %>%
+  mutate(OPC_molecular_subtype = if_else(
+           !is.na(ihg_term), paste0("HGG, IHG, ", ihg_term, "-altered"), "HGG, IHG"),
+         lesion_evidence = coalesce(ihg_evidence, "free-text diagnosis"),
+         evidence_level = "free text",
+         dx_group = dx_to_groups(pathology_diagnosis, dx_groups),
+         dx_concordance = dx_concordance(OPC_molecular_subtype, dx_group,
+                                         family_compat)) %>%
+  select(-ihg_term, -ihg_evidence) %>%
+  left_join(tp53, by = "match_id")
+
+free_text_dmg <- bind_rows(free_text_dmg, free_text_ihg)
+
+write_tsv(free_text_dmg, file.path(results_dir, "free_text_subtypes.tsv"))
 
 ### Lesion-negative HGG -------------------------------------------------------
 # PBTA tumors with an HGG diagnosis, a DNA assay, and no methylation call or
@@ -544,7 +603,7 @@ print(validated %>% filter(!is.na(lesion_contradiction)) %>%
 
 message("\n== H3 variant but not DMG/DHG: ", nrow(h3_variant_review))
 print(count(h3_variant_review, reason))
-message("\n== DMG from the free-text diagnosis: ", nrow(free_text_dmg))
+message("\n== Subtypes from the free-text diagnosis (DMG, IHG): ", nrow(free_text_dmg))
 message("\n== Lesion-negative HGG, H3 wildtype: ", nrow(lesion_negative_hgg))
 message("\n== Lesion-only fallback: ", nrow(fallback), " tumors without methylation")
 print(count(fallback, OPC_molecular_subtype, assign, hold_reason))

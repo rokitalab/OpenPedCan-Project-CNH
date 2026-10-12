@@ -52,6 +52,16 @@ manual_review <- read_tsv(file.path(module_dir, "input", "manual_subtype_review.
             manual_source = source, manual_note = note)
 stopifnot(!anyDuplicated(manual_review$sample_id))
 
+# match_id for each reviewed sample (tumor rows of histologies-base)
+tumor_ids <- read_tsv(file.path(root_dir, "data", "histologies-base.tsv"),
+                      guess_max = 100000, show_col_types = FALSE) %>%
+  filter(sample_type == "Tumor", !is.na(match_id),
+         sample_id %in% manual_review$sample_id) %>%
+  distinct(sample_id, match_id, Kids_First_Participant_ID) %>%
+  group_by(sample_id) %>%
+  slice(1) %>%
+  ungroup()
+
 # umbrella groups for subtypes (input/subtype_groups.tsv)
 subtype_groups <- read_tsv(file.path(module_dir, "input", "subtype_groups.tsv"),
                            show_col_types = FALSE)
@@ -92,7 +102,7 @@ fallback <- read_tsv(file.path(results_dir, "lesion_fallback_subtypes.tsv"),
   filter(assign, !match_id %in% methyl$match_id) %>%
   mutate(subtype_source = "lesion fallback")
 
-free_text <- read_tsv(file.path(results_dir, "free_text_dmg.tsv"),
+free_text <- read_tsv(file.path(results_dir, "free_text_subtypes.tsv"),
                       guess_max = 10000, col_types = evidence_types) %>%
   filter(!match_id %in% c(methyl$match_id, fallback$match_id)) %>%
   mutate(subtype_source = "pathology free text")
@@ -175,6 +185,13 @@ compiled <- bind_rows(
     ),
     methyl_conflict = replace_na(methyl_conflict, FALSE)
   ) %>%
+  # reviewed tumors with no automated source still need a row
+  (function(d) {
+    missing <- manual_review %>%
+      filter(!sample_id %in% d$sample_id) %>%
+      inner_join(tumor_ids, by = "sample_id")
+    bind_rows(d, missing %>% select(match_id, Kids_First_Participant_ID, sample_id))
+  }) %>%
   # manual review overrides the automated subtype
   left_join(manual_review, by = "sample_id") %>%
   mutate(
