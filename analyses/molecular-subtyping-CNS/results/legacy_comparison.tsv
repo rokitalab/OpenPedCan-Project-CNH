@@ -1683,7 +1683,7 @@ PT_5JA1N2H4_7316-839_Solid Tissue_Deceased	MB, SHH	MB	MB, SHH	methylation	NA	TRU
 PT_5JGZ9DZK_7316-10384_Solid Tissue_Initial CNS Tumor	LGG, To be classified	LGG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_5JMNQAY8_7316-4217_Solid Tissue_Initial CNS Tumor	Rare CNS, EWS	Rare CNS	Rare CNS, EWS	methylation	NA	TRUE	same
 PT_5K5CZXYB_7316-8035_Solid Tissue_Initial CNS Tumor	DHG, H3 G35	DHG	DHG, H3 G35	lesion fallback	NA	TRUE	same
-PT_5KPKTVQV_7316-8972_Solid Tissue_Initial CNS Tumor	CRANIO, ADAM	CRANIO	CRANIO, PAP	methylation	NA	TRUE	different
+PT_5KPKTVQV_7316-8972_Solid Tissue_Initial CNS Tumor	CRANIO, ADAM	CRANIO	CRANIO, ADAM	manual review	NA	TRUE	same
 PT_5KRVE8E4_7316-1671_Solid Tissue_Initial CNS Tumor	CRANIO, ADAM	CRANIO	CRANIO, ADAM	methylation	NA	TRUE	same
 PT_5KVV6ZZJ_7316-4269_Solid Tissue_Initial CNS Tumor	LGG, BRAF V600E	LGG	LGG, BRAF V600E	LGG lesion	LGG, BRAF V600E	TRUE	same
 PT_5M8A47WW_7316-436_Solid Tissue_Initial CNS Tumor	LGG, KIAA1549-BRAF	LGG	LGG, BRAF/MAPK	methylation	LGG, KIAA1549-BRAF	TRUE	same (lesion refinement)
