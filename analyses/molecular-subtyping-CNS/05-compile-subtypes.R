@@ -215,8 +215,44 @@ compiled <- bind_rows(
          h3_group_conflict | h3_variant_conflict %in% TRUE |
          mb_concordance %in% "discordant" | !is.na(lesion_contradiction))
   ) %>%
+  # provenance for the release file, in the vocabulary of the existing Notes
+  # column (see DECISIONS.md); subtype_review_flag is a short coded reason
+  mutate(
+    subtype_review_flag = pmap_chr(
+      list(is.na(manual_subtype) & dx_concordance %in% "discordant",
+           is.na(manual_subtype) & methyl_conflict,
+           is.na(manual_subtype) & !is.na(lesion_contradiction),
+           is.na(manual_subtype) & h3_variant_conflict %in% TRUE,
+           is.na(manual_subtype) & h3_group_conflict %in% TRUE,
+           is.na(manual_subtype) & mb_concordance %in% "discordant"),
+      function(...) {
+        flags <- c("diagnosis discordant", "classifier versions disagree",
+                   "lesion contradicts methylation", "H3 variant outside DMG/DHG",
+                   "H3 variant in wildtype group", "expression classifier discordant")
+        hit <- flags[c(...)]
+        if (length(hit) == 0) NA_character_ else paste(hit, collapse = ";")
+      }
+    ),
+    Notes = case_when(
+      subtype_source == "manual review" ~
+        "Updated by manual review of pathology report;Updated via OpenPedCan subtyping",
+      subtype_source == "methylation" ~
+        "Subtype based on methylation;Updated via OpenPedCan subtyping",
+      subtype_source == "lesion overrides methylation" ~
+        "Subtype based on lesion, overriding methylation;Updated via OpenPedCan subtyping",
+      subtype_source %in% c("lesion fallback", "LGG lesion", "lesion negative",
+                            "SMARCB1 focal loss") ~
+        "Subtype based on lesion;Updated via OpenPedCan subtyping",
+      subtype_source == "expression classifier" ~
+        "Subtype based on prediction;Updated via OpenPedCan subtyping",
+      subtype_source == "pathology free text" ~
+        "Updated via OpenPedCan subtyping and pathology_free_text_diagnosis",
+      TRUE ~ NA_character_
+    )
+  ) %>%
   select(match_id, Kids_First_Participant_ID, sample_id,
          molecular_subtype_cns, subtype_group, lesion_refinement, subtype_source,
+         subtype_review_flag, Notes,
          automated_subtype, manual_conflict, manual_source, manual_note,
          evidence_level, lesion_status, lesion_evidence, lesion_contradiction,
          methyl_class,
@@ -237,3 +273,7 @@ message("Tumors with a subtype: ",
         sum(!is.na(compiled$molecular_subtype_cns)), " of ", nrow(compiled))
 print(count(compiled, subtype_source))
 message("With lesion refinement: ", sum(!is.na(compiled$lesion_refinement)))
+message("\nNotes")
+print(count(compiled, Notes, sort = TRUE))
+message("\nReview flags")
+print(count(compiled, subtype_review_flag, sort = TRUE))

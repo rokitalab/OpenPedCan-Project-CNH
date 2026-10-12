@@ -126,6 +126,10 @@ Evidence behind the lesions that set or confirm a subtype. Strength is a summary
 
 Not yet sourced: the PB, ATRT, ETMR, EPN and MB lesion rules (SMARCB1, DICER1, C19MC, ZFTA/YAP1, PTCH1/SMO/SUFU, GLI2/MYC) were defined from the legacy modules and still need citations.
 
+### Release columns
+
+`05-compile-subtypes.R` writes, for the integrate step to add to `histologies.tsv`: `molecular_subtype_cns`, `subtype_source`, `subtype_review_flag` (a short coded reason, or blank) and `Notes`. `Notes` reuses the vocabulary of the existing `Notes` column (for example `Subtype based on methylation;Updated via OpenPedCan subtyping`) and adds `Subtype based on lesion`, `Subtype based on lesion, overriding methylation` and `Updated by manual review of pathology report`. Free-text reviewer notes and report excerpts stay in `input/manual_subtype_review.tsv` and are not meant for the release.
+
 ### Decisions
 
 Decisions, their evidence, and open questions are logged in [DECISIONS.md](DECISIONS.md).
