@@ -88,6 +88,12 @@ echo "Run NBL subtyping"
 cd ${analyses_dir}/molecular-subtyping-NBL
 bash run-molecular-subtyping-NBL.sh
 
+# Run CNS subtyping (methylation-first; its table is not read by the compile and
+# integrate steps yet)
+echo "Run CNS subtyping"
+cd ${analyses_dir}/molecular-subtyping-CNS
+bash run-molecular-subtyping-CNS.sh
+
 # Run compile subtyping
 echo "Run compile subtyping"
 cd ${analyses_dir}/molecular-subtyping-pathology

@@ -83,6 +83,8 @@ Decisions made while building this module, with the evidence and where they live
 `input/possible_methylation_mixups.tsv` lists tumors whose methylation class conflicts with the DNA, RNA or diagnosis in a way that a sample mix-up on the methylation side could explain (14 tumors: 7316-9842 and the two other H3 K27M tumors with an EPN PF-A class, 7316-5481, 7316-1856, 7316-1473, 7316-5310 and the 7 PA_MID tumors with a craniopharyngioma diagnosis), with the confidence of every array. It is a tracking list, not an input: the methylation call is kept and the existing flags apply until the specimens are checked. 7316-9842 is being investigated with CBTN. 7316-6755 was listed at first and removed: two of its three arrays are DMG_K27 at 1.0 (DKFZ v12.8), and the one GG array is NIH-only; its label is `DMG, H3 K28-mutant`.
 
 | PNOC003 clinical review (38 rows, `molecular-subtyping-pathology/input/pnoc003-clinical-review.tsv`) | no manual rows needed | all 36 rows with a tumor in the histologies agree with the module (58 tumors with K28M are `DMG`, the 3 H3 WT participants are not DMG); PT_FFHQ1B9R has no tumors because it is the same patient as PT_V1HNAC2Q (merged upstream; 7316-3240 is `DMG, H3 K28-mutant`) |
+| CI and the release script | `run-molecular-subtyping-CNS.sh`, a CI matrix job and a step in `scripts/run-for-subtyping.sh` | the module runs on the `testing` release (TSV fallback, 20 s, no parquet files) with exit code 0; the other modules' results it reads (`mb-classified.rds`, `chordoma_smarcb1_status.tsv`, `tp53_altered_status.tsv`) are tracked in the repository. The compile and integrate steps do not read its table yet |
+
 ## Pending
 
 - 7316-9842 (being investigated with CBTN) and the other tumors in `input/possible_methylation_mixups.tsv`: 7316-506, -5511, -5481, -1856, -1473, -5310 and 7 PA_MID craniopharyngioma-diagnosis tumors. The H3 K28M tumors with a control array (6) are subtyped now; `h3_variant_review.tsv` lists the 3 tumors with a non-DMG class (7316-506, -5511, -9842).
@@ -93,6 +95,5 @@ Decisions made while building this module, with the evidence and where they live
 - Copy-number rules (NF2, NF1, RB1, VHL, CDKN2A/B for the NST, HMB and similar families) are not ported.
 - The 1p/19q ploidy-aware recheck.
 - 7316-7965 cell line (`MB, SHH` by the expression classifier vs `MB, Group3`) and 7316-1763 (tumor K28M not in the line): worth raising with whoever derived the lines.
-- CI: the module is not yet wired into `run-for-subtyping.sh` or the CI testing subset.
 - Downstream: the integrate Rmd still reads the legacy compiled table; solid tumors (NBL, EWS) go to `molecular-subtyping-solid-tumors`; the legacy modules are archived after integrate reads the new tables.
 - Split into one script per PR.
