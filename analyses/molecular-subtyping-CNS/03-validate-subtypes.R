@@ -231,12 +231,32 @@ contradictions <- validated %>%
                                           collapse = "; "),
             .groups = "drop")
 
+# A contradicted call that is also weak (NIH-only, or a DKFZ score within 0.05
+# of the 0.8 cutoff) is not trusted over the definitive lesion: it is set aside,
+# so the tumor is subtyped by the lesion fallback instead. Strong contradicted
+# calls keep the methylation subtype and are flagged for review.
+borderline_dkfz <- 0.85
+
 validated <- validated %>%
   left_join(contradictions, by = "match_id") %>%
   mutate(h3_variant_conflict = match_id %in% h3_hits$match_id &
            !str_detect(OPC_molecular_subtype, "^(DMG|DHG)"),
+         weak_methylation = str_detect(methyl_source, "^nih") |
+           methyl_score < borderline_dkfz,
+         methylation_downgraded = !is.na(lesion_contradiction) & weak_methylation,
          needs_review = needs_review | h3_variant_conflict |
            !is.na(lesion_contradiction))
+
+validated %>%
+  filter(methylation_downgraded) %>%
+  select(Kids_First_Biospecimen_ID, sample_id, match_id, methyl_source,
+         methyl_class, methyl_score, methylation_subtype = OPC_molecular_subtype,
+         lesion_contradiction, pathology_diagnosis) %>%
+  write_tsv(file.path(results_dir, "methylation_downgraded.tsv"))
+
+validated <- validated %>%
+  filter(!methylation_downgraded) %>%
+  select(-weak_methylation, -methylation_downgraded)
 
 write_tsv(validated, file.path(results_dir, "methylation_subtype_validation.tsv"))
 validated %>%
@@ -417,6 +437,9 @@ message("\n== Methylation-based subtypes: ", nrow(validated))
 print(count(validated, lesion_status))
 print(count(validated, dx_concordance))
 message("Flagged for review: ", sum(validated$needs_review))
+message("Methylation calls set aside (weak and contradicted by a definitive lesion): ",
+        nrow(read_tsv(file.path(results_dir, "methylation_downgraded.tsv"),
+                      show_col_types = FALSE)))
 message("Lesion contradicts the methylation subtype: ",
         sum(!is.na(validated$lesion_contradiction)))
 print(validated %>% filter(!is.na(lesion_contradiction)) %>%
