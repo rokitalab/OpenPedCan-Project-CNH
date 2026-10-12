@@ -21,6 +21,7 @@ suppressPackageStartupMessages({
 
 root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
 module_dir <- file.path(root_dir, "analyses", "molecular-subtyping-CNS")
+source(file.path(module_dir, "utils", "duckdb-connect.R"))
 input_dir <- file.path(module_dir, "input")
 results_dir <- file.path(module_dir, "results")
 scratch_dir <- file.path(root_dir, "scratch", "molecular-subtyping-CNS")
@@ -59,7 +60,7 @@ snv_file <- file.path(scratch_dir, "snv_lesion_genes.parquet")
 if (!file.exists(snv_file)) {
   stop("Run 02-prepare-lesion-tables.R first: ", snv_file, " not found")
 }
-con <- dbConnect(duckdb::duckdb())
+con <- connect_duckdb()
 snv <- dbGetQuery(con, sprintf("SELECT * FROM read_parquet('%s')", snv_file)) %>%
   as_tibble() %>%
   filter(!is.na(HGVSp_Short)) %>%
@@ -78,7 +79,7 @@ fusion <- bind_rows(
 arm_values <- read_tsv(file.path(scratch_dir, "arm_1p19q.tsv"),
                        show_col_types = FALSE)
 
-con <- dbConnect(duckdb::duckdb())
+con <- connect_duckdb()
 cnv <- dbGetQuery(con, sprintf(
   "SELECT * FROM read_parquet('%s')",
   file.path(scratch_dir, "cnv_lesion_genes.parquet")

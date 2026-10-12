@@ -29,6 +29,7 @@ suppressPackageStartupMessages({
 
 root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
 module_dir <- file.path(root_dir, "analyses", "molecular-subtyping-CNS")
+source(file.path(module_dir, "utils", "duckdb-connect.R"))
 input_dir <- file.path(module_dir, "input")
 results_dir <- file.path(module_dir, "results")
 scratch_dir <- file.path(root_dir, "scratch", "molecular-subtyping-CNS")
@@ -78,7 +79,7 @@ in_cohort <- function(dx) {
 
 ### Evidence -------------------------------------------------------------------
 
-con <- dbConnect(duckdb::duckdb())
+con <- connect_duckdb()
 snv <- dbGetQuery(con, sprintf(
   "SELECT * FROM read_parquet('%s')",
   file.path(scratch_dir, "snv_lesion_genes.parquet")

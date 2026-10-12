@@ -18,6 +18,7 @@ suppressPackageStartupMessages({
 
 root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
 module_dir <- file.path(root_dir, "analyses", "molecular-subtyping-CNS")
+source(file.path(module_dir, "utils", "duckdb-connect.R"))
 scratch_dir <- file.path(root_dir, "scratch", "molecular-subtyping-CNS")
 dir.create(scratch_dir, showWarnings = FALSE, recursive = TRUE)
 
@@ -44,7 +45,7 @@ genes <- rules %>%
 
 gene_sql <- paste0("'", genes, "'", collapse = ", ")
 
-con <- dbConnect(duckdb::duckdb())
+con <- connect_duckdb()
 on.exit(dbDisconnect(con, shutdown = TRUE), add = TRUE)
 
 # all_varchar and a short sample avoid type sniffing over the whole file
@@ -147,7 +148,7 @@ if (length(cnv_genes) > 0) {
      ) TO '%s' (FORMAT PARQUET)",
     cnv_file, paste0("'", cnv_genes, "'", collapse = ", "), cnv_out
   )
-  con2 <- dbConnect(duckdb::duckdb())
+  con2 <- connect_duckdb()
   dbExecute(con2, cnv_query)
   dbDisconnect(con2, shutdown = TRUE)
   message("Wrote gene-level copy number for ", length(cnv_genes), " gene(s)")
@@ -158,7 +159,7 @@ if (length(cnv_genes) > 0) {
 cdkn_file <- file.path(root_dir, "data",
   "consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only.tsv.gz")
 cdkn_out <- file.path(scratch_dir, "cdkn2_copy_number.parquet")
-con3 <- dbConnect(duckdb::duckdb())
+con3 <- connect_duckdb()
 dbExecute(con3, sprintf(
   "COPY (
      SELECT biospecimen_id AS Kids_First_Biospecimen_ID, gene_symbol,
