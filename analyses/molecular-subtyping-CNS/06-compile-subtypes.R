@@ -251,15 +251,36 @@ compiled <- bind_rows(
       TRUE ~ NA_character_
     )
   ) %>%
-  # the supratentorial pilocytic astrocytoma classes carry their lesion term in
-  # the subtype (e.g. GNG, PA ST, BRAF V600E); without a lesion the label stays
-  # at the class and lesion_refinement_status says why
-  mutate(molecular_subtype_cns = if_else(
-    str_detect(replace_na(molecular_subtype_cns, ""), ", PA ST$") &
-      !is.na(lesion_refinement),
-    paste0(molecular_subtype_cns, ", ", str_remove(lesion_refinement, "^[^,]*, ")),
-    molecular_subtype_cns
-  )) %>%
+  # the methylation class carries its lesion term from the LGG lesion module, so
+  # molecular_subtype_cns is the lesion-level label, as in the legacy LGAT module:
+  # - a generic MAPK bucket (PA_MID "LGG, MAPK", PA_INF "LGG, BRAF/MAPK", GG
+  #   "GNG, MAPK") is replaced by the lesion term (LGG, KIAA1549-BRAF)
+  # - a named entity (PA ST, DNET, SEGA, DGONC, DIG/DIA, papillary / myxoid GNT)
+  #   gets the lesion term appended (GNG, PA ST, BRAF V600E)
+  # - a class that already is a lesion term (FGFR, IDH, MYB/MYBL1, PXA BRAF
+  #   V600E) and the DLGNT classes are left alone
+  # without a lesion term the label stays at the class and
+  # lesion_refinement_status says why
+  mutate(
+    methyl_term = str_remove(replace_na(molecular_subtype_cns, ""), "^[^,]*,? ?"),
+    methyl_prefix = str_extract(replace_na(molecular_subtype_cns, ""), "^[^,]*"),
+    refinement_term = str_remove(replace_na(lesion_refinement, ""), "^[^,]*, "),
+    class_refined = subtype_source %in% "methylation" &
+      !is.na(lesion_refinement) & refinement_term != "" &
+      methyl_prefix %in% c("LGG", "GNG", "GNT", "SEGA") &
+      !str_detect(replace_na(methyl_class, ""), "DLGNT"),
+    molecular_subtype_cns = case_when(
+      class_refined & methyl_term %in% c("MAPK", "BRAF/MAPK") ~
+        paste0(methyl_prefix, ", ", refinement_term),
+      class_refined &
+        methyl_term %in% c("PA ST", "DNET", "SEGA", "DGONC", "DIG/DIA",
+                           "Papillary", "Myxoid", "NOS") &
+        !str_detect(methyl_term, fixed(refinement_term)) ~
+        paste0(molecular_subtype_cns, ", ", refinement_term),
+      TRUE ~ molecular_subtype_cns
+    )
+  ) %>%
+  select(-methyl_term, -methyl_prefix, -refinement_term, -class_refined) %>%
   # umbrella group (e.g. the pediatric H3-wildtype HGG classes), unless an H3
   # variant was found, which contradicts the wildtype grouping
   mutate(subtype_group = map_chr(molecular_subtype_cns, umbrella_group)) %>%

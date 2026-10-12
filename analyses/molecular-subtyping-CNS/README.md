@@ -122,6 +122,16 @@ The DKFZ `PA_CORT` class (NIH v3.1 `PA ST`) is `LGG, PA ST`, and the family pref
 
 `lesion_refinement_status` (LGG, GNG, GNT and SEGA families) says what the lesion module could see: `specific` (a lesion term), `none detected (DNA and RNA)`, or `incomplete: no DNA`, `incomplete: no RNA` or `incomplete: no DNA or RNA`. An incomplete tumor is still to be determined, not lesion-negative. The legacy `To be classified` labels are not used: a tumor without lesion evidence keeps its methylation label, and the status and `alteration_confirmed` carry the rest.
 
+### Lesion-level labels for the LGG families
+
+`molecular_subtype_cns` is the lesion-level label, as in the legacy LGAT module, for tumors subtyped by methylation:
+
+- a generic MAPK bucket (`LGG, MAPK` from PA_MID, `LGG, BRAF/MAPK` from PA_INF, `GNG, MAPK` from GG) is replaced by the lesion term: `LGG, KIAA1549-BRAF`, `GNG, BRAF V600E`, `LGG, RTK`. The prefix stays the class prefix.
+- a named entity (`PA ST`, `DNET`, `SEGA`, `DGONC`, `DIG/DIA`, papillary and myxoid `GNT`) gets the term appended: `GNT, DNET, FGFR`, `GNG, PA ST, BRAF V600E`.
+- a class that already is a lesion term (`FGFR`, `IDH`, `MYB/MYBL1`, `PXA BRAF V600E`) and the DLGNT classes are left as they are.
+
+The tumors the LGG cohort subtypes by lesion alone (`subtype_source = LGG lesion`) already have the lesion-level label. `lesion_refinement` keeps the LGG module's label (its own prefix, from the pathology diagnosis), and `lesion_refinement_status` records `specific`, `none detected (DNA and RNA)` or `incomplete: no DNA / RNA`. The methylation class stays in `methyl_class`.
+
 ### Label prefixes
 
 Subtype labels carry their family as a prefix: `HGG, ...`, `LGG, ...`, `GNT, ...`, `DMG, ...`, `DHG, ...`. Classes that were bare or used a different prefix are renamed in the crosswalk (`HGAP`, `HGNET`, `IHG` and `GBM, MES/RTK` become `HGG, ...`; `SEGA` becomes `LGG, SEGA`; bare `GNT` becomes `GNT, DGONC`, `GNT, DIG/DIA`, `GNT, DNET` or `GNT, NOS`). The DKFZ class is always kept in `methyl_class`. Ganglioglioma labels keep the `GNG, ...` prefix used by the LGG module.
