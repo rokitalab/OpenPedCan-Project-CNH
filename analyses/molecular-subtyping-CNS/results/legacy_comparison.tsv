@@ -1255,8 +1255,8 @@ PT_0M0E1E3M_7316-7669_Solid Tissue_Deceased	DMG, H3 K28	DMG	DMG, H3 K28	methylat
 PT_0MHKP408_7316-4185_Solid Tissue_Progressive	LGG, BRAF V600E	LGG	LGG, BRAF V600E	LGG lesion	LGG, BRAF V600E	TRUE	same
 PT_0MHKP408_7316-726_Solid Tissue_Initial CNS Tumor	LGG, BRAF V600E	LGG	LGG, BRAF V600E	methylation	LGG, BRAF V600E	TRUE	same
 PT_0MJEAART_7316-549_Solid Tissue_Deceased	DMG, H3 K28	DMG	DMG, H3 K28	methylation	NA	TRUE	same
-PT_0MXPTTM3_7316-3220_Solid Tissue_Initial CNS Tumor	HGG, IDH	HGG	DMG, IDH	manual review	NA	TRUE	different
-PT_0MXPTTM3_A09410_Solid Tissue_Initial CNS Tumor	HGG, IDH	HGG	DMG, IDH	manual review	NA	TRUE	different
+PT_0MXPTTM3_7316-3220_Solid Tissue_Initial CNS Tumor	HGG, IDH	HGG	HGG, IDH	lesion fallback	NA	TRUE	same
+PT_0MXPTTM3_A09410_Solid Tissue_Initial CNS Tumor	HGG, IDH	HGG	HGG, IDH	lesion fallback	NA	TRUE	same
 PT_0NHK26KP_C4116441-Tumor_Solid Tissue_Initial CNS Tumor	DMG, H3 K28	DMG	DMG, H3 K28	lesion fallback	NA	TRUE	same
 PT_0NMQYN1W_C4122468-Tumor_Solid Tissue_Initial CNS Tumor	MB, SHH	MB	MB, SHH	expression classifier	NA	TRUE	same
 PT_0NY38X3W_7316-1706_Solid Tissue_Progressive	EPN, PF A	EPN	EPN, PF A	methylation	NA	TRUE	same
