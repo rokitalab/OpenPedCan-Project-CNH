@@ -255,10 +255,12 @@ compiled <- bind_rows(
   # molecular_subtype_cns is the lesion-level label, as in the legacy LGAT module:
   # - a generic MAPK bucket (PA_MID "LGG, MAPK", PA_INF "LGG, BRAF/MAPK", GG
   #   "GNG, MAPK") is replaced by the lesion term (LGG, KIAA1549-BRAF)
-  # - a named entity (PA ST, DNET, SEGA, DGONC, DIG/DIA, papillary / myxoid GNT)
-  #   gets the lesion term appended (GNG, PA ST, BRAF V600E)
-  # - a class that already is a lesion term (FGFR, IDH, MYB/MYBL1, PXA BRAF
-  #   V600E) and the DLGNT classes are left alone
+  # - PA ST gets the lesion term appended (GNG, PA ST, BRAF V600E): the class is
+  #   a histology with several MAPK drivers
+  # - an entity that is defined as such (DNET, SEGA, DGONC, DIG/DIA, papillary
+  #   and myxoid GNT), a class that already is a lesion term (FGFR, IDH,
+  #   MYB/MYBL1, PXA BRAF V600E) and the DLGNT classes are left alone; their
+  #   lesions are in lesion_refinement and subtype_alterations_confirmed
   # without a lesion term the label stays at the class and
   # lesion_refinement_status says why
   mutate(
@@ -273,8 +275,7 @@ compiled <- bind_rows(
       class_refined & methyl_term %in% c("MAPK", "BRAF/MAPK") ~
         paste0(methyl_prefix, ", ", refinement_term),
       class_refined &
-        methyl_term %in% c("PA ST", "DNET", "SEGA", "DGONC", "DIG/DIA",
-                           "Papillary", "Myxoid", "NOS") &
+        methyl_term %in% "PA ST" &
         !str_detect(methyl_term, fixed(refinement_term)) ~
         paste0(molecular_subtype_cns, ", ", refinement_term),
       TRUE ~ molecular_subtype_cns

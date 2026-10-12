@@ -127,7 +127,8 @@ The DKFZ `PA_CORT` class (NIH v3.1 `PA ST`) is `LGG, PA ST`, and the family pref
 `molecular_subtype_cns` is the lesion-level label, as in the legacy LGAT module, for tumors subtyped by methylation:
 
 - a generic MAPK bucket (`LGG, MAPK` from PA_MID, `LGG, BRAF/MAPK` from PA_INF, `GNG, MAPK` from GG) is replaced by the lesion term: `LGG, KIAA1549-BRAF`, `GNG, BRAF V600E`, `LGG, RTK`. The prefix stays the class prefix.
-- a named entity (`PA ST`, `DNET`, `SEGA`, `DGONC`, `DIG/DIA`, papillary and myxoid `GNT`) gets the term appended: `GNT, DNET, FGFR`, `GNG, PA ST, BRAF V600E`.
+- `PA ST` gets the term appended: `GNG, PA ST, BRAF V600E`, `LGG, PA ST, KIAA1549-BRAF`.
+- an entity that is defined as such (`GNT, DNET`, `LGG, SEGA`, `GNT, DGONC`, `GNT, DIG/DIA`, papillary and myxoid `GNT`) stays one subtype. Its lesion (for example the FGFR1 alteration of a DNET) is in `lesion_refinement` and `subtype_alterations_confirmed`, not in the label, so a DNET is not split into DNET, FGFR / DNET, RTK / DNET, NF1.
 - a class that already is a lesion term (`FGFR`, `IDH`, `MYB/MYBL1`, `PXA BRAF V600E`) and the DLGNT classes are left as they are.
 
 The tumors the LGG cohort subtypes by lesion alone (`subtype_source = LGG lesion`) already have the lesion-level label. `lesion_refinement` keeps the LGG module's label (its own prefix, from the pathology diagnosis), and `lesion_refinement_status` records `specific`, `none detected (DNA and RNA)` or `incomplete: no DNA / RNA`. The methylation class stays in `methyl_class`.
