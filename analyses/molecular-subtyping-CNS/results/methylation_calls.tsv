@@ -1285,7 +1285,7 @@ BS_YM8N4S9W	high	dkfz_v12.8	SCHW	0.94517198	NST, Schwannoma	FALSE	FALSE	FALSE	Cr
 BS_AEF61NYH	high	dkfz_v12.8	PA_INF	0.876092635	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_03EY696E	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_RV7KWCWC	high	dkfz_v12.8	EPN_ST_ZFTA_RELA_A	0.999999339	EPN, ST ZFTA	FALSE	FALSE	FALSE	Ependymal tumours	supratentorial ependymoma, ZFTA fusion-positive	FALSE	NA	FALSE
-BS_Y0WJKN1E	high	dkfz_v12.8	EPN_SPINE_SE_B	0.922496805	EPN, SP SE-B	FALSE	FALSE	FALSE	Ependymal tumours	spinal subependymoma	FALSE	NA	FALSE
+BS_Y0WJKN1E	high	dkfz_v12.8	EPN_SPINE_SE_B	0.922496805	EPN, SP-SE	FALSE	FALSE	FALSE	Ependymal tumours	spinal subependymoma	FALSE	NA	FALSE
 BS_ZV23QCBQ	high	dkfz_v12.8	EPN_PFA_2A	0.953289838	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
 BS_DGCSNYBV	high	dkfz_v12.8	PA_INF	0.933908818	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_JF9DSAHF	high	dkfz_v12.8	ATRT_TYR	0.97616582	ATRT, TYR	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE

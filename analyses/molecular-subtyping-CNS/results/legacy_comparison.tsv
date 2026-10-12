@@ -2398,7 +2398,7 @@ PT_DNAJYFZT_7316-4274_Solid Tissue_Deceased	Rare CNS, BCOR ITD	Rare CNS	Rare CNS
 PT_DNB6V0TP_7316-8776_Solid Tissue_Recurrence	HGG, H3 wildtype	HGG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_DNCNEQCV_7316-5220_Solid Tissue_Progressive	CRANIO, ADAM	CRANIO	CRANIO, ADAM	manual review	NA	TRUE	same
 PT_DNH1VP67_7316-1062_Solid Tissue_Deceased	DMG, H3 K28	DMG	DMG, H3 K28	methylation	NA	TRUE	same
-PT_DP63WTHH_7316-3898_Solid Tissue_Initial CNS Tumor	EPN, SP-SE	EPN	EPN, SP SE-B	methylation	NA	TRUE	different
+PT_DP63WTHH_7316-3898_Solid Tissue_Initial CNS Tumor	EPN, SP-SE	EPN	EPN, SP-SE	methylation	NA	TRUE	same
 PT_DPMC1D8Z_7316-7274_Solid Tissue_Initial CNS Tumor	Rare CNS, BCOR ITD	Rare CNS	Rare CNS, BCOR ITD	methylation	NA	TRUE	same
 PT_DPTMDT4E_7316-6585_Solid Tissue_Progressive	EPN, ST ZFTA	EPN	EPN, ST ZFTA	methylation	NA	TRUE	same
 PT_DQ3ZCHB6_7316-2195_Solid Tissue_Initial CNS Tumor	GNG, MAPK	GNG	GNG, MAPK	methylation	NA	TRUE	same
