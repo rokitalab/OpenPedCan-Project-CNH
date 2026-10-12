@@ -196,6 +196,7 @@ validated <- calls %>%
   annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
   annotate_expression(expression_annotations, expression_long, rna_ids) %>%
   add_h3_status(h3_hits, dna_ids) %>%
+  relabel_egfr_only() %>%
   add_h3k27_mechanism(h3_mutated = .$lesion_status == "confirmed",
                       has_dna = .$match_id %in% dna_ids$match_id,
                       has_rna = .$match_id %in% rna_ids$match_id) %>%
@@ -468,6 +469,7 @@ free_text_dmg <- tumor_text %>%
   annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
   annotate_expression(expression_annotations, expression_long, rna_ids) %>%
   add_h3_status(h3_hits, dna_ids) %>%
+  relabel_egfr_only() %>%
   add_h3k27_mechanism(h3_mutated = FALSE,
                       has_dna = .$match_id %in% dna_ids$match_id,
                       has_rna = .$match_id %in% rna_ids$match_id)

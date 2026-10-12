@@ -3093,7 +3093,7 @@ PT_MVSWHXSR_7316-8734_Solid Tissue_Initial CNS Tumor	HGG, H3 wildtype	HGG	LGG, M
 PT_MVZ9K5VC_7316-3324_Solid Tissue_Initial CNS Tumor	HGG, To be classified	HGG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_MWDQ3RA1_7316-348_Solid Tissue_Initial CNS Tumor	LGG, FGFR	LGG	LGG, FGFR	LGG lesion	LGG, FGFR	TRUE	same
 PT_MWDQ3RA1_ET_9RKF5BB5_Solid Tissue_Progressive	LGG, To be classified	LGG	NA	NA	NA	FALSE	legacy only (unassigned)
-PT_MWKY4TJ4_7316-9074_Solid Tissue_Deceased	HGG, H3 wildtype	HGG	DMG, H3 K28	pathology free text	NA	FALSE	newly assigned
+PT_MWKY4TJ4_7316-9074_Solid Tissue_Deceased	HGG, H3 wildtype	HGG	DMG, H3 K28-altered, EGFR	pathology free text	NA	FALSE	newly assigned
 PT_MXK5R7RJ_7316-1055_Solid Tissue_Second Malignancy	HGG, To be classified	HGG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_MXVNR2GC_7316-7095_Solid Tissue_Initial CNS Tumor	GNG, MYB/MYBL1	GNG	GNG, MYB/MYBL1	LGG lesion	GNG, MYB/MYBL1	TRUE	same
 PT_MYNKT1TK_7316-9075_Solid Tissue_Deceased	MB, SHH	MB	MB, SHH	expression classifier	NA	TRUE	same
