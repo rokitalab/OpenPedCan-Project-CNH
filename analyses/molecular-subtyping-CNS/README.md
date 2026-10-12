@@ -86,6 +86,10 @@ The expression classifier and SHH subtyping stay in `molecular-subtyping-MB`; th
 - `h3_variant_conflict` flags a methylation subtype that is not `DMG`/`DHG` in a tumor with an H3 K27M/I or G34/G35 R/V variant. `results/h3_variant_review.tsv` lists every such tumor, including those left without a subtype because the methylation call is a control (low purity) and the lesion fallback is not applied.
 - `HGG, H3 wildtype` is also assigned by exclusion (`subtype_source = lesion negative`) to PBTA tumors with an HGG diagnosis, a DNA assay and no methylation call, lesion rule hit, or control, with no H3 or IDH variant. Results are in `results/lesion_negative_hgg.tsv`.
 
+### Free-text diagnosis
+
+PBTA tumors whose free-text diagnosis names a diffuse midline glioma or an H3 K27 alteration (`diffuse midline`, `DMG`, `H3 K27`), with no methylation call or lesion-based subtype and a methylation call that is not a control, are `DMG, H3 K28` (`subtype_source = pathology free text`). `-mutant` is not used because it needs the variant. `DIPG` alone is not enough. These tumors are no longer assigned the lesion-negative `HGG, H3 wildtype`, which contradicted the diagnosis (results in `results/free_text_dmg.tsv`).
+
 ### PXA
 
 DKFZ or NIH high-confidence PXA calls are split by BRAF V600E (issue 113): `PXA BRAF V600E` and `PXA BRAF V600E negative`, with plain `PXA` when there is no DNA assay. The `HGG` or `LGG` prefix follows the pathology diagnosis: an HGG diagnosis gives `HGG, PXA ...`. When the diagnosis is missing or `Other`, the free-text diagnosis is searched for a grade (anaplastic, WHO grade III/IV, high grade, glioblastoma). Otherwise the label is `LGG, PXA ...`.

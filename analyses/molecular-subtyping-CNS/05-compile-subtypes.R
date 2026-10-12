@@ -102,6 +102,11 @@ fallback <- read_tsv(file.path(results_dir, "lesion_fallback_subtypes.tsv"),
   filter(assign, !match_id %in% methyl$match_id) %>%
   mutate(subtype_source = "lesion fallback")
 
+free_text <- read_tsv(file.path(results_dir, "free_text_dmg.tsv"),
+                      guess_max = 10000, col_types = evidence_types) %>%
+  filter(!match_id %in% c(methyl$match_id, fallback$match_id)) %>%
+  mutate(subtype_source = "pathology free text")
+
 lesion_negative <- read_tsv(file.path(results_dir, "lesion_negative_hgg.tsv"),
                             guess_max = 10000, col_types = evidence_types) %>%
   filter(!match_id %in% c(methyl$match_id, fallback$match_id)) %>%
@@ -120,6 +125,11 @@ compiled <- bind_rows(
                     ends_with("_amplification"), ends_with("_activating_alteration"),
                     ends_with("_tpm"), ends_with("_expression_status"),
                     starts_with("h3_"), starts_with("h3k27_")),
+  free_text %>% select(all_of(shared), starts_with("tp53_"),
+                       ends_with("_mutation_status"), ends_with("_variants"),
+                       ends_with("_amplification"),
+                       ends_with("_activating_alteration"),
+                       starts_with("h3_"), starts_with("h3k27_")),
   lesion_negative %>% select(all_of(shared), starts_with("tp53_"),
                              ends_with("_mutation_status"), ends_with("_variants"),
                              ends_with("_amplification"),
@@ -161,6 +171,7 @@ compiled <- bind_rows(
       subtype_source == "SMARCB1 focal loss" ~ "CHORDM, poorly differentiated"
     ),
     evidence_level = case_when(
+      subtype_source == "pathology free text" ~ "free text",
       subtype_source %in% c("LGG lesion", "SMARCB1 focal loss") ~ "lesion only",
       subtype_source == "expression classifier" ~ "expression only",
       TRUE ~ evidence_level

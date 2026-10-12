@@ -432,6 +432,48 @@ h3_variant_review <- h3_hits %>%
 
 write_tsv(h3_variant_review, file.path(results_dir, "h3_variant_review.tsv"))
 
+### DMG from the free-text diagnosis ------------------------------------------
+# PBTA tumors whose free-text diagnosis names a diffuse midline glioma or an H3
+# K27 alteration, with no methylation call and no lesion-based subtype. The
+# diagnosis is the only evidence, so the label is the plain "DMG, H3 K28" (not
+# "-mutant", which needs the variant). "DIPG" alone is a clinical term and is
+# not used. Tumors whose methylation is a control are left out, as for the
+# lesion fallback.
+dmg_free_text <- "diffuse midline|\\bdmg\\b|h3.?k27|h3 k28"
+
+tumor_text <- hist %>%
+  filter(sample_type == "Tumor", cohort == "PBTA", !is.na(match_id)) %>%
+  group_by(match_id) %>%
+  summarise(Kids_First_Participant_ID = first(Kids_First_Participant_ID),
+            sample_id = first(sample_id),
+            pathology_diagnosis = paste(sort(unique(na.omit(pathology_diagnosis))),
+                                        collapse = ";"),
+            free_text = paste(sort(unique(na.omit(pathology_free_text_diagnosis))),
+                              collapse = " | "),
+            .groups = "drop") %>%
+  mutate(pathology_diagnosis = na_if(pathology_diagnosis, ""),
+         free_text = na_if(free_text, ""))
+
+free_text_dmg <- tumor_text %>%
+  filter(str_detect(str_to_lower(replace_na(free_text, "")), dmg_free_text),
+         !match_id %in% c(validated$match_id, fallback$match_id[fallback$assign],
+                          control_match_ids)) %>%
+  mutate(OPC_molecular_subtype = "DMG, H3 K28",
+         lesion_evidence = "free-text diagnosis",
+         evidence_level = "free text",
+         dx_group = dx_to_groups(pathology_diagnosis, dx_groups),
+         dx_concordance = dx_concordance(OPC_molecular_subtype, dx_group,
+                                         family_compat)) %>%
+  left_join(tp53, by = "match_id") %>%
+  annotate_genes(annotation_genes, snv, dna_ids, cnv_segments) %>%
+  annotate_expression(expression_annotations, expression_long, rna_ids) %>%
+  add_h3_status(h3_hits, dna_ids) %>%
+  add_h3k27_mechanism(h3_mutated = FALSE,
+                      has_dna = .$match_id %in% dna_ids$match_id,
+                      has_rna = .$match_id %in% rna_ids$match_id)
+
+write_tsv(free_text_dmg, file.path(results_dir, "free_text_dmg.tsv"))
+
 ### Lesion-negative HGG -------------------------------------------------------
 # PBTA tumors with an HGG diagnosis, a DNA assay, and no methylation call or
 # lesion rule hit: no H3 or IDH variant means "HGG, H3 wildtype" by exclusion,
@@ -453,7 +495,8 @@ lesion_negative_hgg <- hist %>%
   filter(str_detect(replace_na(dx_group, ""), "HGG"),
          match_id %in% dna_ids$match_id,
          !match_id %in% c(validated$match_id, fallback$match_id,
-                          control_match_ids, has_any_rule_hit)) %>%
+                          control_match_ids, has_any_rule_hit,
+                          free_text_dmg$match_id)) %>%
   mutate(OPC_molecular_subtype = "HGG, H3 wildtype",
          lesion_evidence = "no H3 or IDH variant",
          evidence_level = "lesion negative",
@@ -484,6 +527,7 @@ print(validated %>% filter(!is.na(lesion_contradiction)) %>%
 
 message("\n== H3 variant but not DMG/DHG: ", nrow(h3_variant_review))
 print(count(h3_variant_review, reason))
+message("\n== DMG from the free-text diagnosis: ", nrow(free_text_dmg))
 message("\n== Lesion-negative HGG, H3 wildtype: ", nrow(lesion_negative_hgg))
 message("\n== Lesion-only fallback: ", nrow(fallback), " tumors without methylation")
 print(count(fallback, OPC_molecular_subtype, assign, hold_reason))
