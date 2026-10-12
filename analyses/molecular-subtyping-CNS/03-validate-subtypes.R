@@ -664,7 +664,9 @@ write_tsv(embryonal, file.path(results_dir, "embryonal_subtypes.tsv"))
 # which keeps the legacy catch-all without claiming a methylation subtype.
 h3_idh_rule_ids <- c(h3_hits$rule_id, "HGG_IDH1", "HGG_IDH2", "OLIGO_IDH1",
                      "OLIGO_IDH2", "DMG_H3K28", "DHG_H3G35", "DMG_EGFR_H3K28")
-has_any_rule_hit <- unique(lesion_hits$match_id)
+# only an H3 or IDH hit rules out the wildtype call; a hit in another rule
+# (TP53, NF1, RB1, ...) is not specific and does not subtype the tumor
+h3_idh_hit_ids <- unique(lesion_hits$match_id[lesion_hits$rule_id %in% h3_idh_rule_ids])
 
 lesion_negative_hgg <- hist %>%
   filter(sample_type == "Tumor", cohort == "PBTA", !is.na(match_id)) %>%
@@ -679,7 +681,7 @@ lesion_negative_hgg <- hist %>%
   filter(str_detect(replace_na(dx_group, ""), "HGG"),
          match_id %in% dna_ids$match_id,
          !match_id %in% c(validated$match_id, fallback$match_id,
-                          control_match_ids, has_any_rule_hit,
+                          control_match_ids, h3_idh_hit_ids,
                           free_text_dmg$match_id)) %>%
   mutate(OPC_molecular_subtype = "HGG, H3 wildtype",
          lesion_evidence = "no H3 or IDH variant",
