@@ -2233,8 +2233,8 @@ PT_C1RDBCVM_7316-9490_Solid Tissue_Progressive	EPN, To be classified	EPN	NA	NA	N
 PT_C2391V9Z_7316-4467_Solid Tissue_Initial CNS Tumor	LGG, To be classified	LGG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-based_4	HGG, H3 wildtype	HGG	HGG, H3 wildtype	lesion negative	NA	FALSE	same
 PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-based_8	HGG, H3 wildtype	HGG	HGG, H3 wildtype	lesion negative	NA	FALSE	same
-PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-free_10	HGG, H3 wildtype	HGG	HGG, H3 wildtype	lesion negative	NA	FALSE	same
-PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-free_14	HGG, H3 wildtype	HGG	HGG, H3 wildtype	lesion negative	NA	FALSE	same
+PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-free_10	HGG, H3 wildtype	HGG	Rare CNS, DICER1 SARC	lesion fallback	NA	FALSE	newly assigned
+PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-free_14	HGG, H3 wildtype	HGG	Rare CNS, DICER1 SARC	lesion fallback	NA	FALSE	newly assigned
 PT_C2D4JXS1_7316-1746_Solid Tissue_Initial CNS Tumor	Rare CNS, DICER1 SARC	Rare CNS	Rare CNS, DICER1 SARC	methylation	NA	TRUE	same
 PT_C2VY5NM6_7316-875_Solid Tissue_Initial CNS Tumor	LGG, KIAA1549-BRAF	LGG	GNG, MAPK	methylation	LGG, KIAA1549-BRAF	TRUE	same (lesion refinement)
 PT_C2WZGW1V_7316-508_Solid Tissue_Initial CNS Tumor	EPN, PF A	EPN	EPN, PF A	methylation	NA	TRUE	same

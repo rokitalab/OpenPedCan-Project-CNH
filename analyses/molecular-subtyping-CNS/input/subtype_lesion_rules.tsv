@@ -14,7 +14,8 @@ RARE_PATZ1	Rare CNS, PATZ1-fused	fusion	PATZ1	(^|--)PATZ1(/|--|$)	FALSE	FALSE	FA
 RARE_BCOR_FUS	Rare CNS, BCOR-fused	fusion	BCOR	(^|--)BCOR(/|--|$)	FALSE	FALSE	FALSE	FALSE	BCOR fusion
 RARE_EWS	Rare CNS, EWS	fusion	EWSR1	(^|--)EWSR1(/|--|$)	FALSE	FALSE	FALSE	FALSE	EWSR1 fusion
 RARE_MYOD1	Rare CNS, MYOD1 RMS	snv	MYOD1	^p\.L122R$	FALSE	FALSE	FALSE	FALSE	MYOD1 L122R
-RARE_DICER1	Rare CNS, DICER1 SARC	snv	DICER1	.*	FALSE	FALSE	FALSE	FALSE	DICER1 variant
+RARE_DICER1	Rare CNS, DICER1 SARC	snv	DICER1	^p\.(E1705|D1709|D1713|G1809|D1810|E1813)[A-Z]|\*|fs|_splice	FALSE	FALSE	FALSE	FALSE	DICER1 hotspot missense, nonsense, frameshift or splice; confirms a methylation call but does not subtype alone
+RARE_DICER1_HOTSPOT	Rare CNS, DICER1 SARC	snv	DICER1	^p\.(E1705|D1709|D1713|G1809|D1810|E1813)[A-Z]	TRUE	TRUE	FALSE	FALSE	DICER1 RNase IIIb hotspot missense (E1705, D1709, D1713, G1809, D1810, E1813); fallback only with a compatible diagnosis, and not in pineoblastoma (PB, miRNA processing)
 GCT_KIT	GCT, Germinoma KIT mutant	snv	KIT	.*	FALSE	FALSE	FALSE	FALSE	KIT variant
 GNT_PAP_PRKCA	GNT, Papillary	fusion	PRKCA	(^|--)PRKCA(/|--|$)	FALSE	FALSE	FALSE	FALSE	PRKCA::SLC44A1
 GNT_MYX_PDGFRA	GNT, Myxoid	snv	PDGFRA	.*	FALSE	FALSE	FALSE	FALSE	PDGFRA variant

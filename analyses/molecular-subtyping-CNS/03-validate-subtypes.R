@@ -414,6 +414,9 @@ fallback <- fallback %>%
     ),
     hold_reason = case_when(
       is_pxa & !pxa_dx ~ "BRAF V600E without a PXA diagnosis",
+      OPC_molecular_subtype == "Rare CNS, DICER1 SARC" &
+        str_detect(replace_na(dx_group, ""), "PINEAL") ~
+        "DICER1 hotspot in pineoblastoma (PB, miRNA processing), not a DICER1 sarcoma",
       is_idh & !is_codeleted & oligo_dx & match_id %in% arm_assessed ~
         "oligodendroglioma diagnosis, 1p/19q not codeleted",
       is_idh & !is_codeleted & oligo_dx ~

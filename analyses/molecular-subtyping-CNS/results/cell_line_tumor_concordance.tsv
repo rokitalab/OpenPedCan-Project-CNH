@@ -31,8 +31,8 @@ PT_AZAJRK9Z_7316-7958_Derived Cell Line_Initial CNS Tumor_Serum-based_8	NA	NA	NA
 PT_BAH54SVM_7316-7965_Derived Cell Line_Initial CNS Tumor_Serum-based_10	7316-7965	MB, SHH	expression classifier	MB, Group3	different
 PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-based_4	7316-1746	HGG, H3 wildtype	lesion negative	Rare CNS, DICER1 SARC	different
 PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-based_8	7316-1746	HGG, H3 wildtype	lesion negative	Rare CNS, DICER1 SARC	different
-PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-free_10	7316-1746	HGG, H3 wildtype	lesion negative	Rare CNS, DICER1 SARC	different
-PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-free_14	7316-1746	HGG, H3 wildtype	lesion negative	Rare CNS, DICER1 SARC	different
+PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-free_10	7316-1746	Rare CNS, DICER1 SARC	lesion fallback	Rare CNS, DICER1 SARC	same
+PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-free_14	7316-1746	Rare CNS, DICER1 SARC	lesion fallback	Rare CNS, DICER1 SARC	same
 PT_C9YDTZPA_CNMC-967_Derived Cell Line_Initial CNS Tumor_Serum-based_27	CNMC-967	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same
 PT_CEWNZVKF_7316-124_Derived Cell Line_Initial CNS Tumor_Serum-based_5	7316-124	CRANIO, ADAM	pathology free text	CRANIO, ADAM	same
 PT_CTC9ZDNY_7316-7928_Derived Cell Line_Initial CNS Tumor_Serum-based_6	NA	NA	NA	NA	no subtype to compare
