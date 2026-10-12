@@ -1,5 +1,5 @@
 ################################################################################
-# 04-validate-mb.R
+# 05-validate-mb.R
 #
 # Medulloblastoma: compare the methylation group with the RNA-seq expression
 # classifier (medulloPackage, from molecular-subtyping-MB) and add the SHH
@@ -9,7 +9,7 @@
 # for WNT, SHH and Group 3). The expression classifier is an independent check,
 # and the subtype for tumors with no methylation call. Disagreements are flagged.
 #
-# Usage: Rscript --vanilla 04-validate-mb.R
+# Usage: Rscript --vanilla 05-validate-mb.R
 ################################################################################
 
 suppressPackageStartupMessages(library(tidyverse))

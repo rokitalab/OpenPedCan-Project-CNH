@@ -1,5 +1,5 @@
 ################################################################################
-# 05-compile-subtypes.R
+# 06-compile-subtypes.R
 #
 # One row per match_id with the module's subtype and its evidence.
 #
@@ -12,7 +12,7 @@
 # V600E, NF1, ...) on top of the methylation family when LGG made a specific
 # call. TP53 columns are annotations and are not part of the subtype.
 #
-# Usage: Rscript --vanilla 05-compile-subtypes.R
+# Usage: Rscript --vanilla 06-compile-subtypes.R
 ################################################################################
 
 suppressPackageStartupMessages(library(tidyverse))
@@ -62,24 +62,14 @@ umbrella_group <- function(subtype) {
   if (nrow(hit) == 0) NA_character_ else hit$subtype_group
 }
 
-# LGG labels that do not name a specific lesion
-nonspecific <- "To be classified|wildtype|NOS"
-
-lgg <- read_tsv(
-  file.path(root_dir, "analyses", "molecular-subtyping-LGAT", "results",
-            "lgat_subtyping.tsv"),
-  show_col_types = FALSE
-) %>%
-  filter(!is.na(match_id), !is.na(molecular_subtype)) %>%
-  transmute(match_id, lgg_subtype = molecular_subtype) %>%
-  distinct() %>%
-  group_by(match_id) %>%
-  summarise(lgg_subtype = paste(sort(unique(lgg_subtype)), collapse = " | "),
-            .groups = "drop") %>%
-  mutate(lgg_specific = !str_detect(lgg_subtype, nonspecific))
+# LGG lesion-level subtype from 04-lgg-lesions.R (ported from the LGAT module)
+lgg <- read_tsv(file.path(results_dir, "lgg_lesions.tsv"),
+                show_col_types = FALSE) %>%
+  transmute(match_id, lgg_subtype = lgg_lesion_label, lgg_alterations,
+            lgg_cohort, lgg_specific = lgg_lesion_status == "specific")
 
 # medulloblastoma: expression classifier, concordance with methylation, and
-# the SHH subtype (04-validate-mb.R)
+# the SHH subtype (05-validate-mb.R)
 mb <- read_tsv(file.path(results_dir, "mb_validation.tsv"),
                guess_max = 10000, show_col_types = FALSE) %>%
   filter(!is.na(match_id)) %>%
@@ -145,7 +135,11 @@ compiled <- bind_rows(
                     ends_with("_tpm"), ends_with("_z"), ends_with("_expression_status"),
                     starts_with("h3_"), starts_with("h3k27_"))
 ) %>%
-  full_join(lgg, by = "match_id") %>%
+  # LGG lesions annotate every tumor already here; tumors only the LGG cohort
+  # brings in are added as rows (the lesions are computed for all PBTA tumors,
+  # so they are not all added)
+  left_join(lgg, by = "match_id") %>%
+  (function(d) bind_rows(d, filter(lgg, lgg_cohort, !match_id %in% d$match_id))) %>%
   full_join(mb, by = "match_id") %>%
   # full join: chordoma tumors with no other source can still be subtyped
   # from focal SMARCB1 loss
@@ -154,15 +148,14 @@ compiled <- bind_rows(
     sample_id = coalesce(sample_id, mb_sample_id, smarcb1_sample_id),
     Kids_First_Participant_ID = coalesce(Kids_First_Participant_ID,
                                          smarcb1_participant),
-    lesion_refinement = if_else(lgg_specific %in% TRUE, lgg_subtype,
-                                NA_character_),
-    # LGG is only the subtype when nothing else assigned one
+    # the LGG lesion call is the subtype only for the LGG cohort, and only when
+    # nothing else assigned one
     # expression classifier group, when it names a single group
     mb_expression_single = if_else(str_detect(replace_na(mb_expression_group, ""), "\\|"),
                                    NA_character_, mb_expression_group),
     subtype_source = case_when(
       !is.na(subtype_source) ~ subtype_source,
-      lgg_specific %in% TRUE ~ "LGG lesion",
+      lgg_specific %in% TRUE & lgg_cohort %in% TRUE ~ "LGG lesion",
       !is.na(mb_expression_single) ~ "expression classifier",
       # chordoma diagnosis (the chordoma module's cohort) with focal SMARCB1 loss
       smarcb1_focal_status %in% "loss" ~ "SMARCB1 focal loss",
@@ -200,6 +193,14 @@ compiled <- bind_rows(
       TRUE ~ paste0(molecular_subtype_cns, ", EZHIP")
     )
   ) %>%
+  # lesion-level refinement from the LGG lesions, for the LGG / GNT / GNG / SEGA
+  # families (the LGG cohort's own call is the subtype, shown here too)
+  mutate(lesion_refinement = if_else(
+    lgg_specific %in% TRUE &
+      (str_detect(replace_na(molecular_subtype_cns, ""), "^(LGG|GNT|GNG|SEGA)") |
+         subtype_source %in% "LGG lesion"),
+    lgg_subtype, NA_character_
+  )) %>%
   # umbrella group (e.g. the pediatric H3-wildtype HGG classes), unless an H3
   # variant was found, which contradicts the wildtype grouping
   mutate(subtype_group = map_chr(molecular_subtype_cns, umbrella_group)) %>%
@@ -249,7 +250,9 @@ compiled <- bind_rows(
                 paste0("expression classifier agrees (", mb_expression_group, ")"),
                 NA_character_),
         if_else(subtype_source %in% "SMARCB1 focal loss", "SMARCB1 focal loss",
-                NA_character_)
+                NA_character_),
+        # lesion-level evidence for the LGG / GNT / GNG / SEGA families
+        if_else(!is.na(lesion_refinement), lgg_alterations, NA_character_)
       ),
       function(...) {
         x <- unlist(strsplit(na.omit(c(...)), "; ", fixed = TRUE))

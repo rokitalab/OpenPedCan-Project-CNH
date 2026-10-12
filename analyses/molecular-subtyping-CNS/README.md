@@ -8,7 +8,7 @@ This module builds one resolved methylation call per biospecimen, which molecula
 
 ## Workflow
 
-Scripts run in numeric order: `01` builds the methylation calls, `02` prepares lesion tables, `03` validates and applies the lesion fallback, `04` validates medulloblastoma, `05` compiles the final table (the last subtyping step), and `06` compares it with the legacy modules. Shared functions are in `utils/`.
+Scripts run in numeric order: `01` builds the methylation calls, `02` prepares lesion tables, `03` validates and applies the lesion fallback, `04` computes the LGG lesion-level subtypes, `05` validates medulloblastoma, `06` compiles the final table (the last subtyping step), and `07` compares it with the legacy modules. Shared functions are in `utils/`.
 
 `01-build-methylation-calls.R` combines:
 
@@ -55,13 +55,13 @@ TP53 annotations come from `analyses/tp53_nf1_score` and are not part of the sub
 
 Outputs: `results/methylation_subtype_validation.tsv`, `results/subtypes_for_review.tsv` (discordant diagnosis or conflicting classifier versions), and `results/lesion_fallback_subtypes.tsv`.
 
-`05-compile-subtypes.R` writes `results/molecular_subtype_cns.tsv`, one row per `match_id`. Subtype precedence is high-confidence methylation, then lesion-only fallback, then the LGG module's lesion-level call (`molecular-subtyping-LGAT`) (tumors with no other source). `lesion_refinement` adds the LGG lesion-level subtype (`KIAA1549-BRAF`, `BRAF V600E`, `NF1`, ...) on top of the methylation family when LGG made a specific call. TP53 and gene annotations are not part of the subtype.
+`06-compile-subtypes.R` writes `results/molecular_subtype_cns.tsv`, one row per `match_id`. Subtype precedence is high-confidence methylation, then lesion-only fallback, then the LGG module's lesion-level call (`molecular-subtyping-LGAT`) (tumors with no other source). `lesion_refinement` adds the LGG lesion-level subtype (`KIAA1549-BRAF`, `BRAF V600E`, `NF1`, ...) on top of the methylation family when LGG made a specific call. TP53 and gene annotations are not part of the subtype.
 
-`06-compare-to-legacy.R` compares `molecular_subtype_cns.tsv` with the legacy per-module subtypes in `molecular-subtyping-pathology/results/compiled_molecular_subtypes.tsv`, per `match_id`, and writes `results/legacy_comparison.tsv` with an outcome of `same`, `same (lesion refinement)`, `newly assigned`, `different`, `legacy only (specific or unassigned)`, or `new only`.
+`07-compare-to-legacy.R` compares `molecular_subtype_cns.tsv` with the legacy per-module subtypes in `molecular-subtyping-pathology/results/compiled_molecular_subtypes.tsv`, per `match_id`, and writes `results/legacy_comparison.tsv` with an outcome of `same`, `same (lesion refinement)`, `newly assigned`, `different`, `legacy only (specific or unassigned)`, or `new only`.
 
 ### Medulloblastoma
 
-Methylation sets the group (`MB, WNT`, `MB, SHH`, `MB, Group3`, `MB, Group4`), as for the other families, and lesion rules confirm it (CTNNB1 exon 3 hotspot for WNT; PTCH1, SMO, SUFU or GLI2 amplification for SHH; MYC amplification for Group 3). `04-validate-mb.R` compares it with the RNA-seq expression classifier (`medulloPackage`, read from `molecular-subtyping-MB/results/mb-classified.rds`) and adds the SHH subtype (alpha, beta, gamma, delta) from `molecular-subtyping-MB`:
+Methylation sets the group (`MB, WNT`, `MB, SHH`, `MB, Group3`, `MB, Group4`), as for the other families, and lesion rules confirm it (CTNNB1 exon 3 hotspot for WNT; PTCH1, SMO, SUFU or GLI2 amplification for SHH; MYC amplification for Group 3). `05-validate-mb.R` compares it with the RNA-seq expression classifier (`medulloPackage`, read from `molecular-subtyping-MB/results/mb-classified.rds`) and adds the SHH subtype (alpha, beta, gamma, delta) from `molecular-subtyping-MB`:
 
 - `mb_expression_group` and `mb_concordance` (`concordant`, `discordant`, `methylation only`, `expression only`); discordant tumors are flagged and listed in `results/mb_discordant.tsv`
 - `mb_shh_subtype` for SHH tumors, with the DKFZ SHH class vs subtype cross-tab printed by the script
@@ -98,6 +98,12 @@ DKFZ or NIH high-confidence PXA calls are split by BRAF V600E (issue 113): `PXA 
 
 Subtype labels carry their family as a prefix: `HGG, ...`, `LGG, ...`, `GNT, ...`, `DMG, ...`, `DHG, ...`. Classes that were bare or used a different prefix are renamed in the crosswalk (`HGAP`, `HGNET`, `IHG` and `GBM, MES/RTK` become `HGG, ...`; `SEGA` becomes `LGG, SEGA`; bare `GNT` becomes `GNT, DGONC`, `GNT, DIG/DIA`, `GNT, DNET` or `GNT, NOS`). The DKFZ class is always kept in `methyl_class`. Ganglioglioma labels keep the `GNG, ...` prefix used by the LGG module.
 
+### LGG lesion-level subtypes
+
+`04-lgg-lesions.R` ports the LGAT module's lesion logic so that this module computes the evidence itself (`input/lgg_component_rules.tsv`; the LGAT diagnosis strings are in `input/lgg_path_dx_strings.json`). Components are KIAA1549-BRAF, BRAF V600E (V600E, codons 599/600, or a BRAF kinase-domain variant), other MAPK, RTK, FGFR (including FGFR1 kinase-domain duplication), NF1-somatic and NF1-germline, IDH, H3, MYB/MYBL1 and CDKN2A/B, joined in the LGAT order and prefixed `LGG`, `GNT`, `GNG` or `SEGA` by the diagnosis. They are `lesion_refinement` on the LGG / GNT / GNG / SEGA families, the subtype for LGG-cohort tumors with no other source (`LGG lesion`), and, through `lgg_alterations`, feed `subtype_alterations_confirmed`.
+
+Parity with `molecular-subtyping-LGAT/results/lgat_subtyping.tsv`: of 617 tumors with a lesion-level label in both, 616 are identical. The differences are one extra NF1-germline call (the predisposition sits on another biospecimen of the same tumor) and two IDH calls that the LGAT module made without a complete DNA/RNA pair. The fusion summary file, synonymous-variant removal and component order follow the LGAT module. Computed with `fusion_summary_lgg_hgg_foi.tsv` and the consensus gene-level copy number, as there.
+
 ### Gene annotations
 
 `input/annotation_genes.tsv` lists genes whose status is reported as an annotation for the subtypes matching `applies_to_subtype_regex` (currently `EGFR` for `^DMG`). Each gets lowercase columns `<gene>_mutation_status` (`mutated`, `not detected`, `no DNA assay`) with `<gene>_variants` (any coding variant), `<gene>_amplification` (a copy-number segment overlapping the gene above twice the ploidy, the `focal-cn-file-preparation` convention; `no CNV data` when there is no segment file), and `<gene>_activating_alteration` (a variant matching `alteration_pattern`, or amplification).
@@ -128,7 +134,7 @@ Not yet sourced: the PB, ATRT, ETMR, EPN and MB lesion rules (SMARCB1, DICER1, C
 
 ### Release columns
 
-`05-compile-subtypes.R` writes, for the integrate step to add to `histologies.tsv`: `molecular_subtype_cns`, `subtype_source`, `subtype_alterations_confirmed`, `alteration_confirmed`, `subtype_review_flag` (a short coded reason, or blank) and `Notes`. `subtype_alterations_confirmed` lists the molecular alterations that support the subtype: mutations (`H3-3A p.K28M`, `CTNNB1 p.T41I`, `IDH1 p.R132H`), fusions (`ZFTA--RELA`, `EWSR1--FLI1`), copy-number changes (`1p+19q codeleted`, `EGFR amplification`, `SMARCB1 focal loss`) and expression evidence: `EZHIP overexpression` for labels that carry it, and `expression classifier agrees (MB, Group4)` for medulloblastoma tumors where the expression classifier matches the methylation group. It is blank when none was found or the tumor has no DNA/RNA assay, and `alteration_confirmed` is whether it is non-blank. `Notes` is generated from `subtype_source` with a new vocabulary (the legacy strings are not reused, since all subtypes are being redone): `Subtype from methylation`, `Subtype from lesion`, `Subtype from lesion, overriding methylation`, `Subtype by exclusion, no H3 or IDH variant`, `Subtype from expression classifier`, `Subtype from pathology free text diagnosis` and `Subtype from manual review of pathology report`. Free-text reviewer notes and report excerpts stay in `input/manual_subtype_review.tsv` and are not meant for the release.
+`06-compile-subtypes.R` writes, for the integrate step to add to `histologies.tsv`: `molecular_subtype_cns`, `subtype_source`, `subtype_alterations_confirmed`, `alteration_confirmed`, `subtype_review_flag` (a short coded reason, or blank) and `Notes`. `subtype_alterations_confirmed` lists the molecular alterations that support the subtype: mutations (`H3-3A p.K28M`, `CTNNB1 p.T41I`, `IDH1 p.R132H`), fusions (`ZFTA--RELA`, `EWSR1--FLI1`), copy-number changes (`1p+19q codeleted`, `EGFR amplification`, `SMARCB1 focal loss`) and expression evidence: `EZHIP overexpression` for labels that carry it, and `expression classifier agrees (MB, Group4)` for medulloblastoma tumors where the expression classifier matches the methylation group. It is blank when none was found or the tumor has no DNA/RNA assay, and `alteration_confirmed` is whether it is non-blank. `Notes` is generated from `subtype_source` with a new vocabulary (the legacy strings are not reused, since all subtypes are being redone): `Subtype from methylation`, `Subtype from lesion`, `Subtype from lesion, overriding methylation`, `Subtype by exclusion, no H3 or IDH variant`, `Subtype from expression classifier`, `Subtype from pathology free text diagnosis` and `Subtype from manual review of pathology report`. Free-text reviewer notes and report excerpts stay in `input/manual_subtype_review.tsv` and are not meant for the release.
 
 ### Decisions
 
@@ -140,7 +146,8 @@ Decisions, their evidence, and open questions are logged in [DECISIONS.md](DECIS
 Rscript --vanilla 01-build-methylation-calls.R
 Rscript --vanilla 02-prepare-lesion-tables.R
 Rscript --vanilla 03-validate-subtypes.R
-Rscript --vanilla 04-validate-mb.R
-Rscript --vanilla 05-compile-subtypes.R
-Rscript --vanilla 06-compare-to-legacy.R
+Rscript --vanilla 04-lgg-lesions.R
+Rscript --vanilla 05-validate-mb.R
+Rscript --vanilla 06-compile-subtypes.R
+Rscript --vanilla 07-compare-to-legacy.R
 ```

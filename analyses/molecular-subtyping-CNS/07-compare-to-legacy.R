@@ -1,7 +1,7 @@
 ################################################################################
-# 06-compare-to-legacy.R
+# 07-compare-to-legacy.R
 #
-# Compare molecular_subtype_cns.tsv (05-compile-subtypes.R) with the legacy
+# Compare molecular_subtype_cns.tsv (06-compile-subtypes.R) with the legacy
 # per-module subtypes compiled in
 # molecular-subtyping-pathology/results/compiled_molecular_subtypes.tsv, per
 # match_id. The legacy ", TP53" suffix is dropped, since TP53 is now an
@@ -9,7 +9,7 @@
 # A legacy lesion-level label that equals `lesion_refinement` counts
 # as agreement with the methylation family.
 #
-# Usage: Rscript --vanilla 06-compare-to-legacy.R
+# Usage: Rscript --vanilla 07-compare-to-legacy.R
 ################################################################################
 
 suppressPackageStartupMessages(library(tidyverse))

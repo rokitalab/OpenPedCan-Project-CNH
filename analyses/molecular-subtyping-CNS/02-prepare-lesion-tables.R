@@ -30,12 +30,16 @@ rules <- read_tsv(file.path(module_dir, "input", "subtype_lesion_rules.tsv"),
 annotation_genes <- read_tsv(file.path(module_dir, "input", "annotation_genes.tsv"),
                              show_col_types = FALSE)
 
+lgg_components <- read_tsv(file.path(module_dir, "input", "lgg_component_rules.tsv"),
+                           show_col_types = FALSE)
+
 genes <- rules %>%
   filter(lesion_type == "snv") %>%
   pull(gene) %>%
+  c(annotation_genes$gene,
+    lgg_components$gene[lgg_components$lesion_type == "snv"]) %>%
   str_split("\\|") %>%
   unlist() %>%
-  c(annotation_genes$gene) %>%
   unique()
 
 gene_sql <- paste0("'", genes, "'", collapse = ", ")
@@ -46,7 +50,7 @@ on.exit(dbDisconnect(con, shutdown = TRUE), add = TRUE)
 # all_varchar and a short sample avoid type sniffing over the whole file
 query <- sprintf(
   "COPY (
-     SELECT Hugo_Symbol, HGVSp_Short, Variant_Classification,
+     SELECT Hugo_Symbol, HGVSp_Short, Variant_Classification, DOMAINS,
             Tumor_Sample_Barcode AS Kids_First_Biospecimen_ID
      FROM read_csv('%s', delim = '\t', header = true, all_varchar = true,
                    sample_size = 100, ignore_errors = true)
@@ -148,3 +152,62 @@ if (length(cnv_genes) > 0) {
   dbDisconnect(con2, shutdown = TRUE)
   message("Wrote gene-level copy number for ", length(cnv_genes), " gene(s)")
 }
+
+# LGG module lesions that need more than a gene list ------------------------------
+# CDKN2A / CDKN2B copy number (legacy LGG rule: copy number <= 1)
+cdkn_file <- file.path(root_dir, "data",
+  "consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only.tsv.gz")
+cdkn_out <- file.path(scratch_dir, "cdkn2_copy_number.parquet")
+con3 <- dbConnect(duckdb::duckdb())
+dbExecute(con3, sprintf(
+  "COPY (
+     SELECT biospecimen_id AS Kids_First_Biospecimen_ID, gene_symbol,
+            TRY_CAST(copy_number AS DOUBLE) AS copy_number, status
+     FROM read_csv('%s', delim = '\t', header = true, all_varchar = true,
+                   sample_size = 100, ignore_errors = true)
+     WHERE gene_symbol IN ('CDKN2A', 'CDKN2B')
+   ) TO '%s' (FORMAT PARQUET)", cdkn_file, cdkn_out))
+
+# FGFR1 kinase-domain duplication, as in the LGG module: a tandem duplication
+# (Manta) that spans the FGFR1 protein tyrosine kinase domain, or a consensus
+# copy-number segment with copy number > 2 within the FGFR1 gene
+pfam <- readRDS(system.file("extdata", "pfamDataBioMart.RDS",
+                            package = "annoFuseData")) %>%
+  filter(hgnc_symbol == "FGFR1", DESC == "Protein tyrosine kinase",
+         !is.na(domain_start), !is.na(domain_end)) %>%
+  distinct(chromosome_name, domain_start, domain_end, gene_start, gene_end)
+stopifnot(nrow(pfam) == 1)
+
+manta_out <- file.path(scratch_dir, "fgfr1_tandem_dup.parquet")
+dbExecute(con3, sprintf(
+  "COPY (
+     SELECT \"Kids.First.Biospecimen.ID.Tumor\" AS Kids_First_Biospecimen_ID,
+            SV_start, SV_end, ALT
+     FROM read_csv('%s', delim = '\t', header = true, all_varchar = true,
+                   sample_size = 100, ignore_errors = true)
+     WHERE Gene_name = 'FGFR1' AND ALT = '<DUP:TANDEM>'
+   ) TO '%s' (FORMAT PARQUET)",
+  file.path(root_dir, "data", "sv-manta.tsv.gz"), manta_out))
+
+manta_fgfr <- dbGetQuery(con3, sprintf("SELECT * FROM read_parquet('%s')", manta_out)) %>%
+  as_tibble() %>%
+  mutate(across(c(SV_start, SV_end), as.numeric)) %>%
+  filter(SV_start <= pfam$domain_start, SV_end >= pfam$domain_end) %>%
+  distinct(Kids_First_Biospecimen_ID) %>%
+  mutate(fgfr1_dup_source = "tandem duplication (SV)")
+
+seg_fgfr <- read_tsv(file.path(root_dir, "data", "cnv-consensus.seg.gz"),
+                     show_col_types = FALSE) %>%
+  filter(chrom == paste0("chr", pfam$chromosome_name),
+         loc.start >= pfam$gene_start, loc.end <= pfam$gene_end,
+         copy.num > 2) %>%
+  distinct(Kids_First_Biospecimen_ID = ID) %>%
+  mutate(fgfr1_dup_source = "copy-number segment within FGFR1")
+
+bind_rows(manta_fgfr, seg_fgfr) %>%
+  group_by(Kids_First_Biospecimen_ID) %>%
+  summarise(fgfr1_dup_source = paste(sort(unique(fgfr1_dup_source)), collapse = "; "),
+            .groups = "drop") %>%
+  write_tsv(file.path(scratch_dir, "fgfr1_dup.tsv"))
+dbDisconnect(con3, shutdown = TRUE)
+message("Wrote CDKN2A/B copy number and FGFR1 duplication calls")

@@ -36,6 +36,8 @@ Decisions made while building this module, with the evidence and where they live
 | DMG from the free-text diagnosis when no other source applies, as plain `DMG, H3 K28` | 21 lesion-negative tumors had DMG free text and contradicted `HGG, H3 wildtype` | `03` |
 | The control-methylation lesion fallback is **not** applied | reviewer decision; 10 H3 K28M tumors with a control array stay unsubtyped and are listed | `h3_variant_review.tsv` |
 
+| LGG lesion logic is ported into this module (`04-lgg-lesions.R`) instead of read from the LGAT module | the evidence behind the lesion-level labels was not visible here, so `alteration_confirmed` was blank for 700 of 721 LGG-family tumors; the port reproduces the LGAT labels for 616 of 617 shared tumors, which lets the LGAT module be archived | `04`, `input/lgg_component_rules.tsv` |
+
 ## Reviewed samples
 
 | Sample | Decision | Basis |
