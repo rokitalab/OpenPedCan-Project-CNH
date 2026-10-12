@@ -2464,7 +2464,7 @@ PT_E99F32RF_7316-8121_Derived Cell Line_Initial CNS Tumor_Serum-free-1_6	HGG, H3
 PT_E99F32RF_7316-8121_Derived Cell Line_Initial CNS Tumor_Serum-free-2_6	HGG, H3 wildtype	HGG	HGG, H3 wildtype	lesion negative	NA	FALSE	same
 PT_E99F32RF_7316-8121_Solid Tissue_Initial CNS Tumor	HGG, H3 wildtype	HGG	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_E99F32RF_7316-8420_Solid Tissue_Deceased	HGG, H3 wildtype	HGG	HGG, chr6 CTX	methylation	NA	FALSE	newly assigned
-PT_E9J8FNW5_C4116318-Tumor_Solid Tissue_Recurrence	HGG, H3 wildtype	HGG	HGG, H3 wildtype	lesion negative	NA	FALSE	same
+PT_E9J8FNW5_C4116318-Tumor_Solid Tissue_Recurrence	HGG, H3 wildtype	HGG	DMG, H3 K28-altered, EGFR	manual review	NA	FALSE	newly assigned
 PT_E9PS2A96_7316-9011_Solid Tissue_Initial CNS Tumor	DHG, H3 G35	DHG	DHG, H3 G35	lesion fallback	NA	TRUE	same
 PT_EA50EF17_C4119516-Tumor_Solid Tissue_Initial CNS Tumor	DMG, H3 K28	DMG	DMG, H3 K28	lesion fallback	NA	TRUE	same
 PT_EA9K01MB_7316-5521_Solid Tissue_Initial CNS Tumor	MB, To be classified	MB	NA	NA	NA	FALSE	legacy only (unassigned)
