@@ -211,3 +211,13 @@ bind_rows(manta_fgfr, seg_fgfr) %>%
   write_tsv(file.path(scratch_dir, "fgfr1_dup.tsv"))
 dbDisconnect(con3, shutdown = TRUE)
 message("Wrote CDKN2A/B copy number and FGFR1 duplication calls")
+
+# C19MC region copy number (embryonal tumors, ETMR C19MC-altered) --------------
+# chr19 segments with a positive segment mean from the consensus copy number;
+# 03 keeps the ones that overlap the C19MC miRNA cluster (hg38 chr19:53.66-53.77 Mb)
+read_tsv(file.path(root_dir, "data", "cnv-consensus.seg.gz"),
+         show_col_types = FALSE) %>%
+  filter(chrom == "chr19", seg.mean > 0) %>%
+  transmute(Kids_First_Biospecimen_ID = ID, loc.start, loc.end, seg.mean, copy.num) %>%
+  write_tsv(file.path(scratch_dir, "chr19_gain_segments.tsv"))
+message("Wrote chr19 gain segments")

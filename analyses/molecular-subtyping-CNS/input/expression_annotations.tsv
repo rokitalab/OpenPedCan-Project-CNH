@@ -1,2 +1,3 @@
 gene	applies_to_subtype_regex	z_threshold	note
 EZHIP	^DMG	3	EZHIP overexpression, an H3 K27-altered mechanism. z-score of log2(TPM+1) within RNA library type, against PBTA tumor RNA-seq; z >= 3 captures 60% of PF-EPN-A tumors and 1% of H3 K27M-mutant DMG.
+LIN28A	^(ETMR|CNS Embryonal)	3	LIN28A overexpression, z >= 3 within RNA library type (the embryonal module used z > 3 within the embryonal subset); a feature of ETMR, with TTYH1 fusion or C19MC amplification separating C19MC-altered from NOS

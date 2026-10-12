@@ -38,6 +38,9 @@ Decisions made while building this module, with the evidence and where they live
 
 | LGG lesion logic is ported into this module (`04-lgg-lesions.R`) instead of read from the LGAT module | the evidence behind the lesion-level labels was not visible here, so `alteration_confirmed` was blank for 700 of 721 LGG-family tumors; the port reproduces the LGAT labels for 616 of 617 shared tumors, which lets the LGAT module be archived | `04`, `input/lgg_component_rules.tsv` |
 
+| Embryonal rules (TTYH1 fusion, C19MC amplification, LIN28A z >= 3) are ported; `CNS Embryonal, NOS` is kept for embryonal tumors with no other source | the legacy module defined `ETMR, NOS` by lesions and diagnosis, which the comparison first missed because "NOS" was treated as unassigned | `03`, `input/embryonal_path_dx_strings.json` |
+| C19MC amplification requires a focal segment overlapping the cluster with segment mean > 1, not any chr19 gain | the legacy "Yes" included 9 tumors with chr19 segments elsewhere (2 Mb, 10 Mb, 54.2 Mb) | `03` |
+
 ## Reviewed samples
 
 | Sample | Decision | Basis |

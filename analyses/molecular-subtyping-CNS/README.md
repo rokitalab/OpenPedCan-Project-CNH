@@ -98,6 +98,18 @@ DKFZ or NIH high-confidence PXA calls are split by BRAF V600E (issue 113): `PXA 
 
 Subtype labels carry their family as a prefix: `HGG, ...`, `LGG, ...`, `GNT, ...`, `DMG, ...`, `DHG, ...`. Classes that were bare or used a different prefix are renamed in the crosswalk (`HGAP`, `HGNET`, `IHG` and `GBM, MES/RTK` become `HGG, ...`; `SEGA` becomes `LGG, SEGA`; bare `GNT` becomes `GNT, DGONC`, `GNT, DIG/DIA`, `GNT, DNET` or `GNT, NOS`). The DKFZ class is always kept in `methyl_class`. Ganglioglioma labels keep the `GNG, ...` prefix used by the LGG module.
 
+### Embryonal: ETMR and CNS embryonal, NOS
+
+Ported from `molecular-subtyping-embryonal` (`03`, cohort strings in `input/embryonal_path_dx_strings.json`). For embryonal-diagnosis tumors with no methylation call or other source:
+
+| Subtype | Evidence |
+|---|---|
+| `ETMR, C19MC-altered` | a TTYH1 fusion (5' partner) with LIN28A overexpression or a C19MC amplification |
+| `ETMR, NOS` | an ETMR diagnosis without the above, or LIN28A overexpression without a TTYH1 fusion |
+| `CNS Embryonal, NOS` | the rest of the embryonal cohort (including CNS neuroblastoma diagnoses) |
+
+LIN28A overexpression is the z-score within RNA library type, z >= 3 (the embryonal module used z > 3 within the embryonal subset). C19MC amplification is a focal chr19 segment overlapping the C19MC cluster (hg38 chr19:53.66-53.77 Mb) with segment mean > 1; the embryonal module called any chr19 gain "amplification", which flagged 9 tumors for segments elsewhere on chr19. TTYH1 fusions come from annoFuse and the DGD panel fusions, not the in-frame summary used by the module, so 4 tumors it called `ETMR, NOS` are `ETMR, C19MC-altered` here. Results are in `results/embryonal_subtypes.tsv`; `subtype_source = embryonal rules`.
+
 ### LGG lesion-level subtypes
 
 `04-lgg-lesions.R` ports the LGAT module's lesion logic so that this module computes the evidence itself (`input/lgg_component_rules.tsv`; the LGAT diagnosis strings are in `input/lgg_path_dx_strings.json`). Components are KIAA1549-BRAF, BRAF V600E (V600E, codons 599/600, or a BRAF kinase-domain variant), other MAPK, RTK, FGFR (including FGFR1 kinase-domain duplication), NF1-somatic and NF1-germline, IDH, H3, MYB/MYBL1 and CDKN2A/B, joined in the LGAT order and prefixed `LGG`, `GNT`, `GNG` or `SEGA` by the diagnosis. They are `lesion_refinement` on the LGG / GNT / GNG / SEGA families, the subtype for LGG-cohort tumors with no other source (`LGG lesion`), and, through `lgg_alterations`, feed `subtype_alterations_confirmed`.

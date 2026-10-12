@@ -29,7 +29,8 @@ legacy_renames <- c("IHG, NTRK-altered" = "HGG, IHG, NTRK-altered",
                     "GBM, MES" = "HGG, MES", "GBM, RTK" = "HGG, RTK")
 
 # legacy labels that mean "no specific subtype was assigned"
-unassigned <- "To be classified|, NOS$|wildtype$"
+# "ETMR, NOS" is a defined subtype (lesion and diagnosis based), not a default
+unassigned <- "To be classified|(?<!ETMR), NOS$|wildtype$"
 
 legacy <- read_tsv(
   file.path(root_dir, "analyses", "molecular-subtyping-pathology", "results",

@@ -53,7 +53,7 @@ hist <- read_tsv(file.path(root_dir, "data", "histologies-base.tsv"),
                  guess_max = 100000, show_col_types = FALSE) %>%
   select(Kids_First_Biospecimen_ID, Kids_First_Participant_ID, sample_id,
          match_id, cohort, sample_type, experimental_strategy, RNA_library,
-         pathology_diagnosis, pathology_free_text_diagnosis)
+         primary_site, pathology_diagnosis, pathology_free_text_diagnosis)
 
 snv_file <- file.path(scratch_dir, "snv_lesion_genes.parquet")
 if (!file.exists(snv_file)) {
@@ -545,6 +545,98 @@ free_text_dmg <- bind_rows(free_text_dmg, free_text_ihg)
 
 write_tsv(free_text_dmg, file.path(results_dir, "free_text_subtypes.tsv"))
 
+### Embryonal: ETMR and CNS embryonal, NOS ------------------------------------
+# Ported from molecular-subtyping-embryonal. Cohort: the embryonal diagnoses
+# (and CNS neuroblastoma strings) of that module. ETMR, C19MC-altered is a
+# TTYH1 fusion (5' partner) with LIN28A overexpression or a C19MC amplification;
+# ETMR, NOS is an ETMR diagnosis without that, or LIN28A overexpression without
+# TTYH1; the rest of the cohort is CNS Embryonal, NOS. LIN28A is the z-score
+# within RNA library type (the module used z > 3 within the embryonal subset).
+emb_strings <- jsonlite::fromJSON(file.path(input_dir, "embryonal_path_dx_strings.json"))
+etmr_text <- "etmr|embryonal tumor with abundant neuropil and true rosettes|embryonal tumor with multilayer rosettes"
+
+# a focal chr19 amplification overlapping the C19MC miRNA cluster (hg38)
+c19mc_ids <- read_tsv(file.path(scratch_dir, "chr19_gain_segments.tsv"),
+                      show_col_types = FALSE) %>%
+  filter(loc.start <= 53767234, loc.end >= 53664934, seg.mean > 1,
+         loc.end - loc.start < 2e6) %>%
+  distinct(id = Kids_First_Biospecimen_ID) %>%
+  inner_join(dna_ids, by = "id", relationship = "many-to-many") %>%
+  distinct(match_id)
+
+ttyh1 <- fusion %>%
+  filter(str_detect(FusionName, "^TTYH1--")) %>%
+  inner_join(rna_ids, by = c("Kids_First_Biospecimen_ID" = "id"),
+             relationship = "many-to-many") %>%
+  group_by(match_id) %>%
+  summarise(ttyh1_fusions = paste(sort(unique(FusionName)), collapse = "; "),
+            .groups = "drop")
+
+lin28a <- expression_long %>%
+  filter(gene == "LIN28A") %>%
+  inner_join(rna_ids, by = c("Kids_First_Biospecimen_ID" = "id"),
+             relationship = "many-to-many") %>%
+  group_by(match_id) %>%
+  summarise(lin28a_z = max(z, na.rm = TRUE), .groups = "drop")
+
+embryonal <- hist %>%
+  filter(sample_type == "Tumor", cohort %in% c("PBTA", "PPTC"), !is.na(match_id)) %>%
+  group_by(match_id) %>%
+  summarise(Kids_First_Participant_ID = first(Kids_First_Participant_ID),
+            sample_id = first(sample_id),
+            primary_site = paste(sort(unique(na.omit(primary_site))), collapse = ";"),
+            pathology_diagnosis = paste(sort(unique(na.omit(pathology_diagnosis))), collapse = ";"),
+            free_text = paste(sort(unique(na.omit(pathology_free_text_diagnosis))), collapse = " | "),
+            .groups = "drop") %>%
+  mutate(
+    dx_l = str_to_lower(pathology_diagnosis),
+    txt = str_to_lower(free_text),
+    in_cohort =
+      (str_detect(pathology_diagnosis,
+                  paste(str_replace_all(emb_strings$include_path_dx, "([()])", "\\\\\\1"),
+                        collapse = "|")) |
+         str_detect(txt, paste(str_replace_all(emb_strings$include_free_text,
+                                               "([()])", "\\\\\\1"), collapse = "|"))) &
+        !str_detect(txt, paste(emb_strings$exclude_free_text, collapse = "|")) |
+      # neuroblastoma diagnoses in the CNS
+      (pathology_diagnosis == "Neuroblastoma" &
+         !str_detect(primary_site, "Other locations NOS") &
+         !str_detect(txt, "peripheral|metastatic"))
+  ) %>%
+  filter(in_cohort,
+         !match_id %in% c(validated$match_id, fallback$match_id[fallback$assign],
+                          control_match_ids, free_text_dmg$match_id)) %>%
+  left_join(ttyh1, by = "match_id") %>%
+  left_join(lin28a, by = "match_id") %>%
+  mutate(
+    has_ttyh1 = !is.na(ttyh1_fusions),
+    lin28a_high = replace_na(lin28a_z >= 3, FALSE),
+    c19mc_amp = match_id %in% c19mc_ids$match_id,
+    etmr_dx = pathology_diagnosis == "Embryonal Tumor with Multilayered Rosettes (ETMR)" |
+      str_detect(txt, etmr_text),
+    OPC_molecular_subtype = case_when(
+      (lin28a_high | c19mc_amp) & has_ttyh1 ~ "ETMR, C19MC-altered",
+      etmr_dx | (lin28a_high & !has_ttyh1) ~ "ETMR, NOS",
+      TRUE ~ "CNS Embryonal, NOS"
+    ),
+    lesion_evidence = pmap_chr(
+      list(ttyh1_fusions, c19mc_amp, lin28a_high, lin28a_z),
+      function(f, a, h, z) {
+        e <- c(if (!is.na(f)) paste0(f, " fusion"),
+               if (a) "C19MC amplification",
+               if (h) paste0("LIN28A overexpression (z ", round(z, 1), ")"))
+        if (length(e) == 0) NA_character_ else paste(e, collapse = "; ")
+      }
+    ),
+    evidence_level = if_else(OPC_molecular_subtype == "CNS Embryonal, NOS",
+                             "embryonal diagnosis", "fusion, copy number, expression"),
+    dx_group = dx_to_groups(pathology_diagnosis, dx_groups),
+    dx_concordance = dx_concordance(OPC_molecular_subtype, dx_group, family_compat)
+  ) %>%
+  select(-dx_l, -txt, -in_cohort)
+
+write_tsv(embryonal, file.path(results_dir, "embryonal_subtypes.tsv"))
+
 ### Lesion-negative HGG -------------------------------------------------------
 # PBTA tumors with an HGG diagnosis, a DNA assay, and no methylation call or
 # lesion rule hit: no H3 or IDH variant means "HGG, H3 wildtype" by exclusion,
@@ -604,6 +696,8 @@ print(validated %>% filter(!is.na(lesion_contradiction)) %>%
 message("\n== H3 variant but not DMG/DHG: ", nrow(h3_variant_review))
 print(count(h3_variant_review, reason))
 message("\n== Subtypes from the free-text diagnosis (DMG, IHG): ", nrow(free_text_dmg))
+message("\n== Embryonal (ETMR, CNS Embryonal NOS): ", nrow(embryonal))
+print(count(embryonal, OPC_molecular_subtype))
 message("\n== Lesion-negative HGG, H3 wildtype: ", nrow(lesion_negative_hgg))
 message("\n== Lesion-only fallback: ", nrow(fallback), " tumors without methylation")
 print(count(fallback, OPC_molecular_subtype, assign, hold_reason))

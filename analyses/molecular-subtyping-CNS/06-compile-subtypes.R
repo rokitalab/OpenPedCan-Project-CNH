@@ -107,6 +107,11 @@ free_text <- read_tsv(file.path(results_dir, "free_text_subtypes.tsv"),
   filter(!match_id %in% c(methyl$match_id, fallback$match_id)) %>%
   mutate(subtype_source = "pathology free text")
 
+embryonal <- read_tsv(file.path(results_dir, "embryonal_subtypes.tsv"),
+                      guess_max = 10000, col_types = evidence_types) %>%
+  filter(!match_id %in% c(methyl$match_id, fallback$match_id)) %>%
+  mutate(subtype_source = "embryonal rules")
+
 lesion_negative <- read_tsv(file.path(results_dir, "lesion_negative_hgg.tsv"),
                             guess_max = 10000, col_types = evidence_types) %>%
   filter(!match_id %in% c(methyl$match_id, fallback$match_id)) %>%
@@ -125,6 +130,7 @@ compiled <- bind_rows(
                     ends_with("_amplification"), ends_with("_activating_alteration"),
                     ends_with("_tpm"), ends_with("_z"), ends_with("_expression_status"),
                     starts_with("h3_"), starts_with("h3k27_")),
+  embryonal %>% select(all_of(shared)),
   free_text %>% select(all_of(shared), starts_with("tp53_"),
                        ends_with("_mutation_status"), ends_with("_variants"),
                        ends_with("_amplification"),
@@ -180,6 +186,7 @@ compiled <- bind_rows(
     evidence_level = case_when(
       subtype_source == "pathology free text" ~ "free text",
       subtype_source %in% c("LGG lesion", "SMARCB1 focal loss") ~ "lesion only",
+      subtype_source == "embryonal rules" ~ evidence_level,
       subtype_source == "expression classifier" ~ "expression only",
       TRUE ~ evidence_level
     ),
@@ -312,6 +319,11 @@ compiled <- bind_rows(
         "Subtype from expression classifier",
       subtype_source == "pathology free text" ~
         "Subtype from pathology free text diagnosis",
+      subtype_source == "embryonal rules" &
+        str_detect(replace_na(molecular_subtype_cns, ""), "^ETMR") ~
+        "Subtype from fusion, copy number and expression",
+      subtype_source == "embryonal rules" ~
+        "Subtype by exclusion, embryonal diagnosis",
       TRUE ~ NA_character_
     )
   ) %>%

@@ -1,0 +1,26 @@
+{
+    "include_path_dx": [
+        "Supratentorial or Spinal Cord PNET",
+        "Embryonal Tumor with Multilayered Rosettes (ETMR)",
+        "Embryonal Tumor with Multilayered Rosettes (ETMR);High-grade glioma/astrocytoma (WHO grade III/IV)",
+        "Embryonal Tumor NOS"
+    ],
+    "include_free_text": [
+        "embryonal tumor with multilayer rosettes, ros (who grade iv)",
+        "embryonal tumor, nos, congenital type",
+        "ependymoblastoma",
+        "medulloepithelioma",
+        "medullooepithelioma",
+        "embryonal neoplasm",
+        "embryonal tumor, not otherwise specified, who grade iv",
+        "cns embryonal tumor, nos",
+        "cns embryonal tumor, nos, wnt-activated, who grade iv",
+        "embryonal neoplasm who grade iv",
+        "embryonal tumor, not otherwise specified, who grade iv",
+        "high grade embryonal tumor with rhabdoid features"
+    ],
+    "exclude_free_text": [
+        "pineoblastoma"
+    ]
+}
+
