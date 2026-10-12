@@ -62,6 +62,7 @@ Decisions made while building this module, with the evidence and where they live
 | Derived cell lines | own match_id | subtyped from their own methylation and lesions; `tumor_subtype` and `tumor_concordance` compare with the solid-tissue tumors of the same sample; `different` is flagged (16) in `results/cell_line_tumor_concordance.tsv` |
 
 | Diffuse leptomeningeal glioneuronal tumor (DLGNT) | not in this module | the legacy glioneuronal free-text step called 5 samples DLGNT (7316-2208, 7316-10000, C4106232-Tumor, ET_6R1D00B5, ET_7T785YTJ). The CNS module keeps their methylation label (7316-2208 is `GNT, MAPK`); the DLGNT diagnosis is applied in `molecular-subtyping-integrate`, which keeps the free-text steps for diagnoses that are not molecular subtypes |
+| DKFZ `PA_CORT` (NIH v3.1 `PA ST`) | `LGG, PA ST` | supratentorial pilocytic astrocytoma by both classifiers; the crosswalk had `GNT, MAPK`, which moved 29 tumors. The remaining `GNT, MAPK` tumors are DLGNT_1 and DLGNT_2. 7316-1106 (HGG diagnosis, BRAF V600E, PA_CORT 0.98, NIH PA ST 0.99) is now `LGG, PA ST`, with no PXA class and no CDKN2A/B loss |
 ## Pending
 
 - 7316-9842 and 14 other H3-variant tumors: CBTN, `h3_variant_review.tsv`.
@@ -69,5 +70,5 @@ Decisions made while building this module, with the evidence and where they live
 - `PA_MID` craniopharyngioma-diagnosis tumors (7): possible misdiagnosis, not yet reviewed.
 - Seed the manual-review table from the 98 legacy overrides (7316-9049 and C4116318-Tumor are done).
 - Citations for the PB, ATRT, ETMR, EPN and MB lesion rules.
-- 7316-1106: pathology review `HGG, PXA` vs methylation `GNT, MAPK` (PA_CORT 0.98). Lesions do not decide it: BRAF V600E (26% VAF) fits both, no CDKN2A/B homozygous deletion (copy number 3), no fusion, no H3/IDH/TP53 hit. Kept as the methylation call and flagged, unless the pathology review is taken as authoritative.
+- 7316-1106: pathology review `HGG, PXA` vs methylation `LGG, PA ST` (PA_CORT 0.98, NIH v3.1 PA ST 0.99). Lesions do not decide it: BRAF V600E (26% VAF) fits both, no CDKN2A/B homozygous deletion (copy number 3), no fusion, no H3/IDH/TP53 hit. Kept as the methylation call and flagged, unless the pathology review is taken as authoritative.
 - Manual-review rows not yet added: PT_FFHQ1B9R (PNOC clinical review `DMG, H3 K28`, control methylation) and a check of the other PNOC003 rows.
