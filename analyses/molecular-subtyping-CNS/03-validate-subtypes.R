@@ -216,7 +216,21 @@ validated <- calls %>%
       free_text_grade_group(pathology_free_text_diagnosis) %in% "HGG" ~ "HGG",
       TRUE ~ "LGG"
     ),
+    # supratentorial pilocytic astrocytoma class (PA_CORT / NIH PA ST): the
+    # family prefix follows the primary diagnosis, as for PXA. A ganglioglioma
+    # diagnosis gives GNG, a DNET or glial-neuronal diagnosis GNT, and
+    # anything else LGG (the diagnosis has to be a glioneuronal tumor for the
+    # glioneuronal family to apply).
+    pa_st_prefix = case_when(
+      str_detect(replace_na(pathology_diagnosis, ""),
+                 regex("ganglioglioma", ignore_case = TRUE)) ~ "GNG",
+      str_detect(replace_na(pathology_diagnosis, ""),
+                 regex("dysembryoplastic|glial-neuronal|glioneuronal",
+                       ignore_case = TRUE)) ~ "GNT",
+      TRUE ~ "LGG"
+    ),
     OPC_molecular_subtype = case_when(
+      OPC_molecular_subtype == "LGG, PA ST" ~ paste0(pa_st_prefix, ", PA ST"),
       OPC_molecular_subtype == "PXA" & lesion_status == "confirmed" ~
         paste0(pxa_prefix, ", PXA BRAF V600E"),
       OPC_molecular_subtype == "PXA" & lesion_status == "not_detected" ~

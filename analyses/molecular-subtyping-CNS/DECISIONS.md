@@ -62,7 +62,7 @@ Decisions made while building this module, with the evidence and where they live
 | Derived cell lines | own match_id | subtyped from their own methylation and lesions; `tumor_subtype` and `tumor_concordance` compare with the solid-tissue tumors of the same sample; `different` is flagged (16) in `results/cell_line_tumor_concordance.tsv` |
 
 | Diffuse leptomeningeal glioneuronal tumor (DLGNT) | not in this module | the legacy glioneuronal free-text step called 5 samples DLGNT (7316-2208, 7316-10000, C4106232-Tumor, ET_6R1D00B5, ET_7T785YTJ). The CNS module keeps their methylation label (7316-2208 is `GNT, MAPK`); the DLGNT diagnosis is applied in `molecular-subtyping-integrate`, which keeps the free-text steps for diagnoses that are not molecular subtypes |
-| DKFZ `PA_CORT` (NIH v3.1 `PA ST`) | `LGG, PA ST` | supratentorial pilocytic astrocytoma by both classifiers; the crosswalk had `GNT, MAPK`, which moved 29 tumors. The remaining `GNT, MAPK` tumors are DLGNT_1 and DLGNT_2. 7316-1106 (HGG diagnosis, BRAF V600E, PA_CORT 0.98, NIH PA ST 0.99) is now `LGG, PA ST`, with no PXA class and no CDKN2A/B loss |
+| DKFZ `PA_CORT` (NIH v3.1 `PA ST`) | `LGG, PA ST`, `GNG, PA ST` or `GNT, PA ST` | supratentorial pilocytic astrocytoma by both classifiers; the crosswalk had `GNT, MAPK`. The family prefix follows the primary diagnosis, as for PXA: a ganglioglioma diagnosis gives `GNG`, a DNET or glial-neuronal tumor diagnosis `GNT`, anything else `LGG` (29 tumors: 9 GNG, 7 GNT, 13 LGG). The remaining `GNT, MAPK` tumors are DLGNT_1 and DLGNT_2. 7316-1106 (HGG diagnosis, BRAF V600E, PA_CORT 0.98, NIH PA ST 0.99) is `LGG, PA ST`, with no PXA class and no CDKN2A/B loss |
 ## Pending
 
 - 7316-9842 and 14 other H3-variant tumors: CBTN, `h3_variant_review.tsv`.

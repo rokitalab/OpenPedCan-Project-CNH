@@ -116,6 +116,10 @@ A derived cell line is subtyped from its own methylation, lesions and RNA, on it
 
 DKFZ or NIH high-confidence PXA calls are split by BRAF V600E (issue 113): `PXA BRAF V600E` and `PXA BRAF V600E negative`, with plain `PXA` when there is no DNA assay. The `HGG` or `LGG` prefix follows the pathology diagnosis: an HGG diagnosis gives `HGG, PXA ...`. When the diagnosis is missing or `Other`, the free-text diagnosis is searched for a grade (anaplastic, WHO grade III/IV, high grade, glioblastoma). Otherwise the label is `LGG, PXA ...`. A PBTA tumor with no methylation, BRAF V600E and a PXA term in the free-text diagnosis is `HGG` or `LGG, PXA BRAF V600E` (BRAF V600E alone is not specific, so the free text is required; `subtype_source = lesion fallback`).
 
+### Supratentorial pilocytic astrocytoma (PA_CORT / PA ST)
+
+The DKFZ `PA_CORT` class (NIH v3.1 `PA ST`) is `LGG, PA ST`, and the family prefix follows the primary diagnosis, as for PXA: a ganglioglioma diagnosis gives `GNG, PA ST`, a DNET or glial-neuronal tumor diagnosis `GNT, PA ST`, and anything else `LGG, PA ST`. The DLGNT classes stay `GNT, MAPK`.
+
 ### Label prefixes
 
 Subtype labels carry their family as a prefix: `HGG, ...`, `LGG, ...`, `GNT, ...`, `DMG, ...`, `DHG, ...`. Classes that were bare or used a different prefix are renamed in the crosswalk (`HGAP`, `HGNET`, `IHG` and `GBM, MES/RTK` become `HGG, ...`; `SEGA` becomes `LGG, SEGA`; bare `GNT` becomes `GNT, DGONC`, `GNT, DIG/DIA`, `GNT, DNET` or `GNT, NOS`). The DKFZ class is always kept in `methyl_class`. Ganglioglioma labels keep the `GNG, ...` prefix used by the LGG module.
