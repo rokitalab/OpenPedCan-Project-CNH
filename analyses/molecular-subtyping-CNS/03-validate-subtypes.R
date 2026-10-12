@@ -516,6 +516,7 @@ tumor_text <- hist %>%
   group_by(match_id) %>%
   summarise(Kids_First_Participant_ID = first(Kids_First_Participant_ID),
             sample_id = first(sample_id),
+            primary_site = first(na.omit(primary_site)),
             pathology_diagnosis = paste(sort(unique(na.omit(pathology_diagnosis))),
                                         collapse = ";"),
             free_text = paste(sort(unique(na.omit(pathology_free_text_diagnosis))),
@@ -562,7 +563,58 @@ free_text_ihg <- tumor_text %>%
   select(-ihg_term, -ihg_evidence) %>%
   left_join(tp53, by = "match_id")
 
-free_text_dmg <- bind_rows(free_text_dmg, free_text_ihg)
+# adamantinomatous craniopharyngioma named in the free text, for tumors that
+# methylation and the CTNNB1 / BRAF rules left without a subtype (a missing or
+# low-confidence or control array: the free text is explicit about the histology
+# and a control array only says the tissue was low purity). A high-confidence
+# methylation call of another class stands and is listed in
+# free_text_conflicts.tsv.
+cranio_text <- "adamantinomato"
+free_text_cranio <- tumor_text %>%
+  filter(str_detect(str_to_lower(replace_na(free_text, "")), cranio_text),
+         !match_id %in% c(validated$match_id, fallback$match_id[fallback$assign],
+                          free_text_dmg$match_id, free_text_ihg$match_id)) %>%
+  mutate(OPC_molecular_subtype = "CRANIO, ADAM",
+         lesion_evidence = "free-text diagnosis",
+         evidence_level = "free text",
+         dx_group = dx_to_groups(pathology_diagnosis, dx_groups),
+         dx_concordance = dx_concordance(OPC_molecular_subtype, dx_group,
+                                         family_compat)) %>%
+  left_join(tp53, by = "match_id")
+
+free_text_conflicts <- tumor_text %>%
+  filter(str_detect(str_to_lower(replace_na(free_text, "")), cranio_text),
+         match_id %in% validated$match_id) %>%
+  inner_join(distinct(validated, match_id, methylation_subtype = OPC_molecular_subtype),
+             by = "match_id") %>%
+  filter(!str_detect(methylation_subtype, "^CRANIO")) %>%
+  transmute(match_id, sample_id, free_text, methylation_subtype,
+            free_text_conflict = "free-text diagnosis names adamantinomatous craniopharyngioma")
+write_tsv(free_text_conflicts, file.path(results_dir, "free_text_conflicts.tsv"))
+
+# neurocytoma (ported from molecular-subtyping-neurocytoma): the diagnosis
+# decides, and the primary site separates central (ventricles, CNC) from
+# extraventricular (EVN); a methylation call (CN, EVNCYT) takes precedence
+neurocytoma_dx <- unlist(
+  jsonlite::fromJSON(file.path(module_dir, "..", "molecular-subtyping-neurocytoma",
+                               "neurocytoma-subset",
+                               "neurocytoma_subtyping_path_dx_strings.json")))
+free_text_neuro <- tumor_text %>%
+  filter(pathology_diagnosis %in% neurocytoma_dx, !is.na(primary_site),
+         !match_id %in% c(validated$match_id, fallback$match_id[fallback$assign],
+                          control_match_ids, free_text_dmg$match_id,
+                          free_text_ihg$match_id, free_text_cranio$match_id)) %>%
+  mutate(OPC_molecular_subtype = if_else(primary_site == "Ventricles", "CNC", "EVN"),
+         lesion_evidence = paste0("neurocytoma diagnosis, primary site ", primary_site),
+         evidence_level = "diagnosis and primary site",
+         dx_group = dx_to_groups(pathology_diagnosis, dx_groups),
+         dx_concordance = dx_concordance(OPC_molecular_subtype, dx_group,
+                                         family_compat)) %>%
+  left_join(tp53, by = "match_id")
+
+free_text_dmg <- bind_rows(free_text_dmg, free_text_ihg, free_text_cranio,
+                           free_text_neuro) %>%
+  select(-any_of("primary_site"))
 
 write_tsv(free_text_dmg, file.path(results_dir, "free_text_subtypes.tsv"))
 

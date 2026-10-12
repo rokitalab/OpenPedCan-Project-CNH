@@ -507,7 +507,7 @@ BS_5R5TS5KB	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_RYZJYBCW	high	dkfz_v12.8	ATRT_MYC	0.995790056	ATRT, MYC	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
 BS_0ST5F4G0	high	dkfz_v12.8	ATRT_SHH	0.999998022	ATRT, SHH	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
 BS_Y0CPEZ59	high	dkfz_v12.8	MB_SHH_2	0.999234807	MB, SHH	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma, SHH-activated	FALSE	NA	FALSE
-BS_YZVGP1X1	high	dkfz_v12.8	CHORDM	0.998795159	CHORDM	FALSE	FALSE	FALSE	Mesenchymal, non-meningothelial tumours involving the CNS	Notochordal tumours	FALSE	NA	FALSE
+BS_YZVGP1X1	high	dkfz_v12.8	CHORDM	0.998795159	CHDM	FALSE	FALSE	FALSE	Mesenchymal, non-meningothelial tumours involving the CNS	Notochordal tumours	FALSE	NA	FALSE
 BS_MM7886N4	high	dkfz_v12.8	INFLAM_ENV	0.99930415	NA	TRUE	FALSE	FALSE	Inflammatory microenvironment	Inflammatory microenvironment	FALSE	NA	FALSE
 BS_57W88EFB	high	dkfz_v12.8	CTRL_HEMI	0.99400234	NA	TRUE	FALSE	FALSE	Control tissues	control brain tissues	FALSE	NA	FALSE
 BS_ABDJRXZK	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
@@ -1004,7 +1004,7 @@ BS_3348KB23	high	dkfz_v12.8	DMG_K27	0.999838594	DMG, H3 K28	FALSE	FALSE	FALSE	Pa
 BS_5H0FNCFG	high	nih_v3.1	GG	0.977	GNG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
 BS_FD1SX831	high	nih_v3.1	GG	0.95	GNG, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
 BS_6YAX2HSE	high	dkfz_v12.8	DMG_K27	0.999935864	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
-BS_RA65J4RZ	high	nih_v3.1	CHORDM PD	0.963	CHORDM, poorly differentiated	FALSE	FALSE	FALSE	NA	NA	FALSE	NA	FALSE
+BS_RA65J4RZ	high	nih_v3.1	CHORDM PD	0.963	CHDM, poorly differentiated	FALSE	FALSE	FALSE	NA	NA	FALSE	NA	FALSE
 BS_DFE3691F	high	nih_v3.1	pedHGG RTK1A	0.935	HGG, RTK	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
 BS_1G2DAFZY	high	dkfz_v12.8	PA_CORT	0.937746942	GNT, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
 BS_Q37DRN94	high	dkfz_v12.8	PA_CORT	0.93415536	GNT, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
@@ -1481,7 +1481,7 @@ BS_W4SCDX8T	high	dkfz_v12.8	ABM_MN1	0.999951206	Rare CNS, MN1::BEND2	FALSE	FALSE
 BS_PK0JVE9N	high	dkfz_v12.8	pedHGG_RTK1A	0.999998733	HGG, RTK	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
 BS_RQFPWVN3	high	dkfz_v12.8	pedHGG_RTK1A	0.998879159	HGG, RTK	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	Diffuse pediatric-type high-grade glioma, H3-wildtype and IDH-wildtype	FALSE	NA	FALSE
 BS_2P2JFKJ7	high	dkfz_v12.8	A_IDH_HG	0.995999472	HGG, IDH	FALSE	FALSE	FALSE	Adult-type diffuse gliomas	diffuse glioma, IDH mutant	FALSE	NA	FALSE
-BS_46BKSCKR	high	dkfz_v12.8	CHORDM	0.928373079	CHORDM	FALSE	FALSE	FALSE	Mesenchymal, non-meningothelial tumours involving the CNS	Notochordal tumours	TRUE	nih_v3.1	FALSE
+BS_46BKSCKR	high	dkfz_v12.8	CHORDM	0.928373079	CHDM	FALSE	FALSE	FALSE	Mesenchymal, non-meningothelial tumours involving the CNS	Notochordal tumours	TRUE	nih_v3.1	FALSE
 BS_EATRXC4S	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_1F0EJ0CG	high	dkfz_v12.8	EPN_ST_ZFTA_RELA_A	0.999929919	EPN, ST ZFTA	FALSE	FALSE	FALSE	Ependymal tumours	supratentorial ependymoma, ZFTA fusion-positive	FALSE	NA	FALSE
 BS_W7KHEVBY	high	dkfz_v12.8	EPN_ST_ZFTA_RELA_A	0.999993507	EPN, ST ZFTA	FALSE	FALSE	FALSE	Ependymal tumours	supratentorial ependymoma, ZFTA fusion-positive	FALSE	NA	FALSE
@@ -1666,7 +1666,7 @@ BS_FQBXD8N3	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_FXWKR0XJ	high	dkfz_v12.8	PA_INF	0.999698729	LGG, BRAF/MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	pilocytic astrocytoma	FALSE	NA	FALSE
 BS_MD7H76N7	high	dkfz_v12.8	EPN_PFA_1F	0.998333829	EPN, PF A	FALSE	FALSE	FALSE	Ependymal tumours	posterior fossa ependymoma group A	FALSE	NA	FALSE
 BS_47GABKYC	high	dkfz_v12.8	MB_G34_III	0.972338431	MB, Group3	FALSE	FALSE	FALSE	Medulloblastoma	medulloblastoma non-WNT/non-SHH activated	FALSE	NA	FALSE
-BS_MRKKFB7E	high	nih_v3.1	CHORDM PD	0.979	CHORDM, poorly differentiated	FALSE	FALSE	FALSE	NA	NA	FALSE	NA	FALSE
+BS_MRKKFB7E	high	nih_v3.1	CHORDM PD	0.979	CHDM, poorly differentiated	FALSE	FALSE	FALSE	NA	NA	FALSE	NA	FALSE
 BS_0BBRFX5Z	high	dkfz_v12.8	ATRT_SHH	0.998709204	ATRT, SHH	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
 BS_J619JC0A	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_554AS76R	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
@@ -2035,7 +2035,7 @@ BS_E8B2JNAK	high	dkfz_v12.8	EPN_ST_ZFTA_RELA_A	0.999999944	EPN, ST ZFTA	FALSE	FA
 BS_HNF2XW64	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_HR8WK8WR	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 BS_Q9XEFY7D	high	dkfz_v12.8	RGNT	0.999791076	GNT, FGFR	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade glioneuronal tumour	FALSE	NA	FALSE
-BS_MJKBDY5T	high	nih_v3.1	CHORDM PD	0.984	CHORDM, poorly differentiated	FALSE	FALSE	FALSE	NA	NA	FALSE	NA	FALSE
+BS_MJKBDY5T	high	nih_v3.1	CHORDM PD	0.984	CHDM, poorly differentiated	FALSE	FALSE	FALSE	NA	NA	FALSE	NA	FALSE
 BS_243YNBAH	high	dkfz_v12	PA_CORT	0.832445225450549	GNT, MAPK	FALSE	FALSE	FALSE	Low-grade glial/glioneuronal/neuroepithelial tumours	low-grade ganglioglial/neuroepithelial tumour	FALSE	NA	FALSE
 BS_5X8XV0CC	high	dkfz_v12.8	ATRT_SHH	0.997423704	ATRT, SHH	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
 TARGET-00-NAAENF-11A-01D.M	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE

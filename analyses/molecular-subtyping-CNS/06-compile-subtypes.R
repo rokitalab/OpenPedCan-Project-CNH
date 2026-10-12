@@ -105,7 +105,13 @@ fallback <- read_tsv(file.path(results_dir, "lesion_fallback_subtypes.tsv"),
 free_text <- read_tsv(file.path(results_dir, "free_text_subtypes.tsv"),
                       guess_max = 10000, col_types = evidence_types) %>%
   filter(!match_id %in% c(methyl$match_id, fallback$match_id)) %>%
-  mutate(subtype_source = "pathology free text")
+  mutate(subtype_source = if_else(evidence_level == "diagnosis and primary site",
+                                  "pathology diagnosis", "pathology free text"))
+
+# free-text diagnoses that disagree with a methylation-based subtype
+free_text_conflicts <- read_tsv(file.path(results_dir, "free_text_conflicts.tsv"),
+                                show_col_types = FALSE) %>%
+  distinct(match_id, free_text_conflict)
 
 embryonal <- read_tsv(file.path(results_dir, "embryonal_subtypes.tsv"),
                       guess_max = 10000, col_types = evidence_types) %>%
@@ -160,6 +166,7 @@ compiled <- bind_rows(
   # full join: chordoma tumors with no other source can still be subtyped
   # from focal SMARCB1 loss
   full_join(smarcb1, by = "match_id") %>%
+  left_join(free_text_conflicts, by = "match_id") %>%
   mutate(
     sample_id = coalesce(sample_id, mb_sample_id, smarcb1_sample_id),
     Kids_First_Participant_ID = coalesce(Kids_First_Participant_ID,
@@ -181,7 +188,7 @@ compiled <- bind_rows(
       !is.na(OPC_molecular_subtype) ~ OPC_molecular_subtype,
       subtype_source == "LGG lesion" ~ lgg_subtype,
       subtype_source == "expression classifier" ~ mb_expression_single,
-      subtype_source == "SMARCB1 focal loss" ~ "CHORDM, poorly differentiated"
+      subtype_source == "SMARCB1 focal loss" ~ "CHDM, poorly differentiated"
     ),
     evidence_level = case_when(
       subtype_source == "pathology free text" ~ "free text",
@@ -238,7 +245,8 @@ compiled <- bind_rows(
     needs_review = is.na(manual_subtype) &
       (dx_concordance %in% "discordant" | methyl_conflict |
          h3_group_conflict | h3_variant_conflict %in% TRUE |
-         mb_concordance %in% "discordant" | !is.na(lesion_contradiction))
+         mb_concordance %in% "discordant" | !is.na(lesion_contradiction) |
+         !is.na(free_text_conflict))
   ) %>%
   # the genomic and expression alterations that confirm the subtype: the rule
   # evidence that matched (lesion_evidence), the H3 variant for -mutant labels,
@@ -296,11 +304,13 @@ compiled <- bind_rows(
            is.na(manual_subtype) & !is.na(lesion_contradiction),
            is.na(manual_subtype) & h3_variant_conflict %in% TRUE,
            is.na(manual_subtype) & h3_group_conflict %in% TRUE,
-           is.na(manual_subtype) & mb_concordance %in% "discordant"),
+           is.na(manual_subtype) & mb_concordance %in% "discordant",
+           is.na(manual_subtype) & !is.na(free_text_conflict)),
       function(...) {
         flags <- c("diagnosis discordant", "classifier versions disagree",
                    "lesion contradicts methylation", "H3 variant outside DMG/DHG",
-                   "H3 variant in wildtype group", "expression classifier discordant")
+                   "H3 variant in wildtype group", "expression classifier discordant",
+                   "free-text diagnosis differs from methylation")
         hit <- flags[c(...)]
         if (length(hit) == 0) NA_character_ else paste(hit, collapse = ";")
       }
@@ -319,6 +329,8 @@ compiled <- bind_rows(
         "Subtype from expression classifier",
       subtype_source == "pathology free text" ~
         "Subtype from pathology free text diagnosis",
+      subtype_source == "pathology diagnosis" ~
+        "Subtype from pathology diagnosis and primary site",
       subtype_source == "embryonal rules" &
         str_detect(replace_na(molecular_subtype_cns, ""), "^ETMR") ~
         "Subtype from fusion, copy number and expression",
@@ -336,7 +348,7 @@ compiled <- bind_rows(
          mb_expression_group, mb_concordance, mb_shh_subtype,
          smarcb1_focal_status, smarcb1_expression,
          methyl_score, methyl_conflict, pathology_diagnosis, dx_group,
-         dx_concordance, needs_review, starts_with("tp53_"),
+         dx_concordance, needs_review, free_text_conflict, starts_with("tp53_"),
          ends_with("_mutation_status"), ends_with("_variants"),
          ends_with("_amplification"), ends_with("_activating_alteration"),
          ends_with("_tpm"), ends_with("_z"), ends_with("_expression_status"),
@@ -344,6 +356,68 @@ compiled <- bind_rows(
   arrange(match_id)
 
 stopifnot(!anyDuplicated(compiled$match_id))
+
+### Cell lines versus the parental tumor --------------------------------------
+# A derived cell line is subtyped from its own methylation and lesions (its own
+# match_id). The parental tumors are the solid-tissue tumors of the same sample
+# (or, failing that, of the same participant). Concordance: same = identical
+# subtype, same group = the same umbrella group (e.g. HGG, H3 wildtype for an
+# HGG, RTK parent), different = another subtype, and no subtype on either side.
+composition <- read_tsv(file.path(root_dir, "data", "histologies-base.tsv"),
+                        guess_max = 100000, show_col_types = FALSE) %>%
+  filter(!is.na(match_id)) %>%
+  distinct(match_id, composition)
+is_line <- composition$match_id[composition$composition %in% "Derived Cell Line"]
+
+parents <- compiled %>%
+  filter(!match_id %in% is_line, !is.na(molecular_subtype_cns),
+         !is.na(sample_id), !is.na(Kids_First_Participant_ID)) %>%
+  select(Kids_First_Participant_ID, sample_id, parent_subtype = molecular_subtype_cns,
+         parent_group = subtype_group)
+by_sample <- parents %>% group_by(sample_id) %>%
+  summarise(parent_subtype = paste(sort(unique(parent_subtype)), collapse = ";"),
+            parent_group = paste(sort(unique(parent_group)), collapse = ";"),
+            .groups = "drop")
+by_participant <- parents %>% group_by(Kids_First_Participant_ID) %>%
+  summarise(parent_subtype_p = paste(sort(unique(parent_subtype)), collapse = ";"),
+            parent_group_p = paste(sort(unique(parent_group)), collapse = ";"),
+            .groups = "drop")
+
+compiled <- compiled %>%
+  mutate(is_cell_line = match_id %in% is_line) %>%
+  left_join(by_sample, by = "sample_id", na_matches = "never") %>%
+  left_join(by_participant, by = "Kids_First_Participant_ID", na_matches = "never") %>%
+  mutate(
+    parent_subtype = if_else(is_cell_line, coalesce(parent_subtype, parent_subtype_p),
+                             NA_character_),
+    parent_group = if_else(is_cell_line, coalesce(parent_group, parent_group_p),
+                           NA_character_),
+    parent_concordance = case_when(
+      !is_cell_line ~ NA_character_,
+      is.na(molecular_subtype_cns) | is.na(parent_subtype) ~ "no subtype to compare",
+      molecular_subtype_cns == parent_subtype ~ "same",
+      subtype_group == parent_group ~ "same group",
+      TRUE ~ "different"
+    )
+  ) %>%
+  select(-parent_subtype_p, -parent_group_p, -is_cell_line) %>%
+  mutate(
+    needs_review = needs_review | parent_concordance %in% "different",
+    subtype_review_flag = case_when(
+      parent_concordance %in% "different" & is.na(subtype_review_flag) ~
+        "cell line differs from parental tumor",
+      parent_concordance %in% "different" ~
+        paste(subtype_review_flag, "cell line differs from parental tumor", sep = ";"),
+      TRUE ~ subtype_review_flag
+    )
+  )
+
+write_tsv(
+  compiled %>% filter(!is.na(parent_concordance)) %>%
+    select(match_id, sample_id, molecular_subtype_cns, subtype_source,
+           parent_subtype, parent_concordance),
+  file.path(results_dir, "cell_line_parent_concordance.tsv")
+)
 write_tsv(compiled, file.path(results_dir, "molecular_subtype_cns.tsv"))
 
 message("Tumors with a subtype: ",

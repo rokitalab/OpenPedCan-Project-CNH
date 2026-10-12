@@ -1,0 +1,4 @@
+match_id	sample_id	free_text	methylation_subtype	free_text_conflict
+PT_FDQHEKJB_7316-5310_Solid Tissue_Progressive	7316-5310	craniopharyngioma, adamantinomatous type	PITUI, Pituicytoma/GCTS/SCO	free-text diagnosis names adamantinomatous craniopharyngioma
+PT_QP4BVCX4_7316-6135_Solid Tissue_Recurrence	7316-6135	adamantinomatous craniopharyngioma	LGG, MAPK	free-text diagnosis names adamantinomatous craniopharyngioma
+PT_SYSCTVT8_7316-7113_Solid Tissue_Progressive	7316-7113	craniopharyngioma, adamantinomatous type with ctnnb1 mutation, who grade i	LGG, MAPK	free-text diagnosis names adamantinomatous craniopharyngioma
