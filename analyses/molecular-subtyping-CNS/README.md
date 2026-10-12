@@ -126,6 +126,10 @@ Evidence behind the lesions that set or confirm a subtype. Strength is a summary
 
 Not yet sourced: the PB, ATRT, ETMR, EPN and MB lesion rules (SMARCB1, DICER1, C19MC, ZFTA/YAP1, PTCH1/SMO/SUFU, GLI2/MYC) were defined from the legacy modules and still need citations.
 
+### Decisions
+
+Decisions, their evidence, and open questions are logged in [DECISIONS.md](DECISIONS.md).
+
 ### Usage
 
 ```
