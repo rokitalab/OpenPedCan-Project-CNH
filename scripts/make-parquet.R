@@ -71,7 +71,13 @@ rds_tables <- list(
 only <- Sys.getenv("PARQUET_TABLES", "")
 keep <- function(name) only == "" || name %in% strsplit(only, ",")[[1]]
 
-con <- dbConnect(duckdb(), dbdir = ":memory:")
+# duckdb >= 1.5.6 prints a note about its temporary extension directory unless
+# shared_home is set; older versions do not have the argument
+duckdb_args <- list(dbdir = ":memory:")
+if ("shared_home" %in% names(formals(duckdb::duckdb))) {
+  duckdb_args$shared_home <- FALSE
+}
+con <- dbConnect(do.call(duckdb::duckdb, duckdb_args))
 invisible(dbExecute(con, "SET memory_limit = '10GB'"))
 invisible(dbExecute(con, "SET threads = 4"))
 invisible(dbExecute(con, sprintf("SET temp_directory = '%s'", tmp_dir)))

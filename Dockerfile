@@ -29,5 +29,6 @@ RUN R -e "devtools::install_github( \
 # (SNV, fusion) and parquet files in the molecular subtyping modules
 RUN R -e "install.packages('remotes', repos = 'https://cloud.r-project.org'); \
   remotes::install_version('nanoparquet', version = '0.4.3', repos = 'https://cloud.r-project.org'); \
+  remotes::install_version('dbplyr', version = '2.6.0', repos = 'https://cloud.r-project.org'); \
   remotes::install_version('duckdb', version = '1.5.6', repos = 'https://cloud.r-project.org'); \
   remotes::install_version('duckplyr', version = '1.2.1', repos = 'https://cloud.r-project.org')"
