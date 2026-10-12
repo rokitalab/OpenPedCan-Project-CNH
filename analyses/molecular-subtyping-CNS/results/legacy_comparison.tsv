@@ -2508,7 +2508,7 @@ PT_EQX0VT4F_7316-8838_Solid Tissue_Recurrence	EPN, PF A	EPN	EPN, PF A	methylatio
 PT_EQX0VT4F_7316-9052_Solid Tissue_Recurrence	EPN, PF A	EPN	EPN, PF A	methylation	NA	TRUE	same
 PT_ER1C7KPB_7316-2691_Solid Tissue_Progressive	GNG, KIAA1549-BRAF	GNG	GNG, KIAA1549-BRAF	LGG lesion	GNG, KIAA1549-BRAF	TRUE	same
 PT_ER9J5A9E_7316-8833_Solid Tissue_Initial CNS Tumor	GNG, BRAF V600E	GNG	GNG, BRAF V600E	LGG lesion	GNG, BRAF V600E	TRUE	same
-PT_ERTJRQ37_7316-9854_Solid Tissue_Initial CNS Tumor	DMG, H3 K28	DMG	DMG, H3 K28-mutant, EGFR	lesion fallback	NA	TRUE	different
+PT_ERTJRQ37_7316-9854_Solid Tissue_Initial CNS Tumor	DMG, H3 K28	DMG	DMG, H3 K28	lesion fallback	NA	TRUE	same
 PT_ESC6NXTS_7316-7199_Solid Tissue_Initial CNS Tumor	EPN, PF B	EPN	EPN, PF B	methylation	NA	TRUE	same
 PT_ESHACWF6_7316-1790_Solid Tissue_Progressive	ATRT, SHH	ATRT	ATRT, SHH	methylation	NA	TRUE	same
 PT_ESHACWF6_7316-878_Solid Tissue_Initial CNS Tumor	ATRT, SHH	ATRT	ATRT, SHH	methylation	NA	TRUE	same
@@ -3147,10 +3147,10 @@ PT_NJQ26FHN_7316-4715_Solid Tissue_Initial CNS Tumor	EPN, To be classified	EPN	N
 PT_NJQ26FHN_7316-5818_Solid Tissue_Recurrence	EPN, ST ZFTA	EPN	EPN, ST ZFTA	methylation	NA	TRUE	same
 PT_NJQ26FHN_7316-7451_Solid Tissue_Deceased	EPN, ST ZFTA	EPN	EPN, ST ZFTA	methylation	NA	TRUE	same
 PT_NK8A49X5_7316-3216_Solid Tissue_Initial CNS Tumor	DMG, H3 K28	DMG	DMG, H3 K28	lesion fallback	NA	TRUE	same
-PT_NK8A49X5_7316-3228_Solid Tissue_Progressive	DMG, H3 K28	DMG	DMG, H3 K28-mutant, EGFR	lesion fallback	NA	TRUE	different
+PT_NK8A49X5_7316-3228_Solid Tissue_Progressive	DMG, H3 K28	DMG	DMG, H3 K28	lesion fallback	NA	TRUE	same
 PT_NK8A49X5_7316-4448_Derived Cell Line_Progressive_Serum-free_27	DMG, H3 K28	DMG	DMG, H3 K28-mutant, EGFR	lesion fallback	NA	TRUE	different
 PT_NK8A49X5_A08692_Solid Tissue_Initial CNS Tumor	DMG, H3 K28	DMG	DMG, H3 K28	lesion fallback	NA	TRUE	same
-PT_NK8A49X5_A14449_Solid Tissue_Progressive	DMG, H3 K28	DMG	DMG, H3 K28-mutant, EGFR	lesion fallback	NA	TRUE	different
+PT_NK8A49X5_A14449_Solid Tissue_Progressive	DMG, H3 K28	DMG	DMG, H3 K28	lesion fallback	NA	TRUE	same
 PT_NKETJQ7Q_7316-9623_Solid Tissue_Deceased	DMG, H3 K28	DMG	DMG, H3 K28	lesion fallback	NA	TRUE	same
 PT_NKR7R54B_7316-1281_Solid Tissue_Deceased	DMG, H3 K28	DMG	DMG, H3 K28	methylation	NA	TRUE	same
 PT_NME1D79F_7316-6653_Solid Tissue_Progressive	HGG, To be classified	HGG	HGG, H3 wildtype	lesion negative	NA	FALSE	newly assigned
@@ -3896,7 +3896,7 @@ PT_Y74CVASJ_7316-5002_Solid Tissue_Initial CNS Tumor	DMG, H3 K28	DMG	DMG, H3 K28
 PT_Y74CVASJ_A16538_Solid Tissue_Initial CNS Tumor	DMG, H3 K28	DMG	DMG, H3 K28	lesion fallback	NA	TRUE	same
 PT_Y76A7PBA_7316-2288_Solid Tissue_Recurrence	HGG, H3 wildtype	HGG	HGG, H3 wildtype	lesion negative	NA	FALSE	same
 PT_Y7F2JZMQ_7316-2680_Solid Tissue_Recurrence	GNG, NF1-germline	GNG	GNG, NF1-germline	LGG lesion	GNG, NF1-germline	TRUE	same
-PT_Y7HKMCN0_7316-9716_Solid Tissue_Initial CNS Tumor	DMG, H3 K28	DMG	DMG, H3 K28-mutant, EGFR	lesion fallback	NA	TRUE	different
+PT_Y7HKMCN0_7316-9716_Solid Tissue_Initial CNS Tumor	DMG, H3 K28	DMG	DMG, H3 K28	lesion fallback	NA	TRUE	same
 PT_Y7S54R98_7316-835_Solid Tissue_Initial CNS Tumor	EPN, PF A	EPN	EPN, PF A	methylation	NA	TRUE	same
 PT_Y7VBQFRC_ET_2R0N9H6S_Solid Tissue_Initial CNS Tumor	LGG, NF1-germline	LGG	LGG, NF1-germline	LGG lesion	LGG, NF1-germline	TRUE	same
 PT_Y879MGBY_7316-4866_Solid Tissue_Initial CNS Tumor	LGG, KIAA1549-BRAF	LGG	LGG, KIAA1549-BRAF	LGG lesion	LGG, KIAA1549-BRAF	TRUE	same

@@ -104,9 +104,27 @@ Subtype labels carry their family as a prefix: `HGG, ...`, `LGG, ...`, `GNT, ...
 
 The `DMG_EGFR` methylation class is its own subtype, `DMG, H3 K28-altered, EGFR`. When an H3 K27M/I variant is also found, the tumor is `DMG, H3 K28-mutant, EGFR`. `DMG, H3 K28-mutant` is used only when an H3 K27M/I variant was found (by DNA, or as the lesion-only call). The `DMG_K27` methylation class without that evidence stays `DMG, H3 K28`. The same applies to `DHG, H3 G35` (`DHG, H3 G35-mutant` when an H3-3A G34/G35 R/V variant was found). A `DMG_EGFR` tumor with no DNA assay keeps `DMG, H3 K28-altered, EGFR`, since the class itself defines it.
 
-For EGFR the activating alterations are amplification, A289/G598/R108 missense variants, and exon 20 insertions or duplications, as described for the `DMG_EGFR` methylation class.
+For EGFR the activating alterations are amplification, A289 and G598 missense variants, and exon 20 insertions or duplications, as described for the `DMG_EGFR` methylation class. Other coding EGFR variants, including R108K, are reported in `egfr_variants` only and do not set the subtype (see the literature table below).
 
 `h3k27_altered_mechanism` lists, for DMG, which DNA-detectable routes to the H3 K27-altered phenotype were found: `H3 K27M/I` and/or `EGFR alteration`. EZHIP overexpression needs expression data and is not assessed, so tumors with neither are `none detected (EZHIP overexpression not assessed)`, and tumors with no DNA are `no DNA assay`.
+
+### Literature behind the lesion rules
+
+Evidence behind the lesions that set or confirm a subtype. Strength is a summary of what the cited sources show, not a formal grading; the sources were found by web search and not all were read in full.
+
+| Lesion | Used for | What the literature shows | Strength | Sources |
+|---|---|---|---|---|
+| CTNNB1 exon 3 | `CRANIO, ADAM` (overrides methylation), `MB, WNT` | Specific to adamantinomatous craniopharyngioma, mutually exclusive with BRAF V600E in most series; separate from methylation clusters that distinguish adamantinomatous from papillary | Strong | [Larkin 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4024131/), [Hölsken 2016](https://link.springer.com/article/10.1186/s40478-016-0287-6) |
+| BRAF V600E | `CRANIO, PAP`, `PXA` split, `LCH` | Present in about 81-86% of papillary craniopharyngioma, absent from adamantinomatous in most series (rare co-occurrence reported); papillary craniopharyngioma is mainly adult, pediatric cases are rare | Strong | [Larkin 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4024131/), [pediatric case](https://pmc.ncbi.nlm.nih.gov/articles/PMC6341153/) |
+| EGFR A289V / T / D | `DMG, H3 K28-altered, EGFR` and `-mutant, EGFR` | Extracellular-domain mutation: transforms immortalized astrocytes, increases invasion in mice, linked to shorter survival | Strong | [Frontiers in Oncology 2022](https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2022.904383/full) |
+| EGFR G598V | same | Increases glioma stem cell self-renewal, growth and survival; two GBM patients responded to dacomitinib | Moderate to strong | [Frontiers in Oncology 2022](https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2022.904383/full) |
+| EGFR R108K | **annotation only** (`egfr_variants`) | Increased ligand binding and anchorage-independent growth in NIH-3T3 cells, not glioma-specific; often co-occurs with A289, P596 and G598 changes; clinical significance "needs further elucidation" | Weaker | [PMKB](https://pmkb.weill.cornell.edu/variants/523), [PMKB](https://pmkb.weill.cornell.edu/variants/231) |
+| EGFR exon 20 insertion / duplication | same as A289 | Included from the description of the `DMG_EGFR` methylation class; no DMG-specific source found in the search | Not established here | none found |
+| EGFR amplification | same as A289 | Copy number above twice the ploidy, the `focal-cn-file-preparation` convention | Convention | `focal-cn-file-preparation` |
+| EGFR alteration in DMG | the `DMG, H3 K28-altered, EGFR` concept | A subset of pediatric thalamic gliomas with a distinct methylation profile, H3K27me3 loss and frequent EGFR alteration; WHO CNS5 lists EGFR-mutant as a subtype of H3 K27-altered DMG alongside H3 K27-mutant and EZHIP-overexpressing | Moderate | [Jacques et al.](https://discovery-pp.ucl.ac.uk/10114996/3/Jacques_A%20subset%20of%20pediatric-type%20thalamic%20gliomas%20share%20a%20distinct%20DNA%20methylation%20profile%2C%20H3K27me3%20loss%20and%20frequent%20alteration%20of%20EGFR_AAM.pdf), [bioRxiv 2020](https://biorxiv.org/content/10.1101/2020.08.28.239160v1.full.pdf), [Tauziède-Espariat 2023](https://www.brainlife.org/fulltext/2023/Tauzi%C3%A8de-Espariat_A230618_BrainPathol.pdf), [CNS5 summary](https://test.ccga.io/index.php/CNS5:Diffuse_midline_glioma,_H3_K27-altered) |
+| EZHIP overexpression (>= 1 TPM) | `h3k27_altered_mechanism` | Alternative route to H3K27me3 loss in H3 K27-altered DMG. The 1 TPM threshold is **derived from this cohort** (captures 92% of PF-EPN-A tumors, 95th percentile of non-PF-A 1.2 TPM), not from the literature | Cohort-derived | [Jacques et al.](https://discovery-pp.ucl.ac.uk/10114996/3/Jacques_A%20subset%20of%20pediatric-type%20thalamic%20gliomas%20share%20a%20distinct%20DNA%20methylation%20profile%2C%20H3K27me3%20loss%20and%20frequent%20alteration%20of%20EGFR_AAM.pdf) (mechanism only) |
+
+Not yet sourced: the PB, ATRT, ETMR, EPN and MB lesion rules (SMARCB1, DICER1, C19MC, ZFTA/YAP1, PTCH1/SMO/SUFU, GLI2/MYC) were defined from the legacy modules and still need citations.
 
 ### Usage
 
