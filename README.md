@@ -183,6 +183,30 @@ It's safe to re-run `bash download-data.sh` to check that you have the most rece
 For downloading DNA methylation-related data, run `bash download-methyl.sh`  in `scripts` folder. 
 We will update the default release number whenever we produce a new release.
 
+### Parquet copies of the large tables (experimental)
+
+For the largest tables, parquet copies are provided under `<release>/parquet/` (currently v15). They are generated from the release TSV / RDS files by [`scripts/make-parquet.R`](scripts/make-parquet.R), which also checks that the row counts match, and they are **not** listed in `md5sum.txt`, so `download-data.sh` does not download them. Their checksums are in `md5sum-parquet.txt` and the tables, row counts and source files are in `manifest.tsv` in the same folder.
+
+| Parquet table | Source |
+|---|---|
+| `snv-consensus-plus-hotspots`, `snv-mutect2-tumor-only-plus-hotspots` | SNV MAF files |
+| `consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only`, `consensus_seg_with_status`, `cnvkit_with_status` | copy number |
+| `fusion-annoFuse`, `fusion-arriba`, `fusion-starfusion`, `fusion-dgd`, `fusion-putative-oncogenic` | fusions |
+| `sv-manta` | structural variants |
+| `gene-expression-rsem-tpm-collapsed`, `gene-counts-rsem-expected_count-collapsed` | expression, a `gene_symbol` column and one column per biospecimen |
+
+Tables are sorted by gene (or position) with small row groups, so a gene lookup reads only the matching row groups. Column types are detected over the whole file, `NA` and empty strings are null, and the values are those of the source files with one exception: in v15 the consensus copy number `status` is lowercased (the Control-FREEC tumor-only input had `Gain` / `Loss` / `Neutral`; fixed upstream in `analyses/focal-cn-file-preparation/04-prepare-cn-file.R`). Histologies, methylation beta values, TCGA / GTEx expression, rMATS splice events and isoform expression are not provided as parquet.
+
+```r
+library(duckplyr)
+# all H3-3A variants, without reading the 2 GB MAF
+read_parquet_duckdb("data/v15/parquet/snv-consensus-plus-hotspots.parquet") |>
+  filter(Hugo_Symbol == "H3-3A") |>
+  collect()
+```
+
+With duckplyr frames use `summarise(.by = ...)`; `group_by()` followed by `summarise()` is not supported there. Remote files can be read with duckdb's `httpfs` extension. The TSV / RDS files remain the source of truth, and no analysis requires the parquet files.
+
 ### Data Access via CAVATICA
 
 For any user registered on CAVATICA, the OpenPBTA and OpenPedcan data can be accessed from the CAVATICA public project below:

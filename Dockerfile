@@ -26,7 +26,9 @@ RUN R -e "devtools::install_github( \
 
 
 # Install duckplyr and nanoparquet for fast lookups against large lesion tables
-# (SNV, fusion) and parquet files in the molecular subtyping modules
+# (SNV, fusion) and parquet files in the molecular subtyping modules and
+# scripts/make-parquet.R. dbplyr 2.6.0 is the version the duckdb 1.5.6 dbplyr
+# backend requires (the base image has 2.5.0).
 RUN R -e "install.packages('remotes', repos = 'https://cloud.r-project.org'); \
   remotes::install_version('nanoparquet', version = '0.4.3', repos = 'https://cloud.r-project.org'); \
   remotes::install_version('dbplyr', version = '2.6.0', repos = 'https://cloud.r-project.org'); \
