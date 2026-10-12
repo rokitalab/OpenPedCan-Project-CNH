@@ -8,5 +8,3 @@ sample_id	molecular_subtype	source	note
 7316-7514	CRANIO, ADAM	pathology report	Reported as adamantinomatous type. Methylation called CPH_PAP (NIH v3.1 0.91, DKFZ v12.8 0.50) with CTNNB1 p.D32N; no BRAF V600E.
 7316-323	CRANIO, ADAM	pathology report	Reported as adamantinomatous type. Methylation called CPH_PAP (DKFZ v12.8 0.81, NIH v3.1 0.98) with CTNNB1 p.S33F; no BRAF V600E.
 7316-4551	CRANIO, ADAM	pathology report	Reported as adamantinomatous type. Methylation called CPH_PAP (DKFZ v12.8 0.84, NIH v3.1 0.98) with CTNNB1 p.Q27_D32delinsH; no BRAF V600E.
-7316-3070	CRANIO, To be classified	pathology report	Pathology is NOT adamantinomatous. Held until the report content is entered. Methylation CPH_PAP (DKFZ v12.8 0.91, NIH v3.1 0.98) with CTNNB1 p.T41I; no BRAF V600E.
-7316-6396	CRANIO, To be classified	pathology report	Pathology is NOT adamantinomatous. Held until the report content is entered. Methylation CPH_PAP (NIH v3.1 0.98, DKFZ v12.8 0.56) with CTNNB1 p.D32V; no BRAF V600E.

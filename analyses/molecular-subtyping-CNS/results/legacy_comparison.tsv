@@ -3567,7 +3567,7 @@ PT_TKWTTRQ7_7316-407_Solid Tissue_Progressive	MB, Group4	MB	MB, Group4	methylati
 PT_TMY5EVG3_ET_0QD356EC_Not Available_Primary Tumor	NBL, To be classified	NBL	NA	NA	NA	FALSE	legacy only (unassigned)
 PT_TN2KF4SA_7316-8725_Solid Tissue_Initial CNS Tumor	LGG, KIAA1549-BRAF	LGG	LGG, KIAA1549-BRAF	LGG lesion	LGG, KIAA1549-BRAF	TRUE	same
 PT_TNJPSPW3_7316-10002_Solid Tissue_Initial CNS Tumor	DHG, H3 G35	DHG	DHG, H3 G35	lesion fallback	NA	TRUE	same
-PT_TP58N40V_7316-6396_Solid Tissue_Initial CNS Tumor	CRANIO, ADAM	CRANIO	CRANIO, To be classified	manual review	NA	TRUE	different
+PT_TP58N40V_7316-6396_Solid Tissue_Initial CNS Tumor	CRANIO, ADAM	CRANIO	CRANIO, ADAM	lesion overrides methylation	NA	TRUE	same
 PT_TP6GS00H_7316-5456_Solid Tissue_Initial CNS Tumor	EPN, ST ZFTA	EPN	EPN, ST ZFTA	methylation	NA	TRUE	same
 PT_TP6GS00H_7316-7096_Solid Tissue_Recurrence	EPN, To be classified	EPN	EPN, ST ZFTA	methylation	NA	FALSE	newly assigned
 PT_TP6GS00H_7316-7540_Solid Tissue_Progressive	EPN, ST ZFTA	EPN	EPN, ST ZFTA	methylation	NA	TRUE	same
@@ -3944,7 +3944,7 @@ PT_YSWDNCVX_7316-9966_Solid Tissue_Initial CNS Tumor	LGG, IDH	LGG	LGG, IDH	lesio
 PT_YSYNKHAE_7316-4466_Solid Tissue_Initial CNS Tumor	HGG, PXA	HGG	HGG, PXA BRAF V600E	methylation	NA	TRUE	different
 PT_YTZJ8K0X_7316-6381_Solid Tissue_Second Malignancy	HGG, H3 wildtype	HGG	HGG, RTK	methylation	NA	FALSE	newly assigned
 PT_YV2S3ES7_7316-182_Solid Tissue_Initial CNS Tumor	MB, SHH	MB	MB, SHH	methylation	NA	TRUE	same
-PT_YVG4H0F1_7316-3070_Solid Tissue_Initial CNS Tumor	CRANIO, ADAM	CRANIO	CRANIO, To be classified	manual review	NA	TRUE	different
+PT_YVG4H0F1_7316-3070_Solid Tissue_Initial CNS Tumor	CRANIO, ADAM	CRANIO	CRANIO, ADAM	lesion overrides methylation	NA	TRUE	same
 PT_YVY56QHA_7316-8837_Solid Tissue_Initial CNS Tumor	LGG, BRAF V600E, other MAPK	LGG	LGG, BRAF V600E, other MAPK	LGG lesion	LGG, BRAF V600E, other MAPK	TRUE	same
 PT_YXJQGT69_7316-934_Solid Tissue_Initial CNS Tumor	LGG, BRAF V600E	LGG	GNT, MAPK	methylation	LGG, BRAF V600E	TRUE	same (lesion refinement)
 PT_YXZPWFVB_7316-966_Solid Tissue_Initial CNS Tumor	EPN, SP	EPN	EPN, SP	methylation	NA	TRUE	same
