@@ -23,3 +23,11 @@ RUN R -e "devtools::install_github( \
   subdir='conumee2', \
   ref='0a21b9d508506d14ccbc3c8820d5974b26ff3824', \
   dependencies=TRUE)"
+
+
+# Install duckplyr and nanoparquet for fast lookups against large lesion tables
+# (SNV, fusion) and parquet files in the molecular subtyping modules
+RUN R -e "install.packages('remotes', repos = 'https://cloud.r-project.org'); \
+  remotes::install_version('nanoparquet', version = '0.4.3', repos = 'https://cloud.r-project.org'); \
+  remotes::install_version('duckdb', version = '1.5.0', repos = 'https://cloud.r-project.org'); \
+  remotes::install_version('duckplyr', version = '1.2.1', repos = 'https://cloud.r-project.org')"
