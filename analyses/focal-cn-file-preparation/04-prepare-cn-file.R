@@ -103,7 +103,10 @@ if(controlfreec){
   # TODO: filter based on the p-values rather than just dropping them?
   cnv_df <- readr::read_tsv(cnv_file, col_types = cols(chr = col_character())) %>%
     dplyr::rename(copy_number = "copy number") %>%
-    dplyr::mutate(chr = paste0("chr", chr)) %>%
+    # Control-FREEC reports Gain / Loss / Neutral; the CNVkit and consensus
+    # inputs and the amplification / deep deletion calls below are lowercase
+    dplyr::mutate(chr = paste0("chr", chr),
+                  status = tolower(status)) %>%
     dplyr::select(-genotype, -uncertainty, -WilcoxonRankSumTestPvalue, -KolmogorovSmirnovPvalue) %>%
     dplyr::select(-Kids_First_Biospecimen_ID, dplyr::everything())
 }
