@@ -48,6 +48,8 @@ See the notebook for more information. This notebook also prepares lists of copy
 
   | biospecimen_id | status | copy_number | ploidy | ensembl | gene_symbol | cytoband | pct_overlap |
   |----------------|--------|-------------|--------|---------|-------------|----------|-------------|
+  The `status` values are lowercase (`gain`, `loss`, `neutral`, `amplification`, `deep deletion`). The Control-FREEC tumor-only input reports `Gain`, `Loss` and `Neutral`, which `04-prepare-cn-file.R` lowercases when it reads the file (v15 released with both spellings).
+
   Any segment that is copy neutral is filtered out of this table. In addition, [any segments with copy number > (2 * ploidy) are marked as amplifications](https://github.com/AlexsLemonade/OpenPedCan-analysis/blob/e2058dd43d9b1dd41b609e0c3429c72f79ff3be6/analyses/focal-cn-file-preparation/03-prepare-cn-file.R#L275) in the `status` column.
   
   There are several instances of duplicate gene cn status calls within the same biospecimen, and these are often conflicting (e.g., gain and loss). Duplicate status calls are resolved using the following criteria: 

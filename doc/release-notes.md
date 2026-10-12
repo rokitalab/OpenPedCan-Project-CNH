@@ -12,6 +12,15 @@
         - tcga_gene-expression-rsem-tpm-collapsed.rds  
     - Files added:
         - tcga_gene-counts-rsem-expected_count-collapsed.rds
+    - Methylation testing data for CI (`methyl_testing/`), added to the bucket on 2026-10-08, separate from the v15 release files:
+        - 36 arrays (72 IDAT files, a `_Grn.idat` and `_Red.idat` pair per array) of a small test set used by the methylation CI job: 12 HumanMethylation450, 12 EPICv1 and 12 EPICv2 arrays (24 tumor and 12 normal). 28 arrays are public GEO GSM samples (`.idat.gz`, from `GEO_GSM_samples_manifest.tsv`) and 8 are from `concatenated_RBT_manifest.tsv` (`.idat`).
+        - `methylation-testing-manifest.tsv` describes each file (sample type, file name and format, platform, array type, Bioassay ID, source manifest and GEO accession), and `md5sum.txt` lists the 73 files.
+        - Download with `bash scripts/download-methyl-testing.sh` (it also fetches the hg19 to hg38 liftover chain from UCSC when it is not in the md5sum list). The CI methylation job uses it to run the copy number liftover and combine step.
+    - Parquet copies (experimental), added to the v15 release on 2026-10-12 in a `parquet/` folder (`v15/parquet/`):
+        - These are generated from the release files above with [`scripts/make-parquet.R`](../scripts/make-parquet.R) so that large tables can be queried (duckdb, duckplyr, arrow) without reading the whole TSV or RDS file. The TSV and RDS files remain the source of truth.
+        - They are not listed in `md5sum.txt`, so `download-data.sh` does not download them. Use `bash scripts/download-parquet.sh`, which checks `md5sum-parquet.txt` and links the files in `data/parquet/`. `manifest.tsv` lists the tables, row counts and source files.
+        - Tables: `snv-consensus-plus-hotspots`, `snv-mutect2-tumor-only-plus-hotspots`, `consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only`, `consensus_seg_with_status`, `cnvkit_with_status`, `fusion-annoFuse`, `fusion-arriba`, `fusion-starfusion`, `fusion-dgd`, `fusion-putative-oncogenic`, `sv-manta`, `gene-expression-rsem-tpm-collapsed` and `gene-counts-rsem-expected_count-collapsed` (genes by biospecimen, one column per biospecimen).
+        - In `consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only.parquet` the `status` values are lowercase. The v15 TSV has both `Gain` / `Loss` / `Neutral` (from the Control-FREEC tumor-only input) and lowercase `gain` / `loss` / `neutral` for these rows; this is fixed upstream for later releases in `analyses/focal-cn-file-preparation/04-prepare-cn-file.R`.
 
 ```
 v15
@@ -112,6 +121,22 @@ v15
 ├── onco1500-v4-targets-ucsc.100bp_padded.bed
 ├── onco1500-v6-targets-ucsc.100bp_padded.bed
 ├── onco1500-v6a-targets-ucsc.100bp_padded.bed
+├── parquet
+│   ├── cnvkit_with_status.parquet
+│   ├── consensus_seg_with_status.parquet
+│   ├── consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only.parquet
+│   ├── fusion-annoFuse.parquet
+│   ├── fusion-arriba.parquet
+│   ├── fusion-dgd.parquet
+│   ├── fusion-putative-oncogenic.parquet
+│   ├── fusion-starfusion.parquet
+│   ├── gene-counts-rsem-expected_count-collapsed.parquet
+│   ├── gene-expression-rsem-tpm-collapsed.parquet
+│   ├── manifest.tsv
+│   ├── md5sum-parquet.txt
+│   ├── snv-consensus-plus-hotspots.parquet
+│   ├── snv-mutect2-tumor-only-plus-hotspots.parquet
+│   └── sv-manta.parquet
 ├── release-notes.md
 ├── rna-dna-qc-stats.tsv
 ├── rna-isoform-expression-rsem-tpm.rds
