@@ -22,6 +22,7 @@ suppressPackageStartupMessages({
 root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
 module_dir <- file.path(root_dir, "analyses", "molecular-subtyping-CNS")
 source(file.path(module_dir, "utils", "duckdb-connect.R"))
+source(file.path(module_dir, "utils", "release-tables.R"))
 input_dir <- file.path(module_dir, "input")
 results_dir <- file.path(module_dir, "results")
 scratch_dir <- file.path(root_dir, "scratch", "molecular-subtyping-CNS")
@@ -68,13 +69,18 @@ snv <- dbGetQuery(con, sprintf("SELECT * FROM read_parquet('%s')", snv_file)) %>
 dbDisconnect(con, shutdown = TRUE)
 
 # annoFuse RNA-Seq fusions plus the DGD panel fusions
+con <- connect_duckdb()
 fusion <- bind_rows(
-  read_tsv(file.path(root_dir, "data", "fusion-annoFuse.tsv.gz"),
-           show_col_types = FALSE) %>% select(Sample, FusionName),
-  read_tsv(file.path(root_dir, "data", "fusion-dgd.tsv.gz"),
-           show_col_types = FALSE) %>% select(Sample, FusionName)
+  dbGetQuery(con, sprintf("SELECT Sample, FusionName FROM %s",
+                          release_source("fusion-annoFuse",
+                                         "fusion-annoFuse.tsv.gz", root_dir))),
+  dbGetQuery(con, sprintf("SELECT Sample, FusionName FROM %s",
+                          release_source("fusion-dgd", "fusion-dgd.tsv.gz",
+                                         root_dir)))
 ) %>%
+  as_tibble() %>%
   distinct(Kids_First_Biospecimen_ID = Sample, FusionName)
+dbDisconnect(con, shutdown = TRUE)
 
 arm_values <- read_tsv(file.path(scratch_dir, "arm_1p19q.tsv"),
                        show_col_types = FALSE)
@@ -102,12 +108,18 @@ expression_long <- read_tsv(
   file.path(scratch_dir, "expression_annotation_genes.tsv"),
   show_col_types = FALSE
 )
-cnv_segments <- read_tsv(
-  file.path(root_dir, "data", "consensus_seg_with_status.tsv"),
-  col_types = cols_only(Kids_First_Biospecimen_ID = "c", chrom = "c",
-                        loc.start = "d", loc.end = "d", copy.num = "d",
-                        tumor_ploidy = "d")
-)
+con <- connect_duckdb()
+cnv_segments <- dbGetQuery(con, sprintf(
+  "SELECT Kids_First_Biospecimen_ID, chrom,
+          TRY_CAST(\"loc.start\" AS DOUBLE) AS \"loc.start\",
+          TRY_CAST(\"loc.end\" AS DOUBLE) AS \"loc.end\",
+          TRY_CAST(\"copy.num\" AS DOUBLE) AS \"copy.num\",
+          TRY_CAST(tumor_ploidy AS DOUBLE) AS tumor_ploidy
+   FROM %s",
+  release_source("consensus_seg_with_status", "consensus_seg_with_status.tsv",
+                 root_dir))) %>%
+  as_tibble()
+dbDisconnect(con, shutdown = TRUE)
 
 ### Lesion hits ----------------------------------------------------------------
 # methylation is keyed on its own biospecimen, while SNVs, arm values and

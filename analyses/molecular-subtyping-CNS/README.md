@@ -176,6 +176,10 @@ Not yet sourced: the PB, ATRT, ETMR, EPN and MB lesion rules (SMARCB1, DICER1, C
 
 Decisions, their evidence, and open questions are logged in [DECISIONS.md](DECISIONS.md).
 
+### Input data
+
+The large release tables are read from their parquet copies in `data/parquet/` when they exist (`bash scripts/download-parquet.sh`, from `v15/parquet/`): the consensus MAF, the consensus gene-level copy number, `consensus_seg_with_status`, `fusion-annoFuse`, `fusion-dgd`, `sv-manta` and the collapsed TPM matrix. Without them the scripts fall back to the release TSV / RDS files (`utils/release-tables.R`) and give the same results, only slower: with the parquet copies scripts 02 to 07 run in about 20 seconds in total. `data/histologies-base.tsv` and the smaller files are read as before.
+
 ### Usage
 
 ```

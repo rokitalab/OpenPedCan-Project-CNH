@@ -19,10 +19,10 @@ suppressPackageStartupMessages({
 root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
 module_dir <- file.path(root_dir, "analyses", "molecular-subtyping-CNS")
 source(file.path(module_dir, "utils", "duckdb-connect.R"))
+source(file.path(module_dir, "utils", "release-tables.R"))
 scratch_dir <- file.path(root_dir, "scratch", "molecular-subtyping-CNS")
 dir.create(scratch_dir, showWarnings = FALSE, recursive = TRUE)
 
-maf_file <- file.path(root_dir, "data", "snv-consensus-plus-hotspots.maf.tsv.gz")
 out_file <- file.path(scratch_dir, "snv_lesion_genes.parquet")
 
 rules <- read_tsv(file.path(module_dir, "input", "subtype_lesion_rules.tsv"),
@@ -48,16 +48,18 @@ gene_sql <- paste0("'", genes, "'", collapse = ", ")
 con <- connect_duckdb()
 on.exit(dbDisconnect(con, shutdown = TRUE), add = TRUE)
 
-# all_varchar and a short sample avoid type sniffing over the whole file
+# the parquet copy of the MAF is sorted by gene, so only the matching row
+# groups are read; the TSV fallback is read as text to avoid type sniffing
 query <- sprintf(
   "COPY (
      SELECT Hugo_Symbol, HGVSp_Short, Variant_Classification, DOMAINS,
             Tumor_Sample_Barcode AS Kids_First_Biospecimen_ID
-     FROM read_csv('%s', delim = '\t', header = true, all_varchar = true,
-                   sample_size = 100, ignore_errors = true)
+     FROM %s
      WHERE Hugo_Symbol IN (%s)
    ) TO '%s' (FORMAT PARQUET)",
-  maf_file, gene_sql, out_file
+  release_source("snv-consensus-plus-hotspots",
+                 "snv-consensus-plus-hotspots.maf.tsv.gz", root_dir),
+  gene_sql, out_file
 )
 
 start <- Sys.time()
@@ -89,7 +91,23 @@ unlink(arm_tmp, recursive = TRUE)
 # overexpression), subset from the collapsed TPM matrix
 expr_genes <- read_tsv(file.path(module_dir, "input", "expression_annotations.tsv"),
                        show_col_types = FALSE)
-tpm <- readRDS(file.path(root_dir, "data", "gene-expression-rsem-tpm-collapsed.rds"))
+# genes are rows of the collapsed matrix, so the parquet copy answers this with
+# a row filter; without it the RDS is read
+tpm_parquet <- file.path(root_dir, "data", "parquet",
+                         "gene-expression-rsem-tpm-collapsed.parquet")
+if (file.exists(tpm_parquet)) {
+  message("Reading gene-expression-rsem-tpm-collapsed from parquet")
+  con_tpm <- connect_duckdb()
+  tpm <- dbGetQuery(con_tpm, sprintf(
+    "SELECT * FROM read_parquet('%s') WHERE gene_symbol IN (%s)",
+    normalizePath(tpm_parquet),
+    paste0("'", expr_genes$gene, "'", collapse = ", "))) %>%
+    tibble::column_to_rownames("gene_symbol")
+  dbDisconnect(con_tpm, shutdown = TRUE)
+} else {
+  message("Reading gene-expression-rsem-tpm-collapsed.rds (no parquet copy)")
+  tpm <- readRDS(file.path(root_dir, "data", "gene-expression-rsem-tpm-collapsed.rds"))
+}
 stopifnot(all(expr_genes$gene %in% rownames(tpm)))
 
 # Overexpression is a z-score of log2(TPM + 1) within RNA library type, against
@@ -136,17 +154,17 @@ cnv_genes <- rules %>%
   unique()
 
 if (length(cnv_genes) > 0) {
-  cnv_file <- file.path(root_dir, "data",
-    "consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only_autosomes.tsv.gz")
   cnv_out <- file.path(scratch_dir, "cnv_lesion_genes.parquet")
   cnv_query <- sprintf(
     "COPY (
        SELECT biospecimen_id AS Kids_First_Biospecimen_ID, gene_symbol, status
-       FROM read_csv('%s', delim = '\t', header = true, all_varchar = true,
-                     sample_size = 100, ignore_errors = true)
+       FROM %s
        WHERE gene_symbol IN (%s) AND status NOT IN ('neutral', 'unchanged')
      ) TO '%s' (FORMAT PARQUET)",
-    cnv_file, paste0("'", cnv_genes, "'", collapse = ", "), cnv_out
+    release_source("consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only",
+                   "consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only.tsv.gz",
+                   root_dir),
+    paste0("'", cnv_genes, "'", collapse = ", "), cnv_out
   )
   con2 <- connect_duckdb()
   dbExecute(con2, cnv_query)
@@ -156,18 +174,19 @@ if (length(cnv_genes) > 0) {
 
 # LGG module lesions that need more than a gene list ------------------------------
 # CDKN2A / CDKN2B copy number (legacy LGG rule: copy number <= 1)
-cdkn_file <- file.path(root_dir, "data",
-  "consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only.tsv.gz")
 cdkn_out <- file.path(scratch_dir, "cdkn2_copy_number.parquet")
 con3 <- connect_duckdb()
 dbExecute(con3, sprintf(
   "COPY (
      SELECT biospecimen_id AS Kids_First_Biospecimen_ID, gene_symbol,
             TRY_CAST(copy_number AS DOUBLE) AS copy_number, status
-     FROM read_csv('%s', delim = '\t', header = true, all_varchar = true,
-                   sample_size = 100, ignore_errors = true)
+     FROM %s
      WHERE gene_symbol IN ('CDKN2A', 'CDKN2B')
-   ) TO '%s' (FORMAT PARQUET)", cdkn_file, cdkn_out))
+   ) TO '%s' (FORMAT PARQUET)",
+  release_source("consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only",
+                 "consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only.tsv.gz",
+                 root_dir),
+  cdkn_out))
 
 # FGFR1 kinase-domain duplication, as in the LGG module: a tandem duplication
 # (Manta) that spans the FGFR1 protein tyrosine kinase domain, or a consensus
@@ -184,11 +203,10 @@ dbExecute(con3, sprintf(
   "COPY (
      SELECT \"Kids.First.Biospecimen.ID.Tumor\" AS Kids_First_Biospecimen_ID,
             SV_start, SV_end, ALT
-     FROM read_csv('%s', delim = '\t', header = true, all_varchar = true,
-                   sample_size = 100, ignore_errors = true)
+     FROM %s
      WHERE Gene_name = 'FGFR1' AND ALT = '<DUP:TANDEM>'
    ) TO '%s' (FORMAT PARQUET)",
-  file.path(root_dir, "data", "sv-manta.tsv.gz"), manta_out))
+  release_source("sv-manta", "sv-manta.tsv.gz", root_dir), manta_out))
 
 manta_fgfr <- dbGetQuery(con3, sprintf("SELECT * FROM read_parquet('%s')", manta_out)) %>%
   as_tibble() %>%
