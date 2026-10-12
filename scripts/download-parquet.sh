@@ -51,6 +51,14 @@ fi
 
 for file in "${FILES[@]}"
 do
+  # download missing files, and replace files that do not match their md5 (for
+  # example an interrupted download)
+  if [ -e "$PARQUET_DIR/$file" ] && ! (cd "$PARQUET_DIR" && \
+       grep -E "[[:space:]]${file}\$" md5sum-parquet.txt | md5sum -c --status -)
+  then
+    echo "Replacing $file (md5 mismatch)"
+    rm -f "$PARQUET_DIR/$file"
+  fi
   if [ ! -e "$PARQUET_DIR/$file" ]
   then
     echo "Downloading $file"
