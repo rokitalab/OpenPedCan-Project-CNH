@@ -1,8 +1,7 @@
 # Figures
 
-This directory contains the shared plot theme for the OpenPedCan figures (`scripts/figure_theme.R`) and, in `deprecated/`, the figure scripts and `generate-figures.sh` inherited from OpenPBTA, which are deprecated and no longer maintained. The PDF and PNG panels that the OpenPBTA scripts produced were removed from the repository; `generate-figures.sh` recreates the `pdfs/` folders when it runs.
-
-The notes below describe the OpenPBTA workflow and are kept for reference.
+This directory contains the shared plot theme for the OpenPedCan figures (`scripts/figure_theme.R`), the color palettes and plot-group mapping (`palettes/`), and the scripts that extend and plot them (`scripts/`).
+The OpenPBTA manuscript figure scripts, `generate-figures.sh` and the PDF/PNG panels they produced were removed to reduce the size of the repository; they remain in the git history and in [OpenPBTA-analysis](https://github.com/AlexsLemonade/OpenPBTA-analysis).
 
 To use the repo theme in a plot script:
 
@@ -12,135 +11,6 @@ ggplot(...) + theme_Publication()
 ```
 
 `theme_Publication()` is the look of the manuscript theme on a white background (white panels, plot, legend keys and facet labels; black axis lines; light grey major grid lines).
-It is designed such that a single shell script will run all required data processing or analysis steps prior to plotting.
-There are two main strategies for creating individual panels: 1. scripts that are exclusively created for publication-ready display (located in `figures/scripts`) or 2. copying publication-ready plots that are generated within a given analysis module (i.e., `analyses`) to the correct location in `figures/`.
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [Running the figure generation script](#running-the-figure-generation-script)
-    - [1. Obtain the current dataset.](#1-obtain-the-current-dataset)
-    - [2. Set up an up-to-date project Docker container.](#2-set-up-an-up-to-date-project-docker-container)
-    - [3. Ensure that required analyses are up-to-date.](#3-ensure-that-required-analyses-are-up-to-date)
-    - [4. Run the bash script that generates the figures.](#4-run-the-bash-script-that-generates-the-figures)
-- [Adding or updating figures](#adding-or-updating-figures)
-  - [Individual panels and where to find them](#individual-panels-and-where-to-find-them)
-  - [Compiled multipanel figures](#compiled-multipanel-figures)
-  - [Documenting individual figures & scripts](#documenting-individual-figures--scripts)
-- [Figure Guidelines](#figure-guidelines)
-  - [Color Palettes](#color-palettes)
-    - [Plot groups](#plot-groups)
-    - [Updating color palettes](#updating-color-palettes)
-    - [Examples palette usage in R](#examples-palette-usage-in-r)
-      - [Example 1) Color coding by disease label in `ggplot2`](#example-1-color-coding-by-disease-label-in-ggplot2)
-      - [Example 2) Color coding by numeric data](#example-2-color-coding-by-numeric-data)
-  - [Overall figure theme](#overall-figure-theme)
-  - [Statistics](#statistics)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-## Running the figure generation script
-
-Follow these steps to refresh all publication-ready figures.
-All steps assume your current directory is the top of this repository.
-
-#### 1. Obtain the current dataset.
-
-See [these instructions](https://github.com/AlexsLemonade/OpenPBTA-analysis#how-to-obtain-openpbta-data) to obtain the current data release.
-We recommend [using the download script](https://github.com/AlexsLemonade/OpenPBTA-analysis#data-access-via-download-script) to obtain data because this will automatically create symlinks in `data/` to the latest files.
-
-#### 2. Set up an up-to-date project Docker container.
-
-See [these instructions](https://github.com/AlexsLemonade/OpenPBTA-analysis#docker-image) for setting up the project Docker container.
-Briefly, the latest version of the project Docker image, which is updated upon commit to `master`, can be obtained and run via:
-
-```bash
-docker pull ccdlopenpbta/open-pbta:latest
-docker run \
-  -e PASSWORD=<password> \
-  -p 8787:8787 \
-  -v $(pwd):/home/rstudio/kitematic \
-  ccdlopenpbta/open-pbta:latest
-```
-You may choose to use [`docker exec`](https://docs.docker.com/engine/reference/commandline/exec/) to interact with the container from there or if you'd prefer the RStudio interface, you can navigate to `localhost:8787` and enter username `rstudio` and the password you set with the `run` command above.
-
-#### 3. Ensure that required analyses are up-to-date.
-
-_⚠️ This requires 64GB of RAM to run successfully! You can set `RUN_LOCAL=1` for local testing that skips the RAM-intensive steps._
-
-In order to generate figures, analysis modules should contain up-to-date results for the given data release.
-All analyses that are included in the manuscript can be run with:
-
-```
-bash ../scripts/run-manuscript-analyses.sh
-```
-
-Because some of those analyses have significant memory requirements which are generally not available on local machines, you may wish to only run analyses that can be locally processed.
-For this option, set `RUN_LOCAL=1`:
-
-```
-RUN_LOCAL=1 bash ../scripts/run-manuscript-analyses.sh
-```
-
-
-
-#### 4. Run the bash script that generates the figures.
-
-_⚠️ This requires 64GB of RAM to run successfully! You can set `RUN_LOCAL=1` for local testing that skips the RAM-intensive steps._
-
-The script [`generate-figures.sh`](./deprecated/generate-figures.sh) runs all scripts in [`figures/deprecated/`](./deprecated/) to generate manuscript-ready figure panels, as well as copies certain panels from analyses that are meant for the manuscript.
-This script will also specifically check for the presence of necessary `scratch/` directory input files, which should have been generated with `../scripts/run-manuscript-analyses.sh` before running this script.
-If necessary `scratch/` files are missing, this script will error out; if necessary `scratch/` files are older than 10 days, a warning will be printed that files may be out of date.
-No further checks are performed.
-Resulting figure panels are all saved as PDF files in [`figures/pdfs/`](./figures/pdfs/), as is described [here](./README.md#individual-panels-and-where-to-find-them).
-Generate all figure panels via:
-
-```bash
-bash ./deprecated/generate-figures.sh
-```
-
-Again, to run only analyses that do not have signficant memory requirements, set the flag `RUN_LOCAL=1`:
-
-
-```
-RUN_LOCAL=1 bash ./deprecated/generate-figures.sh
-```
-
-
-In some cases, the shell script will copy plots to the appropriate locations in the `figures/` directory.
-
-## Adding or updating figures
-
-All figures need to adhere to [the guidelines in this README](#figure-guidelines) and need to be generated, including any upstream steps, via `figures/deprecated/generate-figures.sh`.
-This section includes details for file organization and guidelines that are not covered in the section on style.
-
-### Individual panels and where to find them
-
-Individual panels, including any standalone legends, intended for the main text should be saved as **PDFs** in `figures/pdfs/<figure>/panels`.
-Each figure has its own subdirectory within `figures/pdfs`; individual panels for Figure 1 would be saved in `figures/pdfs/fig1/panels`, for Figure 2 in `figures/pdfs/fig2/panels` and so on and so forth.
-
-Similarly, panels and standalone legends intended for the supplementary materials should be saved as **PDFs** in `figures/pdfs/supp/<figure>/panels`.
-As for main text figures, individual panels for Figure S1 would be saved in `figures/pdfs/supp/figs1/panels`, and so on.
-
-### Compiled multipanel figures
-
-Multipanel figures are compiled with either Adobe Illustrator or the Graphic for Mac application and saved as PDFs in their respective subdirectories.
-For example, the compiled, PDF version of Figure 1 is saved as `figures/pdf/fig1/figure1.pdf`.
-Similarly for supplementary figures, the compiled PDF version of Figure S1 is saved as `figures/pdf/supp/figs1/figureS1.pdf`.
-(Original `.ai` Illustrator and/or `.idraw` Graphic files are available in Google Drive and can be shared as necessary -- contact @jaclyn-taroni!)
-
-PNG versions of figures are exported using the PDF file and saved to the `figures/pngs/` folder.
-PNGs version can be linked in the accompanying manuscript repository [`AlexsLemonade/OpenPBTA-manuscript`](https://github.com/AlexsLemonade/OpenPBTA-manuscript/).
-
-### Documenting individual figures & scripts
-
-Each figure should include its own associated README in the appropriate PDF subdirectory, e.g., the documentation for Figure 4 can be found in `figures/pdfs/fig4/README.md`.
-That README should detail what analysis modules or individual scripts are required to generate the individual panels for that figure.
-
-Scripts that are exclusively for creating publication-ready plots, both main text and supplementary, were in `figures/scripts` and are now in `figures/deprecated` (documented in `figures/deprecated/README.md`).
-Scripts should generally begin with which figure(s) they are generating panels for, e.g. a script whose name begins with `fig4-` makes one or more panels for Figure 4, and a script whose name begins with `fig5_figS6` makes one or more panels for both Figures 5 and S6.
-
 
 ## Figure Guidelines
 
