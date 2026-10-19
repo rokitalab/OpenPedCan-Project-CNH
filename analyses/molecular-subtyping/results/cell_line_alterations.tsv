@@ -1,0 +1,168 @@
+match_id	line_alterations	has_dna	has_rna
+PT_R4BMS5K3_JHC7-CL_Derived Cell Line_Unknown	TBXT overexpression (z 18.8); TBXT overexpression (z 19.1); TBXT overexpression (z 21.5)	FALSE	TRUE
+PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-based_4	KRAS p.Q61H; NPR3 overexpression (z 5.2); TP53 p.Y163C; TRAF7 p.L526=	TRUE	TRUE
+PT_Z4BF2NSB_7316-5335_Derived Cell Line_Recurrence_Serum-free-2_7	CIC p.A1114Pfs*47; KRAS p.G12V; RB1 loss; TP53 p.P72Lfs*48; TP53 p.R342P	TRUE	TRUE
+PT_1YQH5NSH_7316-5922_Derived Cell Line_Initial CNS Tumor_Serum-free_27	H3-3A p.K28M	TRUE	FALSE
+PT_DWJRMYP8_U-CH1-CL_Derived Cell Line_Recurrence	TBXT overexpression (z 17.2); TBXT overexpression (z 17.3); TBXT overexpression (z 17.6); TBXT overexpression (z 17.7)	FALSE	TRUE
+PT_P571HTNK_7316-8851_Derived Cell Line_Initial CNS Tumor_Serum-free_9	H3-3A p.K28M	TRUE	TRUE
+PT_XETT8T7M_U-CH17PII-CL_Derived Cell Line_Metastatic	FOXR2 overexpression (z 3.1); FOXR2 overexpression (z 3.7); FOXR2 overexpression (z 4); TBXT overexpression (z 18.3); TBXT overexpression (z 18.7); TBXT overexpression (z 19.3)	FALSE	TRUE
+PT_P571HTNK_7316-9433_Derived Cell Line_Progressive_Serum-free_7	H3-3A p.K28M	TRUE	TRUE
+PT_6ZENTV3N_UM-Chor5-CL_Derived Cell Line_Primary Tumor	TBXT overexpression (z 17.4); TBXT overexpression (z 17.6); TBXT overexpression (z 18.7)	FALSE	TRUE
+PT_4XB3YTJM_7316-388_Derived Cell Line_Initial CNS Tumor_Serum-based_10	H3-3A p.K28M; NPR3 overexpression (z 5.1); PDGFRA p.D842V; TP53 p.R248W	TRUE	TRUE
+PT_3GZF248B_U-CH19-CL_Derived Cell Line_Primary Tumor	TBXT overexpression (z 17.3); TBXT overexpression (z 17.8)	FALSE	TRUE
+PT_A9CDRD3E_U-CH7-CL_Derived Cell Line_Primary Tumor	TBXT overexpression (z 18.3); TBXT overexpression (z 18.4); TBXT overexpression (z 19.2)	FALSE	TRUE
+PT_8MDE46MC_U-CH14-CL_Derived Cell Line_Primary Tumor	TBXT overexpression (z 16.5); TBXT overexpression (z 16.6); TBXT overexpression (z 17.8)	FALSE	TRUE
+PT_XETT8T7M_U-CH17M-CL_Derived Cell Line_Metastatic	FOXR2 overexpression (z 7); FOXR2 overexpression (z 8.1); FOXR2 overexpression (z 8); FOXR2 overexpression (z 9.3); TBXT overexpression (z 18.5); TBXT overexpression (z 18.6); TBXT overexpression (z 18.9); TBXT overexpression (z 19.4)	FALSE	TRUE
+PT_JNEV57VK_7316-3058_Derived Cell Line_Progressive_Serum-free_0	ATRX p.R2197C; CIC p.Q478=; DDX3X p.P695S; H3-3A p.K28M; KMT2D p.P428S; NF1 p.F1247Ifs*18; NF1 p.K206=; NF1 p.R1534*; PTCH1 p.A562V; SUFU p.C41=; TP53 p.A276T	TRUE	TRUE
+PT_38FS37DP_7316-2686_Derived Cell Line_Initial CNS Tumor_Serum-based_8	NPR3 overexpression (z 4.3)	TRUE	TRUE
+PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-based_8	ATRX p.E1984K; DKK2 overexpression (z 4.2); HHIP overexpression (z 3.4); NPR3 overexpression (z 3.6)	TRUE	TRUE
+PT_YJY2QXDM_U-CHCF359B-CL_Derived Cell Line_Metastatic	TBXT overexpression (z 14.7); TBXT overexpression (z 14.9); TBXT overexpression (z 15.3)	FALSE	TRUE
+PT_HNZNZ635_7316-2151_Derived Cell Line_Progressive_Serum-based_11	NA	TRUE	TRUE
+PT_XETT8T7M_U-CH17P-CL_Derived Cell Line_Metastatic	TBXT overexpression (z 20.7)	FALSE	TRUE
+PT_Y66SNKHR_Mug-Chor1-CL_Derived Cell Line_Recurrence	TBXT overexpression (z 16.5); TBXT overexpression (z 16.7); TBXT overexpression (z 16.9)	FALSE	TRUE
+PT_VTM2STE3_7316-2189_Derived Cell Line_Progressive_Serum-based_13	PDGFRA p.L1083P; SMARCA4 p.Y860H; TP53 p.N239S	TRUE	TRUE
+PT_XX33CWA3_U-CHCF365-CL_Derived Cell Line_Metastatic	TBXT overexpression (z 17.3); TBXT overexpression (z 17.5); TBXT overexpression (z 18)	FALSE	TRUE
+PT_89XRZBSG_7316-445_Derived Cell Line_Initial CNS Tumor_Serum-based_9	NPR3 overexpression (z 3.4)	TRUE	TRUE
+PT_5BWZA0NT_7316-1102_Derived Cell Line_Initial CNS Tumor_Serum-based_4	H3-3A p.K28M	TRUE	TRUE
+PT_JSFBMK5V_7316-1769_Derived Cell Line_Progressive_Serum-free_11	12p gain; H3-3A p.K28M; NF1 p.Y2285Tfs*5	TRUE	TRUE
+PT_WGVEF96B_7316-4446_Derived Cell Line_Initial CNS Tumor_Serum-free_27	ATRX p.A1812P; H3-3A p.K28M; TP53 p.R248W	TRUE	FALSE
+PT_NAYJ2G2E_7316-8741_Derived Cell Line_Initial CNS Tumor_Serum-based_6	NA	TRUE	FALSE
+PT_CEWNZVKF_7316-124_Derived Cell Line_Initial CNS Tumor_Serum-based_5	NA	TRUE	FALSE
+PT_9CQA1W10_7316-6349_Derived Cell Line_Deceased_Serum-free_7	H3-3A p.K28M; PDGFRA p.D846Y; PDGFRA p.V536E; TP53 p.C141Y; TP53 p.R175H	TRUE	TRUE
+PT_3AWKWXEV_7316-85_Derived Cell Line_Initial CNS Tumor_Serum-based_4	BRAF p.V600E; HHIP overexpression (z 3.9); NPR3 overexpression (z 4.8)	TRUE	TRUE
+PT_9BZETM0M_7316-158_Derived Cell Line_Initial CNS Tumor_Serum-free_25	H3-3A p.G35R; TP53 p.C238W; TP53 p.P152L	TRUE	TRUE
+PT_Z4PJA6KT_7316-1763_Derived Cell Line_Initial CNS Tumor_Serum-based_8	DKK2 overexpression (z 3.5); TP53 p.R213*	TRUE	TRUE
+PT_VAJN5QP8_7316-2176_Derived Cell Line_Initial CNS Tumor_Serum-based_3	NPR3 overexpression (z 3.8)	TRUE	TRUE
+PT_ZZRBX5JT_7316-4423_Derived Cell Line_Progressive_Serum-based_11	NF2 p.L316Kfs*5	TRUE	FALSE
+PT_M9WKP8RF_7316-7919_Derived Cell Line_Initial CNS Tumor_Serum-based_6	NPR3 overexpression (z 3.7)	TRUE	TRUE
+PT_Y5KY6KN9_7316-195_Derived Cell Line_Initial CNS Tumor_Serum-based_11	H3-3A p.K28M; TP53 p.X331_splice	TRUE	TRUE
+PT_4D8WG2DP_U-CH11R-CL_Derived Cell Line_Recurrence	TBXT overexpression (z 14.5); TBXT overexpression (z 14.6); TBXT overexpression (z 14.9); TBXT overexpression (z 15.7)	FALSE	TRUE
+PT_ZZRBX5JT_7316-4423_Derived Cell Line_Progressive_Serum-free_8	1q gain + TKTL1 overexpression (z 3.3); 22q loss; monosomy 6; SMARCB1 loss	TRUE	TRUE
+PT_XETT8T7M_U-CH17S-CL_Derived Cell Line_Metastatic	TBXT overexpression (z 17.7); TBXT overexpression (z 17.9); TBXT overexpression (z 18.1)	FALSE	TRUE
+PT_NK8A49X5_7316-4448_Derived Cell Line_Progressive_Serum-free_27	ATRX p.W2001*; EGFR amplification; H3-3A p.K28M	TRUE	FALSE
+PT_0PT33SCF_7316-1100_Derived Cell Line_Recurrence_Serum-based_9	HHIP overexpression (z 3.6)	TRUE	TRUE
+PT_0J07HTRF_7316-6475_Derived Cell Line_Deceased_Serum-free_5	FOXR2 overexpression (z 9.4); H3-3A p.K28M; NRAS p.Q61K	TRUE	TRUE
+PT_0JEBFP0E_UM-Chor1-CL_Derived Cell Line_Primary Tumor	TBXT overexpression (z 17.9); TBXT overexpression (z 18); TBXT overexpression (z 19.3)	FALSE	TRUE
+PT_XTVQB9S4_7316-2186_Derived Cell Line_Initial CNS Tumor_Serum-based_8	HHIP overexpression (z 3)	TRUE	TRUE
+PT_HFQNKP5X_7316-4062_Derived Cell Line_Deceased_Serum-free_8	TBXT overexpression (z 11)	TRUE	TRUE
+PT_HVZTF42R_7316-2187_Derived Cell Line_Initial CNS Tumor_Serum-free_10	SMARCB1 p.Q182*	TRUE	TRUE
+PT_D9H1C43M_CH22-CL_Derived Cell Line_Metastatic	TBXT overexpression (z 14.5); TBXT overexpression (z 14.7); TBXT overexpression (z 14.8); TBXT overexpression (z 15.1)	FALSE	TRUE
+PT_EVQZ62SE_7316-7924_Derived Cell Line_Initial CNS Tumor_Serum-based_6	NPR3 overexpression (z 3.5)	TRUE	TRUE
+PT_Z4PJA6KT_7316-1763_Derived Cell Line_Initial CNS Tumor_Serum-based_3	CIC--ENSG00000269534; H3-3A p.K28M; HHIP overexpression (z 3.6); TP53 p.R213*	TRUE	TRUE
+PT_NXX0M835_7316-7538_Derived Cell Line_Progressive_Serum-free_12	NF-2 cancer predisposition; NF1 p.F2351C; NF2 p.Leu140SerfsTer34 (germline); NPR3 overexpression (z 4.4)	TRUE	TRUE
+PT_6ZENTV3N_UM-Chor5D-CL_Derived Cell Line_NA	TBXT overexpression (z 16.8); TBXT overexpression (z 16.9); TBXT overexpression (z 17.2); TBXT overexpression (z 17.3)	FALSE	TRUE
+PT_23NZGSRJ_7316-4509_Derived Cell Line_Deceased_Serum-free_8	GABRA5 overexpression (z 3.1); IMPG2 overexpression (z 3.8); KBTBD4 p.P311_R312dup	TRUE	TRUE
+PT_JNEV57VK_7316-3058_Derived Cell Line_Progressive_Serum-free_8	NA	FALSE	TRUE
+PT_P5HHJJPH_7316-870_Derived Cell Line_Progressive_Serum-based_7	BRAF p.V600E; HHIP overexpression (z 3.8); NPR3 overexpression (z 3.6)	TRUE	TRUE
+PT_4347ZBEX_7316-913_Derived Cell Line_Progressive_Serum-free_13	NA	TRUE	TRUE
+PT_NME1D79F_7316-7963_Derived Cell Line_Recurrence_Serum-based_11	12p gain	TRUE	TRUE
+PT_4FQHQDEE_UM-Chor6-CL_Derived Cell Line_Primary Tumor	TBXT overexpression (z 16.4); TBXT overexpression (z 17.1); TBXT overexpression (z 17.2); TBXT overexpression (z 17.5)	FALSE	TRUE
+PT_JXSTA5HB_7316-8128_Derived Cell Line_Recurrence_Serum-free-2_9	SMARCB1 loss	TRUE	FALSE
+PT_Z4BF2NSB_7316-6477_Derived Cell Line_Deceased_Serum-free_11	CIC p.A1114Pfs*47; RB1 p.I181Nfs*5; TP53 p.P72Lfs*48; TP53 p.R342P; TSC2 p.L590Q	TRUE	TRUE
+PT_4347ZBEX_7316-913_Derived Cell Line_Progressive_Serum-based_NA	HHIP overexpression (z 3.6); SMARCE1 p.K284T; TP53 p.E180K	TRUE	TRUE
+PT_6WZ8RVRQ_7316-6758_Derived Cell Line_Initial CNS Tumor_Serum-based_11	NA	TRUE	TRUE
+PT_GYSNY9G2_U-CH2-CL_Derived Cell Line_Recurrence	TBXT overexpression (z 13.4); TBXT overexpression (z 13.9); TBXT overexpression (z 15.9)	FALSE	TRUE
+PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-free_14	DDX3X p.L638F; DICER1 p.E1705K; DICER1 p.X884_splice; KRAS p.Q61H; TP53 p.Y163C	TRUE	TRUE
+PT_89XRZBSG_7316-445_Derived Cell Line_Initial CNS Tumor_Serum-free_12	NF1 loss	TRUE	TRUE
+PT_ZWY04DCR_7316-2666_Derived Cell Line_Initial CNS Tumor_Serum-free_13	NA	TRUE	FALSE
+PT_KEQ53KRH_7316-440_Derived Cell Line_Initial CNS Tumor_Serum-based_11	EGFR p.A289V; TP53 p.S94*	TRUE	FALSE
+PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-free_10	DDX3X p.L638F; DICER1 p.E1705K; DICER1 p.X884_splice; KRAS p.Q61H; TP53 p.Y163C	TRUE	TRUE
+PT_EN2RN5Y1_SF11385_Derived Cell Line_Initial CNS Tumor_NA_NA	ATRX p.R2111L; H3-3A p.K28M	TRUE	FALSE
+PT_3AWKWXEV_7316-85_Derived Cell Line_Initial CNS Tumor_Serum-free_14	BRAF p.V600E; CDKN2A deep deletion; NF1 loss; TP53 p.R248W	TRUE	TRUE
+PT_M1RYN7B0_7316-1781_Derived Cell Line_Initial CNS Tumor_Serum-based_9	HHIP overexpression (z 3.2); NPR3 overexpression (z 3.5)	TRUE	TRUE
+PT_41BCPB7R_7316-406_Derived Cell Line_Initial CNS Tumor_Serum-based_7	DKK2 overexpression (z 3.1); HHIP overexpression (z 3.6)	TRUE	TRUE
+PT_4XB3YTJM_7316-388_Derived Cell Line_Initial CNS Tumor_Serum-free_21	H3-3A p.K28M; PDGFRA p.D842V; TP53 p.R248W	TRUE	TRUE
+PT_Y5KY6KN9_7316-195_Derived Cell Line_Initial CNS Tumor_Serum-free_14	H3-3A p.K28M; TP53 p.X331_splice	TRUE	TRUE
+PT_WG2Z95B5_7316-2141_Derived Cell Line_Initial CNS Tumor_Serum-based_8	NA	TRUE	TRUE
+PT_S9M3JJVB_7316-7955_Derived Cell Line_Initial CNS Tumor_Serum-based_6	12p gain; CTNNB1 p.S45del; NPR3 overexpression (z 3.8)	TRUE	TRUE
+PT_JNEV57VK_7316-3058_Derived Cell Line_Progressive_Serum-based_0	ATRX p.R2197C; H3-3A p.K28M; NF1 p.F1247Ifs*18; NF1 p.R1534*	TRUE	TRUE
+PT_MTVXXQTG_7316-8017_Derived Cell Line_Deceased_Serum-based_5	NA	TRUE	FALSE
+PT_40N7BXSQ_7316-599_Derived Cell Line_Initial CNS Tumor_Serum-based_8	H3-3A p.K28M; HHIP overexpression (z 3.1)	TRUE	TRUE
+PT_FK7ZXG3E_Mug-CC1-CL_Derived Cell Line_Primary Tumor	TBXT overexpression (z 17.8); TBXT overexpression (z 17.9); TBXT overexpression (z 18.2); TBXT overexpression (z 19)	FALSE	TRUE
+PT_C9YDTZPA_CNMC-967_Derived Cell Line_Initial CNS Tumor_Serum-based_27	H3-3A p.K28M; KMT2D p.X5262_splice; TSC1 p.Q940=	TRUE	FALSE
+PT_6ZENTV3N_UM-Chor5C-CL_Derived Cell Line_Metastatic	TBXT overexpression (z 16.6); TBXT overexpression (z 16.7); TBXT overexpression (z 16.8); TBXT overexpression (z 17.5)	FALSE	TRUE
+PT_WG2Z95B5_7316-2141_Derived Cell Line_Initial CNS Tumor_Serum-free_9	SMARCB1 deep deletion	TRUE	TRUE
+PT_Z4BF2NSB_7316-161_Derived Cell Line_Initial CNS Tumor_Serum-based_12	CIC p.A1114Pfs*47; RB1 p.I297Yfs*13; TP53 p.P72Lfs*48; TP53 p.R342P; TSC2 p.Q63*	TRUE	TRUE
+PT_HVZTF42R_7316-2187_Derived Cell Line_Initial CNS Tumor_Serum-based_8	HHIP overexpression (z 3.3); NPR3 overexpression (z 3.2)	TRUE	TRUE
+PT_3KM9W8S8_7316-3045_Derived Cell Line_Deceased_Serum-based_5	NPR3 overexpression (z 4.6)	TRUE	TRUE
+PT_JXSTA5HB_7316-8128_Derived Cell Line_Recurrence_Serum-free-1_8	RTN3--ZFTA; ZFTA--RELA	FALSE	TRUE
+PT_JXSTA5HB_7316-8128_Derived Cell Line_Recurrence_Serum-free_11	22q loss; SMARCB1 loss	TRUE	FALSE
+PT_BAH54SVM_7316-7965_Derived Cell Line_Initial CNS Tumor_Serum-based_10	NPR3 overexpression (z 4.3)	TRUE	TRUE
+PT_FFHQ1B9R_7316-3240_Derived Cell Line_NA_Serum-free_15	NA	FALSE	TRUE
+PT_KZ56XHJT_7316-3234_Derived Cell Line_Progressive_Serum-free_27	FOXR2 overexpression (z 9.1); H3-3A p.K28M	TRUE	TRUE
+PT_PMEXVDFJ_7316-4800_Derived Cell Line_Deceased_Serum-based_8	NA	TRUE	FALSE
+PT_Z4BF2NSB_7316-5335_Derived Cell Line_Recurrence_Serum-free-1_7	CIC p.A1114Pfs*47; CTNNB1 p.S33Y; NKD1 overexpression (z 3.1); TP53 p.P72Lfs*48; TP53 p.R342P; WIF1 overexpression (z 3.3)	TRUE	TRUE
+PT_Z4PJA6KT_7316-1763_Derived Cell Line_Initial CNS Tumor_Serum-free_9	H3-3A p.K28M; TP53 p.R213*	TRUE	TRUE
+PT_PAB4RZG2_U-CH12-CL_Derived Cell Line_Primary Tumor	TBXT overexpression (z 17.7); TBXT overexpression (z 17.8); TBXT overexpression (z 17.9); TBXT overexpression (z 18.8)	FALSE	TRUE
+PT_JXSTA5HB_7316-8128_Derived Cell Line_Recurrence_Serum-based_8	NA	TRUE	FALSE
+PT_3AWKWXEV_7316-85_Derived Cell Line_Initial CNS Tumor_Serum-free_0	BRAF p.V600E; CDKN2A deep deletion	TRUE	TRUE
+PT_VTM2STE3_7316-2189_Derived Cell Line_Progressive_Serum-based_4	NPR3 overexpression (z 3.5); TP53 p.G302Rfs*4; TP53 p.V157D	TRUE	TRUE
+PT_G4HD4QTK_7316-7943_Derived Cell Line_Initial CNS Tumor_Serum-based_7	HHIP overexpression (z 3.8); NPR3 overexpression (z 3.8)	TRUE	TRUE
+PT_AZAJRK9Z_7316-7958_Derived Cell Line_Initial CNS Tumor_Serum-based_8	NPR3 overexpression (z 3.6)	TRUE	TRUE
+PT_4347ZBEX_7316-913_Derived Cell Line_Progressive_Serum-free_11	NA	TRUE	TRUE
+PT_FH0TJ5P2_7316-212_Derived Cell Line_Recurrence_Serum-based_6	CIC p.W343Lfs*4; DKK2 overexpression (z 3.4); HHIP overexpression (z 3.7); NPR3 overexpression (z 3)	TRUE	TRUE
+PT_VAJN5QP8_7316-2176_Derived Cell Line_Initial CNS Tumor_Serum-based_6	NA	TRUE	FALSE
+PT_F1PXEJMQ_7316-7049_Derived Cell Line_Initial CNS Tumor_Serum-free_14	NA	FALSE	TRUE
+PT_HFQNKP5X_7316-4062_Derived Cell Line_Deceased_Serum-based_5	SMARCB1 deep deletion; TBXT overexpression (z 10.1)	TRUE	TRUE
+PT_Z4PJA6KT_7316-1763_Derived Cell Line_Initial CNS Tumor_Serum-free_8	H3-3A p.K28M; TP53 p.R213*	TRUE	TRUE
+PT_HNZNZ635_7316-2151_Derived Cell Line_Progressive_Serum-based_5	NPR3 overexpression (z 5.2)	TRUE	TRUE
+PT_E99F32RF_7316-8121_Derived Cell Line_Initial CNS Tumor_Serum-free-2_6	NA	TRUE	TRUE
+PT_9BZETM0M_7316-5317_Derived Cell Line_Recurrence_Serum-free_11	ATRX p.E880*; H3-3A p.G35R; PDGFRA p.E229K; TP53 p.L252_I254del; TP53 p.R213*	TRUE	TRUE
+PT_KEQ53KRH_7316-440_Derived Cell Line_Initial CNS Tumor_Serum-free_21	EGFR p.A289V; EZHIP overexpression; EZHIP overexpression (z 3.4); TP53 p.S94*	TRUE	TRUE
+PT_G16VK7FR_CNMC-1277_Derived Cell Line_Initial CNS Tumor_Serum-based_27	H3C2 p.K28M; TP53 p.P151H	TRUE	FALSE
+PT_Y5KY6KN9_7316-195_Derived Cell Line_Initial CNS Tumor_Serum-free_8	H3-3A p.K28M; RB1 p.S648=; TP53 p.X331_splice	TRUE	TRUE
+PT_A06JR0E5_CNMC-1034_Derived Cell Line_Initial CNS Tumor_Serum-based_27	H3-3A p.K28M; TP53 p.R175H	TRUE	FALSE
+PT_4347ZBEX_7316-913_Derived Cell Line_Progressive_Serum-based_4	NA	TRUE	TRUE
+PT_JNEV57VK_7316-3058_Derived Cell Line_Progressive_Serum-based_7	ATRX p.R2197C; H3-3A p.K28M; monosomy 6; NF1 p.F1247Ifs*18; NF1 p.R1534*	TRUE	TRUE
+PT_JXSTA5HB_7316-8128_Derived Cell Line_Recurrence_Serum-free-1_9	RTN3--ZFTA; ZFTA--RELA; ZFTA--SLC22A20P(10555)/ENSG00000287821(7684)	FALSE	TRUE
+PT_CTC9ZDNY_7316-7928_Derived Cell Line_Initial CNS Tumor_Serum-based_6	NA	TRUE	FALSE
+PT_3AWKWXEV_7316-85_Derived Cell Line_Initial CNS Tumor_Serum-based_5	NPR3 overexpression (z 4.1)	TRUE	TRUE
+PT_Y5KY6KN9_7316-195_Derived Cell Line_Initial CNS Tumor_Serum-based_4	H3-3A p.K28M; NF1 loss; PTCH1 loss; TP53 p.X331_splice	TRUE	TRUE
+PT_JXSTA5HB_7316-8128_Derived Cell Line_Recurrence_Serum-free-2_11	RTN3--ZFTA; ZFTA--RELA; ZFTA--SLC22A20P(10555)/ENSG00000287821(7684)	FALSE	TRUE
+PT_E99F32RF_7316-8121_Derived Cell Line_Initial CNS Tumor_Serum-free-1_6	NF1 loss	TRUE	TRUE
+PT_EDG0Q7P4_7316-3237_Derived Cell Line_Deceased_Serum-free_22	PRKCA--PITPNC1	FALSE	TRUE
+PT_KBFM551M_7316-4447_Derived Cell Line_Initial CNS Tumor_Serum-free_0	TP53 p.A159P	TRUE	FALSE
+PT_2BTC5TEN_7316-2183_Derived Cell Line_Initial CNS Tumor_Serum-based_6	NPR3 overexpression (z 5)	TRUE	TRUE
+PT_X7GTQR9N_7316-7959_Derived Cell Line_Initial CNS Tumor_Serum-based_7	NA	TRUE	FALSE
+PT_7MZRW1DH_7316-2582_Derived Cell Line_Initial CNS Tumor_Serum-based_6	NPR3 overexpression (z 3.2)	TRUE	TRUE
+PT_VPEMAQBN_7316-3235_Derived Cell Line_Initial CNS Tumor_Serum-free_27	H3C2 p.K28M; TP53 p.R248Q	TRUE	FALSE
+PT_41BCPB7R_7316-406_Derived Cell Line_Initial CNS Tumor_Serum-free_9	DDX3X p.L220=	TRUE	FALSE
+PT_V1HNAC2Q_7316-3240_Derived Cell Line_Initial CNS Tumor_Serum-free_0	H3-3A p.K28M; TP53 p.A159P	TRUE	FALSE
+Maris_P0007_COG-N-534_Derived Cell Line_Unknown_NA_NA	FOXR2 overexpression (z 8.1)	FALSE	TRUE
+Maris_P0012_NB-69_Derived Cell Line_Unknown_NA_NA	NA	FALSE	TRUE
+Maris_P0008_COG-N-573_Derived Cell Line_Unknown_NA_NA	NA	FALSE	TRUE
+Maris_P0011_NB-1_Derived Cell Line_Progressive_NA_NA	NA	FALSE	TRUE
+Maris_P0003_CHP-134_Derived Cell Line_Progressive_NA_NA	NA	FALSE	TRUE
+PPTC_P0171_NB-SD_Derived Cell Line_Progressive_NA_NA	NA	FALSE	TRUE
+PPTC_P0073_COG-N-557nb_Derived Cell Line_Primary Tumor_NA_NA	NA	FALSE	TRUE
+PPTC_P0072_COG-N-549_Derived Cell Line_Progressive_NA_NA	FOXR2 overexpression (z 12)	FALSE	TRUE
+PPTC_P0062_COG-N-415_Derived Cell Line_Progressive_NA_NA	NA	FALSE	TRUE
+PPTC_P0166_NB-1643_Derived Cell Line_Primary Tumor_NA_NA	NA	FALSE	TRUE
+PPTC_P0071_COG-N-519_Derived Cell Line_Relapse_NA_NA	NA	FALSE	TRUE
+Maris_P0020_SMS-KAN_Derived Cell Line_Unknown_NA_NA	NA	FALSE	TRUE
+PPTC_P0065_Felix-COG-N-426_Derived Cell Line_Relapse_NA_NA	FOXR2 overexpression (z 12.9)	FALSE	TRUE
+Maris_P0019_SK-N-FI_Derived Cell Line_Progressive_NA_NA	DKK2 overexpression (z 4.1); FOXR2 overexpression (z 11.5)	FALSE	TRUE
+Maris_P0001_SH-SY5Y_Derived Cell Line_Progressive_NA_NA	FOXR2 overexpression (z 8.6)	FALSE	TRUE
+Maris_P0009_LA-N-5_Derived Cell Line_Progressive_NA_NA	NA	FALSE	TRUE
+Maris_P0018_SK-N-DZ_Derived Cell Line_Progressive_NA_NA	NA	FALSE	TRUE
+Maris_P0015_NLF_Derived Cell Line_Unknown_NA_NA	FOXR2 overexpression (z 13.6)	FALSE	TRUE
+Maris_P0016_NMB_Derived Cell Line_Unknown_NA_NA	FOXR2 overexpression (z 12.7)	FALSE	TRUE
+Maris_P0002_SK-N-BE2_Derived Cell Line_Progressive_NA_NA	NA	FALSE	TRUE
+PPTC_P0169_NB-EBc1_Derived Cell Line_Progressive_NA_NA	FOXR2 overexpression (z 14.5)	FALSE	TRUE
+PPTC_P0068_COG-N-471nb_Derived Cell Line_Relapse_NA_NA	NPR3 overexpression (z 4.1)	FALSE	TRUE
+Maris_P0010_LA-N-6_Derived Cell Line_Progressive_NA_NA	FOXR2 overexpression (z 11.3)	FALSE	TRUE
+Maris_P0001_SK-N-SH_Derived Cell Line_Progressive_NA_NA	FOXR2 overexpression (z 12.2)	FALSE	TRUE
+Maris_P0013_NBL-S_Derived Cell Line_Unknown_NA_NA	FOXR2 overexpression (z 11.4)	FALSE	TRUE
+Maris_P0005_IMR-32_Derived Cell Line_Progressive_NA_NA	NA	FALSE	TRUE
+Maris_P0017_SK-N-AS_Derived Cell Line_Progressive_NA_NA	FOXR2 overexpression (z 15); KLHL13--FOXR2	FALSE	TRUE
+Maris_P0004_CHP-212_Derived Cell Line_Unknown_NA_NA	DKK2 overexpression (z 4.7)	FALSE	TRUE
+Maris_P0014_NGP_Derived Cell Line_Progressive_NA_NA	NA	FALSE	TRUE
+PPTC_P0070_COG-N-496_Derived Cell Line_Primary Tumor_NA_NA	NA	FALSE	TRUE
+PPTC_P0067_COG-N-453_Derived Cell Line_Relapse_NA_NA	NA	FALSE	TRUE
+PPTC_P0167_NB-1691_Derived Cell Line_Progressive_NA_NA	NA	FALSE	TRUE
+Maris_P0005_IMR-05_Derived Cell Line_Progressive_NA_NA	NA	FALSE	TRUE
+Maris_P0002_SK-N-BE2-C_Derived Cell Line_Progressive_NA_NA	NA	FALSE	TRUE
+Maris_P0006_KELLY_Derived Cell Line_Unknown_NA_NA	NA	FALSE	TRUE
+Maris_P0021_SMS-SAN_Derived Cell Line_Progressive_NA_NA	NA	FALSE	TRUE
+PPTC_P0066_COG-N-440_Derived Cell Line_Relapse_NA_NA	CIC--MEGF8	FALSE	TRUE
+PPTC_P0075_COG-N-561_Derived Cell Line_Relapse_NA_NA	NA	FALSE	TRUE

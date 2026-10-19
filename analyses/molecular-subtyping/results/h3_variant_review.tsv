@@ -1,0 +1,6 @@
+match_id	h3_variant	methylation_subtype	fallback_subtype	fallback_assigned	methyl_class	methyl_control	sample_id	pathology_diagnosis	reason
+PT_7E3V3JFX_7316-506_Solid Tissue_Initial CNS Tumor	H3C2 p.K28M	EPN, PF A	NA	NA	EPN PFA 1A	FALSE	7316-506	Ependymoma	methylation subtype is not DMG/DHG
+PT_6B8W4B6B_7316-5511_Solid Tissue_Initial CNS Tumor	H3C3 p.K28M	EPN, PF A	NA	NA	EPN_PFA_1F	FALSE	7316-5511	Ependymoma	methylation subtype is not DMG/DHG
+PT_6Q0NPVP3_7316-2255_Solid Tissue_Initial CNS Tumor	H3C2 p.K28M	NA	NA	NA	NA	NA	7316-2255	Ganglioglioma	no subtype assigned
+PT_6Q0NPVP3_7316-3131_Solid Tissue_Recurrence	H3C2 p.K28M	NA	NA	NA	NA	NA	7316-3131	Ganglioglioma	no subtype assigned
+PT_6Q0NPVP3_7316-3497_Solid Tissue_Recurrence	H3C2 p.K28M	NA	NA	NA	NA	NA	7316-3497	Ganglioglioma	no subtype assigned

@@ -1,0 +1,99 @@
+match_id	sample_id	molecular_subtype	subtype_source	tumor_subtype	tumor_fidelity	tumor_alterations_shared
+PT_0J07HTRF_7316-6475_Derived Cell Line_Deceased_Serum-free_5	7316-6475	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_0JEBFP0E_UM-Chor1-CL_Derived Cell Line_Primary Tumor	UM-Chor1-CL	NA	NA	NA	no subtype to compare	NA
+PT_0PT33SCF_7316-1100_Derived Cell Line_Recurrence_Serum-based_9	7316-1100	CNS Embryonal, NOS	embryonal rules	CNS Embryonal, NOS	same	NA
+PT_1YQH5NSH_7316-5922_Derived Cell Line_Initial CNS Tumor_Serum-free_27	7316-5922	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_23NZGSRJ_7316-4509_Derived Cell Line_Deceased_Serum-free_8	7316-4509	MB, Group3	expression classifier	MB, Group3	same	not found in line: GABRA5 overexpression (z 3.4), GABRA5 overexpression (z 3.5), GABRA5 overexpression (z 3.6), IMPG2 overexpression (z 3.6), IMPG2 overexpression (z 3.9), NPR3 overexpression (z 3.1), SMARCA4 p.P974L; shared: IMPG2 overexpression (z 3.8), KBTBD4 p.P311_R312dup
+PT_38FS37DP_7316-2686_Derived Cell Line_Initial CNS Tumor_Serum-based_8	7316-2686	Rare CNS, EWS	pathology diagnosis	Rare CNS, EWS	same	NA
+PT_3AWKWXEV_7316-85_Derived Cell Line_Initial CNS Tumor_Serum-based_5	7316-85	HGG, H3 wildtype	lesion negative	HGG, PXA BRAF V600E	different	not found in line: BRAF p.V600E
+PT_3GZF248B_U-CH19-CL_Derived Cell Line_Primary Tumor	U-CH19-CL	NA	NA	NA	no subtype to compare	NA
+PT_40N7BXSQ_7316-599_Derived Cell Line_Initial CNS Tumor_Serum-based_8	7316-599	DMG, H3 K28-mutant	lesion fallback	NA	no subtype to compare	NA
+PT_4347ZBEX_7316-913_Derived Cell Line_Progressive_Serum-based_4	7316-913	HGG, H3 wildtype	lesion negative	HGG, RTK	same group	not found in line: PDGFRA amplification
+PT_4347ZBEX_7316-913_Derived Cell Line_Progressive_Serum-based_NA	7316-913	HGG, H3 wildtype	lesion negative	HGG, RTK	same group	not found in line: PDGFRA amplification
+PT_4347ZBEX_7316-913_Derived Cell Line_Progressive_Serum-free_11	7316-913	HGG, H3 wildtype	lesion negative	HGG, RTK	same group	not found in line: PDGFRA amplification
+PT_4347ZBEX_7316-913_Derived Cell Line_Progressive_Serum-free_13	7316-913	HGG, H3 wildtype	lesion negative	HGG, RTK	same group	not found in line: PDGFRA amplification
+PT_4D8WG2DP_U-CH11R-CL_Derived Cell Line_Recurrence	U-CH11R-CL	NA	NA	NA	no subtype to compare	NA
+PT_4FQHQDEE_UM-Chor6-CL_Derived Cell Line_Primary Tumor	UM-Chor6-CL	NA	NA	NA	no subtype to compare	NA
+PT_4XB3YTJM_7316-388_Derived Cell Line_Initial CNS Tumor_Serum-based_10	7316-388	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_4XB3YTJM_7316-388_Derived Cell Line_Initial CNS Tumor_Serum-free_21	7316-388	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_5BWZA0NT_7316-1102_Derived Cell Line_Initial CNS Tumor_Serum-based_4	7316-1102	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_6ZENTV3N_UM-Chor5-CL_Derived Cell Line_Primary Tumor	UM-Chor5-CL	NA	NA	NA	no subtype to compare	NA
+PT_6ZENTV3N_UM-Chor5C-CL_Derived Cell Line_Metastatic	UM-Chor5C-CL	NA	NA	NA	no subtype to compare	NA
+PT_6ZENTV3N_UM-Chor5D-CL_Derived Cell Line_NA	UM-Chor5D-CL	NA	NA	NA	no subtype to compare	NA
+PT_89XRZBSG_7316-445_Derived Cell Line_Initial CNS Tumor_Serum-based_9	7316-445	HGG, H3 wildtype	lesion negative	HGG, MES	same group	NA
+PT_89XRZBSG_7316-445_Derived Cell Line_Initial CNS Tumor_Serum-free_12	7316-445	HGG, H3 wildtype	lesion negative	HGG, MES	same group	NA
+PT_8MDE46MC_U-CH14-CL_Derived Cell Line_Primary Tumor	U-CH14-CL	NA	NA	NA	no subtype to compare	NA
+PT_9BZETM0M_7316-158_Derived Cell Line_Initial CNS Tumor_Serum-free_25	7316-158	DHG, H3 G35-mutant	lesion fallback	DHG, H3 G35-mutant	same	shared: H3-3A p.G35R
+PT_9BZETM0M_7316-5317_Derived Cell Line_Recurrence_Serum-free_11	7316-5317	DHG, H3 G35-mutant	lesion fallback	DHG, H3 G35-mutant	same	shared: H3-3A p.G35R
+PT_9CQA1W10_7316-6349_Derived Cell Line_Deceased_Serum-free_7	7316-6349	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_A06JR0E5_CNMC-1034_Derived Cell Line_Initial CNS Tumor_Serum-based_27	CNMC-1034	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	not assessable (no RNA): ARHGAP42--YAP1; shared: H3-3A p.K28M
+PT_A9CDRD3E_U-CH7-CL_Derived Cell Line_Primary Tumor	U-CH7-CL	NA	NA	NA	no subtype to compare	NA
+PT_AZAJRK9Z_7316-7958_Derived Cell Line_Initial CNS Tumor_Serum-based_8	NA	NA	NA	NA	no subtype to compare	NA
+PT_BAH54SVM_7316-7965_Derived Cell Line_Initial CNS Tumor_Serum-based_10	7316-7965	MB, Group3	manual review	MB, Group3	same	not found in line: IMPG2 overexpression (z 4.5)
+PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-based_4	7316-1746	HGG, H3 wildtype	lesion negative	Rare CNS, DICER1 SARC	different	not found in line: DICER1 p.E1705K, DICER1 p.X884_splice
+PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-based_8	7316-1746	HGG, H3 wildtype	lesion negative	Rare CNS, DICER1 SARC	different	not found in line: DICER1 p.E1705K, DICER1 p.X884_splice
+PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-free_10	7316-1746	Rare CNS, DICER1 SARC	lesion fallback	Rare CNS, DICER1 SARC	same	shared: DICER1 p.E1705K, DICER1 p.X884_splice
+PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-free_14	7316-1746	Rare CNS, DICER1 SARC	lesion fallback	Rare CNS, DICER1 SARC	same	shared: DICER1 p.E1705K, DICER1 p.X884_splice
+PT_C9YDTZPA_CNMC-967_Derived Cell Line_Initial CNS Tumor_Serum-based_27	CNMC-967	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_CEWNZVKF_7316-124_Derived Cell Line_Initial CNS Tumor_Serum-based_5	7316-124	CRANIO, ADAM	pathology free text	CRANIO, ADAM	same	not found in line: CTNNB1 p.T41I
+PT_CTC9ZDNY_7316-7928_Derived Cell Line_Initial CNS Tumor_Serum-based_6	NA	NA	NA	NA	no subtype to compare	NA
+PT_D9H1C43M_CH22-CL_Derived Cell Line_Metastatic	CH22-CL	NA	NA	NA	no subtype to compare	NA
+PT_DWJRMYP8_U-CH1-CL_Derived Cell Line_Recurrence	U-CH1-CL	NA	NA	NA	no subtype to compare	NA
+PT_E99F32RF_7316-8121_Derived Cell Line_Initial CNS Tumor_Serum-free-1_6	7316-8121	HGG, H3 wildtype	lesion negative	HGG, H3 wildtype	same	NA
+PT_E99F32RF_7316-8121_Derived Cell Line_Initial CNS Tumor_Serum-free-2_6	7316-8121	HGG, H3 wildtype	lesion negative	HGG, H3 wildtype	same	NA
+PT_EN2RN5Y1_SF11385_Derived Cell Line_Initial CNS Tumor_NA_NA	SF11385	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_EVQZ62SE_7316-7924_Derived Cell Line_Initial CNS Tumor_Serum-based_6	7316-7924	CRANIO, ADAM	pathology free text	CRANIO, ADAM	same	not found in line: CTNNB1 p.G34R
+PT_FH0TJ5P2_7316-212_Derived Cell Line_Recurrence_Serum-based_6	7316-212	HGG, H3 wildtype	lesion negative	EPN, ST ZFTA	different	NA
+PT_FK7ZXG3E_Mug-CC1-CL_Derived Cell Line_Primary Tumor	Mug-CC1-CL	NA	NA	NA	no subtype to compare	NA
+PT_G16VK7FR_CNMC-1277_Derived Cell Line_Initial CNS Tumor_Serum-based_27	CNMC-1277	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3C2 p.K28M
+PT_GYSNY9G2_U-CH2-CL_Derived Cell Line_Recurrence	U-CH2-CL	NA	NA	NA	no subtype to compare	NA
+PT_HFQNKP5X_7316-4062_Derived Cell Line_Deceased_Serum-based_5	7316-4062	CHDM, poorly differentiated	manual review	CHDM, poorly differentiated	same	not found in line: TBXT overexpression (z 14.1), TBXT overexpression (z 14), TBXT overexpression (z 18.3)
+PT_HFQNKP5X_7316-4062_Derived Cell Line_Deceased_Serum-free_8	7316-4062	CHDM, poorly differentiated	manual review	CHDM, poorly differentiated	same	not found in line: TBXT overexpression (z 14.1), TBXT overexpression (z 14), TBXT overexpression (z 18.3)
+PT_HNZNZ635_7316-2151_Derived Cell Line_Progressive_Serum-based_11	7316-2151	HGG, H3 wildtype	lesion negative	Rare CNS, PATZ1-fused	different	not found in line: MN1--PATZ1
+PT_HNZNZ635_7316-2151_Derived Cell Line_Progressive_Serum-based_5	7316-2151	HGG, H3 wildtype	lesion negative	Rare CNS, PATZ1-fused	different	not found in line: MN1--PATZ1
+PT_JNEV57VK_7316-3058_Derived Cell Line_Progressive_Serum-based_0	7316-3058	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_JNEV57VK_7316-3058_Derived Cell Line_Progressive_Serum-based_7	7316-3058	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_JNEV57VK_7316-3058_Derived Cell Line_Progressive_Serum-free_0	7316-3058	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_JNEV57VK_7316-3058_Derived Cell Line_Progressive_Serum-free_8	7316-3058	DMG, H3 K28	pathology free text	DMG, H3 K28-mutant	same group	not assessable (no DNA): H3-3A p.K28M
+PT_JSFBMK5V_7316-1769_Derived Cell Line_Progressive_Serum-free_11	7316-1769	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_JXSTA5HB_7316-8128_Derived Cell Line_Recurrence_Serum-free-1_8	7316-8128	EPN, ST ZFTA	lesion fallback	EPN, ST ZFTA	same	shared: ZFTA--RELA
+PT_JXSTA5HB_7316-8128_Derived Cell Line_Recurrence_Serum-free-1_9	7316-8128	EPN, ST ZFTA	lesion fallback	EPN, ST ZFTA	same	shared: ZFTA--RELA
+PT_JXSTA5HB_7316-8128_Derived Cell Line_Recurrence_Serum-free-2_11	7316-8128	EPN, ST ZFTA	lesion fallback	EPN, ST ZFTA	same	shared: ZFTA--RELA
+PT_KBFM551M_7316-4447_Derived Cell Line_Initial CNS Tumor_Serum-free_0	7316-4447	DMG, H3 wildtype	manual review	DMG, H3 K28-altered, EZHIP;DMG, H3 wildtype	different	not assessable (no RNA): EZHIP overexpression
+PT_KEQ53KRH_7316-440_Derived Cell Line_Initial CNS Tumor_Serum-based_11	7316-440	DMG, H3 K28-altered, EGFR	lesion shared with tumor	DMG, H3 K28-altered, EGFR, EZHIP	same group	not assessable (no RNA): EZHIP overexpression; shared: EGFR p.A289V
+PT_KEQ53KRH_7316-440_Derived Cell Line_Initial CNS Tumor_Serum-free_21	7316-440	DMG, H3 K28-altered, EGFR, EZHIP	lesion shared with tumor	DMG, H3 K28-altered, EGFR, EZHIP	same	shared: EGFR p.A289V, EZHIP overexpression
+PT_KZ56XHJT_7316-3234_Derived Cell Line_Progressive_Serum-free_27	7316-3234	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_M9WKP8RF_7316-7919_Derived Cell Line_Initial CNS Tumor_Serum-based_6	7316-7919	CRANIO, ADAM	pathology free text	CRANIO, ADAM	same	not found in line: CTNNB1 p.T41I
+PT_MTVXXQTG_7316-8017_Derived Cell Line_Deceased_Serum-based_5	7316-8017	DMG, H3 K28	pathology free text	DMG, H3 K28-mutant	same group	not found in line: H3-3A p.K28M
+PT_NK8A49X5_7316-4448_Derived Cell Line_Progressive_Serum-free_27	7316-4448	DMG, H3 K28-mutant, EGFR	lesion fallback	DMG, H3 K28-mutant;DMG, H3 K28-mutant, EGFR	different	shared: EGFR amplification, H3-3A p.K28M
+PT_NME1D79F_7316-7963_Derived Cell Line_Recurrence_Serum-based_11	7316-7963	HGG, H3 wildtype	lesion negative	NA	no subtype to compare	NA
+PT_P571HTNK_7316-8851_Derived Cell Line_Initial CNS Tumor_Serum-free_9	7316-8851	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_P571HTNK_7316-9433_Derived Cell Line_Progressive_Serum-free_7	7316-9433	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_PAB4RZG2_U-CH12-CL_Derived Cell Line_Primary Tumor	U-CH12-CL	NA	NA	NA	no subtype to compare	NA
+PT_PMEXVDFJ_7316-4800_Derived Cell Line_Deceased_Serum-based_8	7316-4800	HGG, H3 wildtype	lesion negative	HGG, IHG, NTRK-altered	different	not assessable (no RNA): ETV6--NTRK3 fusion, NTRK3--ETV6 fusion
+PT_R4BMS5K3_JHC7-CL_Derived Cell Line_Unknown	JHC7-CL	NA	NA	NA	no subtype to compare	NA
+PT_V1HNAC2Q_7316-3240_Derived Cell Line_Initial CNS Tumor_Serum-free_0	7316-3240	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_VAJN5QP8_7316-2176_Derived Cell Line_Initial CNS Tumor_Serum-based_3	7316-2176	HGG, H3 wildtype	lesion negative	LGG, FGFR	different	not found in line: FGFR1 tandem duplication (SV)
+PT_VAJN5QP8_7316-2176_Derived Cell Line_Initial CNS Tumor_Serum-based_6	7316-2176	HGG, H3 wildtype	lesion negative	LGG, FGFR	different	not found in line: FGFR1 tandem duplication (SV)
+PT_VPEMAQBN_7316-3235_Derived Cell Line_Initial CNS Tumor_Serum-free_27	7316-3235	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3C2 p.K28M
+PT_VTM2STE3_7316-2189_Derived Cell Line_Progressive_Serum-based_13	7316-2189	HGG, H3 wildtype	lesion negative	HGG, H3 wildtype	same	NA
+PT_VTM2STE3_7316-2189_Derived Cell Line_Progressive_Serum-based_4	7316-2189	HGG, H3 wildtype	lesion negative	HGG, H3 wildtype	same	NA
+PT_WGVEF96B_7316-4446_Derived Cell Line_Initial CNS Tumor_Serum-free_27	7316-4446	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_XETT8T7M_U-CH17M-CL_Derived Cell Line_Metastatic	U-CH17M-CL	NA	NA	NA	no subtype to compare	NA
+PT_XETT8T7M_U-CH17P-CL_Derived Cell Line_Metastatic	U-CH17P-CL	NA	NA	NA	no subtype to compare	NA
+PT_XETT8T7M_U-CH17PII-CL_Derived Cell Line_Metastatic	U-CH17PII-CL	NA	NA	NA	no subtype to compare	NA
+PT_XETT8T7M_U-CH17S-CL_Derived Cell Line_Metastatic	U-CH17S-CL	NA	NA	NA	no subtype to compare	NA
+PT_XX33CWA3_U-CHCF365-CL_Derived Cell Line_Metastatic	U-CHCF365-CL	NA	NA	NA	no subtype to compare	NA
+PT_Y5KY6KN9_7316-195_Derived Cell Line_Initial CNS Tumor_Serum-based_11	7316-195	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_Y5KY6KN9_7316-195_Derived Cell Line_Initial CNS Tumor_Serum-based_4	7316-195	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_Y5KY6KN9_7316-195_Derived Cell Line_Initial CNS Tumor_Serum-free_14	7316-195	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_Y5KY6KN9_7316-195_Derived Cell Line_Initial CNS Tumor_Serum-free_8	7316-195	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_Y66SNKHR_Mug-Chor1-CL_Derived Cell Line_Recurrence	Mug-Chor1-CL	NA	NA	NA	no subtype to compare	NA
+PT_YJY2QXDM_U-CHCF359B-CL_Derived Cell Line_Metastatic	U-CHCF359B-CL	NA	NA	NA	no subtype to compare	NA
+PT_Z4BF2NSB_7316-161_Derived Cell Line_Initial CNS Tumor_Serum-based_12	7316-161	HGG, H3 wildtype	lesion negative	HGG, chr6 CTX	same group	NA
+PT_Z4BF2NSB_7316-5335_Derived Cell Line_Recurrence_Serum-free-2_7	7316-5335	HGG, H3 wildtype	lesion negative	HGG, chr6 CTX	same group	NA
+PT_Z4BF2NSB_7316-6477_Derived Cell Line_Deceased_Serum-free_11	7316-6477	HGG, H3 wildtype	lesion negative	HGG, chr6 CTX	same group	NA
+PT_Z4PJA6KT_7316-1763_Derived Cell Line_Initial CNS Tumor_Serum-based_3	7316-1763	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_Z4PJA6KT_7316-1763_Derived Cell Line_Initial CNS Tumor_Serum-based_8	7316-1763	HGG, H3 wildtype	lesion negative	DMG, H3 K28-mutant	different	not found in line: H3-3A p.K28M
+PT_Z4PJA6KT_7316-1763_Derived Cell Line_Initial CNS Tumor_Serum-free_8	7316-1763	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M
+PT_Z4PJA6KT_7316-1763_Derived Cell Line_Initial CNS Tumor_Serum-free_9	7316-1763	DMG, H3 K28-mutant	lesion fallback	DMG, H3 K28-mutant	same	shared: H3-3A p.K28M

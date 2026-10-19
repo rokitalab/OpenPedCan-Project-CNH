@@ -1,0 +1,4 @@
+Kids_First_Biospecimen_ID	sample_id	match_id	methyl_source	methyl_class	methyl_score	methylation_subtype	lesion_contradiction	pathology_diagnosis
+BS_D2VQ2Z01	7316-3402	PT_3AQ1YJTE_7316-3402_Solid Tissue_Initial CNS Tumor	nih_v3.1	PA MID	0.918	LGG, MAPK	CTNNB1 p.S33P (CRANIO, ADAM)	Craniopharyngioma
+BS_PRJ6VEZ8	7316-7113	PT_SYSCTVT8_7316-7113_Solid Tissue_Progressive	nih_v3.1	PA MID	0.976	LGG, MAPK	CTNNB1 p.S37C (CRANIO, ADAM)	Craniopharyngioma
+BS_20PJ16XZ	7316-166	PT_8GBF5MTD_7316-166_Solid Tissue_Initial CNS Tumor	nih_v3.1	PA PF TYP	0.919	LGG, BRAF/MAPK	CTNNB1 p.S33F (CRANIO, ADAM)	Craniopharyngioma

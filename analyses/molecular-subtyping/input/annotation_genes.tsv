@@ -1,0 +1,5 @@
+gene	applies_to_subtype_regex	alteration_pattern	chrom	start	end	note
+EGFR	^DMG	^p\.(A289[A-Z]|G598[A-Z])|^p\.[A-Z]7[6-8][0-9](_[A-Z]7[6-8][0-9])?(ins|dup)	chr7	55019017	55211628	EGFR alteration in DMG: amplification, A289/G598 missense, or exon 20 insertion/duplication (R108 and other coding variants are annotated in egfr_variants only); the DMG_EGFR methylation class is a separate variant of H3 K27-altered DMG
+ACVR1	^DMG	^p\.(R206H|Q207E|R258G|G328[VWE]|G356D|R375P)$	chr2	157736000	157876000	ACVR1 activating variant in DMG (R206H, Q207E, R258G, G328V/W/E, G356D, R375P hotspots); co-occurs with H3.1 K27M and is a DMG profile lesion (annotation, not a subtype criterion); other coding variants in acvr1_variants
+PPM1D	^DMG	fs\*|\*$	chr17	60600000	60665000	PPM1D truncating variant (frameshift or nonsense in the last exons, gain of function) in DMG; a DMG profile lesion (annotation, not a subtype criterion)
+PIK3CA	^DMG	^p\.(R88Q|E542K|E545K|H1047[RL])$	chr3	179148000	179240000	PIK3CA activating hotspot in DMG (R88Q, E542K, E545K, H1047R/L); a DMG profile lesion (annotation, not a subtype criterion)
