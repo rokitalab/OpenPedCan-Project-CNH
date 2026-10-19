@@ -1,6 +1,17 @@
 # Figures
 
-This directory contains the code required to generate individual panels for main and supplemental display items.
+This directory contains the shared plot theme for the OpenPedCan figures (`scripts/figure_theme.R`) and, in `deprecated/`, the figure scripts and `generate-figures.sh` inherited from OpenPBTA, which are deprecated and no longer maintained. The PDF and PNG panels that the OpenPBTA scripts produced were removed from the repository; `generate-figures.sh` recreates the `pdfs/` folders when it runs.
+
+The notes below describe the OpenPBTA workflow and are kept for reference.
+
+To use the repo theme in a plot script:
+
+```r
+source(file.path(root_dir, "figures", "scripts", "figure_theme.R"))
+ggplot(...) + theme_Publication()
+```
+
+`theme_Publication()` is the look of the manuscript theme on a white background (white panels, plot, legend keys and facet labels; black axis lines; light grey major grid lines).
 It is designed such that a single shell script will run all required data processing or analysis steps prior to plotting.
 There are two main strategies for creating individual panels: 1. scripts that are exclusively created for publication-ready display (located in `figures/scripts`) or 2. copying publication-ready plots that are generated within a given analysis module (i.e., `analyses`) to the correct location in `figures/`.
 
@@ -19,6 +30,7 @@ There are two main strategies for creating individual panels: 1. scripts that ar
   - [Documenting individual figures & scripts](#documenting-individual-figures--scripts)
 - [Figure Guidelines](#figure-guidelines)
   - [Color Palettes](#color-palettes)
+    - [Plot groups](#plot-groups)
     - [Updating color palettes](#updating-color-palettes)
     - [Examples palette usage in R](#examples-palette-usage-in-r)
       - [Example 1) Color coding by disease label in `ggplot2`](#example-1-color-coding-by-disease-label-in-ggplot2)
@@ -77,7 +89,7 @@ RUN_LOCAL=1 bash ../scripts/run-manuscript-analyses.sh
 
 _⚠️ This requires 64GB of RAM to run successfully! You can set `RUN_LOCAL=1` for local testing that skips the RAM-intensive steps._
 
-The script [`generate-figures.sh`](./generate-figures.sh) runs all scripts in [`figures/scripts/`](./scripts/) to generate manuscript-ready figure panels, as well as copies certain panels from analyses that are meant for the manuscript.
+The script [`generate-figures.sh`](./deprecated/generate-figures.sh) runs all scripts in [`figures/deprecated/`](./deprecated/) to generate manuscript-ready figure panels, as well as copies certain panels from analyses that are meant for the manuscript.
 This script will also specifically check for the presence of necessary `scratch/` directory input files, which should have been generated with `../scripts/run-manuscript-analyses.sh` before running this script.
 If necessary `scratch/` files are missing, this script will error out; if necessary `scratch/` files are older than 10 days, a warning will be printed that files may be out of date.
 No further checks are performed.
@@ -85,14 +97,14 @@ Resulting figure panels are all saved as PDF files in [`figures/pdfs/`](./figure
 Generate all figure panels via:
 
 ```bash
-bash ./generate-figures.sh
+bash ./deprecated/generate-figures.sh
 ```
 
 Again, to run only analyses that do not have signficant memory requirements, set the flag `RUN_LOCAL=1`:
 
 
 ```
-RUN_LOCAL=1 bash ./generate-figures.sh
+RUN_LOCAL=1 bash ./deprecated/generate-figures.sh
 ```
 
 
@@ -100,7 +112,7 @@ In some cases, the shell script will copy plots to the appropriate locations in 
 
 ## Adding or updating figures
 
-All figures need to adhere to [the guidelines in this README](#figure-guidelines) and need to be generated, including any upstream steps, via `figures/generate-figures.sh`.
+All figures need to adhere to [the guidelines in this README](#figure-guidelines) and need to be generated, including any upstream steps, via `figures/deprecated/generate-figures.sh`.
 This section includes details for file organization and guidelines that are not covered in the section on style.
 
 ### Individual panels and where to find them
@@ -126,7 +138,7 @@ PNGs version can be linked in the accompanying manuscript repository [`AlexsLemo
 Each figure should include its own associated README in the appropriate PDF subdirectory, e.g., the documentation for Figure 4 can be found in `figures/pdfs/fig4/README.md`.
 That README should detail what analysis modules or individual scripts are required to generate the individual panels for that figure.
 
-Scripts that are exclusively for creating publication-ready plots, both main text and supplementary, are available in `figures/scripts` and should be documented in the `figures/scripts/README.md`.
+Scripts that are exclusively for creating publication-ready plots, both main text and supplementary, were in `figures/scripts` and are now in `figures/deprecated` (documented in `figures/deprecated/README.md`).
 Scripts should generally begin with which figure(s) they are generating panels for, e.g. a script whose name begins with `fig4-` makes one or more panels for Figure 4, and a script whose name begins with `fig5_figS6` makes one or more panels for both Figures 5 and S6.
 
 
@@ -157,6 +169,14 @@ To see a summary of what colors are used for histology labeling, see [`mapping-h
 _⚠️ `histology_label_color_table.tsv` is a deprecated version of the palettes used for `broad_histology` and `cancer_group`._
 _It has been retained, for the moment, to prevent the introduction of breaking changes to multiple analysis modules._
 _It is not to be used for any future development and the relationships between individual biospecimens and disease labels may be out of date._
+
+#### Plot groups
+
+Figures group the tumors with `figures/palettes/plot-mapping.tsv`, read through `figures/scripts/plot_group.R` (`add_plot_group()`): a cohort, a broad histology and a cancer group (as in the integrated histologies table) map to a plot group, with its display name, abbreviation and colors, so every figure groups the tumors the same way. The table is for the PBTA, TARGET and GMKF cohorts; DGD, TCGA, PPTC, Maris and CPTAC are not in it.
+
+- `figures/scripts/extend-plot-mapping.R` adds the rows that a new combination needs (each with a `status` saying how its plot group was chosen, to review), removes the rows that no tumor has any more, and writes the hex codes in capitals. It reads `analyses/molecular-subtyping-integrate/results/histologies.tsv`.
+- The neuroblastic tumors (neuroblastoma, ganglioneuroblastoma, ganglioneuroma) are one plot group, `Neuroblastoma`, abbreviated `NBL`. The TARGET leukemias, kidney tumors and osteosarcoma are their own plot groups. The colors of those groups are the TAPESTRY colors of OpenPedCanExpress (`public/tapestry-colors.js`); the PBTA plot groups keep their original colors.
+- `figures/scripts/plot-palette.R` plots the plot groups next to their colors and the number of tumors (`figures/plots/plot-group-palette.pdf`), and lists the closest pair of colors.
 
 #### Updating color palettes
 
