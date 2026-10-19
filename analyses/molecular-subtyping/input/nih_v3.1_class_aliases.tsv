@@ -1,0 +1,20 @@
+nih_v3.1_subclass	dkfz_v12.8_subclass	arrays_both_high	arrays_agreeing	note
+PA PF TYP	PA_INF	108	110	infratentorial pilocytic astrocytoma
+EPN ST ZFTA RELA	EPN_ST_ZFTA_RELA_A	51	55	both DKFZ RELA subclasses are EPN, ST ZFTA
+MB G4 V	MB_G34_V	10	10	
+MB G4 VI	MB_G34_VI	2	2	
+MB G4 VII	MB_G34_VII	39	39	
+MB G4 VIII	MB_G34_VIII	38	38	
+MB G3 I	MB_G34_I	2	2	
+MB G3 II	MB_G34_II	18	18	
+MB G3 III	MB_G34_III	18	18	
+MB G3 IV	MB_G34_IV	11	11	
+DNT	DNET	27	27	NIH abbreviation for dysembryoplastic neuroepithelial tumor
+PA ST	PA_CORT	22	23	supratentorial pilocytic astrocytoma
+EPN MPE A	EPN_MPE	7	7	
+EPN MPE B	EPN_MPE	9	9	
+EPN ST YAP	EPN_YAP	3	3	
+PB GROUP 1A	PB_GRP1A	6	6	
+PB GROUP 2	PB_GRP2	3	3	
+PB MYC/FOXR2	PB_FOXR2	4	4	
+ETMR non-C19MC	ETMR_Atyp	6	6	
