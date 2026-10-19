@@ -60,7 +60,7 @@ mb_rna_ids <- mb_biospecimens %>%
   filter(experimental_strategy == "RNA-Seq") %>%
   pull(Kids_First_Biospecimen_ID) %>%
   intersect(colnames(expr))
-mb_classified <- medulloPackage::classify(log2(expr[, mb_rna_ids] + 1)) %>%
+mb_classified <- medulloPackage::classify(log2(expr[, mb_rna_ids, drop = FALSE] + 1)) %>%
   arrange(sample)
 write_tsv(mb_classified, file.path(results_dir, "mb_expression_classifier.tsv"))
 
@@ -365,8 +365,16 @@ germline <- germline %>%
   pivot_wider(names_from = gene_symbol_vep, values_from = consequence) %>%
   rename_with(~paste0(., "_germline_plp"), -1)
 
+# a gene without a germline P/LP variant in the data has no column after the pivot (the
+# small testing data have none): the columns used below always exist
+for (germline_gene in c("ELP1", "PTCH1", "SUFU", "TP53")) {
+  germline_col <- paste0(germline_gene, "_germline_plp")
+  if (!germline_col %in% names(germline)) germline[[germline_col]] <- NA_character_
+}
+
 genes_of_interest = c("MYCN", "GLI2", "CCND2", "PTEN", "TP53")
-subset_expr <- expr[genes_of_interest, mb_shh_data$Kids_First_Biospecimen_ID[mb_shh_data$Kids_First_Biospecimen_ID %in% colnames(expr)]]
+# drop = FALSE: with one array a matrix (data frame) would drop to a vector
+subset_expr <- expr[genes_of_interest, mb_shh_data$Kids_First_Biospecimen_ID[mb_shh_data$Kids_First_Biospecimen_ID %in% colnames(expr)], drop = FALSE]
 
 # calculate max TPM per match ID and calculate z-scores
 expr_df <- as.data.frame(t(subset_expr)) %>%
