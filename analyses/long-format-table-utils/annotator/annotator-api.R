@@ -313,7 +313,7 @@ annotate_long_format_table <- function(
   if ("Gene_type" %in% columns_to_add) {
     ann_tbl_l$gene_type <- init_ann_tbl_l_element(
       file_path = file.path(
-        root_dir, "analyses", "fusion_filtering", "references",
+        root_dir, "analyses", "long-format-table-utils", "references",
         "genelistreference.txt"),
       join_by_column = "Gene_symbol"
     )

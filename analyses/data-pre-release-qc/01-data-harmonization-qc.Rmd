@@ -540,10 +540,29 @@ hist_ids <- hist_df %>%
   dplyr::filter(experimental_strategy == "Methylation") %>%
   dplyr::pull(Kids_First_Biospecimen_ID)
 
+# Probe IDs and array (biospecimen) IDs of a methylation matrix. The parquet
+# copy (data/parquet/<matrix>.parquet) is queried when it exists, so the matrix
+# is not read into memory; otherwise the RDS is read.
+methyl_matrix_ids <- function(name) {
+  parquet_file <- file.path(data_dir, "parquet", paste0(name, ".parquet"))
+  if (file.exists(parquet_file)) {
+    con <- DBI::dbConnect(duckdb::duckdb())
+    on.exit(DBI::dbDisconnect(con, shutdown = TRUE))
+    src <- sprintf("read_parquet('%s')", normalizePath(parquet_file))
+    list(
+      probe_ids = DBI::dbGetQuery(
+        con, sprintf("SELECT DISTINCT Probe_ID FROM %s", src))$Probe_ID,
+      array_ids = setdiff(DBI::dbGetQuery(
+        con, sprintf("DESCRIBE SELECT * FROM %s", src))$column_name, "Probe_ID"))
+  } else {
+    mat <- readr::read_rds(file.path(data_dir, paste0(name, ".rds")))
+    list(probe_ids = unique(mat$Probe_ID),
+         array_ids = setdiff(colnames(mat), "Probe_ID"))
+  }
+}
+
 # check that all methylation biospecimen IDs are in the beta-values methylation matrix
-biospecimen_ids <- readr::read_rds(file.path(data_dir, "methyl-beta-values.rds")) %>%
-  dplyr::select(-Probe_ID) %>%
-  colnames()
+biospecimen_ids <- methyl_matrix_ids("methyl-beta-values")$array_ids
 missing_ids <- setdiff(hist_ids, biospecimen_ids)
 missing_hist_ids <- setdiff(biospecimen_ids, hist_ids)
 if (length(missing_ids) > 0) {
@@ -564,9 +583,7 @@ print(paste("Methylation biospecimen in methyl-beta-values.rds missing in histol
 - M-values matrix (methyl-m-values.rds)
 ```{r M-matrix}
 # check that all methylation biospecimen IDs are in the m-values methylation matrix
-biospecimen_ids <- readr::read_rds(file.path(data_dir, "methyl-m-values.rds")) %>%
-  dplyr::select(-Probe_ID) %>%
-  colnames()
+biospecimen_ids <- methyl_matrix_ids("methyl-m-values")$array_ids
 missing_ids <- setdiff(hist_ids, biospecimen_ids)
 missing_hist_ids <- setdiff(biospecimen_ids, hist_ids)
 if (length(missing_ids) > 0) {
@@ -587,9 +604,7 @@ print(paste("Methylation biospecimen in methyl-m-values.rds missing in histolgie
 - CN-values matrix (methyl-m-values.rds)
 ```{r CN methyl}
 # check that all methylation biospecimen IDs are in the m-values methylation matrix
-biospecimen_ids <- readr::read_rds(file.path(data_dir, "methyl-cn-values.rds")) %>%
-  dplyr::select(-Probe_ID) %>%
-  colnames()
+biospecimen_ids <- methyl_matrix_ids("methyl-cn-values")$array_ids
 missing_ids <- setdiff(hist_ids, biospecimen_ids)
 missing_hist_ids <- setdiff(biospecimen_ids, hist_ids)
 if (length(missing_ids) > 0) {
@@ -614,22 +629,19 @@ print(paste("Methylation biospecimen in methyl-cn-values.rds missing in histolgi
 # beta-values matrix
 beta_values <-
   tibble::tibble(beta_values =
-    readr::read_rds(file.path(data_dir, "methyl-beta-values.rds")) %>%
-      dplyr::pull(Probe_ID) %>% unique()) %>%
+    methyl_matrix_ids("methyl-beta-values")$probe_ids) %>%
   dplyr::mutate(probe_id = beta_values)
 
 # m-values matrix
 m_values <-
   tibble::tibble(m_values =
-    readr::read_rds(file.path(data_dir, "methyl-m-values.rds")) %>%
-      dplyr::pull(Probe_ID) %>% unique()) %>%
+    methyl_matrix_ids("methyl-m-values")$probe_ids) %>%
   dplyr::mutate(probe_id = m_values)
 
 # cn-values matrix
 cn_values <-
   tibble::tibble(cn_values =
-    readr::read_rds(file.path(data_dir, "methyl-cn-values.rds")) %>%
-      dplyr::pull(Probe_ID) %>% unique()) %>%
+    methyl_matrix_ids("methyl-cn-values")$probe_ids) %>%
   dplyr::mutate(probe_id = cn_values)
 
 # merge and list differences
