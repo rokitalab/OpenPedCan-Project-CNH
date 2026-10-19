@@ -1,0 +1,140 @@
+---
+title: "Comparison of Expected and Observed MB Subtype Classification"
+output:
+  html_document:
+    df_print: paged
+params:
+  expected_input:
+    value: input/pbta-mb-pathology-subtypes.tsv
+  observed_input:
+    value: results/mb-classified.rds
+---
+  
+```{r include = FALSE}
+knitr::opts_chunk$set(comment = NA)
+getOption(x = 'DT.warn.size', default = FALSE)
+```
+
+#### Code:
+
+<details><summary>Load libraries</summary>
+```{r load_packages, echo = TRUE}
+# load libraries
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(knitr)
+  library(DT)
+  library(plyr)
+})
+```
+</details>
+
+<details><summary>Directories</summary>
+```{r}
+# set data directory
+root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
+data_dir <- file.path(root_dir, "data")
+
+# set results directory
+results_dir <- file.path(root_dir, "analyses", "molecular-subtyping-MB", "results")
+
+# this file was created in the 01-filter-and-batch-correction.R
+subset_clin_file <- file.path("input", "subset-mb-clinical.tsv")
+```
+
+</details>
+
+<details><summary>Read input</summary>
+```{r read_data, echo = TRUE}
+# read in subset clinical mb file that was created in 01-filter-and-batch-correction.R
+subset_clin <- read.delim(subset_clin_file)
+
+exp_class <- read_tsv(params$expected_input)
+obs_class <- readRDS(params$observed_input)
+
+# format ambiguous expected classes 
+exp_class <- exp_class %>%
+  mutate(pathology_subtype = recode(pathology_subtype, 
+                                    "non-WNT" = "SHH, Group3, Group4", 
+                                    "Group 3 or 4" = "Group3, Group4")) %>%
+  mutate(pathology_subtype = gsub(" ", "", pathology_subtype))
+```
+</details>
+
+<details><summary>Data Table</summary>
+```{r data_table, echo = TRUE}
+# custom datatable function
+viewDataTable <- function(dat){
+  DT::datatable(dat,
+                rownames = FALSE,
+                filter = "top",
+                class = 'cell-border stripe',
+                options = list(pageLength = 5,
+                               searchHighlight = TRUE,
+                               scrollX = TRUE,
+                               dom = 'tpi',
+                               initComplete = JS("function(settings, json) {",
+                                                 "$(this.api().table().header()).css({'background-color':
+                                            '#004467', 'color': '#fff'});","}"))
+  )
+}
+```
+</details>
+
+<details><summary>Merge expected and observed class + compute accuracy </summary>
+```{r compute_accuracy, echo = TRUE}
+# function for merging expected and observed subtypes and returning accuracy
+compute_accuracy <- function(expected_input, observed_input){
+  # merge expected and observed subtypes
+  merged_table <- expected_input %>%
+    left_join(observed_input, by = c('Kids_First_Biospecimen_ID' = 'sample')) %>%
+    mutate(match = str_detect(pathology_subtype, best.fit))
+  merged_table$sample_id <- as.factor(merged_table$sample_id)
+  
+  # compute accuracy
+  accuracy <- merged_table %>%
+    filter(!is.na(pathology_subtype)) %>%
+    group_by(match) %>%
+    dplyr::summarise(n = n()) %>%
+    mutate(Accuracy = paste0(round(n/sum(n)*100, 2), '%')) %>%
+    filter(match) %>%
+    .$Accuracy
+   
+  # return both as list
+  output <- list(merged_table = merged_table, accuracy = accuracy)
+  return(output)
+}
+```
+</details>
+
+#### Details:
+
+* % Accuracy is currently being calculated by matching observed and expected subtypes where expected subtype info is available. In case of ambiguous subtypes, we treat it as a match if the observed subtype matches with any one of the expected subtypes.
+
+* Pathology report has subtype information on 43/122 (35.2%) samples. Following is the breakdown of pathology identified subtypes: 
+
+```{r, echo=FALSE}
+exp_count  <- exp_class %>% 
+  group_by(pathology_subtype) %>% 
+  tally()
+viewDataTable(exp_count)
+```
+
+#### Individual classifier and Consensus outputs:
+
+## {.tabset .tabset-fade}
+
+### medulloPackage
+
+```{r, echo = TRUE, warning = FALSE, message = FALSE}
+out <- compute_accuracy(expected_input = exp_class, 
+                        observed_input = obs_class$medulloPackage)
+
+# accuracy
+medulloPackage_accuracy <- out$accuracy
+print(paste0("Accuracy: ", medulloPackage_accuracy))
+
+# output table
+medulloPackage_output <- out$merged_table
+viewDataTable(medulloPackage_output)
+```

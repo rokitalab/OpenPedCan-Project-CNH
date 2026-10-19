@@ -1,0 +1,409 @@
+---
+title: 'Create MB SHH methylation UMAP'
+output: 
+  html_document:
+  toc: TRUE
+toc_float: TRUE
+author: Ryan Corbett
+date: "2024"
+---
+
+Load libraries and set directory paths
+
+```{r}
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(umap)
+  library(ggplot2)
+  library(devtools)
+  library(gdata)
+  library(ggpubr)
+  library(patchwork)
+})
+
+root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
+
+data_dir <- file.path(root_dir, "data")
+analysis_dir <- file.path(root_dir, "analyses", "molecular-subtyping-MB")
+results_dir <- file.path(analysis_dir, "results")
+input_dir <- file.path(analysis_dir, "input")
+plots_dir <- file.path(analysis_dir, "plot")
+
+source(file.path(root_dir, "figures", "manuscript_OPC", "utils", "theme_for_plot.R"))
+```
+
+Set file paths
+
+```{r}
+hist_file <- file.path(data_dir, "histologies.tsv")
+methyl_file <- file.path(data_dir, "methyl-beta-values.rds")
+mb_shh_file <- file.path(results_dir, "mb_shh_subtypes_w_molecular_data.tsv")
+```
+
+Wrangle data. We will remove sample IDs from `mb_shh_subtypes` for which a high confidence methylation call indicates a non-MB tumor (to be further pathologically reviewed).  
+
+```{r get methyl ids}
+hist <- read_tsv(hist_file)
+
+mb_shh_subtypes <- read_tsv(mb_shh_file) %>%
+  dplyr::filter(!sample_id %in% c("7316-1884", "7316-1676",
+                     "7316-1666", "7316-3202"))
+```
+
+Filter hist for mb shh methyl samples, and append to subtype df
+
+```{r}
+hist_mb_methyl <- hist %>%
+  dplyr::filter(pathology_diagnosis == "Medulloblastoma",
+                experimental_strategy == "Methylation") %>%
+  dplyr::rename(Kids_First_Biospecimen_ID_methyl = Kids_First_Biospecimen_ID)
+
+mb_shh_subtypes <- mb_shh_subtypes %>%
+  left_join(hist_mb_methyl %>%
+              dplyr::select(match_id, Kids_First_Biospecimen_ID_methyl)) %>%
+  dplyr::filter(!is.na(Kids_First_Biospecimen_ID_methyl)) %>%
+  distinct(match_id, Kids_First_Biospecimen_ID_methyl, .keep_all = TRUE) %>%
+  # redefine un-subtyped samples as "unk"
+  dplyr::mutate(molecular_subtype = case_when(
+    molecular_subtype == "MB, SHH" ~ "MB, SHH unk",
+    TRUE ~ molecular_subtype
+  )) %>%
+  dplyr::mutate(molecular_subtype = fct_relevel(molecular_subtype,
+                                               c("MB, SHH alpha", "MB, SHH beta",
+                                                 "MB, SHH gamma", "MB, SHH delta",
+                                                 "MB, SHH unk")))
+```
+
+Get number of samples by MB SHH subtype
+
+```{r}
+table(mb_shh_subtypes$SHH_subtype)
+```
+
+Load methylation data and filter for ids in `mb_shh_subtypes`
+
+```{r load methyl}
+methyl <- readRDS(methyl_file)
+
+mb_methyl <- methyl[,colnames(methyl) %in% c("Probe_ID", hist_mb_methyl$Kids_First_Biospecimen_ID_methyl)]
+
+mb_methyl <- mb_methyl %>%
+  distinct(Probe_ID, .keep_all = TRUE) %>%
+  column_to_rownames("Probe_ID")
+```
+
+Identify 20k most variable probes among MB samples
+
+```{r}
+mb_methyl_var <- apply(mb_methyl, 1, var, na.rm = TRUE)
+
+mb_var_probes <- names(sort(mb_methyl_var, decreasing = TRUE)[1:20000])
+```
+
+Generate UMAP results
+
+```{r}
+set.seed(2024)
+
+mb_umap_results <- umap::umap(t(mb_methyl[mb_var_probes, ]))
+mb_umap_plot_df <- data.frame(mb_umap_results$layout) %>%
+  tibble::rownames_to_column("Kids_First_Biospecimen_ID_methyl") %>%
+  left_join(hist_mb_methyl)
+```
+
+Plot UMAP with molecular subtype and age range 
+
+```{r}
+umap_mb <-  ggplot(mb_umap_plot_df, aes(x = X1, 
+             y = X2,
+             color = molecular_subtype)) +
+  geom_point(alpha = 0.7) +
+  labs(color = "molecular subtype") +
+  theme_bw() +
+  xlab("UMAP1") +
+  ylab("UMAP2") +
+  theme_Publication() 
+
+ggsave(file.path(plots_dir, "umap_mb.pdf"),
+       umap_mb,
+       width = 6, height = 4)
+```
+
+Identify 20k most variable probes among MB Group 3/4 samples
+
+```{r}
+g34_samples <- hist_mb_methyl %>%
+  dplyr::filter(molecular_subtype %in% c("MB, Group3", "MB, Group4")) %>%
+  pull(Kids_First_Biospecimen_ID_methyl)
+
+mb_g34_methyl_var <- apply(mb_methyl[,colnames(mb_methyl) %in% g34_samples], 1, var, na.rm = TRUE)
+
+mb_g34_var_probes <- names(sort(mb_g34_methyl_var, decreasing = TRUE)[1:20000])
+```
+
+Generate UMAP results
+
+```{r}
+mb_g34_umap_results <- umap::umap(t(mb_methyl[mb_g34_var_probes, colnames(mb_methyl) %in% g34_samples]))
+mb_g34_umap_plot_df <- data.frame(mb_g34_umap_results$layout) %>%
+  tibble::rownames_to_column("Kids_First_Biospecimen_ID_methyl") %>%
+  left_join(hist_mb_methyl)
+```
+
+Plot UMAP with molecular subtype and methylation subtype 
+
+```{r}
+mb_g34_umap_plot_df %>%
+  dplyr::filter(grepl("MB_G34", dkfz_v12_methylation_subclass))  %>%
+  ggplot(aes(x = X1, 
+             y = X2,
+             color = dkfz_v12_methylation_subclass,
+             shape = molecular_subtype)) +
+  geom_point(alpha = 0.7) +
+  labs(color = "methylation subtype",
+       shape = "molecular subtype") +
+  xlab("UMAP1") +
+  ylab("UMAP2")  +
+  theme_Publication() 
+
+ggsave(file.path(plots_dir, "umap_mb_group34.pdf"),
+       width = 6, height = 4)
+```
+
+Identify 20k most variable probes among MB SHH samples
+
+```{r}
+mb_shh_methyl_var <- apply(mb_methyl[,colnames(mb_methyl) %in% mb_shh_subtypes$Kids_First_Biospecimen_ID_methyl], 1, var, na.rm = TRUE)
+
+mb_shh_var_probes <- names(sort(mb_shh_methyl_var, decreasing = TRUE)[1:20000])
+```
+
+Generate UMAP df 
+
+```{r}
+mb_shh_umap_results <- umap::umap(t(mb_methyl[mb_shh_var_probes, colnames(mb_methyl) %in% mb_shh_subtypes$Kids_First_Biospecimen_ID_methyl]))
+mb_shh_umap_plot_df <- data.frame(mb_shh_umap_results$layout) %>%
+  tibble::rownames_to_column("Kids_First_Biospecimen_ID_methyl") %>%
+  inner_join(mb_shh_subtypes)
+
+mb_shh_umap_plot_df <- mb_shh_umap_plot_df %>%
+  dplyr::mutate(age_range = case_when(
+    age_at_diagnosis_years < 5 ~ "(0,5)",
+    age_at_diagnosis_years < 10 ~ "[5,10)",
+    age_at_diagnosis_years < 15 ~ "[10,15)",
+    TRUE ~ ">=15"
+  )) %>%
+  dplyr::mutate(age_range = fct_relevel(age_range,
+                                        c("(0,5)", "[5,10)",
+                                          "[10,15)", ">=15"))) %>%
+  dplyr::mutate(consensus_CN_MYCN = case_when(
+    is.na(consensus_CN_MYCN) ~ "neutral",
+    TRUE ~ consensus_CN_MYCN
+  )) %>%
+    dplyr::mutate(consensus_CN_GLI2 = case_when(
+    is.na(consensus_CN_GLI2) ~ "neutral",
+    TRUE ~ consensus_CN_GLI2
+  )) %>%
+    dplyr::mutate(consensus_CN_CCND2 = case_when(
+    is.na(consensus_CN_CCND2) ~ "neutral",
+    TRUE ~ consensus_CN_CCND2
+  )) %>%
+    dplyr::mutate(consensus_CN_PTEN = case_when(
+    is.na(consensus_CN_PTEN) ~ "neutral",
+    TRUE ~ consensus_CN_PTEN
+  )) %>%
+  dplyr::mutate(classification_source = case_when(
+    classification_source == "Genomic/Expression" ~ "Molecular",
+    is.na(classification_source) ~ "Unavailable",
+    TRUE ~ classification_source
+  )) %>%
+  write_tsv(file.path(results_dir, "mb_shh_subtypes_w_molecular_umap_data.tsv"))
+```
+
+Plot UMAP with molecular subtype, classification source, and age range 
+
+```{r}
+umap_mb_shh <-  ggplot(mb_shh_umap_plot_df, aes(x = X1, 
+             y = X2,
+             color = molecular_subtype,
+             size = age_range,
+             shape = classification_source)) +
+  geom_point(alpha = 0.7) +
+  labs(color = "SHH subgroup",
+       size = "age range (years)",
+       shape = "classifcation source") +
+  xlab("UMAP1") +
+  ylab("UMAP2") +
+  # colors to match subtypes in Garcia-Lopez 2020 review
+  scale_color_manual(values = c("aquamarine3", "goldenrod2", 
+                                "royalblue1", "plum4",
+                                "gray")) +
+  guides(color = guide_legend(order = 1),
+         shape  = guide_legend(order = 2),
+         size  = guide_legend(order = 3))  +
+  theme_Publication()
+
+ggsave(file.path(plots_dir, "umap_mb_shh.pdf"),
+       umap_mb_shh,
+       width = 6.5, height = 4.5)
+```
+
+Plot UMAP with methylation subtype and methylation score
+
+```{r}
+mb_shh_umap_plot_df %>%
+  dplyr::filter(grepl("MB", dkfz_v12_methylation_subclass_collapsed)) %>%
+  
+  ggplot(aes(x = X1, 
+             y = X2,
+             color = dkfz_v12_methylation_subclass_collapsed,
+             alpha = dkfz_v12_methylation_subclass_score_mean)) +
+  geom_point(size = 3) +
+  labs(color = "methylation subtype",
+       alpha = "methylation subtype score") +
+  theme_bw() +
+  xlab("UMAP1") +
+  ylab("UMAP2") +
+  # colors to match subtypes in Garcia-Lopez 2020 review
+  scale_color_manual(values = c("goldenrod2", "royalblue1",
+                                "aquamarine3", "plum4"))  +
+  theme_Publication()
+
+ggsave(file.path(plots_dir, "umap_mb_shh_methylation_subtype.pdf"),
+       width = 6.5, height = 4)
+```
+
+Plot UMAP with CN status for MYCN, GLI2, CCND2, and PTEN
+
+```{r}
+umap_plot_cn_df <- mb_shh_umap_plot_df %>%
+  dplyr::select(molecular_subtype, X1, X2,
+                consensus_CN_MYCN,
+                consensus_CN_GLI2,
+                consensus_CN_CCND2,
+                consensus_CN_PTEN) %>%
+  dplyr::rename(MYCN = consensus_CN_MYCN,
+                GLI2 = consensus_CN_GLI2,
+                CCND2 = consensus_CN_CCND2,
+                PTEN = consensus_CN_PTEN) %>%
+  gather(key = "gene_name", value = "CN_status",
+         -molecular_subtype, -X1, -X2)
+
+umap_mb_shh_cn <- ggplot(umap_plot_cn_df, aes(x = X1, 
+             y = X2,
+             color = molecular_subtype,
+             shape = CN_status)) +
+  geom_point(alpha = 0.7, size = 3) +
+  labs(color = "SHH subgroup",
+       shape = "CN status") +
+  facet_wrap(~gene_name, nrow = 1) +
+  xlab("UMAP1") +
+  ylab("UMAP2") +
+  # colors to match subtypes in Garcia-Lopez 2020 review
+  scale_color_manual(values = c("aquamarine3", "goldenrod2", 
+                                "royalblue1", "plum4",
+                                "gray"))  +
+  theme_Publication()
+
+ggsave(file.path(plots_dir, "umap_mb_shh_cn_status.pdf"),
+       umap_mb_shh_cn,
+       width = 10, height = 4)
+```
+
+Plot UMAP with TP53 alteration status
+
+```{r}
+mb_shh_umap_plot_df %>%
+  ggplot(aes(x = X1, 
+             y = X2,
+             color = molecular_subtype,
+             shape = tp53_status)) +
+  geom_point(alpha = 0.7, size = 3) +
+  labs(color = "SHH subgroup",
+       shape = "TP53 status") +
+  xlab("UMAP1") +
+  ylab("UMAP2") +
+  # colors to match subtypes in Garcia-Lopez 2020 review
+  scale_color_manual(values = c("aquamarine3", "goldenrod2", 
+                                "royalblue1", "plum4",
+                                "gray"))  +
+  theme_Publication()
+
+ggsave(file.path(plots_dir, "umap_mb_shh_tp53_status.pdf"),
+       width = 5.5, height = 3.5)
+```
+
+Merge MB, MB SHH, and MB SHH + CN UMAPs into single figure and save
+
+```{r}
+# Combine the plots with patchwork
+umap_mb_resize<- umap_mb +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+umap_mb_shh_resize <- umap_mb_shh +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+umap_mb_shh_cn_resize <- umap_mb_shh_cn +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 10))
+
+merged_plot <- (umap_mb_resize + umap_mb_shh_resize) / umap_mb_shh_cn_resize +
+               plot_annotation(tag_levels = 'A') &
+  theme(plot.tag = element_text(face = "bold"))
+
+# Save the plot
+ggsave(
+  filename = file.path(root_dir, "figures", "manuscript_OPC", "figure3", "Figure3.png"),
+  plot = merged_plot,
+  width = 11,
+  height = 8.5
+)
+```
+
+Identify 20k most variable probes among MB WNT samples
+
+```{r}
+wnt_samples <- hist_mb_methyl %>%
+  dplyr::filter(molecular_subtype %in% c("MB, WNT")) %>%
+  pull(Kids_First_Biospecimen_ID_methyl)
+
+mb_wnt_methyl_var <- apply(mb_methyl[,colnames(mb_methyl) %in% wnt_samples], 1, var, na.rm = TRUE)
+
+mb_wnt_var_probes <- names(sort(mb_wnt_methyl_var, decreasing = TRUE)[1:20000])
+```
+
+Generate UMAP df
+
+```{r}
+set.seed(2024)
+
+mb_wnt_umap_results <- umap::umap(t(mb_methyl[mb_wnt_var_probes, colnames(mb_methyl) %in% wnt_samples]))
+mb_wnt_umap_plot_df <- data.frame(mb_wnt_umap_results$layout) %>%
+  tibble::rownames_to_column("Kids_First_Biospecimen_ID_methyl") %>%
+  left_join(hist_mb_methyl)
+
+```
+
+Plot UMAP with methylation subtype 
+
+```{r}
+mb_wnt_umap_plot_df %>%
+  ggplot(aes(x = X1, 
+             y = X2,
+             color = dkfz_v12_methylation_subclass)) +
+  geom_point(alpha = 0.7, size = 3) +
+  labs(color = "methylation subtype") +
+  theme_bw() +
+  xlab("UMAP1") +
+  ylab("UMAP2") +
+  theme_Publication()
+
+ggsave(file.path(plots_dir, "umap_mb_wnt.pdf"),
+       width = 5.5, height = 3.5)
+```
+
+```{r}
+sessionInfo()
+```

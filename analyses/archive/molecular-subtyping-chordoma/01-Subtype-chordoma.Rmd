@@ -1,0 +1,198 @@
+---
+title: "Subtyping chordoma"
+output: html_notebook
+author: Mateusz Koptyra 
+date: 20191121
+---
+
+This notebook prepares _SMARCB1_ copy number and expression data for chordoma samples for the purpose of identifying poorly-differentiated chordoma samples, which are characterized by loss of _SMARCB1_.
+
+## Set up
+
+```{r}
+library(dplyr)
+library(readr)
+library(ggplot2)
+```
+
+### Read in data
+
+```{r}
+# File path to subsetted files directory
+root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
+data_dir <- file.path(root_dir, "data")
+scratch_dir <-  file.path(root_dir, "scratch")
+analysis_dir <- file.path(root_dir, "analyses", "molecular-subtyping-chordoma")
+input_dir <- file.path(analysis_dir, "chordoma-subset")
+results_dir <- file.path(analysis_dir, "results")
+if (!dir.exists(results_dir)) {
+  dir.create(results_dir)
+}
+```
+
+Set up metadata
+
+```{r}
+# Read in non-subsetted metadata
+histologies_df <- readr::read_tsv(file.path(data_dir, "histologies-base.tsv"), guess_max = 100000)
+
+# Read pathology diagnosis json file
+path_dx_list <- jsonlite::fromJSON(
+  file.path(input_dir,
+            "chordoma_subtyping_path_dx_strings.json")
+)
+
+# Subset metadata
+subset_metadata <- histologies_df %>%
+  dplyr::filter(pathology_diagnosis == path_dx_list$exact_path_dx) %>%
+  select(Kids_First_Participant_ID, Kids_First_Biospecimen_ID, match_id, sample_id, experimental_strategy, tumor_ploidy) %>%
+  dplyr::rename(ploidy=tumor_ploidy)
+
+# collect methyl and Targeted Seq samples to add back later (these don't have CN or RNA expression)
+methyl_panel <- subset_metadata %>%
+  filter(experimental_strategy %in% c("Methylation", "Targeted Sequencing")) %>%
+  select(Kids_First_Biospecimen_ID, match_id)
+```
+
+```{r}
+subset_focal_cn_df <-
+  data.table::fread(file.path(input_dir, "chordoma-only_cn_autosomes.tsv.gz"))
+```
+
+```{r}
+# we need to include the match_id field from histologies-base.tsv in the final
+# table (field will allow #us to map between RNA-seq (e.g., SMARCB1 expression
+# values) and WGS data (e.g., SMARCB1 focal copy number status) from the same
+# event for a given individual). To get the SMARCB1 jitter plot in the photo
+# here #250 (comment), you will first need to read in the collapsed expression
+# data
+subset_expression_data <-
+  readRDS(file.path(
+    scratch_dir,
+    "chordoma-only-gene-expression-rsem-tpm-collapsed.rds"
+  ))
+```
+
+### Output
+
+```{r}
+# tabular data
+output_file <- file.path(results_dir, "chordoma_smarcb1_status.tsv")
+```
+
+## Prepare the data
+
+Extracting the chordoma samples that have a loss of SMARCB1 from `subset_focal_cn_df`
+
+```{r}
+chordoma_loss <- subset_focal_cn_df %>%
+  filter(
+    gene_symbol == "SMARCB1",
+    status == "loss"
+  )
+chordoma_loss
+
+```
+
+Distinguishing the chordoma samples with no copy number change chromosome 22
+```{r}
+copy_neutral_df <- subset_metadata %>%
+  # the copy events can only be taken from WGS/WXS data not RNA-seq data
+  # we also only want biospecimens where a loss was not recorded to avoid duplicates
+  filter(experimental_strategy %in% c("WGS", "WXS"),
+         !(Kids_First_Biospecimen_ID %in% chordoma_loss$biospecimen_id)) %>%
+  # if there's no loss, let's assume status is copy neutral
+  mutate(status = "neutral",
+         copy_number = ploidy) %>%
+  select(Kids_First_Biospecimen_ID, match_id, status, copy_number, ploidy)
+copy_neutral_df
+```
+
+Joining chordoma samples (both with chr 22 loss and no copy number change)
+```{r}
+
+chordoma_copy <- chordoma_loss %>%
+  dplyr::rename(Kids_First_Biospecimen_ID = biospecimen_id) %>%
+  # join the losses with the neutrals to get a new data frame
+  select(Kids_First_Biospecimen_ID, status,ploidy,copy_number) %>%
+  left_join(subset_metadata[,c("Kids_First_Biospecimen_ID", "match_id")]) %>%
+  bind_rows(copy_neutral_df)
+chordoma_copy
+```
+
+Look at SMARCB1 expression values only in chordoma
+
+```{r}
+# get the row that contains the SMARCB1 values
+# gene symbols are rownames
+smarcb1_expression <- subset_expression_data[which(rownames(subset_expression_data) == "SMARCB1"), ]
+```
+
+```{r}
+# now only the columns correspond to chordoma samples
+smarcb1_expression <- smarcb1_expression[, which(colnames(subset_expression_data) %in% subset_metadata$Kids_First_Biospecimen_ID) ]
+
+# Print out the expression for SMARCB1
+smarcb1_expression
+```
+
+The `smarcb1_expression` is a not a friendly form ^^; Transposing needed: 
+
+```{r}
+# transpose such that samples are rows
+smarcb1_expression <- t(smarcb1_expression) %>%
+  # make a data.frame
+  as.data.frame() %>%
+  # we want the rownames that are biospecimen identifers as their own column called Kids_First_Biospecimen_ID
+  tibble::rownames_to_column("Kids_First_Biospecimen_ID") %>%
+  # give SMARCB1 column a slightly better column name
+  dplyr::rename(SMARCB1_expression = SMARCB1) %>%
+  left_join(subset_metadata[,c("Kids_First_Biospecimen_ID", "match_id")])
+smarcb1_expression
+```
+
+
+Joining the copy number data with the expression data in this step
+```{r}
+chordoma_smarcb1_df <- smarcb1_expression %>%
+  bind_rows(chordoma_copy) %>%
+  # 'status' is replaced a more descriptive name
+  dplyr::rename(focal_SMARCB1_status = status,
+                SMARCB1_copy_number = copy_number) %>%
+  # add remaining samples
+  bind_rows(methyl_panel) %>%
+    select(
+    Kids_First_Biospecimen_ID,
+    match_id,
+    ploidy,
+    focal_SMARCB1_status,
+    SMARCB1_copy_number,
+    SMARCB1_expression
+  ) %>%
+  select(-Kids_First_Biospecimen_ID) %>%
+  #combine data by match id
+  group_by(match_id) %>%
+  summarize(across(everything(), ~paste(unique(na.omit(.x)), collapse = ", ")), .groups = 'drop') %>%
+  # add back bs ids
+  left_join(subset_metadata[,c("Kids_First_Participant_ID", "Kids_First_Biospecimen_ID", "match_id", "sample_id")]) %>%
+  arrange(match_id) 
+
+
+# do we only have one subtype per bs id? yes
+length(unique(chordoma_smarcb1_df$Kids_First_Biospecimen_ID)) == nrow(chordoma_smarcb1_df)
+
+```
+
+
+Write the table to file.
+
+```{r}
+chordoma_smarcb1_df %>%
+  write_tsv(output_file)
+```
+
+### Session Info
+
+```{r}
+sessionInfo()
+```
