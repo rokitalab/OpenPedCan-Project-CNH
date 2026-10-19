@@ -180,6 +180,10 @@ jobs:
       matrix:
         include:
           # Molecular subtyping modules
+          - name: Molecular Subtyping
+            entrypoint: molecular-subtyping/run-molecular-subtyping.sh
+            openpbta_subset: 0
+
           - name: Molecular Subtyping - MB
             entrypoint: molecular-subtyping-MB/run-molecular-subtyping-mb.sh
             openpbta_subset: 0
@@ -328,6 +332,21 @@ jobs:
           OPENPEDCAN_URL: https://s3.amazonaws.com/bti-openaccess-us-east-1-prd-opc
           OPENPEDCAN_RELEASE: testing
 
+      - name: Download the parquet tables of the molecular subtyping (v15; only the beta values have a testing copy)
+        if: matrix.name == 'Molecular Subtyping'
+        uses: docker://pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
+        with:
+          entrypoint: bash
+          args: >-
+            scripts/download-parquet.sh
+            consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only
+            consensus_seg_with_status cnvkit_with_status
+            fusion-annoFuse fusion-dgd snv-consensus-plus-hotspots sv-manta
+            gene-expression-rsem-tpm-collapsed
+        env:
+          OPENPEDCAN_URL: https://s3.amazonaws.com/bti-openaccess-us-east-1-prd-opc
+          OPENPEDCAN_RELEASE: v15
+
       - name: Run Analysis
         uses: docker://pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
         with:
@@ -337,4 +356,7 @@ jobs:
           OPENPBTA_TESTING: ${{ matrix.openpbta_testing }}
           RUN_FOR_SUBTYPING: ${{ matrix.run_for_subtyping }}
           OPENPEDCAN_POLYA_STRAND: ${{ matrix.openpedcan_polya_strand }}
+          # the beta values of the molecular subtyping have a small testing copy
+          OPENPEDCAN_URL: https://s3.amazonaws.com/bti-openaccess-us-east-1-prd-opc
+          METHYL_PARQUET_RELEASE: testing
           
