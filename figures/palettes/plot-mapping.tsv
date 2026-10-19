@@ -1,0 +1,93 @@
+cohort	broad_histology	cancer_group	broad_histology_display	plot_group	broad_histology_hex	cancer_group_abbreviation	plot_group_hex	status
+GMKF	Peripheral neuroblastic tumor	Ganglioneuroblastoma	Neuroblastoma	Neuroblastoma	#FF7F0E	NBL	#FF7F0E	added, review: neuroblastic tumor as one plot group (Neuroblastoma)
+GMKF	Peripheral neuroblastic tumor	Ganglioneuroma	Neuroblastoma	Neuroblastoma	#FF7F0E	NBL	#FF7F0E	added, review: neuroblastic tumor as one plot group (Neuroblastoma)
+GMKF	Peripheral neuroblastic tumor	Neuroblastoma	Neuroblastoma	Neuroblastoma	#FF7F0E	NBL	#FF7F0E	added, review: neuroblastic tumor as one plot group (Neuroblastoma)
+PBTA	Benign tumor	NA	Benign tumor	Non-neoplastic tumor	#FFF5EB	Non-neoplastic tumor	#FFF5EB	
+PBTA	Chordoma	Chordoma	Mesenchymal tumor	Mesenchymal tumor	#7FBF00	Chordoma	#7FBF00	
+PBTA	Choroid plexus tumor	Choroid plexus tumor	Choroid plexus tumor	Choroid plexus tumor	#00441B	CPT	#00441B	
+PBTA	Cranial and paraspinal nerve tumor	Hybrid nerve sheath tumor	Schwannoma/MPNST	Schwannoma/MPNST	#AB7200	HNST	#AB7200	added, review: plot group chosen for the cancer group; abbreviation generated
+PBTA	Cranial and paraspinal nerve tumor	Malignant peripheral nerve sheath tumor	Schwannoma/MPNST	Schwannoma/MPNST	#AB7200	MPNST	#AB7200	added, review: plot group chosen for the cancer group; abbreviation generated
+PBTA	Cranial and paraspinal nerve tumor	Neurofibroma/Plexiform	Cranial and paraspinal nerve tumor	Neurofibroma plexiform	#FFAA00	NFP	#E6AC39	
+PBTA	Cranial and paraspinal nerve tumor	Schwannoma	Cranial and paraspinal nerve tumor	Schwannoma/MPNST	#FFAA00	Schwannoma/MPNST	#AB7200	
+PBTA	Diffuse astrocytic and oligodendroglial tumor	Astrocytoma	Other tumor	Other tumor	#B5B5B5	Astrocytoma	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Diffuse astrocytic and oligodendroglial tumor	Congenital malignant brain tumor	Other tumor	Other tumor	#B5B5B5	Other	#B5B5B5	
+PBTA	Diffuse astrocytic and oligodendroglial tumor	Diffuse hemispheric glioma	High-grade glioma	Other high-grade glioma	#FFCCF5	Other HGG	#FFCCF5	
+PBTA	Diffuse astrocytic and oligodendroglial tumor	Diffuse intrinsic pontine glioma	High-grade glioma	Diffuse midline glioma	#FF40D9	DIPG	#FF40D9	
+PBTA	Diffuse astrocytic and oligodendroglial tumor	Diffuse midline glioma	High-grade glioma	Diffuse midline glioma	#FF40D9	DMG	#FF40D9	
+PBTA	Diffuse astrocytic and oligodendroglial tumor	High-grade astrocytoma with piloid features	Other tumor	Other tumor	#B5B5B5	HGAWPF	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Diffuse astrocytic and oligodendroglial tumor	High-grade glioma	High-grade glioma	Other high-grade glioma	#FFCCF5	Other HGG	#FFCCF5	
+PBTA	Diffuse astrocytic and oligodendroglial tumor	Infant-type hemispheric glioma	High-grade glioma	Other high-grade glioma	#FFCCF5	Other HGG	#FFCCF5	
+PBTA	Diffuse astrocytic and oligodendroglial tumor	Oligodendroglioma	Oligodendroglioma	Oligodendroglioma	#D2B48C	Oligodendroglioma	#D2B48C	
+PBTA	Diffuse astrocytic and oligodendroglial tumor	Pleomorphic xanthoastrocytoma	High-grade glioma	Other high-grade glioma	#FFCCF5	PXA	#FFCCF5	
+PBTA	Embryonal tumor	Atypical Teratoid Rhabdoid Tumor	Embryonal tumor	Atypical Teratoid Rhabdoid Tumor	#220040	ATRT	#4D0D85	
+PBTA	Embryonal tumor	CNS Embryonal tumor	Embryonal tumor	Other CNS embryonal tumor	#220040	Other ET	#B08CCF	
+PBTA	Embryonal tumor	CNS neuroblastoma	Embryonal tumor	Other CNS embryonal tumor	#220040	Other ET	#B08CCF	
+PBTA	Embryonal tumor	Embryonal tumor with multilayer rosettes	Embryonal tumor	Other CNS embryonal tumor	#220040	ETMR	#B08CCF	
+PBTA	Embryonal tumor	Intraocular medulloepithelioma	Other tumor	Other tumor	#B5B5B5	IM	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Embryonal tumor	Medulloblastoma	Embryonal tumor	Medulloblastoma	#220040	MB	#A340FF	
+PBTA	Embryonal tumor	Medulloblastoma with myogenic differentiation	Other tumor	Other tumor	#B5B5B5	MWMD	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Embryonal tumor	Rare CNS tumor	Embryonal tumor	Rare CNS tumor	#9F0B62	Other rare CNS tumor	#9F0B62	
+PBTA	Ependymal tumor	Ependymoma	Ependymoma	Ependymoma	#2200FF	EPN	#2200FF	
+PBTA	Epstein-Barr virus-related tumor	Epstein-Barr virus-related tumor	Other tumor	Other tumor	#B5B5B5	Other	#B5B5B5	
+PBTA	Germ cell tumor	Germ Cell Tumor	Germ cell tumor	Other tumor	#0074D9	Germ Cell Tumor	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Germ cell tumor	Germinoma	Germ cell tumor	Germ cell tumor	#0074D9	GCT	#0074D9	
+PBTA	Germ cell tumor	Mixed germ cell tumor	Germ cell tumor	Germ cell tumor	#0074D9	GCT	#0074D9	
+PBTA	Germ cell tumor	Non-germinomatous germ cell tumor	Other tumor	Other tumor	#B5B5B5	NGGCT	#B5B5B5	added, review: default: Other tumor; abbreviation generated
+PBTA	Germ cell tumor	Teratoma	Germ cell tumor	Germ cell tumor	#0074D9	GCT	#0074D9	
+PBTA	Germ cell tumor	Yolk sac tumor	Germ cell tumor	Other tumor	#0074D9	Yolk sac tumor	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Glioneuronal and neuronal tumor	Central neurocytoma	Mixed neuronal-glial tumor	Mixed neuronal-glial tumor	#685815	CNC	#685815	
+PBTA	Glioneuronal and neuronal tumor	Desmoplastic infantile astrocytoma and ganglioglioma	Mixed neuronal-glial tumor	Mixed neuronal-glial tumor	#685815	Other NGT	#685815	
+PBTA	Glioneuronal and neuronal tumor	Desmoplastic infantile ganglioglioma/astrocytoma	Mixed neuronal-glial tumor	Other tumor	#685815	DIGA	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Glioneuronal and neuronal tumor	Diffuse glioneuronal tumor with oligodendroglioma-like features and nuclear clusters	Mixed neuronal-glial tumor	Other tumor	#685815	DGTWOLFNC	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Glioneuronal and neuronal tumor	Diffuse leptomeningeal glioneuronal tumor	Mixed neuronal-glial tumor	Mixed neuronal-glial tumor	#685815	Other NGT	#685815	
+PBTA	Glioneuronal and neuronal tumor	Dysembryoplastic neuroepithelial tumor	Mixed neuronal-glial tumor	Mixed neuronal-glial tumor	#685815	DNET	#685815	
+PBTA	Glioneuronal and neuronal tumor	Extraventricular neurocytoma	Mixed neuronal-glial tumor	Mixed neuronal-glial tumor	#685815	EVN	#685815	
+PBTA	Glioneuronal and neuronal tumor	Glial-neuronal tumor NOS	Mixed neuronal-glial tumor	Mixed neuronal-glial tumor	#685815	Other NGT	#685815	
+PBTA	Glioneuronal and neuronal tumor	Myxoid glioneuronal tumor	Mixed neuronal-glial tumor	Other tumor	#685815	MGT	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Glioneuronal and neuronal tumor	Papillary glioneuronal tumor	Mixed neuronal-glial tumor	Other tumor	#685815	PGT	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Histiocytic tumor	Histiocytic tumor	Other tumor	Other tumor	#B5B5B5	Histiocytic tumor	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Histiocytic tumor	Juvenile xanthogranuloma	Other tumor	Other tumor	#B5B5B5	Other	#B5B5B5	
+PBTA	Histiocytic tumor	Langerhans Cell histiocytosis	Other tumor	Other tumor	#B5B5B5	Other	#B5B5B5	
+PBTA	Histiocytic tumor	Langerhans cell histiocytosis	Other tumor	Other tumor	#B5B5B5	LCH	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Histiocytic tumor	Rosai-Dorfman disease	Other tumor	Other tumor	#B5B5B5	Other	#B5B5B5	
+PBTA	Low-grade astrocytic tumor	Diffuse fibrillary astrocytoma	Low-grade glioma	Low-grade glioma	#8F8FBF	Other LGG	#8F8FBF	
+PBTA	Low-grade astrocytic tumor	Ganglioglioma	Mixed neuronal-glial tumor	Mixed neuronal-glial tumor	#685815	GNG	#685815	
+PBTA	Low-grade astrocytic tumor	High-grade glioma	Other high-grade glioma	Other high-grade glioma	#FFCCF5	Other HGG	#FFCCF5	added, review: cancer group in the table
+PBTA	Low-grade astrocytic tumor	Low-grade glioma	Low-grade glioma	Low-grade glioma	#8F8FBF	Other LGG	#8F8FBF	
+PBTA	Low-grade astrocytic tumor	Pilocytic astrocytoma	Low-grade glioma	Low-grade glioma	#8F8FBF	PA	#8F8FBF	
+PBTA	Low-grade astrocytic tumor	Pleomorphic xanthoastrocytoma	Low-grade glioma	Low-grade glioma	#8F8FBF	PXA	#8F8FBF	
+PBTA	Low-grade astrocytic tumor	Subependymal Giant Cell Astrocytoma	Low-grade glioma	Low-grade glioma	#8F8FBF	SEGA	#8F8FBF	
+PBTA	Lymphoma	CNS lymphoma	Other tumor	Other tumor	#B5B5B5	CNS lymphoma	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Melanocytic tumor	CNS Melanoma	Other tumor	Other tumor	#B5B5B5	CNS Melanoma	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Melanocytic tumor	Melanocytic tumor	Other tumor	Other tumor	#B5B5B5	Other	#B5B5B5	
+PBTA	Meningioma	Meningioma	Meningioma	Meningioma	#2DB398	Meningioma	#2DB398	
+PBTA	Meningioma	NA	Meningioma	Schwannoma/MPNST	#2DB398	Schwannoma/MPNST	#AB7200	meningioma;schwannoma (no cancer group; the only tumors with a blank group under this broad histology) plotted with Schwannoma/MPNST
+PBTA	Mesenchymal non-meningothelial tumor	Fibromyxoid lesion	Mesenchymal tumor	Mesenchymal tumor	#7FBF00	Other MNMT	#7FBF00	
+PBTA	Mesenchymal non-meningothelial tumor	Hemangioblastoma	Mesenchymal tumor	Mesenchymal tumor	#7FBF00	Hemangioblastoma	#7FBF00	
+PBTA	Mesenchymal non-meningothelial tumor	Inflammatory Myofibroblastic Tumor	Mesenchymal tumor	Mesenchymal tumor	#7FBF00	Other MNMT	#7FBF00	
+PBTA	Mesenchymal non-meningothelial tumor	Mesenchymal tumor	Mesenchymal tumor	Mesenchymal tumor	#7FBF00	Other MNMT	#7FBF00	
+PBTA	Mesenchymal non-meningothelial tumor	Osteosarcoma	Mesenchymal tumor	Other tumor	#7FBF00	Osteosarcoma	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+PBTA	Mesenchymal non-meningothelial tumor	Sarcoma	Mesenchymal tumor	Mesenchymal tumor	#7FBF00	Other MNMT	#7FBF00	
+PBTA	Metastatic tumors	Metastatic secondary tumors	Other tumor	Other tumor	#B5B5B5	Other	#B5B5B5	
+PBTA	Mixed or indeterminate tumor	Rare CNS tumor	Mixed or intermediate tumor	Rare CNS tumor	#9F0B62	Other rare CNS tumor	#9F0B62	
+PBTA	Mixed tumor	Malignant peripheral nerve sheath tumor	Schwannoma/MPNST	Schwannoma/MPNST	#AB7200	MPNST	#AB7200	added, review: plot group chosen for the cancer group; abbreviation generated
+PBTA	Non-tumor	NA	Non-tumor	Non-neoplastic tumor	#FFF5EB	Non-neoplastic tumor	#FFF5EB	
+PBTA	Other tumor	NA	Other tumor	Other tumor	#B5B5B5	NA	#B5B5B5	added, review: default: Other tumor
+PBTA	Other tumor	Other tumor	Other tumor	Other tumor	#B5B5B5	Other	#B5B5B5	
+PBTA	Peripheral neuroblastic tumor	Ganglioneuroblastoma	Neuroblastoma	Neuroblastoma	#FF7F0E	NBL	#FF7F0E	added, review: neuroblastic tumor as one plot group (Neuroblastoma)
+PBTA	Peripheral neuroblastic tumor	Ganglioneuroma	Neuroblastoma	Neuroblastoma	#FF7F0E	NBL	#FF7F0E	added, review: neuroblastic tumor as one plot group (Neuroblastoma)
+PBTA	Peripheral neuroblastic tumor	Neuroblastoma	Neuroblastoma	Neuroblastoma	#FF7F0E	NBL	#FF7F0E	added, review: neuroblastic tumor as one plot group (Neuroblastoma)
+PBTA	Pineal tumor	Pineoblastoma	Other tumor	Pineoblastoma	#FF2900	Pineoblastoma	#FF2900	
+PBTA	Pre-cancerous lesion	NA	Benign tumor	Non-neoplastic tumor	#FFF5EB	Non-neoplastic tumor	#FFF5EB	
+PBTA	Sellar region tumor	Adamantinomatous Craniopharyngioma	Craniopharyngioma	Craniopharyngioma	#B2502D	CRANIO	#B2502D	
+PBTA	Sellar region tumor	Craniopharyngioma	Craniopharyngioma	Craniopharyngioma	#B2502D	CRANIO	#B2502D	
+PBTA	Sellar region tumor	Pituicytoma	Craniopharyngioma	Other tumor	#B2502D	Pituicytoma	#B5B5B5	added, review: small group (< 5 tumors in PBTA): Other tumor; abbreviation generated
+TARGET	Hematologic malignancy	Acute Lymphoblastic Leukemia	Acute Lymphoblastic Leukemia	Acute Lymphoblastic Leukemia	#D62728	ALL	#D62728	added, review: TARGET cancer group as its own plot group
+TARGET	Hematologic malignancy	Acute Myeloid Leukemia	Acute Myeloid Leukemia	Acute Myeloid Leukemia	#8C1C13	AML	#8C1C13	added, review: TARGET cancer group as its own plot group
+TARGET	Mesenchymal non-meningothelial tumor	Osteosarcoma	Osteosarcoma	Osteosarcoma	#556B2F	Osteosarcoma	#556B2F	added, review: TARGET cancer group as its own plot group
+TARGET	Peripheral neuroblastic tumor	Ganglioneuroblastoma	Neuroblastoma	Neuroblastoma	#FF7F0E	NBL	#FF7F0E	added, review: neuroblastic tumor as one plot group (Neuroblastoma)
+TARGET	Peripheral neuroblastic tumor	Ganglioneuroma	Neuroblastoma	Neuroblastoma	#FF7F0E	NBL	#FF7F0E	added, review: neuroblastic tumor as one plot group (Neuroblastoma)
+TARGET	Peripheral neuroblastic tumor	Neuroblastoma	Neuroblastoma	Neuroblastoma	#FF7F0E	NBL	#FF7F0E	added, review: neuroblastic tumor as one plot group (Neuroblastoma)
+TARGET	Renal tumor	Clear cell sarcoma of the kidney	Clear cell sarcoma of the kidney	Clear cell sarcoma of the kidney	#7FCDD8	CCSK	#7FCDD8	added, review: TARGET cancer group as its own plot group
+TARGET	Renal tumor	Rhabdoid tumor of the kidney	Rhabdoid tumor of the kidney	Rhabdoid tumor of the kidney	#1F4E79	RTK	#1F4E79	added, review: TARGET cancer group as its own plot group
+TARGET	Renal tumor	Wilms tumor	Wilms tumor	Wilms tumor	#17A2B8	Wilms tumor	#17A2B8	added, review: TARGET cancer group as its own plot group
