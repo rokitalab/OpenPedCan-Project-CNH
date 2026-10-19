@@ -208,10 +208,6 @@ jobs:
           - name: Fusion filtering
             entrypoint: fusion_filtering/run_fusion_merged.sh
 
-          - name: Fusion summary
-            entrypoint: fusion-summary/run-new-analysis.sh
-            openpbta_subset: 0
-
           - name: Consensus CN Manta
             entrypoint: copy_number_consensus_call_manta/run_consensus_call.sh
 

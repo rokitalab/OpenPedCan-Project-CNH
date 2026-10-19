@@ -7,7 +7,7 @@ date: 2026
 
 In this PR, we identify candidate Rare CNS biospecimens from `histologies-base.tsv` and gather high-confidence methylation subtype calls for Rare CNS subtyping.
 
-As per issue [#114](https://github.com/rokitalab/OpenPedCan-Project-CNH/issues/114), Rare CNS subtyping is based on high-confidence methylation subclassifications with `dkfz_v12_methylation_subclass_score >= 0.8` first, or NIH v2 subtypes with scores >= 0.9. We additionally layer in a newer DKFZ v12.8 / NIH v3.1 classifier run (see `molecular-subtyping-methylation/input/bti_methylation_classifications.tsv`) using the same 0.8 / 0.9 thresholds and inclusion list, preferring the v12.8 call when a tumor has calls from both classifier versions.
+As per issue [#114](https://github.com/rokitalab/OpenPedCan-Project-CNH/issues/114), Rare CNS subtyping is based on high-confidence methylation subclassifications with `dkfz_v12_methylation_subclass_score >= 0.8` first, or NIH v2 subtypes with scores >= 0.9. We additionally layer in a newer DKFZ v12.8 / NIH v3.1 classifier run (see `molecular-subtyping/input/bti_methylation_classifications.tsv`) using the same 0.8 / 0.9 thresholds and inclusion list, preferring the v12.8 call when a tumor has calls from both classifier versions.
 
 The following Rare CNS methylation classes are included in this step:
 
@@ -133,7 +133,7 @@ methyl_map_v12 <- rare_cns_methyl %>%
 ## New DKFZ v12.8 methylation classifications
 
 A newer classifier run (DKFZ v12.8 / NIH v3.1) was dropped in
-`../molecular-subtyping-methylation/input/bti_methylation_classifications.tsv`,
+`../molecular-subtyping/input/bti_methylation_classifications.tsv`,
 keyed by `Bioassay_ID`. Per the source, a `BS_`-prefixed `Bioassay_ID` is a
 `Kids_First_Biospecimen_ID`; the original file also included `BA_`-prefixed
 IDs (external/non-PBTA samples), which have already been filtered out of this
@@ -156,7 +156,7 @@ v3.1 fallback) until one is observed.
 
 ```{r}
 bti_file <- file.path(
-  root_dir, "analyses", "molecular-subtyping-methylation",
+  root_dir, "analyses", "molecular-subtyping",
   "input", "bti_methylation_classifications.tsv"
 )
 

@@ -1,0 +1,18 @@
+stage	order	target	cancer_group	cancer_group_regex	cancer_group_na	harmonized_diagnosis	broad_histology	short_histology	pathology_diagnosis	pathology_free_text_diagnosis	pathology_free_text_diagnosis_regex	integrated_diagnosis_regex	molecular_subtype	molecular_subtype_regex	cohort	sample_id	result	note
+0	1	harmonized_diagnosis				Ewings sarcoma|Ewings Sarcoma											Ewing sarcoma	one name for the cancer group
+0	2	harmonized_diagnosis											CNC				Central neurocytoma	
+0	3	harmonized_diagnosis											EVN				Extraventricular neurocytoma	
+0	4	harmonized_diagnosis				Neurofibroma/Plexiform;Schwannoma											Hybrid nerve sheath tumor	neurofibroma and schwannoma in one tumor is a hybrid nerve sheath tumor
+3	49	short_histology						Myofibroblastic tumor									Inflammatory myofibroblastic tumor	
+3	50	broad_histology														7316-3066	Cranial and paraspinal nerve tumor	
+3	51	broad_histology					Other										Other tumor	
+3	52	broad_histology	Glial-neuronal tumor														Glioneuronal and neuronal tumor	
+3	53	broad_histology	Cavernoma														Benign tumor	
+3	54	broad_histology				Transient Abnormal Myelopoiesis Associated with Down Syndrome											Non-tumor	transient abnormal myelopoiesis is not a tumor
+3	55	short_histology						LGAT									LGG	LGG and HGG are the short histologies (Low-grade astrocytic tumor and High-grade astrocytic tumor are not CNS5 families); remove when the base histology file has them
+3	56	short_histology						HGAT									HGG	LGG and HGG are the short histologies (Low-grade astrocytic tumor and High-grade astrocytic tumor are not CNS5 families); remove when the base histology file has them
+3	57	broad_histology	Neuroblastoma|Ganglioneuroblastoma|Ganglioneuroma				Embryonal tumor										Peripheral neuroblastic tumor	the neuroblastic tumors are not CNS embryonal tumors; remove when the base histology file has the new broad histology
+3	58	broad_histology					Neuronal and mixed neuronal-glial tumor										Glioneuronal and neuronal tumor	CNS5 name of the broad histology; remove when the base histology file has it
+3	59	broad_histology					Tumors of sellar region										Sellar region tumor	CNS5 name of the broad histology; remove when the base histology file has it
+3	60	broad_histology					Tumor of cranial and paraspinal nerves										Cranial and paraspinal nerve tumor	CNS5 name of the broad histology; remove when the base histology file has it
+3	61	broad_histology					Tumor of pineal region										Pineal tumor	CNS5 name of the broad histology; remove when the base histology file has it

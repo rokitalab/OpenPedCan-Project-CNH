@@ -1,0 +1,33 @@
+family	integrated_prefix	broad_histology	short_histology	note
+ATRT	Atypical Teratoid Rhabdoid Tumor	Embryonal tumor	ATRT	legacy naming
+CHDM	Chordoma	Chordoma	Chordoma	legacy harmonized_diagnosis, the pathology review had no integrated_diagnosis
+CNC	Central neurocytoma	Glioneuronal and neuronal tumor	Neurocytoma	
+EVN	Extraventricular neurocytoma	Glioneuronal and neuronal tumor	Neurocytoma	
+CNS Embryonal	CNS Embryonal tumor	Embryonal tumor	Embryonal tumor	legacy: CNS Embryonal tumor, NEC/NOS
+CNS lymphoma	CNS lymphoma	Lymphoma	CNS lymphoma	
+CPC	Choroid plexus carcinoma	Choroid plexus tumor	CPT	
+CPP	Choroid plexus papilloma	Choroid plexus tumor	CPT	
+CRANIO	Craniopharyngioma	Sellar region tumor	Craniopharyngioma	
+DHG	Diffuse hemispheric glioma	Diffuse astrocytic and oligodendroglial tumor	HGG	
+DMG	Diffuse midline glioma	Diffuse astrocytic and oligodendroglial tumor	HGG	
+EPN	Ependymoma	Ependymal tumor	Ependymoma	
+ETMR	Embryonal tumor with multilayer rosettes	Embryonal tumor	ETMR	
+GCT	Germ cell tumor	Germ cell tumor	Germ cell tumor	
+GNG	Ganglioglioma	Low-grade astrocytic tumor	Ganglioglioma	
+GNT	Glial-neuronal tumor	Glioneuronal and neuronal tumor	GNT	
+HGG	High-grade glioma	Diffuse astrocytic and oligodendroglial tumor	HGG	
+HMB	Hemangioblastoma	Mesenchymal non-meningothelial tumor	Hemangioblastoma	
+LCH	Langerhans cell histiocytosis	Histiocytic tumor	Langerhans cell histiocytosis	
+LGG	Low-grade glioma	Low-grade astrocytic tumor	LGG	
+MB	Medulloblastoma	Embryonal tumor	Medulloblastoma	
+MEL	Melanocytoma	Melanocytic tumor	Melanocytoma	
+MEPL	Intraocular medulloepithelioma			
+MNG	Meningioma	Meningioma	Meningioma	
+NST	Nerve sheath tumor	Cranial and paraspinal nerve tumor		
+Oligo	Oligodendroglioma	Diffuse astrocytic and oligodendroglial tumor	Oligodendroglioma	
+PB	Pineoblastoma	Pineal tumor	Pineoblastoma	
+PITNET	Pituitary neuroendocrine tumor	Benign tumor	Adenoma	
+PITUI	Pituicytoma, granular cell tumor of the sellar region, spindle cell oncocytoma			
+Rare CNS	Rare CNS	Mixed or indeterminate tumor	Rare CNS	legacy keeps the label
+NBL	Neuroblastoma	Peripheral neuroblastic tumor	Neuroblastoma	legacy; the per-tumor diagnosis uses the pathology diagnosis name
+EWS	Ewing sarcoma	Mesenchymal non-meningothelial tumor	EWS	extracranial xenograft models

@@ -1,0 +1,7 @@
+pattern	replacement	note
+, TP53$		TP53 status is an annotation, not part of the subtype
+H3 K28(?=,|$)	H3 K28-mutant	WHO CNS5 name
+H3 G35(?=,|$)	H3 G35-mutant	WHO CNS5 name
+^IHG, 	HGG, IHG, 	infant-type hemispheric glioma is under HGG
+^EWS$	Rare CNS, EWS	PBTA (CNS) Ewing sarcoma is under Rare CNS
+^CNS NB-FOXR2$	Rare CNS, FOXR2 NBL	the v15 name of the class
