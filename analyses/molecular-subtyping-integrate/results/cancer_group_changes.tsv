@@ -1,0 +1,179 @@
+previous_cancer_group	cancer_group	previous_integrated_diagnosis	integrated_diagnosis	biospecimens
+Ewing sarcoma	Rare CNS tumor	Ewing sarcoma	CNS Ewing sarcoma	68
+Low-grade glioma	Pleomorphic xanthoastrocytoma	Low-grade glioma, BRAF V600E, CDKN2A/B	Pleomorphic xanthoastrocytoma, BRAF V600E	31
+Ewing sarcoma	Rare CNS tumor	Ewing sarcoma	Rare CNS, BCOR ITD	23
+High-grade glioma	Diffuse midline glioma	NA	Diffuse midline glioma, H3 K28-altered	21
+High-grade glioma	High-grade astrocytoma with piloid features	High-grade glioma, IDH-wildtype and H3-wildtype	High-grade astrocytoma with piloid features	21
+NA	Ganglioglioma	NA	Ganglioglioma, MAPK	18
+Low-grade glioma	Pleomorphic xanthoastrocytoma	Low-grade glioma, BRAF V600E	Pleomorphic xanthoastrocytoma, BRAF V600E	17
+High-grade glioma	Low-grade glioma	NA	Low-grade glioma, IDH	13
+Low-grade glioma	Ganglioglioma	Low-grade glioma, BRAF V600E	Ganglioglioma, BRAF V600E	13
+High-grade glioma	Rare CNS tumor	High-grade glioma, IDH-wildtype and H3-wildtype	Rare CNS, DICER1 SARC	12
+NA	Non-germinomatous germ cell tumor	NA	NA	12
+Craniopharyngioma	Low-grade glioma	NA	Low-grade glioma, MAPK	11
+High-grade glioma	Diffuse midline glioma	High-grade glioma, IDH-wildtype and H3-wildtype	Diffuse midline glioma, H3 wildtype	11
+CNS neuroblastoma	Rare CNS tumor	CNS neuroblastoma	Rare CNS, FOXR2 NBL	10
+High-grade glioma	Low-grade glioma	High-grade glioma, IDH-mutant	Low-grade glioma, IDH	10
+Low-grade glioma	Glial-neuronal tumor NOS	Low-grade glioma, NF1-germline, FGFR	Glial-neuronal tumor, FGFR	10
+Neurofibroma/Plexiform	Schwannoma	NA	Schwannoma	9
+Ganglioglioma	Low-grade glioma	Ganglioglioma, IDH	Low-grade glioma, IDH	8
+Glial-neuronal tumor NOS	Rare CNS tumor	Glial-neuronal tumor,  RTK, CDKN2A/B	Rare CNS, ANTCON	8
+High-grade glioma	Low-grade glioma	High-grade glioma, IDH-wildtype and H3-wildtype	Low-grade glioma, PA ST, FGFR	8
+High-grade glioma	Rare CNS tumor	High-grade glioma, IDH-wildtype and H3-wildtype	Rare CNS, PATZ1-fused	8
+Dysembryoplastic neuroepithelial tumor	Ganglioglioma	NA	Ganglioglioma, FGFR	7
+Dysembryoplastic neuroepithelial tumor	Glial-neuronal tumor NOS	NA	Glial-neuronal tumor, PA ST, FGFR	7
+Ependymoma	Rare CNS tumor	NA	Rare CNS, BCOR ITD	7
+High-grade glioma	Diffuse midline glioma	High-grade glioma, IDH-wildtype and H3-wildtype	Diffuse midline glioma, H3 K28-altered	7
+Low-grade glioma	Ganglioglioma	Low-grade glioma, other MAPK	Ganglioglioma, other MAPK	7
+Low-grade glioma	Rare CNS tumor	Low-grade glioma, wildtype	Rare CNS, PATZ1-fused	7
+NA	Hybrid nerve sheath tumor	NA	NA	7
+Atypical Teratoid Rhabdoid Tumor	Chordoma	NA	Chordoma	6
+Desmoplastic infantile astrocytoma and ganglioglioma	Infant-type hemispheric glioma	Desmoplastic infantile astrocytoma and ganglioglioma, RTK	Infant-type hemispheric glioma, ROS1-altered	6
+Diffuse intrinsic pontine glioma	Diffuse midline glioma	NA	Diffuse midline glioma, H3 K28-altered	6
+Ganglioglioma	Pleomorphic xanthoastrocytoma	Ganglioglioma, RTK	Pleomorphic xanthoastrocytoma, BRAF V600E negative	6
+High-grade glioma	Glial-neuronal tumor NOS	High-grade glioma, IDH-wildtype and H3-wildtype	Glial-neuronal tumor, FGFR	6
+High-grade glioma	Infant-type hemispheric glioma	High-grade glioma, IDH-wildtype and H3-wildtype	Infant-type hemispheric glioma, MET-altered	6
+High-grade glioma	Low-grade glioma	High-grade glioma, IDH-wildtype and H3-wildtype	Low-grade glioma, FGFR	6
+High-grade glioma	Medulloblastoma	High-grade glioma, IDH-wildtype and H3-wildtype	Medulloblastoma, group 4	6
+High-grade glioma	Pleomorphic xanthoastrocytoma	High-grade glioma, IDH-wildtype and H3-wildtype	Pleomorphic xanthoastrocytoma, BRAF V600E negative	6
+Low-grade glioma	Ganglioglioma	Low-grade glioma, KIAA1549-BRAF	Ganglioglioma, KIAA1549-BRAF	6
+Low-grade glioma	Glial-neuronal tumor NOS	Low-grade glioma, FGFR	Glial-neuronal tumor, FGFR	6
+Low-grade glioma	Subependymal Giant Cell Astrocytoma	Low-grade glioma, wildtype	Subependymal Giant Cell Astrocytoma	6
+Medulloblastoma	Embryonal tumor with multilayer rosettes	Medulloblastoma, SHH-activated	Embryonal tumor with multilayer rosettes, NOS	6
+Neuroblastoma	Rare CNS tumor	NA	Rare CNS, TMM POS NBL	6
+Rhabdomyosarcoma	Rare CNS tumor	NA	Rare CNS, ARMS	6
+CNS Embryonal tumor	Ependymoma	CNS Embryonal tumor, NEC/NOS	Supratentorial ependymoma, ZFTA fusion-positive	5
+CNS Embryonal tumor	Rare CNS tumor	CNS Embryonal tumor, NEC/NOS	Rare CNS, PLAG AMP	5
+Ganglioglioma	Pleomorphic xanthoastrocytoma	Ganglioglioma, BRAF V600E, CDKN2A/B	Pleomorphic xanthoastrocytoma, BRAF V600E	5
+Ganglioneuroma	Schwannoma	NA	Schwannoma	5
+Glial-neuronal tumor NOS	Low-grade glioma	Glial-neuronal tumor,  RTK	Low-grade glioma, RTK	5
+High-grade glioma	Desmoplastic infantile ganglioglioma/astrocytoma	High-grade glioma, IDH-wildtype and H3-wildtype	Desmoplastic infantile ganglioglioma/astrocytoma	5
+High-grade glioma	Diffuse hemispheric glioma	High-grade glioma, IDH-wildtype and H3-wildtype	Diffuse hemispheric glioma, H3 G35-mutant	5
+High-grade glioma	Diffuse midline glioma	High-grade glioma, IDH-wildtype and H3-wildtype	Diffuse midline glioma, H3 K28-altered, EGFR-mutant, EZHIP-overexpressing	5
+High-grade glioma	Infant-type hemispheric glioma	High-grade glioma, IDH-wildtype and H3-wildtype	Infant-type hemispheric glioma	5
+High-grade glioma	Low-grade glioma	High-grade glioma, IDH-wildtype and H3-wildtype	Low-grade glioma, KIAA1549-BRAF	5
+High-grade glioma	Rare CNS tumor	High-grade glioma, IDH-wildtype and H3-wildtype	Rare CNS, BCOR ITD	5
+High-grade glioma	Rare CNS tumor	High-grade glioma, IDH-wildtype and H3-wildtype	Rare CNS, CIC SARC	5
+Low-grade glioma	High-grade glioma	Low-grade glioma, RTK	High-grade glioma, RTK	5
+Low-grade glioma	Oligodendroglioma	Low-grade glioma, IDH	Oligodendroglioma, IDH-mutant and 1p/19q-codeleted	5
+Rosette-forming glioneuronal tumor	Glial-neuronal tumor NOS	Rosette-forming glioneuronal tumor,  FGFR	Glial-neuronal tumor, FGFR	5
+Sarcoma	Rare CNS tumor	NA	Rare CNS, CIC SARC	5
+Adamantinomatous Craniopharyngioma	Pituicytoma	NA	Pituicytoma, granular cell tumor of the sellar region, spindle cell oncocytoma	4
+CNS Embryonal tumor	Rare CNS tumor	CNS Embryonal tumor, NEC/NOS	Rare CNS, PLAGL1-fused	4
+Ganglioglioma	Rare CNS tumor	Ganglioglioma, wildtype	Rare CNS, PLAGL1-fused	4
+Glial-neuronal tumor	Rare CNS tumor	NA	Rare CNS, PLAGL1-fused	4
+Glial-neuronal tumor NOS	Ganglioglioma	Glial-neuronal tumor,  FGFR	Ganglioglioma, FGFR	4
+Glial-neuronal tumor NOS	Papillary glioneuronal tumor	Glial-neuronal tumor,  wildtype	Papillary glioneuronal tumor	4
+Glial-neuronal tumor NOS	Pleomorphic xanthoastrocytoma	Glial-neuronal tumor,  other MAPK, CDKN2A/B	Pleomorphic xanthoastrocytoma, BRAF V600E negative	4
+High-grade glioma	Ependymoma	NA	Supratentorial ependymoma, ZFTA fusion-positive	4
+High-grade glioma	Oligodendroglioma	High-grade glioma, IDH-mutant	Oligodendroglioma, IDH-mutant and 1p/19q-codeleted	4
+High-grade glioma	Rare CNS tumor	NA	Rare CNS, CIC SARC	4
+Low-grade glioma	Ganglioglioma	NA	Ganglioglioma, MAPK	4
+Low-grade glioma	Pleomorphic xanthoastrocytoma	Low-grade glioma, RTK	Pleomorphic xanthoastrocytoma, BRAF V600E negative	4
+Other tumor	Spindle cell neoplasm	NA	NA	4
+Astroblastoma	Rare CNS tumor	NA	Rare CNS, MN1::BEND2	3
+CNS Burkitt's lymphoma	CNS lymphoma	NA	CNS lymphoma, diffuse large B-cell	3
+CNS Embryonal tumor	Diffuse glioneuronal tumor with oligodendroglioma-like features and nuclear clusters	CNS Embryonal tumor, NEC/NOS	Diffuse glioneuronal tumor with oligodendroglioma-like features and nuclear clusters	3
+CNS Embryonal tumor	Rare CNS tumor	CNS Embryonal tumor, HGNET-MN1	Rare CNS, MN1::BEND2	3
+Choroid plexus tumor	Ependymoma	NA	Posterior fossa group B (PFB) ependymoma	3
+Desmoplastic infantile astrocytoma and ganglioglioma	Glial-neuronal tumor NOS	Desmoplastic infantile astrocytoma and ganglioglioma, BRAF V600E	Glial-neuronal tumor, BRAF V600E	3
+Desmoplastic infantile astrocytoma and ganglioglioma	Low-grade glioma	Desmoplastic infantile astrocytoma and ganglioglioma, BRAF V600E	Low-grade glioma, BRAF V600E	3
+Dysembryoplastic neuroepithelial tumor	Glial-neuronal tumor NOS	NA	Glial-neuronal tumor, PA ST	3
+Dysembryoplastic neuroepithelial tumor	Glial-neuronal tumor NOS	NA	Glial-neuronal tumor, PA ST, other MAPK	3
+Dysembryoplastic neuroepithelial tumor	Myxoid glioneuronal tumor	NA	Myxoid glioneuronal tumor	3
+Dysembryoplastic neuroepithelial tumor	Rare CNS tumor	NA	Rare CNS, BCOR ITD	3
+Embryonal tumor with multilayer rosettes	Intraocular medulloepithelioma	Embryonal tumor with multilayer rosettes, NOS	Intraocular medulloepithelioma	3
+Ependymoma	Diffuse midline glioma	NA	Diffuse midline glioma, H3 K28-altered	3
+Ependymoma	Ganglioglioma	NA	Ganglioglioma, MAPK	3
+Ependymoma	High-grade glioma	NA	High-grade glioma, HGNET	3
+Ependymoma	Low-grade glioma	NA	Low-grade glioma, MYB/MYBL1	3
+Ependymoma	Rare CNS tumor	NA	Rare CNS, BCOR-fused	3
+Ganglioglioma	Dysembryoplastic neuroepithelial tumor	Ganglioglioma, FGFR	Dysembryoplastic neuroepithelial tumor	3
+Ganglioglioma	Low-grade glioma	Ganglioglioma, MYB/MYBL1	Low-grade glioma, MYB/MYBL1	3
+Ganglioneuroma	Neurofibroma/Plexiform	NA	Neurofibroma/Plexiform	3
+Germinoma	Yolk sac tumor	NA	Yolk sac tumor	3
+Glial-neuronal tumor NOS	Ependymoma	Glial-neuronal tumor,  wildtype	Supratentorial ependymoma, ZFTA fusion-positive	3
+Glial-neuronal tumor NOS	Ganglioglioma	Glial-neuronal tumor,  BRAF V600E	Ganglioglioma, BRAF V600E	3
+Glial-neuronal tumor NOS	Infant-type hemispheric glioma	Glial-neuronal tumor,  RTK	Infant-type hemispheric glioma, ROS1-altered	3
+Glial-neuronal tumor NOS	Low-grade glioma	Glial-neuronal tumor,  other MAPK	Low-grade glioma, PA ST, other MAPK	3
+Glial-neuronal tumor NOS	Papillary glioneuronal tumor	Glial-neuronal tumor,  To be classified	Papillary glioneuronal tumor	3
+Glial-neuronal tumor NOS	Rare CNS tumor	Glial-neuronal tumor, wildtype	Rare CNS, MN1::BEND2	3
+High-grade glioma	Diffuse glioneuronal tumor with oligodendroglioma-like features and nuclear clusters	High-grade glioma, IDH-wildtype and H3-wildtype	Diffuse glioneuronal tumor with oligodendroglioma-like features and nuclear clusters	3
+High-grade glioma	Diffuse midline glioma	High-grade glioma, IDH-wildtype and H3-wildtype	Diffuse midline glioma, H3 K28-altered, EGFR-mutant	3
+High-grade glioma	Ganglioglioma	High-grade glioma, IDH-wildtype and H3-wildtype	Ganglioglioma, BRAF V600E	3
+High-grade glioma	Low-grade glioma	High-grade glioma, IDH-wildtype and H3-wildtype	Low-grade glioma, RTK	3
+High-grade glioma	Low-grade glioma	NA	Low-grade glioma, BRAF/MAPK	3
+High-grade glioma	Pleomorphic xanthoastrocytoma	High-grade glioma, IDH-wildtype and H3-wildtype	Pleomorphic xanthoastrocytoma, BRAF V600E	3
+High-grade glioma	Rare CNS tumor	High-grade glioma, IDH-wildtype and H3-wildtype	Rare CNS, PLAG AMP	3
+Langerhans Cell histiocytosis	Langerhans cell histiocytosis	NA	Langerhans cell histiocytosis	3
+Low-grade glioma	Diffuse midline glioma	Low-grade glioma, other MAPK, H3	Diffuse midline glioma, H3 K28-mutant	3
+Low-grade glioma	Dysembryoplastic neuroepithelial tumor	Low-grade glioma, FGFR	Dysembryoplastic neuroepithelial tumor	3
+Low-grade glioma	Dysembryoplastic neuroepithelial tumor	Low-grade glioma, RTK	Dysembryoplastic neuroepithelial tumor	3
+Low-grade glioma	Ependymoma	Low-grade glioma, wildtype	Supratentorial ependymoma, YAP1 fusion-positive	3
+Low-grade glioma	Ganglioglioma	Low-grade glioma, BRAF V600E, CDKN2A/B	Ganglioglioma, BRAF V600E, CDKN2A/B	3
+Low-grade glioma	Glial-neuronal tumor NOS	Low-grade glioma, BRAF V600E	Glial-neuronal tumor, MAPK	3
+Low-grade glioma	Glial-neuronal tumor NOS	Low-grade glioma, NF1-somatic, FGFR	Glial-neuronal tumor, FGFR	3
+Low-grade glioma	High-grade glioma	Low-grade glioma, NF1-somatic, NF1-germline, CDKN2A/B	Low-grade glioma, NF1-somatic, NF1-germline, CDKN2A/B	3
+Low-grade glioma	Oligodendroglioma	NA	Oligodendroglioma, IDH-mutant and 1p/19q-codeleted	3
+Low-grade glioma	Pleomorphic xanthoastrocytoma	Low-grade glioma, BRAF V600E, other MAPK	Pleomorphic xanthoastrocytoma, BRAF V600E	3
+Medulloblastoma	Medulloblastoma with myogenic differentiation	Medulloblastoma, group 3	Medulloblastoma with myogenic differentiation	3
+Medulloblastoma	Rare CNS tumor	Medulloblastoma, SHH-activated	Rare CNS, ARMS	3
+Medulloblastoma	Rare CNS tumor	NA	CNS Ewing sarcoma	3
+Meningioma	Ependymoma	NA	Supratentorial ependymoma, YAP1 fusion-positive	3
+Meningioma	Germinoma	NA	Germinoma, KIT mutant	3
+Meningioma	Low-grade glioma	NA	Low-grade glioma, FGFR	3
+Mixed germ cell tumor	Germinoma	NA	Germinoma, KIT wildtype	3
+Neuroblastoma	CNS neuroblastoma	NA	CNS neuroblastoma, NOS	3
+Neurofibroma/Plexiform	Malignant peripheral nerve sheath tumor	NA	Malignant peripheral nerve sheath tumor, spinal/atypical	3
+Pineoblastoma	Medulloblastoma	NA	Medulloblastoma, WNT-activated	3
+Pleomorphic xanthoastrocytoma	Low-grade glioma	Pleomorphic xanthoastrocytoma	Low-grade glioma, PA ST, BRAF V600E	3
+Rosette-forming glioneuronal tumor	Low-grade glioma	Rosette-forming glioneuronal tumor,  other MAPK, FGFR	Low-grade glioma, other MAPK, FGFR	3
+NA	Ganglioglioma	NA	Ganglioglioma, RTK	3
+NA	Teratoma	NA	Teratoma	3
+Adamantinomatous Craniopharyngioma	Low-grade glioma	NA	Low-grade glioma, MAPK	2
+Atypical Teratoid Rhabdoid Tumor	Rare CNS tumor	NA	Rare CNS, CIC SARC	2
+Atypical Teratoid Rhabdoid Tumor	Rare CNS tumor	NA	Rare CNS, CRINET	2
+CNS Embryonal tumor	High-grade glioma	CNS Embryonal tumor, NEC/NOS	High-grade glioma, MYCN	2
+CNS Embryonal tumor	High-grade glioma	CNS Embryonal tumor, NEC/NOS	High-grade glioma, RTK	2
+CNS Embryonal tumor	Pineoblastoma	CNS Embryonal tumor, NEC/NOS	Pineoblastoma, RB1-altered	2
+CNS Embryonal tumor	Rare CNS tumor	CNS Embryonal tumor, HGNET-MN1	Rare CNS, MN1::CXXC5	2
+Dysembryoplastic neuroepithelial tumor	Rare CNS tumor	NA	Rare CNS, PLAGL1-fused	2
+Ganglioneuroblastoma	Ganglioneuroma	Ganglioneuroblastoma, MYCN non-amplified	Ganglioneuroma, MYCN non-amplified	2
+Ganglioneuroblastoma	Neurofibroma/Plexiform	NA	Neurofibroma/Plexiform	2
+Glial-neuronal tumor NOS	Diffuse midline glioma	Glial-neuronal tumor,  H3	Diffuse midline glioma, H3 K28-mutant	2
+Glial-neuronal tumor NOS	Low-grade glioma	Glial-neuronal tumor,  BRAF V600E	Low-grade glioma, BRAF V600E	2
+Glial-neuronal tumor NOS	Rare CNS tumor	Glial-neuronal tumor,  To be classified	Rare CNS, BCOR ITD	2
+High-grade glioma	Diffuse midline glioma	High-grade glioma, IDH-wildtype and H3-wildtype	Diffuse midline glioma, H3 K28-altered, EZHIP-overexpressing	2
+High-grade glioma	Ependymoma	High-grade glioma, IDH-wildtype and H3-wildtype	Spinal ependymoma, MYCN-amplified	2
+High-grade glioma	Ependymoma	NA	Posterior fossa group A (PFA) ependymoma	2
+High-grade glioma	Ependymoma	NA	Supratentorial ependymoma, YAP1 fusion-positive	2
+High-grade glioma	Infant-type hemispheric glioma	NA	Infant-type hemispheric glioma, NTRK-altered	2
+High-grade glioma	Low-grade glioma	High-grade glioma, IDH-wildtype and H3-wildtype	Low-grade glioma, PA ST	2
+High-grade glioma	Malignant peripheral nerve sheath tumor	NA	Malignant peripheral nerve sheath tumor, spinal/atypical	2
+High-grade glioma	Pleomorphic xanthoastrocytoma	NA	Pleomorphic xanthoastrocytoma	2
+High-grade glioma	Rare CNS tumor	NA	Rare CNS, PATZ1-fused	2
+High-grade neuroepithelial tumor	Rare CNS tumor	NA	Rare CNS, MN1::BEND2	2
+Intraneural perineuroma	Neurofibroma/Plexiform	NA	Neurofibroma/Plexiform	2
+Low-grade glioma	Diffuse midline glioma	NA	Diffuse midline glioma, H3 K28-altered	2
+Medulloblastoma	Rare CNS tumor	Medulloblastoma, SHH-activated	Rare CNS, CIC SARC	2
+Neuroblastoma	Schwannoma	NA	Schwannoma	2
+Other tumor	Atypical neurofibromatous neoplasm	NA	NA	2
+NA	Yolk sac tumor	NA	Yolk sac tumor	2
+Chondromyxoid fibroma	High-grade glioma	NA	High-grade glioma, IDH-mutant	1
+Diffuse intrinsic pontine glioma	Diffuse midline glioma	Diffuse midline glioma, H3 K28-altered	Diffuse midline glioma, H3 K28-mutant	1
+Diffuse intrinsic pontine glioma	Diffuse midline glioma	NA	Diffuse midline glioma, H3 K28-mutant	1
+Ependymoma	Low-grade glioma	NA	Low-grade glioma, BRAF/MAPK	1
+Ependymoma	Rare CNS tumor	NA	Rare CNS, PLAGL1-fused	1
+Ganglioneuroblastoma	Schwannoma	NA	Schwannoma	1
+Glial-neuronal tumor NOS	Medulloblastoma	Glial-neuronal tumor,  To be classified	Medulloblastoma, WNT-activated	1
+High-grade glioma	Infant-type hemispheric glioma	NA	Infant-type hemispheric glioma	1
+High-grade glioma	Low-grade glioma	NA	Low-grade glioma, PA ST	1
+Low-grade glioma	Diffuse midline glioma	Low-grade glioma, NF1-germline	Diffuse midline glioma, H3 K28-altered	1
+Meningioma	Embryonal tumor with multilayer rosettes	NA	Embryonal tumor with multilayer rosettes, C19MC-altered	1
+Neuroblastoma	Ganglioneuroblastoma	Neuroblastoma, MYCN non-amplified	Ganglioneuroblastoma, MYCN non-amplified	1
+Other tumor	NA	NA	NA	1
+Pilocytic astrocytoma	Infant-type hemispheric glioma	NA	Infant-type hemispheric glioma	1
+NA	Acute leukemia	NA	NA	1
+NA	Dysembryoplastic neuroepithelial tumor	NA	NA	1
+NA	Malignant peripheral nerve sheath tumor	NA	NA	1
+NA	Schwannoma	NA	Schwannoma	1

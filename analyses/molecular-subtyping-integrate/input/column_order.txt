@@ -42,6 +42,10 @@ cancer_group
 integrated_diagnosis
 harmonized_diagnosis
 Notes
+subtype_source
+subtype_review_flag
+subtype_alterations_confirmed
+alteration_confirmed
 dkfz_v12_methylation_subclass
 dkfz_v12_methylation_subclass_score
 dkfz_v12_methylation_mgmt_status
