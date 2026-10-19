@@ -184,55 +184,6 @@ jobs:
             entrypoint: molecular-subtyping/run-molecular-subtyping.sh
             openpbta_subset: 0
 
-          - name: Molecular Subtyping - MB
-            entrypoint: molecular-subtyping-MB/run-molecular-subtyping-mb.sh
-            openpbta_subset: 0
-
-          - name: Molecular Subtyping - CRANIO
-            entrypoint: molecular-subtyping-CRANIO/run-molecular-subtyping-cranio.sh
-            openpbta_subset: 0
-
-          - name: Molecular Subtyping - EPN
-            entrypoint: molecular-subtyping-EPN/run-molecular-subtyping-EPN.sh
-
-          - name: Molecular Subtyping - EMBRYONAL
-            entrypoint: molecular-subtyping-embryonal/run-embryonal-subtyping.sh
-            openpbta_testing: 1
-
-          - name: Molecular Subtyping - CHORDOMA
-            entrypoint: molecular-subtyping-chordoma/run-molecular-subtyping-chordoma.sh
-            openpbta_subset: 0
-
-          - name: Molecular Subtyping - EWS
-            entrypoint: molecular-subtyping-EWS/run_subtyping.sh
-
-          - name: Molecular Subtyping - NEUROCYTOMA
-            entrypoint: molecular-subtyping-neurocytoma/run_subtyping.sh
-
-          - name: Molecular Subtyping - HGG
-            entrypoint: molecular-subtyping-HGG/run-molecular-subtyping-HGG.sh
-
-          - name: Molecular Subtyping - LGG
-            entrypoint: molecular-subtyping-LGAT/run_subtyping.sh
-            openpbta_subset: 0
-            
-          - name: Molecular Subtyping - ATRT
-            entrypoint: molecular-subtyping-ATRT/run-molecular-subtyping-ATRT.sh
-            
-          - name: Molecular Subtyping - PB
-            entrypoint: molecular-subtyping-PB/run-molecular-subtyping-PB.sh
-            openpbta_subset: 0
-            
-          - name: Molecular Subtyping - Rare CNS
-            entrypoint: molecular-subtyping-Rare-CNS/run-molecular-subtyping-rare-cns.sh
-            
-          - name: Molecular Subtyping - NBL
-            entrypoint: molecular-subtyping-NBL/run-molecular-subtyping-NBL.sh
-
-          - name: Molecular Subtyping - PATHOLOGY/COMPILE
-            entrypoint: molecular-subtyping-pathology/run-subtyping-aggregation.sh
-            openpbta_testing: 1
-
           - name: Molecular Subtyping - INTEGRATE (+ add cancer groups)
             entrypoint: molecular-subtyping-integrate/run-subtyping-integrate.sh
             
