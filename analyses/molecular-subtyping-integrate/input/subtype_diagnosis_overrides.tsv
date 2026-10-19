@@ -1,0 +1,82 @@
+molecular_subtype	integrated_diagnosis	broad_histology	short_histology	note
+CHDM	Chordoma			no subtype
+CHDM, conventional	Chordoma, conventional			
+CHDM, poorly differentiated	Chordoma, poorly differentiated			
+CNS Embryonal, NOS	CNS Embryonal tumor, NEC/NOS			legacy
+CNS NBL, NOS	CNS neuroblastoma, NOS	Embryonal tumor	Embryonal tumor	a neuroblastoma of the CNS (PBTA, not a peripheral or metastatic tumor) without a FOXR2 activation or methylation call
+CNC	Central neurocytoma			
+CNS lymphoma, DLBCL	CNS lymphoma, diffuse large B-cell			
+CRANIO, ADAM	Adamantinomatous craniopharyngioma			legacy
+CRANIO, PAP	Papillary craniopharyngioma			
+DHG, H3 G35	Diffuse hemispheric glioma, H3 G35-mutant			legacy; the evidence is in subtype_alterations_confirmed
+DHG, H3 G35-mutant	Diffuse hemispheric glioma, H3 G35-mutant			
+DMG, H3 K28	Diffuse midline glioma, H3 K28-altered			legacy; methylation or diagnosis only
+DMG, H3 K28-mutant	Diffuse midline glioma, H3 K28-mutant			
+DMG, H3 K28-altered, EGFR	Diffuse midline glioma, H3 K28-altered, EGFR-mutant			
+DMG, H3 K28-altered, EGFR, EZHIP	Diffuse midline glioma, H3 K28-altered, EGFR-mutant, EZHIP-overexpressing			
+DMG, H3 K28-altered, EZHIP	Diffuse midline glioma, H3 K28-altered, EZHIP-overexpressing			
+DMG, H3 K28-mutant, EGFR	Diffuse midline glioma, H3 K28-mutant, EGFR-mutant			
+DMG, H3 K28-mutant, EGFR, EZHIP	Diffuse midline glioma, H3 K28-mutant, EGFR-mutant, EZHIP-overexpressing			
+DMG, H3 K28-mutant, EZHIP	Diffuse midline glioma, H3 K28-mutant, EZHIP-overexpressing			
+EPN, MPE	Myxopapillary ependymoma			legacy
+EPN, PF A	Posterior fossa group A (PFA) ependymoma			legacy
+EPN, PF B	Posterior fossa group B (PFB) ependymoma			legacy
+EPN, PF SE	Posterior fossa subependymoma			legacy
+EPN, SP	Spinal ependymoma			legacy
+EPN, SP-MYCN	Spinal ependymoma, MYCN-amplified			legacy
+EPN, SP-SE	Spinal subependymoma			legacy
+EPN, ST SE	Supratentorial subependymoma			
+EPN, ST YAP1	Supratentorial ependymoma, YAP1 fusion-positive			legacy
+EPN, ST ZFTA	Supratentorial ependymoma, ZFTA fusion-positive			legacy
+EVN	Extraventricular neurocytoma			
+GCT, Germinoma KIT mutant	Germinoma, KIT mutant		Germinoma	
+GCT, Germinoma KIT wildtype	Germinoma, KIT wildtype		Germinoma	
+GCT, Teratoma	Teratoma		Teratoma	
+GCT, Yolk sac tumor	Yolk sac tumor			
+GNT, DGONC	Diffuse glioneuronal tumor with oligodendroglioma-like features and nuclear clusters			
+GNT, DIG/DIA	Desmoplastic infantile ganglioglioma/astrocytoma			
+GNT, DNET	Dysembryoplastic neuroepithelial tumor			
+GNT, Myxoid	Myxoid glioneuronal tumor			
+GNT, Papillary	Papillary glioneuronal tumor			
+GNT, NOS	Glial-neuronal tumor, NOS			
+HGG, H3 wildtype	High-grade glioma, IDH-wildtype and H3-wildtype			legacy
+HGG, IDH	High-grade glioma, IDH-mutant			legacy
+HGG, HGAP	High-grade astrocytoma with piloid features			
+HGG, HGNET	High-grade glioma, HGNET			
+HGG, IHG	Infant-type hemispheric glioma			legacy
+HGG, PXA BRAF V600E	Pleomorphic xanthoastrocytoma, BRAF V600E			
+HGG, PXA BRAF V600E negative	Pleomorphic xanthoastrocytoma, BRAF V600E negative			
+LGG, PXA BRAF V600E	Pleomorphic xanthoastrocytoma, BRAF V600E	Low-grade astrocytic tumor	LGG	
+LGG, PXA BRAF V600E negative	Pleomorphic xanthoastrocytoma, BRAF V600E negative	Low-grade astrocytic tumor	LGG	
+LGG, SEGA	Subependymal Giant Cell Astrocytoma	Low-grade astrocytic tumor	LGG	
+MB, Group3	Medulloblastoma, group 3			legacy
+MB, Group4	Medulloblastoma, group 4			legacy
+MB, SHH	Medulloblastoma, SHH-activated			legacy
+MB, WNT	Medulloblastoma, WNT-activated			legacy
+MB, Medullomyoblastoma	Medulloblastoma with myogenic differentiation			
+MEL, Melanocytoma	Melanocytoma			
+MEPL, Intraocular medulloepithelioma	Intraocular medulloepithelioma	Embryonal tumor	ETMR	
+MNG, Benign	Meningioma, benign			
+MNG, Intermediate	Meningioma, intermediate			
+MNG, SMARCE1-altered	Meningioma, SMARCE1-altered			
+NST, Schwannoma	Schwannoma		Schwannoma	
+NST, Plexiform neurofibroma	Neurofibroma/Plexiform		Neurofibroma	
+NST, MPNST typical	Malignant peripheral nerve sheath tumor, typical		MPNST	
+NST, MPNST spinal/atypical	Malignant peripheral nerve sheath tumor, spinal/atypical		MPNST	
+NST, MPNST melanotic	Malignant peripheral nerve sheath tumor, melanotic		MPNST	
+Oligo, IDH	Oligodendroglioma, IDH-mutant and 1p/19q-codeleted			
+PB, RB1	Pineoblastoma, RB1-altered			
+Rare CNS, FOXR2 NBL	Rare CNS, FOXR2 NBL	Embryonal tumor	Rare CNS	legacy
+PITUI, Pituicytoma/GCTS/SCO	Pituicytoma, granular cell tumor of the sellar region, spindle cell oncocytoma	Sellar region tumor	Pituicytoma	
+CPC, pediatric	Choroid plexus carcinoma, pediatric			
+CPP, adult	Choroid plexus papilloma, adult			
+CPP, pediatric	Choroid plexus papilloma, pediatric			
+HGG, PXA	Pleomorphic xanthoastrocytoma			legacy; BRAF V600E status not assessable (no DNA)
+LGG, PXA	Pleomorphic xanthoastrocytoma	Low-grade astrocytic tumor	LGG	BRAF V600E status not assessable (no DNA)
+NBL, MYCN amplified	Neuroblastoma, MYCN-amplified	Peripheral neuroblastic tumor	Neuroblastoma	legacy
+NBL, MYCN non-amplified	Neuroblastoma, MYCN non-amplified	Peripheral neuroblastic tumor	Neuroblastoma	legacy
+Rare CNS, EWS	CNS Ewing sarcoma	Mixed or indeterminate tumor	EWS	legacy
+HGG, IHG, ALK-altered	Infant-type hemispheric glioma, ALK-altered			legacy cancer group
+HGG, IHG, MET-altered	Infant-type hemispheric glioma, MET-altered			legacy cancer group
+HGG, IHG, NTRK-altered	Infant-type hemispheric glioma, NTRK-altered			legacy cancer group
+HGG, IHG, ROS1-altered	Infant-type hemispheric glioma, ROS1-altered			legacy cancer group
