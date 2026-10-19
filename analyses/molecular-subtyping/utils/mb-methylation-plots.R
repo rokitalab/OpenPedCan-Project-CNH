@@ -274,7 +274,10 @@ run_mb_embedding_plots <- function(embed_fn, prefix, axes) {
            CCND2 = CCND2_TPM_zscore, PTEN = PTEN_TPM_zscore,
            TP53 = TP53_TPM_zscore) %>%
     pivot_longer(c(MYCN, GLI2, CCND2, PTEN, TP53), names_to = "gene_name",
-                 values_to = "TPM_zscore")
+                 values_to = "TPM_zscore") %>%
+    # all missing when there are too few SHH tumors with RNA (the testing data): numeric,
+    # so that the continuous scale still applies
+    mutate(TPM_zscore = as.numeric(TPM_zscore))
   save_plot(
     ggplot(expression_long, aes(Dim1, Dim2, color = TPM_zscore)) +
       geom_point(size = 2.5) +
