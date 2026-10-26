@@ -195,6 +195,11 @@ if (array_type %in% c("EPIC", "EPICv2")) {
 segments_file <- paste0(out_base, "-segments.seg")
 gistic_file <- paste0(out_base, "-gistic.seg")
 
+# Create the results directory if it does not exist.
+if (!dir.exists(dirname(out_base))) {
+  dir.create(dirname(out_base), recursive = TRUE)
+}
+
 
 ## these will form the input files to gistic, after some post processing to get the headers in the right format
 segments <- CNV.write(x, what = "segments")
