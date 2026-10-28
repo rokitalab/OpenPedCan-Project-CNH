@@ -1,0 +1,3 @@
+Kids_First_Biospecimen_ID	sample_id	match_id	methyl_source	methyl_class	methyl_score	reason
+BS_B5S27A0B	7316-195	PT_Y5KY6KN9_7316-195_Derived Cell Line_Initial CNS Tumor_Serum-free_14	chop_dgd	A_IDH_HG	0.997	IDH-mutant glioma class with an H3 K27 or G34 variant in the cell line
+BS_JGKRN7NA	7316-195	PT_Y5KY6KN9_7316-195_Derived Cell Line_Initial CNS Tumor_Serum-free_8	chop_dgd	A_IDH_HG	0.997	IDH-mutant glioma class with an H3 K27 or G34 variant in the cell line

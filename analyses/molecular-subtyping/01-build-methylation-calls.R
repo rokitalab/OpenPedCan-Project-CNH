@@ -7,11 +7,15 @@
 #
 # Calls come from input/bti_methylation_classifications.tsv: DKFZ v12.8 and
 # NIH v3.1. Earlier classifier versions (DKFZ v11 / v12, NIH v2) are not used.
+# The serum-free derived cell lines have no array in the release; their classes are
+# those of the CHOP DGD classifier (input/serum_free_cell_line_methylation.tsv, one
+# row per sample), attached to the serum-free cell lines of the sample.
 #
 # Confidence rule (same as molecular-subtyping-Rare-CNS):
 #   high  = DKFZ subclass score >= 0.8, or (DKFZ missing / < 0.8) NIH
 #           superfamily and class scores >= 0.9
-# Precedence among passing calls: DKFZ v12.8, then NIH v3.1
+#   CHOP DGD (cell lines): class mean score >= 0.8
+# Precedence among passing calls: DKFZ v12.8, then NIH v3.1, then CHOP DGD
 #
 # Class vocabularies differ between classifier versions, so every call is
 # mapped to a single crosswalk row via normalized keys instead of hand aliases.
@@ -32,6 +36,7 @@ dir.create(results_dir, showWarnings = FALSE, recursive = TRUE)
 
 dkfz_cutoff <- 0.8
 nih_cutoff <- 0.9
+chop_dgd_cutoff <- 0.8
 
 # normalize vocabulary differences between versions (case, "_" vs " ")
 norm_key <- function(x) {
@@ -167,10 +172,53 @@ make_calls <- function(df, source, call, score, super_score = NA, class_score = 
   )
 }
 
+### CHOP DGD classes of the serum-free cell lines ------------------------------
+
+# The file has one row per sample (no passage), so the class is attached to every
+# serum-free cell line of the sample (sample_id and a serum-free composition). The
+# lines have no array, so the call is set on one biospecimen of each line (the WGS /
+# WXS one when there is one): downstream steps read a call by its biospecimen and
+# take the line's own match_id, DNA and RNA from the histologies.
+chop_dgd <- read_tsv(file.path(input_dir, "serum_free_cell_line_methylation.tsv"),
+                     show_col_types = FALSE, col_types = cols(.default = "c")) %>%
+  mutate(class_code = sub("^Methylation_class_", "", class),
+         across(c(class_mean_score, class_consistency_score), as.numeric))
+stopifnot(!anyDuplicated(chop_dgd$sample_id))
+# CHOP DGD codes that the crosswalk spells differently (input/chop_dgd_class_aliases.tsv)
+chop_dgd_aliases <- read_tsv(file.path(input_dir, "chop_dgd_class_aliases.tsv"),
+                             show_col_types = FALSE)
+chop_dgd <- chop_dgd %>%
+  mutate(call_class = coalesce(
+    chop_dgd_aliases$crosswalk_class[match(class_code, chop_dgd_aliases$chop_dgd_class)],
+    class_code))
+
+serum_free_lines <- read_tsv(
+  file.path(root_dir, "data", "histologies-base.tsv"),
+  col_select = c(Kids_First_Biospecimen_ID, sample_id, match_id, composition,
+                 cell_line_composition, cell_line_passage, experimental_strategy),
+  guess_max = 100000, show_col_types = FALSE) %>%
+  filter(composition == "Derived Cell Line",
+         str_starts(replace_na(cell_line_composition, ""), "Serum-free"),
+         sample_id %in% chop_dgd$sample_id) %>%
+  mutate(assay_order = match(experimental_strategy, c("WGS", "WXS"), nomatch = 3L)) %>%
+  arrange(match_id, assay_order, Kids_First_Biospecimen_ID) %>%
+  group_by(match_id) %>%
+  slice(1) %>%
+  ungroup()
+
+chop_dgd_lines <- chop_dgd %>%
+  inner_join(serum_free_lines %>%
+               select(sample_id, match_id, Kids_First_Biospecimen_ID,
+                      cell_line_composition, cell_line_passage),
+             by = "sample_id")
+stopifnot(!anyDuplicated(chop_dgd_lines$Kids_First_Biospecimen_ID))
+
 all_calls <- bind_rows(
   make_calls(bti, "dkfz_v12.8", "dkfz_v12.8_subclass", "dkfz_v12.8_subclass_maxscore"),
   make_calls(bti, "nih_v3.1", "NIH_v3.1_subclass", "NIH_v3.1_subclass_meanscore",
-             "NIH_v3.1_superfamily_meanscore", "NIH_v3.1_class_score")
+             "NIH_v3.1_superfamily_meanscore", "NIH_v3.1_class_score"),
+  make_calls(chop_dgd_lines %>% mutate(call = call_class, score = class_mean_score),
+             "chop_dgd", "call", "score")
 ) %>%
   filter(!is.na(call)) %>%
   mutate(
@@ -182,9 +230,10 @@ all_calls <- bind_rows(
       is_nih,
       !is.na(super_score) & !is.na(class_score) &
         super_score >= nih_cutoff & class_score >= nih_cutoff,
-      !is.na(score) & score >= dkfz_cutoff
+      if_else(source == "chop_dgd", !is.na(score) & score >= chop_dgd_cutoff,
+              !is.na(score) & score >= dkfz_cutoff)
     ),
-    precedence = match(source, c("dkfz_v12.8", "nih_v3.1"))
+    precedence = match(source, c("dkfz_v12.8", "nih_v3.1", "chop_dgd"))
   ) %>%
   left_join(key_table, by = "key") %>%
   # NIH control-tissue codes (CONTR_*, CTRL_*) are never subtyped, regardless of
@@ -253,8 +302,9 @@ resolved <- all_calls %>%
   )
 
 # every methylation biospecimen gets a row, low / none confidence included
-all_methyl_ids <- union(bti$Kids_First_Biospecimen_ID,
-                        hist_methyl$Kids_First_Biospecimen_ID)
+all_methyl_ids <- union(union(bti$Kids_First_Biospecimen_ID,
+                              hist_methyl$Kids_First_Biospecimen_ID),
+                        chop_dgd_lines$Kids_First_Biospecimen_ID)
 
 methyl_calls <- tibble(Kids_First_Biospecimen_ID = all_methyl_ids) %>%
   left_join(resolved, by = "Kids_First_Biospecimen_ID") %>%
@@ -277,6 +327,29 @@ methyl_calls <- tibble(Kids_First_Biospecimen_ID = all_methyl_ids) %>%
 stopifnot(!anyDuplicated(methyl_calls$Kids_First_Biospecimen_ID))
 
 write_tsv(methyl_calls, file.path(results_dir, "methylation_calls.tsv"))
+
+# the CHOP DGD classes and where they went: one row per sample and serum-free cell
+# line; a sample with no serum-free line in the histologies has no match_id
+chop_dgd_matching <- chop_dgd %>%
+  left_join(chop_dgd_lines %>%
+              select(sample_id, match_id, Kids_First_Biospecimen_ID,
+                     cell_line_composition, cell_line_passage),
+            by = "sample_id") %>%
+  left_join(methyl_calls %>%
+              select(Kids_First_Biospecimen_ID, methyl_confidence, methyl_class,
+                     OPC_molecular_subtype, methyl_control),
+            by = "Kids_First_Biospecimen_ID") %>%
+  transmute(sample_id, match_id, Kids_First_Biospecimen_ID, cell_line_composition,
+            cell_line_passage, chop_dgd_class = class_code,
+            class_mean_score, class_consistency_score,
+            result = case_when(
+              is.na(match_id) ~ "no serum-free cell line in the histologies",
+              methyl_confidence != "high" ~ "class mean score below 0.8",
+              methyl_control ~ "control class",
+              is.na(OPC_molecular_subtype) ~ "class not in the crosswalk or without subtype",
+              TRUE ~ "subtype from methylation"),
+            methyl_subtype = OPC_molecular_subtype)
+write_tsv(chop_dgd_matching, file.path(results_dir, "chop_dgd_cell_line_calls.tsv"))
 
 # quick summary to the log
 message("Biospecimens with methylation: ", nrow(methyl_calls))

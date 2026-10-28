@@ -2817,3 +2817,23 @@ TARGET-51-PALFEF-01A-01D.M	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA
 TARGET-51-PALFYG-01A-01D.M	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 TARGET-51-PALKEI-01A-01D.M	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
 TARGET-51-PALLXV-01A-01D.M	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
+BS_Q9MAXZF6	high	chop_dgd	ATRT_MYC	0.999	ATRT, MYC	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
+BS_HM5GFJN8	high	chop_dgd	DMG_K27	1	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
+BS_8Q7NWJ22	high	chop_dgd	DMG_K27	1	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
+BS_B5S27A0B	high	chop_dgd	A_IDH_HG	0.997	HGG, IDH	FALSE	FALSE	FALSE	Adult-type diffuse gliomas	diffuse glioma, IDH mutant	FALSE	NA	FALSE
+BS_JGKRN7NA	high	chop_dgd	A_IDH_HG	0.997	HGG, IDH	FALSE	FALSE	FALSE	Adult-type diffuse gliomas	diffuse glioma, IDH mutant	FALSE	NA	FALSE
+BS_AZD61W93	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
+BS_A3S28ANC	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
+BS_S4P7XKFK	high	chop_dgd	A_IDH_HG	0.972	HGG, IDH	FALSE	FALSE	FALSE	Adult-type diffuse gliomas	diffuse glioma, IDH mutant	FALSE	NA	FALSE
+BS_FJEZ3ASV	high	chop_dgd	A_IDH_HG	0.972	HGG, IDH	FALSE	FALSE	FALSE	Adult-type diffuse gliomas	diffuse glioma, IDH mutant	FALSE	NA	FALSE
+BS_YTTPJ4RX	high	chop_dgd	CPC_PED	0.999	CPC, pediatric	FALSE	FALSE	FALSE	choroid plexus tumours	choroid plexus tumours	FALSE	NA	FALSE
+BS_9VJ3VV46	high	chop_dgd	ATRT_SHH	0.999	ATRT, SHH	FALSE	FALSE	FALSE	Other CNS embryonal tumours	Atypical teratoid rhabdoid tumour	FALSE	NA	FALSE
+BS_AFBPM6CN	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
+BS_V27ABVGT	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
+BS_GW7MKKP9	high	chop_dgd	DMG_K27	0.999	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
+BS_TF5TTEXH	high	chop_dgd	DMG_K27	0.999	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
+BS_RXP2ZRQT	high	chop_dgd	DMG_K27	0.986	DMG, H3 K28	FALSE	FALSE	FALSE	Paediatric-type diffuse high-grade gliomas	diffuse midline glioma, H3K27-altered	FALSE	NA	FALSE
+BS_ERAWW3H7	high	chop_dgd	PXA	0.992	PXA	FALSE	FALSE	FALSE	diffuse glioma, MAPK altered, cell-cycle activated	pleomorphic xanthoastrocytoma(-like)	FALSE	NA	FALSE
+BS_AHW1VXPG	high	chop_dgd	PXA	0.992	PXA	FALSE	FALSE	FALSE	diffuse glioma, MAPK altered, cell-cycle activated	pleomorphic xanthoastrocytoma(-like)	FALSE	NA	FALSE
+BS_E3N4JN0X	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
+BS_ANZMQ09Q	low_or_none	NA	NA	NA	NA	FALSE	FALSE	NA	NA	NA	FALSE	NA	FALSE
