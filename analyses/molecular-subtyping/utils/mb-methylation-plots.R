@@ -315,6 +315,8 @@ run_mb_embedding_plots <- function(embed_fn, prefix, axes) {
       select(set, Kids_First_Biospecimen_ID, match_id, sample_id, Dim1, Dim2,
              molecular_subtype, shh_subtype, shh_source, dkfz_subclass,
              dkfz_score, age_at_diagnosis_years) %>%
+      # rounded: the last digits of a PCA differ between machines
+      mutate(Dim1 = round(Dim1, 4), Dim2 = round(Dim2, 4)) %>%
       rename(!!axes_default[1] := Dim1, !!axes_default[2] := Dim2) %>%
       mutate(shh_subtype = as.character(shh_subtype)),
     file.path(results_dir, paste0("mb_", prefix, "_coordinates.tsv")))
