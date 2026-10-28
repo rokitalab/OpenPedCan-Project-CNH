@@ -1,0 +1,2 @@
+subtype_regex	subtype_group
+^HGG, (RTK|MYCN|MES|chr6 CTX|HGAP|HGNET|CBM|PNC)$	HGG, H3 wildtype

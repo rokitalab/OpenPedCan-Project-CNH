@@ -1,0 +1,33 @@
+area	check	status	n	examples
+methylation	calls come only from DKFZ v12.8 and NIH v3.1	pass	0	NA
+methylation	no code reads DKFZ v11, v12 or NIH v2 columns	pass	0	NA
+methylation	every high-confidence class is in the crosswalk	FLAG	10	PA PF VAR (nih_v3.1, 29); GCG (dkfz_v12.8, 3); CSA CC (nih_v3.1, 3); CSA IDH GROUP A (nih_v3.1, 1); CSA MES (nih_v3.1, 1); GNT KinF A (nih_v3.1, 1); ...
+methylation	no high-confidence call is unmapped	pass	0	NA
+methylation	every methylation array in the histologies is classified	pass	0	NA
+subtype	tumors flagged for review (diagnosis discordant, classifiers disagree, ...)	FLAG	84	01 (MYCN copy number not amplified, clinical report amplified); 01 (MYCN call differs from the clinical report); 09 (MYCN copy number not amplified, clinical report amplified); 7316-3517 (diagnosis discordant;methylation class is not a neuroblastic class); 7316-2251 (diagnosis discordant); 7316-2608 (classifier versions disagree); ...
+subtype	methylation contradicts the diagnosis and is not yet reviewed (the subtype is kept; review the diagnosis; add reviewed ones to input/reviewed_diagnosis_discordance.tsv)	FLAG	19	7316-3517: Ganglioneuroblastoma -> NST, Schwannoma; 7316-2251: Choroid plexus papilloma -> EPN, PF B; 7316-4449: Ependymoma;Metastatic... -> LGG, BRAF/MAPK; 7316-2555: Meningioma -> ETMR, C19MC-altered; 7316-37: High-grade glioma/ast... -> MB, Group4; 7316-5481: Ependymoma -> DMG, H3 K28; ...
+subtype	control or non-tumor methylation classes on tumor samples	pass	0	NA
+subtype	H3 K27/K28 variant outside DMG/DHG (a mix-up or a real H3 K27M tumor)	FLAG	2	7316-5511; 7316-506
+subtype	cell line subtype differs from its tumor	FLAG	12	7316-85; 7316-1746; 7316-212; 7316-2151; 7316-4447; 7316-4448; ...
+subtype	neuroblastoma MYCN status differs between copy number, expression and the clinical report	FLAG	19	01; 09; 7316-1927
+subtype	likely methylation mismatches (genomics supports the diagnosis): collect and remove from the cohort (results/methylation_likely_mismatch.tsv)	FLAG	11	7316-1473; 7316-166; 7316-1856; 7316-1969; 7316-3402; 7316-3403; ...
+subtype	possible methylation mismatches still to investigate (input/possible_methylation_mixups.tsv)	pass	0	NA
+subtype	every sample of the mismatch table is in the subtype table	pass	0	NA
+subtype	SHH gamma calls older than 5 years (check the methylation score and the UMAP)	FLAG	2	7316-182 (37 y); 7316-7598 (11 y)
+integrate	every tumor has harmonized_diagnosis	pass	0	NA
+integrate	every tumor has broad_histology	pass	0	NA
+integrate	every tumor has short_histology	pass	0	NA
+integrate	every subtyped tumor (specific subtype) has an integrated diagnosis	pass	0	NA
+integrate	'To be classified' labels have an integrated diagnosis (the harmonized diagnosis)	pass	0	NA
+integrate	subtype labels without a derived broad or short histology (the old diagnosis' value is kept; see results/subtype_histology_gaps.tsv)	pass	0	NA
+integrate	every tumor diagnosis is in input/cancer_group_table.tsv (results/cancer_group_unmapped.tsv)	pass	0	NA
+integrate	every cohort, broad histology and cancer group has a plot group (figures/palettes/plot-mapping.tsv; add rows with figures/scripts/extend-plot-mapping.R)	pass	0	NA
+integrate	plot-mapping rows added automatically and still to review (status column)	FLAG	38	NA
+integrate	every subtype label has a diagnosis rule	pass	0	NA
+integrate	all biospecimens of a tumor share the integrated diagnosis	pass	0	NA
+reviews	every reviewed sample_id exists in the histologies	pass	0	NA
+reviews	every review has a source and a note that says what was found	pass	0	NA
+reviews	every manual subtype is a label used by the module	pass	0	NA
+reviews	manual reviews that the automated subtype now agrees with (can be retired)	FLAG	19	7316-272; 7316-3220; A09410; 7316-4463; 7316-8972; 7316-1748; ...
+reviews	mix-up rows whose methylation class differs from the current call	pass	0	NA
+reviews	the input files are those of the committed results (results/run_provenance.tsv)	pass	0	NA
