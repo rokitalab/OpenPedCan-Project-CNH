@@ -124,7 +124,7 @@ add_check("subtype", "possible methylation mismatches still to investigate (inpu
 # every tumor with a mismatch call is in the subtype table
 if (!is.null(mismatch)) {
   # a likely mismatch has its array excluded (01-build-methylation-calls.R); a tumor with
-  # no other evidence (no DNA, no free text rule) has no subtype row
+  # no other evidence has only a default subtype or no row
   not_found <- setdiff(mismatch$sample_id[mismatch$mismatch_call != "likely"], m$sample_id)
   add_check("subtype", "every sample of the mismatch table is in the subtype table",
             length(not_found) > 0, length(not_found), examples_of(not_found))
