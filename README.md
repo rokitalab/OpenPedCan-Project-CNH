@@ -1,7 +1,7 @@
 # OpenPedCan-Project
 [![DOI](https://zenodo.org/badge/358689512.svg)](https://zenodo.org/badge/latestdoi/358689512)
 
-The Open Pediatric Cancer (OpenPedCan) project is an open analysis effort that harmonizes pediatric cancer data from multiple sources, performs downstream cancer analyses on these data and provides them on PedcBioPortal and the [NCI's Molecular Targets Platform (MTP)](https://moleculartargets.ccdi.cancer.gov/.
+The Open Pediatric Cancer (OpenPedCan) project is an open analysis effort that harmonizes pediatric cancer data from multiple sources, performs downstream cancer analyses on these data and provides them on PedcBioPortal and the [NCI's Molecular Targets Platform (MTP)](https://moleculartargets.ccdi.cancer.gov/).
 This version of the project is maintained by the [Rokita Lab](https://rokitalab.com/) at [Children's National Hospital](https://www.childrensnational.org/).
 
 Original project maintainers included scientists at the Center for Data-Driven Discovery in Biomedicine and the Department of Biomedical and Health Informatics at CHOP.
@@ -12,7 +12,7 @@ To cite this work, please note the data release used in your work and cite the f
 1. OpenPBTA:
 Shapiro, J.A., Gaonkar, K.S., Spielman, S.J., Savonen, C.L., Bethell, C.J., Jin, R., Rathi, K.S., Zhu, Y., Egolf, L.E., Farrow, B.K., et al. (2023). OpenPBTA: The Open Pediatric Brain Tumor Atlas. Cell Genom., 100340. [10.1016/j.xgen.2023.100340](https://www.cell.com/cell-genomics/pdf/S2666-979X(23)00115-5.pdf).
 2. OpenPedCan:
-Geng, Z. et al. The Open Pediatric Cancer Project. bioRxiv (2024) [10.1101/2024.07.09.599086](https://www.biorxiv.org/content/10.1101/2024.07.09.599086v1)
+Geng, Z. et al. The Open Pediatric Cancer Project. GigaScience 14, giaf093 (2025). [10.1093/gigascience/giaf093](https://doi.org/10.1093/gigascience/giaf093)
 DOI for [all releases](https://zenodo.org/search?q=parent.id%3A6473912&f=allversions%3Atrue&l=list&p=1&s=10&sort=version): `10.5281/zenodo.6473912`. 
 
 The OpenPedCan analyses currently include the following datasets, described more fully below:
@@ -71,6 +71,7 @@ The maintainers have set up continuous integration software via GitHub Actions t
 - [Data Release Process](#data-release-process)
 - [How to Obtain OpenPedCan Data](#how-to-obtain-openpedcan-data)
   - [Data Access via Download Script](#data-access-via-download-script)
+  - [Parquet copies of the large tables (experimental)](#parquet-copies-of-the-large-tables-experimental)
   - [Data Access via CAVATICA](#data-access-via-cavatica)
 - [How to Participate](#how-to-participate)
   - [Planned Analyses](#planned-analyses)
@@ -87,7 +88,7 @@ The maintainers have set up continuous integration software via GitHub Actions t
   - [Docker Image](#docker-image)
     - [Development in the Project Docker Container](#development-in-the-project-docker-container)
       - [RStudio - Local](#rstudio---local)
-  - [Development using Amazon EC2 (CHOP)](#development-using-amazon-ec2-chop)
+  - [Development using Amazon EC2](#development-using-amazon-ec2)
     - [RStudio - EC2](#rstudio---ec2)
   - [Local Development](#local-development)
   - [GitHub Actions (GA)](#github-actions-ga)
@@ -247,7 +248,7 @@ If you need software that is not included, please edit the Dockerfile to install
 
 #### Pull Request Model
 
-Analyses are added to this repository via [Pull Requests](https://github.com/rokitalab/OpenPedCan-Project-CNH/compare.
+Analyses are added to this repository via [Pull Requests](https://github.com/rokitalab/OpenPedCan-Project-CNH/compare).
 **Please read the [Pull Request section of the contribution guidelines](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/CONTRIBUTING.md#pull-requests) carefully.**
 We are using continuous integration software applied to the supplied test datasets to confirm that the analysis can be carried out successfully within the Docker container.
 
@@ -263,7 +264,7 @@ Choose a name that is unique from other analyses and somewhat detailed.
 For example, instead of `gene-expression`, choose `gene-expression-clustering` if you are clustering samples by their gene expression values.
 You should assume that any data files are in the `../../data` directory and that their file names match what the `download-data.sh` script produces.
 These files should be read in at their relative path, so that we can re-run analyses if the underlying data change.
-Files that are primarily graphic should be placed in a `plots` subdirectory and should adhere to the [color palette guide](./figures/README.md#color-palette-usage).
+Files that are primarily graphic should be placed in a `plots` subdirectory and should adhere to the [color palette guide](./figures/README.md#color-palettes).
 Files that are primarily tabular results files should be placed in a `results` subdirectory.
 Intermediate files that are useful within the processing steps but that do not represent final results should be placed in `../../scratch/`.
 It is safe to assume that files placed in `../../scratch` will be available to all analyses within the same folder.
@@ -326,7 +327,7 @@ The GA system that we use will generate, as artifacts, the contents of the `anal
 Our goal is to capture all of the outputs that produce final results as artifacts.
 Files that are primarily graphic should be placed in a `plots` subdirectory of the analysis's folder.
 Plots should use the specified color palettes for this project.
-See more [specific instructions on how to use the color palette here](./figures/README.md#color-palette-usage).
+See more [specific instructions on how to use the color palette here](./figures/README.md#color-palettes).
 Files that are primarily tabular results files should be placed in a `results` subdirectory of the analysis's folder.
 Files that are intermediate, which means that they are useful within an analysis but do not provide final outputs should be placed in `../../scratch`.
 
@@ -336,11 +337,11 @@ We build our project Docker image from a versioned [`tidyverse`](https://hub.doc
 
 To add dependencies that are required for your analysis to the project Docker image, you must alter the project [`Dockerfile`](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/Dockerfile).
 The `Dockerfile` can be directly edited to install dependencies, if you are developing using a branch on the [rokitalab/OpenPedCan-Project-CNH](https://github.com/rokitalab/OpenPedCan-Project-CNH) repository.
-If you are developing using a branch on your fork of the rokitalab/OpenPedCan-Project-CNH repository, create a branch on the rokitalab/OpenPedCan-Project-CNH repository to edit the `Dockerfile` to install dependencies, e.g. <https://github.com/rokitalab/OpenPedCan-Project-CNH/pull/36>, so [the GitHub action for checking docker image build](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/.github/workflows/build-docker.yml) can run with the Docker credentials saved in the rokitalab/OpenPedCan-Project-CNH repository.
+If you are developing using a branch on your fork of the rokitalab/OpenPedCan-Project-CNH repository, create a branch on the rokitalab/OpenPedCan-Project-CNH repository to edit the `Dockerfile` to install dependencies, e.g. <https://github.com/rokitalab/OpenPedCan-Project-CNH/pull/36>, so [the GitHub action for checking docker image build](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/.github/workflows/build.yml) can run with the Docker credentials saved in the rokitalab/OpenPedCan-Project-CNH repository.
 
-- R packages installed on this image will be installed from an [MRAN snapshot](https://mran.microsoft.com/documents/rro/reproducibility#reproducibility) corresponding to the last day that R 3.6.0 was the most recent release ([ref](https://hub.docker.com/r/rocker/tidyverse)).
-  - Installing most packages, from CRAN or Bioconductor, should be done with our `install_bioc.R` script, which will ensure that the proper MRAN snapshot is used. `BiocManager::install()` should _not_ be used, as it will not install from MRAN.
-  - R packages that are not available in the MRAN snapshot can be installed via github with the `remotes::install_github()` function, with the commit specified by the `ref` argument.
+- R packages are installed in [`Dockerfile.base`](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/Dockerfile.base), which builds the base image for the project `Dockerfile` from `rocker/tidyverse:4.4.0` with Bioconductor 3.19.
+  - Installing most packages, from CRAN or Bioconductor, should be done with `BiocManager::install()`.
+  - R packages that are not available from CRAN or Bioconductor can be installed via github with the `remotes::install_github()` function, with the commit specified by the `ref` argument.
 - Python packages should be installed with `pip3 install` with version numbers for all packages and dependencies specified.
   - As a secondary check, we maintain a `requirements.txt` file to check versions of all python packages and dependencies.
   - When adding a new package, make sure that all dependencies are also added; every package should appear with a specified version **both** in the `Dockerfile` and `requirements.txt`.
@@ -360,9 +361,9 @@ docker pull pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
 
 Development should utilize the project Docker image.
 An analysis that is developed using the project Docker image can be efficiently rerun by another developer or the original developer (after a long time since it is developed), without dependency or numerical issues.
-This will significantly facilitate the following tasks that are constantly performed by all developers of the OpenPedCan-analysis project.
+This will significantly facilitate the following tasks that are constantly performed by all developers of the OpenPedCan-Project.
 
-- Review another developer's pull request, including code and results. For more information about pull request and review, see [the guideline for how to contribute to the OpenPedCan-analysis repository](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/CONTRIBUTING.md#contribution-guidelines-for-the-openpbta-analysis).
+- Review another developer's pull request, including code and results. For more information about pull request and review, see [the guideline for how to contribute to the OpenPedCan-Project-CNH repository](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/CONTRIBUTING.md#pull-requests).
 - Update the results of an analysis module that is developed by another developer. For example, rerun the same analysis module with new data.
 - Update the code of an analysis module that is developed by another developer. For example, add a new feature to a module, or refactor a module.
 
@@ -372,7 +373,7 @@ You will likely need to increase this limit for local development.**
 
 ##### RStudio - Local
 
-Using `rocker/tidyverse:3.6.0` as our base image allows for development via RStudio in the project Docker container.
+Using `rocker/tidyverse:4.4.0` as our base image allows for development via RStudio in the project Docker container.
 If you'd like to develop in this manner, you may do so by running the following and changing `<password>` to a password of you choosing at the command line:
 
 ```bash
@@ -380,7 +381,7 @@ docker run -e PASSWORD=<password> -p 8787:8787 pgc-images.sbgenomics.com/rokita-
 ```
 
 You can change the volume that the Docker container points to either via the [Kitematic GUI](https://docs.docker.com/kitematic/userguide/) or the [`--volume` flag](https://docs.docker.com/storage/volumes/) to `docker run`.
-For example, from your cloned `OpenPedCan-analysis` folder, run the command below:
+For example, from your cloned `OpenPedCan-Project-CNH` folder, run the command below:
 
 ```bash
 docker run --name <CONTAINER_NAME> -d -e PASSWORD=pass -p 8787:8787 -v $PWD:/home/rstudio/OpenPedCan-Project-CNH pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
@@ -399,13 +400,10 @@ docker exec -ti <CONTAINER_NAME> bash
 
 If you set the `PWD:/home/rstudio/OpenPedCan-Project-CNH` above, then you can navigate to `home/rstudio/OpenPedCan-Project-CNH` and begin.
 
-### Development using Amazon EC2 (CNH)
+### Development using Amazon EC2
 
-Many analyses will require Amazon EC2 for development.
-For this, we have created a template image in `TBD`.
-Navigate to the Service Catalog and select `bti-research-instance`.
-The standard mount comes with a default 100 GB root volume.
-Below are the instance names, hourly rates, vCPUs, and memory.
+Many analyses require more memory and CPUs than a typical laptop provides, so we develop on Amazon EC2 instances running the project Docker image.
+Below are example instance types, hourly rates, vCPUs, and memory.
 
 | Instance name | Hourly rate | vCPU | Memory |
 | ------------- | ----------- | ---- | ------ |
@@ -413,7 +411,7 @@ Below are the instance names, hourly rates, vCPUs, and memory.
 | m6i.xlarge    | $0.192      | 4    | 16 GB  |
 | m6i.2xlarge   | $0.384      | 8    | 32 GB  |
 | m6i.4xlarge   | $0.768      | 16   | 64 GB  |
-| m6i.8xlarge   | $1.536      | 32   | 128 GB  |
+| m6i.8xlarge   | $1.536      | 32   | 128 GB |
 
 #### RStudio - EC2
 
@@ -453,7 +451,7 @@ Running this will change the symlinks in `data` to point to the files in `data/t
 
 #### Adding Analyses to Github Actions workflow
 
-For an analysis to be run in a Github Actions workflow, it must be added to [`.github/continuous_integration.yml`](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/.github/workflows/continuous_integration.yml). Here is an example of a step in that workflow:
+For an analysis to be run in a Github Actions workflow, it must be added to [`.github/workflows/run_analysis.yml`](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/.github/workflows/run_analysis.yml). Here is an example of a step in that workflow:
 
 ```yaml
 # Molecular subtyping modules
@@ -476,7 +474,7 @@ Each analysis entrypoint will be run with the container image built in the earli
     OPENPEDCAN_POLYA_STRAND: ${{ matrix.openpedcan_polya_strand }}
 ```
 
-In this workflow, a new container image is built and pushed to the SBG DockerHub under tag `pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest`, then pulled and each analysis entrypoint is run in parallel with a Github Actions matrix build.
+The container image is built and pushed to the CAVATICA registry under tag `pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest` by [`build_and_push.yml`](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/.github/workflows/build_and_push.yml) when the `Dockerfile` changes on `dev`. [`run_analysis.yml`](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/.github/workflows/run_analysis.yml) then pulls it, and each analysis entrypoint is run in parallel with a Github Actions matrix build.
 
 Because of the dependency on the image in CAVATICA's Docker registry, the following changes will need to be made on any fork of this repository before running this job:
 
@@ -508,7 +506,7 @@ Because of the dependency on the image in CAVATICA's Docker registry, the follow
 
 3. A Username and Access Token for the new Docker Hub registry will need to be added in [secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) under the forked repository will need to be added.
 
-To add a new analysis job, take the template below and value each missing prompt, then add it to [`.github/continuous_integration.yml`](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/.github/continuous_integration.yml).
+To add a new analysis job, take the template below and value each missing prompt, then add it to [`.github/workflows/run_analysis.yml`](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/.github/workflows/run_analysis.yml).
 
 ```yaml
 - name: <Name of the analysis to run>
@@ -529,20 +527,20 @@ Optionally, environment variables for `OPENPBTA_SUBSET`, `OPENPBTA_TESTING`, `RU
 #### Adding Analyses with Multiple Steps
 
 There is a different procedure for adding an analysis comprised of multiple scripts or notebooks to GA.
-Per [the contribution guidelines](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/CONTRIBUTING.md#size-and-composition-of-pull-requests), each script or notebook should be added via a separate pull request.
-For each of these pull requests, the individual script or notebook should be added as its own run in the `.github/continuous_integration.yml` file.
+Per [the contribution guidelines](https://github.com/rokitalab/OpenPedCan-Project-CNH/blob/dev/CONTRIBUTING.md#size-of-pull-requests), each script or notebook should be added via a separate pull request.
+For each of these pull requests, the individual script or notebook should be added as its own run in the `.github/workflows/run_analysis.yml` file.
 This validates that the code being added can be executed at the time of review.
 
 Once all code for an analysis has been reviewed and merged, a final pull request for the analysis that is comprised of the following changes should be filed:
 
 - A shell script that will run all script and/or notebooks in the analysis module.
-- The multiple runs from the module that are in the `continuous_integration.yml` file are replaced with a single run that runs the shell script.
+- The multiple runs from the module that are in the `run_analysis.yml` file are replaced with a single run that runs the shell script.
 
 If the `gene-expression-clustering` analysis instead required two scripts run sequentially (`01-filter-samples.R` and `02-cluster-heatmap.R`), we would follow the procedure below.
 
 ##### 1. File and merge a pull request for adding `01-filter-samples.R` to the repository.
 
-In this pull request, we would add the following change to `.github/continuous_integration.yml`.
+In this pull request, we would add the following change to `.github/workflows/run_analysis.yml`.
 
 ```yaml
 - name: Run Filter Samples
@@ -551,7 +549,7 @@ In this pull request, we would add the following change to `.github/continuous_i
 
 ##### 2. File and merge a pull request for adding `02-cluster-heatmap.R` to the repository.
 
-In this pull request, we would add the following change to `.github/continuous_integration.yml`.
+In this pull request, we would add the following change to `.github/workflows/run_analysis.yml`.
 This would be added _below_ the `Filter Samples` run.
 
 ```yaml
@@ -578,7 +576,7 @@ Rscript --vanilla analyses/gene-expression-clustering/01-filter-samples.R
 Rscript --vanilla analyses/gene-expression-clustering/02-cluster-heatmap.R
 ```
 
-We would remove the runs `Filter Samples` and `Cluster Samples and Plot Heatmap` from `.github/continuous_integration.yml` and instead replace them with a single run:
+We would remove the runs `Filter Samples` and `Cluster Samples and Plot Heatmap` from `.github/workflows/run_analysis.yml` and instead replace them with a single run:
 
 ```yaml
 - name: Cluster samples and plot heatmap
@@ -616,9 +614,9 @@ PATHSIG=${OPENPBTA_PATHSIG:-0.05}
 Rscript analyses/my-path/pathway_sig.R --alpha $PATHSIG
 ```
 
-We can override this by passing environment variables in `.github/continuous_integration.yml`.
+We can override this by passing environment variables in `.github/workflows/run_analysis.yml`.
 For testing, we might want to use an alpha level of 0.75 so that at least some "significant" pathways appear, which allows testing subsequent code that depends on them.
-The name command in the `.github/continuous_integration.yml` is used to specify these parameters.
+The name command in the `.github/workflows/run_analysis.yml` is used to specify these parameters.
 
 ```yaml
 - name: Cluster samples and plot heatmap

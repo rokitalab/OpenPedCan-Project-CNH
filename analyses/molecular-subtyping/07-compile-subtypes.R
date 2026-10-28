@@ -519,22 +519,31 @@ compiled <- bind_rows(
 stopifnot(!anyDuplicated(compiled$match_id))
 
 # the tumors with a likely methylation mismatch and their methylation arrays, to
-# remove from the cohort
-likely_mismatch <- compiled %>%
-  filter(methylation_mismatch %in% "likely") %>%
-  select(sample_id, match_id, pathology_diagnosis, molecular_subtype,
-         methylation_mismatch_evidence) %>%
-  # the mismatched methylation call itself (the subtype table has no class when
-  # a lesion set the methylation call aside)
-  left_join(mismatch %>% select(sample_id, methyl_class, methyl_score, array_calls),
+# remove from the cohort. Built from the mismatch calls, not from the subtype table:
+# a tumor with no other evidence (no DNA, no free text rule) has no subtype row but
+# its arrays are still to be removed
+methyl_specimens <- hist_base %>%
+  filter(experimental_strategy == "Methylation") %>%
+  distinct(sample_id, match_id) %>%
+  distinct(sample_id, .keep_all = TRUE)
+likely_mismatch <- mismatch %>%
+  filter(mismatch_call == "likely") %>%
+  left_join(compiled %>%
+              select(sample_id, match_id, pathology_diagnosis, molecular_subtype,
+                     methylation_mismatch_evidence),
             by = "sample_id") %>%
-  left_join(hist_base %>%
-              filter(experimental_strategy == "Methylation") %>%
-              group_by(match_id) %>%
-              summarise(methylation_biospecimen_ids =
-                          paste(Kids_First_Biospecimen_ID, collapse = "; "),
-                        .groups = "drop"),
-            by = "match_id")
+  # a tumor without a subtype row: the match_id from the methylation specimens, the
+  # diagnosis and the evidence from the mismatch call
+  left_join(methyl_specimens %>% rename(methyl_match_id = match_id), by = "sample_id") %>%
+  mutate(match_id = coalesce(match_id, methyl_match_id),
+         pathology_diagnosis = coalesce(pathology_diagnosis, diagnosis),
+         methylation_mismatch_evidence = coalesce(methylation_mismatch_evidence,
+                                                  conflicting_evidence)) %>%
+  select(sample_id, match_id, pathology_diagnosis, molecular_subtype,
+         methylation_mismatch_evidence, methyl_class, methyl_score, array_calls,
+         methylation_biospecimen_ids)
+stopifnot(nrow(likely_mismatch) == sum(mismatch$mismatch_call == "likely"),
+          !anyDuplicated(likely_mismatch$sample_id))
 write_tsv(likely_mismatch, file.path(results_dir, "methylation_likely_mismatch.tsv"))
 
 # diffuse leptomeningeal glioneuronal tumors: a KIAA1549::BRAF fusion (or another

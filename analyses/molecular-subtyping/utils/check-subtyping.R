@@ -111,7 +111,9 @@ add_check("subtype", "neuroblastoma MYCN status differs between copy number, exp
           nrow(mycn) > 0, nrow(mycn), examples_of(mycn$sample_id))
 
 mismatch <- read_result(file.path(module_dir, "input", "possible_methylation_mixups.tsv"))
-likely <- if (is.null(mismatch)) NULL else filter(mismatch, mismatch_call %in% "likely")
+# the likely mismatches of the calls table: the reviewer decisions and the ones found from the lesions
+mismatch_calls <- read_result(file.path(results_dir, "methylation_mismatch_calls.tsv"))
+likely <- if (is.null(mismatch_calls)) NULL else filter(mismatch_calls, mismatch_call %in% "likely")
 add_check("subtype", "likely methylation mismatches (genomics supports the diagnosis): collect and remove from the cohort (results/methylation_likely_mismatch.tsv)",
           !is.null(likely) && nrow(likely) > 0, if (is.null(likely)) 0L else nrow(likely),
           if (is.null(likely)) NA_character_ else examples_of(likely$sample_id))
