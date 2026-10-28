@@ -8,29 +8,16 @@ author: Krutika Gaonkar, Eric Wafula, Jo Lynne Rokita
 date: 2020, 2022
 ---
 
-The purpose of this notebook is to integrate molecular subtyping results from 
-[molecular-subtyping-pathology](https://github.com/AlexsLemonade/OpenPBTA-analysis/tree/master/analyses/molecular-subtyping-pathology) with `histologies-base.tsv`.
+The purpose of this notebook is to integrate the molecular subtyping results of
+`molecular-subtyping` (CNS and solid tumors, with diagnoses derived by
+`00-derive-integrated-diagnosis.R`) with `histologies-base.tsv`.
 
-Here we will use `histologies-base.tsv` in which integrated_diagnosis,Notes and molecular_subtype are all NA. Through all the following molecular subtyping modules:
-
-- molecular-subtyping-MB
-- molecular-subtyping-CRANIO
-- molecular-subtyping-EPN
-- molecular-subtyping-embryonal
-- molecular-subtyping-EWS
-- molecular-subtyping-neurocytoma
-- molecular-subtyping-HGG
-- molecular-subtyping-LGAT
-- molecular-subtyping-ATRT
-- molecular-subtyping-PB
-- molecular-subtyping-NBL
-- molecular-subtyping-Rare-CNS
-- molecular-subtyping-pathology
-
-
-We gathered and updated molecular-subtype AND integrated_diagnosis AND broad_histology AND short_histology for these histologies.
-
-In this notebook we will add the molecular subtyping information compiled and updated by pathology review in `molecular-subtyping-pathology/compiled_molecular_subtypes_with_clinical_pathology_feedback.tsv` to create the `histologies.tsv` for the same release. If samples are not processed by a molecular-subtyping-* module then the br
+Tumors that `molecular-subtyping` does not label keep the result of the legacy
+subtyping modules (archived in `analyses/archive/`, frozen as of the last run of
+`molecular-subtyping-pathology`): HGG, EPN, ATRT, PB, Rare-CNS, LGAT, CRANIO,
+embryonal, EWS, NBL, neurocytoma, MB and chordoma, and the pathology free-text
+and clinical feedback steps. Those results are read from
+`analyses/archive/molecular-subtyping-pathology/results/compiled_molecular_subtypes_with_clinical_pathology_feedback_and_report_info.tsv`.
 
 In adddition, for samples that where pathology_diagnosis is "Other" we also update the file broad_histology and short_histology from a manual review of WHO terms.
 
@@ -62,41 +49,70 @@ Reading molecular_subtype, integrated_diagnosis, short_histology, broad_histolog
 
 ```{r}
 
-compiled_subtyping<-read_tsv(file.path("..", "molecular-subtyping-pathology", "results", "compiled_molecular_subtypes_with_clinical_pathology_feedback_and_report_info.tsv")) %>%
+compiled_subtyping<-read_tsv(file.path("..", "archive", "molecular-subtyping-pathology", "results", "compiled_molecular_subtypes_with_clinical_pathology_feedback_and_report_info.tsv")) %>%
   select(-tumor_descriptor)
 
 ```
 
-Update "Other" sample broad/short histology and harmonized_diagnosis and add to `compiled_subtyping`
+### Add molecular-subtyping results
+
+The tumors of the `molecular-subtyping` module (CNS and solid tumors, with
+`integrated_diagnosis`, `broad_histology` and `short_histology` derived from the
+subtype by `00-derive-integrated-diagnosis.R`) take their subtype and diagnosis
+from `results/integrated_diagnosis.tsv`. The diffuse leptomeningeal glioneuronal
+tumor diagnosis from the glioneuronal free-text step stays as it is. Every other
+tumor keeps the compiled `molecular-subtyping-pathology` result (non-CNS tumors
+and the pathology free-text diagnoses).
 
 ```{r}
-compiled_subtyping_other <- base_histology %>%
-  filter(pathology_diagnosis=="Other") %>%
-# remove Kids_First_Biospecimen_ID which are already subtyped
-  filter(!Kids_First_Biospecimen_ID %in% compiled_subtyping$Kids_First_Biospecimen_ID) %>%
-  select(
-  # gather only columns needed to format as `compiled_subtyping`
-  Kids_First_Participant_ID,
-  Kids_First_Biospecimen_ID,
-  match_id,
-  sample_id,
-  molecular_subtype,
-  integrated_diagnosis,
-  broad_histology,
-  short_histology,
-  Notes,
-  # adding harmonized_diagnosis from manual review 
-  # for pathology_diagnosis=="Other"
-  harmonized_diagnosis) %>%
+new_subtyping <- read_tsv(file.path("results", "integrated_diagnosis.tsv"),
+                          show_col_types = FALSE, guess_max = 100000)
+
+# DLGNT, from the glioneuronal free-text step, is kept
+dlgnt_match_ids <- compiled_subtyping %>%
+  filter(str_detect(replace_na(integrated_diagnosis, ""),
+                    "leptomeningeal glioneuronal")) %>%
+  pull(match_id) %>%
   unique()
 
-# combined OpenPBTA subtypes and manual "Other" subtypes
-compiled_subtyping <- compiled_subtyping_other %>%
-  bind_rows(compiled_subtyping)
+new_rows <- base_histology %>%
+  filter(sample_type == "Tumor", match_id %in% new_subtyping$match_id,
+         !match_id %in% dlgnt_match_ids) %>%
+  distinct(Kids_First_Participant_ID, Kids_First_Biospecimen_ID, match_id,
+           sample_id) %>%
+  left_join(new_subtyping %>%
+              select(match_id, molecular_subtype, integrated_diagnosis,
+                     broad_histology, short_histology, Notes, subtype_source,
+                     subtype_review_flag, subtype_alterations_confirmed,
+                     alteration_confirmed,
+                     molecular_subtype_methyl = methyl_class),
+            by = "match_id")
 
+compiled_subtyping <- bind_rows(
+  new_rows,
+  # a biospecimen whose match_id changed since the archived compile (a new
+  # release) is taken from the new rows only
+  compiled_subtyping %>%
+    filter(!match_id %in% new_rows$match_id,
+           !Kids_First_Biospecimen_ID %in% new_rows$Kids_First_Biospecimen_ID)
+)
+
+# one row per biospecimen
+stopifnot(!anyDuplicated(compiled_subtyping$Kids_First_Biospecimen_ID))
 ```
 
+### Read the diagnosis rules
 
+The cancer group, the broad and short histologies and some harmonized diagnoses
+are standardised by the ordered rules in `input/diagnosis_rules.tsv`
+(`utils/apply-rules.R`), not by code.
+
+```{r}
+source(file.path("utils", "apply-rules.R"))
+diagnosis_rules <- read_tsv(file.path("input", "diagnosis_rules.tsv"),
+                            col_types = cols(.default = col_character())) %>%
+  mutate(stage = as.integer(stage), order = as.integer(order))
+```
 
 ### Add molecular-subtyping-pathology results
 
@@ -106,8 +122,12 @@ short_histology and broad_histology will be added from base histology for sample
 
 ```{r}
 
+# the base harmonized_diagnosis of the pathology_diagnosis "Other" tumors comes
+# from a manual review of WHO terms (opc-histologies-qc); it is kept for them
+# when no subtyping step gave a diagnosis
 histology <- base_histology %>% 
-  select(-c(Notes, molecular_subtype, integrated_diagnosis, harmonized_diagnosis)) %>%
+  rename(harmonized_diagnosis_base = harmonized_diagnosis, Notes_base = Notes) %>%
+  select(-c(molecular_subtype, integrated_diagnosis)) %>%
   left_join(compiled_subtyping,by=c("Kids_First_Participant_ID", "Kids_First_Biospecimen_ID", "match_id", "sample_id"), suffix=c(".base",".subtyped")) %>%
   unique() %>%
   dplyr::mutate(
@@ -117,21 +137,27 @@ histology <- base_histology %>%
     short_histology = if_else(!is.na(short_histology.subtyped),
                               short_histology.subtyped,
                               short_histology.base),
-    harmonized_diagnosis = 
-      case_when(!is.na(integrated_diagnosis) ~ integrated_diagnosis,
-                is.na(integrated_diagnosis) & 
-                  !is.na(harmonized_diagnosis) ~ harmonized_diagnosis,
-                is.na(integrated_diagnosis) & 
-                  is.na(harmonized_diagnosis) &
-                  !is.na(pathology_diagnosis) ~ pathology_diagnosis
+    harmonized_diagnosis = case_when(
+      !is.na(integrated_diagnosis) ~ integrated_diagnosis,
+      !is.na(harmonized_diagnosis) ~ harmonized_diagnosis,
+      pathology_diagnosis %in% "Other" & !is.na(harmonized_diagnosis_base) ~
+        harmonized_diagnosis_base,
+      !is.na(pathology_diagnosis) ~ pathology_diagnosis
     )) %>%
-  # Harmonize some harmonized diagnoses which will become cancer groups
-  dplyr::mutate(harmonized_diagnosis = case_when(harmonized_diagnosis %in% c("Ewings sarcoma", "Ewings Sarcoma") ~ "Ewing sarcoma",
-                                                 TRUE ~ as.character(harmonized_diagnosis))) %>%
-    dplyr::mutate(harmonized_diagnosis = case_when(molecular_subtype == "CNC" ~ "Central neurocytoma",
-                                                   molecular_subtype == "EVN" ~ "Extraventricular neurocytoma",
-                                                   TRUE ~ as.character(harmonized_diagnosis))) %>%
-  unique()
+  # the base Notes ("Updated by manual curation of pathology_free_text_diagnosis")
+  # stay when no subtyping step wrote one
+  mutate(Notes = coalesce(Notes, Notes_base)) %>%
+  select(-harmonized_diagnosis_base, -Notes_base) %>%
+  unique() %>%
+  # harmonize some diagnoses that will become cancer groups (stage 0 of the
+  # rules in input/diagnosis_rules.tsv)
+  apply_rules(diagnosis_rules, stages = 0) %>%
+  # "X, To be classified" (no molecular evidence): the integrated diagnosis is the
+  # harmonized diagnosis, so every tumor with a molecular_subtype has one
+  mutate(integrated_diagnosis = if_else(
+    is.na(integrated_diagnosis) &
+      str_detect(replace_na(molecular_subtype, ""), "To be classified"),
+    harmonized_diagnosis, integrated_diagnosis))
 ```
 
 
@@ -161,92 +187,35 @@ histology %>%
 
 No NAs in broad_histology, short_histology or harmonized_diagnosis
 
-Just a note, integrated_diagnosis is expected to be `NA` for samples where subtyping is not performed or if molecular_subtype is "XYZ,To be classified". 
-This means no evidence was provided/available for these samples so we are not able to add integrated_diagnosis.
+Just a note, integrated_diagnosis is expected to be `NA` for samples where subtyping is not performed. If molecular_subtype is "XYZ, To be classified", the integrated_diagnosis is the harmonized_diagnosis. 
+This means no evidence was provided/available for these samples, so the integrated_diagnosis is the diagnosis of the pathology.
 
 ### Adding cancer_group
 
 Provides a narrower grouping for samples that can be used in generating figures
 ```{r}
 
+# the cancer group of each harmonized diagnosis is a row of
+# input/cancer_group_table.tsv (utils/lookup-cancer-group.R); the broad and short
+# histologies of a few cancer groups are the rules of input/diagnosis_rules.tsv
+# (stage 3), applied after it
+source(file.path("utils", "lookup-cancer-group.R"))
+cancer_group_table <- read_tsv(file.path("input", "cancer_group_table.tsv"),
+                               col_types = cols(.default = col_character()),
+                               na = character()) %>%
+  mutate(across(c(harmonized_diagnosis, diagnosis_token), ~ na_if(.x, "")))
+
 histology_cg <- histology %>%
-  # remove subtype details
-  dplyr::mutate(cancer_group = case_when(broad_histology %in% c("Benign tumor", "Other", "Non-tumor", "Pre-cancerous lesion") ~ NA_character_,
-                                         short_histology == "Other" & cohort == "DGD" ~ NA_character_,
-                                         TRUE ~ str_extract(harmonized_diagnosis, "[^,]*"))) %>%
-  
-   # update some values that come from pathology_diagnosis which are not standardized yet
-  dplyr::mutate(cancer_group = case_when(
-    # if multiple cancers, make NA unless otherwise specified below
-    grepl(";", cancer_group) ~ NA_character_,
-    cancer_group == "Brainstem glioma- Diffuse intrinsic pontine glioma" ~ "Diffuse intrinsic pontine glioma",
-    pathology_diagnosis %in% c("Astrocytoma", "Glioblastoma", "Astrocytoma;Oligoastrocytoma") & is.na(cancer_group) ~ pathology_diagnosis,
-    pathology_free_text_diagnosis == "astroblastoma" ~ "Astroblastoma", 
-    cancer_group == "Non-germinomatous germ cell tumor;Teratoma" ~ "Mixed germ cell tumor", 
-    cancer_group %in% c("Meningothelial meningioma", "Clear cell meningioma", "Atypical meningioma", "Anaplastic (malignant) meningioma") ~ "Meningioma", 
-    cancer_group %in% c("Supratentorial or Spinal Cord PNET", "Embryonal tumor", "Embryonal Tumor", "CNS Embryonal tumor, NEC/NOS", "CNS with BCOR ITD") ~ "Embryonal tumor", 
-    cancer_group == "Embryonal Tumor with Multilayered Rosettes (ETMR)" ~ "Embryonal tumor with multilayer rosettes", 
-    cancer_group %in% c("Wilms Tumor", "Juvenile Xanthogranuloma", "Clear Cell Sarcoma of the Kidney") ~ stringr::str_to_sentence(cancer_group), 
-    cancer_group %in% c("Acute Promyelocytic Leukemia", "Therapy-Related Acute Myeloid Leukemia") ~ "Acute Myeloid Leukemia",
-    cancer_group == "Mixed Lineage Leukemia" ~ "Acute Lymphoblastic Leukemia",
-    cancer_group %in% c("Brain Lower Grade Glioma", "Low-grade glioma/astrocytoma (WHO grade I/II)") ~ "Low-grade glioma",
-    cancer_group %in% c("congenital malignant brain tumor", "High-grade glioma/astrocytoma (WHO grade III/IV)",
-                        "Gliomatosis Cerebri;High-grade glioma/astrocytoma (WHO grade III/IV)",
-                        "High-grade glioma/astrocytoma (WHO grade III/IV);Neurofibroma/Plexiform") ~ "High-grade glioma",
-    cancer_group == "High-grade glioma/astrocytoma (WHO grade III/IV);Oligodendroglioma" ~ "Oligodendroglioma",
-    cancer_group == "Kidney Chromophobe" ~ "Chromophobe renal cell carcinoma",
-    cancer_group == "Kidney Renal Clear Cell Carcinoma" ~ "Renal Clear Cell Carcinoma",
-    cancer_group == "Kidney Renal Papillary Cell Carcinoma" ~ "Renal Papillary Cell Carcinoma",    
-    cancer_group == "High Grade Sarcoma" ~ "Sarcoma",
-    # update cases for EFO/MONDO - need to work on this to not be manual
-    cancer_group %in% c("Adamantinomatous craniopharyngioma", "Gliomatosis cerebri") ~ str_to_title(cancer_group),
-    #typo
-    cancer_group == "Fibromixoid lesion" ~ "Fibromyxoid lesion", 
-    ## change two samples 7316-5880 and 7316-2641, but not 7316-188 to Juvenile xanthogranuloma
-    (grepl("xanthogranuloma", pathology_free_text_diagnosis) & broad_histology == "Histiocytic tumor" & pathology_diagnosis == "Other" & 
-       sample_id != "7316-188") ~ "Juvenile xanthogranuloma",
-    sample_id == "7316-3066" ~ "Neurofibroma/Plexiform",
-    cancer_group == "Histiocytic Tumor" ~ str_to_sentence(cancer_group),
-    short_histology == "JXG" ~ "Histiocytic tumor",
-    cancer_group == "Melanocytoma" ~ "Melanocytic tumor",
-    cancer_group == "Myofibroblastic tumor" ~ "Inflammatory Myofibroblastic Tumor",
-    cancer_group %in% c("Glioneuronal tumor", "Glial-neuronal tumor NOS") ~ "Glial-neuronal tumor",
-    cancer_group == "Type ii pleuropulmonary blastoma" ~ "Type II Pleuropulmonary Blastoma",
-    harmonized_diagnosis == "Neuroepithelial neoplasm with EWSR1--PLAG1 fusion" ~ "Glial-neuronal tumor",
-    harmonized_diagnosis == "Rosai-dorfman" ~ "Rosai-Dorfman disease",
-    short_histology == "LIHC" ~ "Hepatocellular Carcinoma",
-    broad_histology == "Ependymal tumor" ~ "Ependymoma",
-    broad_histology == "Other tumor" ~ "Other tumor",
-    broad_histology == "Choroid plexus tumor" ~ "Choroid plexus tumor",
-    cancer_group == "Glial-neuronal tumor" ~ "Glial-neuronal tumor NOS",
-    cancer_group %in% c("Non-germinomatous germ cell tumor", "Malignant peripheral nerve sheath tumor") ~ NA_character_,
-    broad_histology == "Meningioma" ~ "Meningioma",
-    cancer_group == "Perineuroma" ~ "Neurofibroma/Plexiform",
-    is.na(cancer_group) & broad_histology == "Tumor of cranial and paraspinal nerves" ~ "Neurofibroma/Plexiform",
-    grepl("^Rare CNS, ", molecular_subtype) ~ "Rare CNS tumor",
-    TRUE ~ cancer_group)
-    ) %>%
-  # Additional update to clean up terms that we will use in plots
-  # harmonize myofibroblastic tumors - all inflammatory; take care of organ later
-    dplyr::mutate(short_histology = case_when(short_histology == "Myofibroblastic tumor" ~ "Inflammatory Myofibroblastic Tumor", TRUE ~ as.character(short_histology)),
-           harmonized_diagnosis = case_when(short_histology == "Myofibroblastic tumor" ~ "Inflammatory Myofibroblastic Tumor", 
-                                            TRUE ~ as.character(harmonized_diagnosis)),
-           broad_histology = case_when(sample_id == "7316-3066" ~ "Tumor of cranial and paraspinal nerves",
-                                       broad_histology == "Other" ~ "Other tumor",
-                                       cancer_group == "Glial-neuronal tumor" ~ "Neuronal and mixed neuronal-glial tumor",
-                                       cancer_group %in% c("Cavernoma", "Malignant peripheral nerve sheath tumor") ~ "Benign tumor",
-                                       TRUE ~ broad_histology),
-           cancer_group = case_when(pathology_diagnosis %in% c("Gliomatosis Cerebri;High-grade glioma/astrocytoma (WHO grade III/IV)", 
-                                                               "High-grade glioma/astrocytoma (WHO grade III/IV);Oligodendroglioma",
-                               "High-grade glioma/astrocytoma (WHO grade III/IV);Neurofibroma/Plexiform") ~ "High-grade glioma",
-                                   grepl("Diffuse leptomeningeal glioneuronal tumor", integrated_diagnosis) ~ "Diffuse leptomeningeal glioneuronal tumor",
-                                   pathology_diagnosis == "Ependymoma;Metastatic secondary tumors" ~ "Ependymoma",
-                               pathology_diagnosis == "Dysembryoplastic neuroepithelial tumor (DNET);Ganglioglioma" ~ "Dysembryoplastic neuroepithelial tumor",
-                               TRUE ~ cancer_group)) %>%
-  # remove short forms in the brackets
-  dplyr::mutate(cancer_group = str_extract(cancer_group, "[^(]*")) %>%
-  # remove space at the ends
-  dplyr::mutate(cancer_group = gsub(" $","", cancer_group)) 
+  dplyr::select(-any_of("cancer_group")) %>%
+  dplyr::mutate(lookup_cancer_group(harmonized_diagnosis, cancer_group_table)) %>%
+  apply_rules(diagnosis_rules, stages = 3)
+
+# tumors whose diagnosis is not in the table: add a row to the table
+histology_cg %>%
+  dplyr::filter(sample_type == "Tumor", !is.na(harmonized_diagnosis), !mapped) %>%
+  dplyr::count(harmonized_diagnosis, name = "biospecimens") %>%
+  readr::write_tsv("results/cancer_group_unmapped.tsv")
+histology_cg <- histology_cg %>% dplyr::select(-mapped)
 
 ```
 

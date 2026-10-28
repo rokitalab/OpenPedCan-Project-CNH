@@ -4,13 +4,12 @@ Acute Promyelocytic Leukemia	Acute Myeloid Leukemia
 Adamantinomatous craniopharyngioma	Adamantinomatous Craniopharyngioma
 Adenoma	NA
 Adrenal mass	Other tumor
-Anaplastic (malignant) meningioma	Meningioma
 Aneurismal bone cyst (abc) with col1a1-usp6 fusion	Other tumor
 Aneurysmal bone cyst (abc)	Other tumor
 Aplastic anemia	NA
 Arteriovenous malformation	NA
 Atypical Lymph Node	NA
-Atypical Neurofibromatous Neoplasm of Uncertain Biologic Potential	Other tumor
+Atypical Neurofibromatous Neoplasm of Uncertain Biologic Potential	Atypical neurofibromatous neoplasm
 Atypical Spitz Nevus	Other tumor
 Atypical Teratoid Rhabdoid Tumor (ATRT)	Atypical Teratoid Rhabdoid Tumor
 Atypical choroid plexus papilloma	Choroid plexus tumor
@@ -33,16 +32,14 @@ Choroid plexus carcinoma	Choroid plexus tumor
 Choroid plexus papilloma	Choroid plexus tumor
 Chronic myeloid leukemia pathway	Other tumor
 Clear Cell Sarcoma of the Kidney	Clear cell sarcoma of the kidney
-Clear cell meningioma	Meningioma
 Congenital Mesoblastic Nephroma	Other tumor
 Cranial fasciitis	NA
 Cyst	Other tumor
 Dermoid cyst	NA
 Dysembryoplastic neuroepithelial tumor (DNET)	Dysembryoplastic neuroepithelial tumor
-Dysembryoplastic neuroepithelial tumor (DNET);Dysplasia/Gliosis;Ganglioglioma	NA
+Dysembryoplastic neuroepithelial tumor (DNET);Dysplasia/Gliosis;Ganglioglioma	Dysembryoplastic neuroepithelial tumor
 Dysembryoplastic neuroepithelial tumor (DNET);Ganglioglioma	Dysembryoplastic neuroepithelial tumor
 Dysplasia/Gliosis	NA
-Ependymoma;Metastatic secondary tumors	Ependymoma
 Epidermoid cyst	NA
 Epilepsy	NA
 Familial adenomatous polyposis	Other tumor
@@ -66,7 +63,6 @@ Hypocellular bone marrow	Other tumor
 Hypophyseal stalk thickening	Other tumor
 Inclusion cyst	NA
 Inflammatory Myofibroblastic Tumor	Other tumor
-Inflammatory lesion	Other tumor
 Inflammatory lesion	NA
 Kidney Chromophobe	Chromophobe renal cell carcinoma
 Kidney Renal Clear Cell Carcinoma	Renal Clear Cell Carcinoma
@@ -74,16 +70,14 @@ Kidney Renal Papillary Cell Carcinoma	Renal Papillary Cell Carcinoma
 Lipoblastoma	NA
 Lipoma	NA
 Lipomyelomeningocele	Other tumor
+Low-grade glioma	High-grade glioma
 Low-grade glioma/astrocytoma (WHO grade I/II)	Low-grade glioma
 Lymphadenitis	NA
 Malignant PEComa	Other tumor
 Malignant peripheral nerve sheath tumor (MPNST)	Malignant peripheral nerve sheath tumor
-Malignant peripheral nerve sheath tumor (MPNST)	Neurofibroma/Plexiform
-Malignant peripheral nerve sheath tumor (MPNST);Neurofibroma/Plexiform	NA
+Malignant peripheral nerve sheath tumor (MPNST);Neurofibroma/Plexiform	Malignant peripheral nerve sheath tumor
 Melanocytoma	Melanocytic tumor
-Meningioma;Neurofibroma/Plexiform	NA
 Meningioma;Schwannoma	NA
-Meningothelial meningioma	Meningioma
 Microcytic Anemia	NA
 Mixed Lineage Leukemia	Acute Lymphoblastic Leukemia
 Monomorphic Post-Transplant Lymphoproliferative Disorder	Other tumor
@@ -97,13 +91,10 @@ Necrotizing myelopathy	NA
 Neoplasm of unspecified behavior of endocrine glands	Other tumor
 Neuroblastic tumor	Other tumor
 Neuroendocrine carcinoma	Other tumor
-Neurofibroma/Plexiform;Schwannoma	NA
 Neutropenia	Other tumor
 Nodular fasciitis	Other tumor
 Non-Cancer Diagnosis	NA
 Non-cancer diagnosis	NA
-Non-germinomatous germ cell tumor	NA
-Non-germinomatous germ cell tumor;Teratoma	NA
 Nonintractable epilepsy without status epilepticus	NA
 Noonan syndrome	Other tumor
 Not Reported	Other tumor
@@ -111,8 +102,8 @@ Ossifying fibroma	NA
 Osteoblastoma	NA
 Osteoma	NA
 Papillary Thyroid Carcinoma Pathway	Other tumor
-Perineuroma	Neurofibroma/Plexiform
 Pilomatricoma	NA
+Pituitary neuroendocrine tumor	NA
 Pleuropulmonary blastoma	Other tumor
 Portions of white matter with a few reactive astrocytes and rare cells with mild atypia	Other tumor
 Post-Transplant Lymphoproliferative Disorder	NA
@@ -120,10 +111,9 @@ Posterior fossa group A (PFA) ependymoma	Ependymoma
 Posterior fossa group B (PFB) ependymoma	Ependymoma
 Posterior fossa subependymoma	Ependymoma
 Primary myelofibrosis	Other tumor
-Rare CNS	Astroblastoma
 Rare CNS	Rare CNS tumor
 Reactive connective tissue	Other tumor
-Recurrent Acute Leukemia	NA
+Recurrent Acute Leukemia	Acute leukemia
 Recurrent Glioma	Other tumor
 Rosai-dorfman	Rosai-Dorfman disease
 Shwachman-diamond syndrome	Other tumor
@@ -131,9 +121,7 @@ Solid pseudopapillary neoplasm of the pancreas	Other tumor
 Spinal Cord Neoplasm	Other tumor
 Spinal ependymoma	Ependymoma
 Spinal subependymoma	Ependymoma
-Spindle cell neoplasm	Other tumor
 Spinocerebellar ataxia type 7	NA
-Subependymal Giant Cell Astrocytoma (SEGA)	Subependymal Giant Cell Astrocytoma
 Supratentorial ependymoma	Ependymoma
 Thrombocytopenia	Other tumor
 Thrombocytosis	Other tumor
