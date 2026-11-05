@@ -124,7 +124,7 @@ bad_samples <- sample_names[bad_sample_idx]
 
 if (length(bad_samples) > 0) {
   message("Samples with MAD = 0 in at least one control channel (will be skipped):")
-  zero_mad_samples <- paste0(out_base, "-", dataset, "zero-mad.txt")
+  zero_mad_samples <- paste0(out_base, "-", dataset, "-zero-mad.txt")
   fileConn <- file(zero_mad_samples)
   writeLines(bad_samples, fileConn)
   close(fileConn)
@@ -144,6 +144,123 @@ if (length(bad_samples) > 0) {
 rg_set_file <- paste0(out_base, "-", dataset, "-rg-set.qs2")
 qs_save(RGset, rg_set_file)
 
+######################### Extract identity SNP probes #########################
+# The arrays carry a small panel of rs probes that genotype common SNPs rather
+# than measure methylation, for checking sample identity against genomic data.
+# They are read straight off the RGChannelSet because they have no annotation
+# entry, and so never reach the GenomicRatioSet the measurements below come
+# from. This is unrelated to --snp_filter, which drops CpG probes overlapping a
+# SNP. Betas are saved rather than genotype calls so the calling thresholds
+# stay with the analysis making the comparison.
+message("\nExtracting identity SNP probes...\n")
+
+snp_file <- paste0(out_base, "-", dataset, "-methyl-snps.parquet")
+
+snp_betas <- minfi::getSnpBeta(RGset) %>%
+  as_tibble(rownames = "ProbeID") %>%
+  rename_with(~ recode(.x, !!!setNames(man_df$Bioassay_ID, man_df$file_name)))
+
+message("Identity SNP probes on ", dataset, ": ", nrow(snp_betas))
+
+write_parquet(snp_betas, snp_file, compression = "zstd")
+
+rm(snp_betas)
+gc()
+
+########################## Estimate tumor purity ##############################
+# RFpurify's ABSOLUTE and ESTIMATE random forests were trained on TCGA 450k
+# betas computed with minfi's Illumina offset, so purity is predicted from a
+# raw MethylSet rather than from the normalized values generated below.
+# predict.randomForest() aborts on any NA in its input, so neither detection
+# p-value masking nor SNP filtering is applied to the purity matrix.
+#
+# Both forests are defined on 450k probes. EPICv2 carries only about 88% of
+# them, which would need imputing, so purity is skipped for EPICv2 here.
+purity_array_types <- c("IlluminaHumanMethylation450k",
+                        "IlluminaHumanMethylationEPIC")
+array_type <- minfi::annotation(RGset)[["array"]]
+
+if (!array_type %in% purity_array_types) {
+  message("\nSkipping tumor purity estimation: RFpurify does not support ",
+          array_type, ".\n")
+} else if (!requireNamespace("RFpurify", quietly = TRUE)) {
+  warning("RFpurify is not installed; skipping tumor purity estimation.")
+} else {
+  message("\nEstimating tumor purity with RFpurify...\n")
+
+  # The forests have to be attached, not merely loaded: predict_purity_betas()
+  # refers to them by bare name, which does not reach the namespace's lazy-data
+  # environment that `RFpurify::` resolves against. Attaching also masks
+  # minfi::combine with randomForest::combine, which this script never calls.
+  suppressWarnings(
+    suppressPackageStartupMessages(library(RFpurify))
+  )
+
+  purity_file <- paste0(out_base, "-", dataset, "-methyl-purity.parquet")
+
+  # The two forests use 856 probes each and share only 38 of them, so taking
+  # the union lets one matrix serve both.
+  model_probes <- unique(c(
+    rownames(RFpurify::RFpurify_ABSOLUTE$importance),
+    rownames(RFpurify::RFpurify_ESTIMATE$importance)
+  ))
+
+  # preprocessRaw() builds full Meth and Unmeth matrices covering every probe
+  # on the array, of which only the model probes are wanted. It works one
+  # sample at a time, so chunking over samples returns identical values while
+  # keeping those transient matrices proportional to the chunk rather than to
+  # the whole batch.
+  sample_chunks <- split(
+    seq_len(ncol(RGset)),
+    ceiling(seq_len(ncol(RGset)) / 50)
+  )
+  model_betas <- do.call(cbind, lapply(sample_chunks, function(idx) {
+    m_set <- minfi::preprocessRaw(RGset[, idx])
+    minfi::getBeta(m_set[rownames(m_set) %in% model_probes, ],
+                   type = "Illumina")
+  }))
+  gc()
+
+  # predict_purity_betas() looks probes up by name and returns an all-NA row
+  # for any it cannot find, which would abort the prediction. Give every model
+  # probe a row, fill the ones this array lacks with 0.5, and report the count
+  # so the estimates can be judged against how much was imputed.
+  purity_betas <- matrix(
+    NA_real_,
+    nrow = length(model_probes), ncol = ncol(model_betas),
+    dimnames = list(model_probes, colnames(model_betas))
+  )
+  purity_betas[rownames(model_betas), ] <- model_betas
+
+  n_probes_imputed <- sum(!complete.cases(purity_betas))
+  message("RFpurify model probes missing from ", array_type, ": ",
+          n_probes_imputed, " of ", length(model_probes))
+  purity_betas[is.na(purity_betas)] <- 0.5
+
+  purity_values <- tibble(
+    file_name = colnames(purity_betas),
+    purity_absolute = as.numeric(
+      RFpurify::predict_purity_betas(purity_betas, method = "ABSOLUTE")
+    ),
+    purity_estimate = as.numeric(
+      RFpurify::predict_purity_betas(purity_betas, method = "ESTIMATE")
+    ),
+    array_type = array_type,
+    n_model_probes = length(model_probes),
+    n_probes_imputed = n_probes_imputed
+  ) %>%
+    mutate(Bioassay_ID = dplyr::recode(
+      file_name, !!!setNames(man_df$Bioassay_ID, man_df$file_name)
+    )) %>%
+    select(Bioassay_ID, purity_absolute, purity_estimate, array_type,
+           n_model_probes, n_probes_imputed)
+
+  write_parquet(purity_values, purity_file, compression = "zstd")
+
+  rm(model_betas, purity_betas, purity_values)
+  gc()
+}
+
 ######################## Calculate detection p-values #########################
 message("\nsetting parallel processing options...\n")
 library(BiocParallel)
@@ -156,17 +273,16 @@ message("\nCalculating detection p-values...\n")
 if (n_cores > 1) {
   message(sprintf("Running detectionP in parallel with %d cores...", n_cores))
   
-  # register parallel backend
-  register(MulticoreParam(workers = n_cores))
-  
   # split sample indices into chunks
   n <- ncol(RGset)
   chunks <- split(seq_len(n), ceiling(seq_len(n)/500))
   
-  # run detectionP in parallel on each chunk
-  det_list <- bplapply(chunks, function(idx) {
-    message(sprintf("Processing chunk %d / %d ", idx, length(chunks)))
-    minfi::detectionP(RGset[, idx])
+  # Run detectionP in parallel on each chunk. Iterate over chunk positions
+  # rather than over the chunks themselves, so the progress message reports the
+  # chunk number instead of being vectorised over every sample index in it.
+  det_list <- bplapply(seq_along(chunks), function(i) {
+    message(sprintf("Processing chunk %d / %d", i, length(chunks)))
+    minfi::detectionP(RGset[, chunks[[i]]])
   }, BPPARAM = MulticoreParam(n_cores))
   
   # combine results
