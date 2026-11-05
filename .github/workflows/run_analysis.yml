@@ -112,6 +112,7 @@ jobs:
                          'IlluminaHumanMethylationEPICv2-methyl-beta-values-masked' \
                          'methyl-sample-qc' \
                          'methyl-snps' \
+                         'methyl-snp-p-values' \
                          'methyl-purity'; do
             ls methylation-test-out/*"$pattern"*.parquet > /dev/null
           done

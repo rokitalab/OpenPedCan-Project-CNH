@@ -164,7 +164,66 @@ message("Identity SNP probes on ", dataset, ": ", nrow(snp_betas))
 
 write_parquet(snp_betas, snp_file, compression = "zstd")
 
-rm(snp_betas)
+# minfi::detectionP() iterates over the Type I and Type II probe tables only,
+# so it returns nothing at all for the rs probes. The background model it uses
+# applies to them unchanged, because the Snp probes share the structure of the
+# ordinary probes: SnpI probes measure both alleles in one channel, SnpII
+# probes measure one address across both. This reproduces that calculation for
+# the Snp addresses, and agrees with detectionP() to floating-point precision
+# when run against the Type I and Type II probes instead.
+snp_detection_p <- function(RGset) {
+  controls <- minfi::getProbeInfo(RGset, type = "Control")
+  red <- minfi::getRed(RGset)
+  green <- minfi::getGreen(RGset)
+  negative <- intersect(controls$Address[controls$Type == "NEGATIVE"],
+                        rownames(red))
+  red_mu <- matrixStats::colMedians(red[negative, , drop = FALSE])
+  red_sd <- matrixStats::colMads(red[negative, , drop = FALSE])
+  green_mu <- matrixStats::colMedians(green[negative, , drop = FALSE])
+  green_sd <- matrixStats::colMads(green[negative, , drop = FALSE])
+
+  snp_i <- minfi::getProbeInfo(RGset, type = "SnpI")
+  snp_ii <- minfi::getProbeInfo(RGset, type = "SnpII")
+  i_red <- snp_i[snp_i$Color == "Red", ]
+  i_green <- snp_i[snp_i$Color == "Grn", ]
+
+  probe_names <- c(i_red$Name, i_green$Name, snp_ii$Name)
+  detP <- matrix(NA_real_, nrow = length(probe_names), ncol = ncol(RGset),
+                 dimnames = list(probe_names, colnames(RGset)))
+  for (i in seq_len(ncol(RGset))) {
+    if (nrow(i_red) > 0L) {
+      intensity <- red[i_red$AddressA, i] + red[i_red$AddressB, i]
+      detP[i_red$Name, i] <- 1 - pnorm(intensity, mean = red_mu[i] * 2,
+                                       sd = red_sd[i] * 2)
+    }
+    if (nrow(i_green) > 0L) {
+      intensity <- green[i_green$AddressA, i] + green[i_green$AddressB, i]
+      detP[i_green$Name, i] <- 1 - pnorm(intensity, mean = green_mu[i] * 2,
+                                         sd = green_sd[i] * 2)
+    }
+    if (nrow(snp_ii) > 0L) {
+      intensity <- red[snp_ii$AddressA, i] + green[snp_ii$AddressA, i]
+      detP[snp_ii$Name, i] <- 1 - pnorm(intensity,
+                                        mean = red_mu[i] + green_mu[i],
+                                        sd = red_sd[i] + green_sd[i])
+    }
+  }
+  detP
+}
+
+snp_p_file <- paste0(out_base, "-", dataset, "-methyl-snp-p-values.parquet")
+
+snp_detP <- snp_detection_p(RGset) %>%
+  as_tibble(rownames = "ProbeID") %>%
+  rename_with(~ recode(.x, !!!setNames(man_df$Bioassay_ID, man_df$file_name)))
+
+message("Identity SNP probe measurements with detection p > 0.01: ",
+        sum(snp_detP[, -1] > 0.01, na.rm = TRUE), " of ",
+        nrow(snp_detP) * (ncol(snp_detP) - 1))
+
+write_parquet(snp_detP, snp_p_file, compression = "zstd")
+
+rm(snp_betas, snp_detP)
 gc()
 
 ########################## Estimate tumor purity ##############################

@@ -32,6 +32,8 @@ The [Children's Brain Tumor Network (CBTN)](https://cbtn.org/) `Infinium HumanMe
 
 - Each array carries a panel of `rs` probes that genotype common SNPs rather than measuring methylation, and these are written to `-methyl-snps.parquet` for checking sample identity against genomic data. They are taken from the raw `RGChannelSet` before normalization, because they have no entry in the array annotation and so are absent from the `GenomicRatioSet` the other measurements are derived from; this is unrelated to the `--snp_filter` option, which drops CpG probes that overlap a SNP. The panel is 65 probes on 450k, 59 on EPICv1 and 65 on EPICv2, of which 57 are shared across all three. Beta values are saved rather than genotype calls, so that the calling thresholds stay with the analysis making the comparison. EPICv2 probe names keep their replicate suffix, so the shared panel is found by stripping it. Like the per-sample QC and purity files, this output is not merged across array types.
 
+- Detection p-values for those `rs` probes are written separately, to `-methyl-snp-p-values.parquet`. `minfi::detectionP()` iterates over the Type I and Type II probe tables only and so returns nothing for the `rs` probes, but the background model it uses applies to them unchanged, since the `Snp` probes share the structure of the ordinary ones. The calculation is reproduced here for the `Snp` addresses, and agrees with `detectionP()` to floating-point precision when run against the Type I and Type II probes instead. The betas themselves are left unmasked, so that the masking threshold stays with the analysis making the identity comparison.
+
 - Detection p-values are used to mask individual failed probes (setting them to `NA`), not to exclude entire failed samples. To support sample-level QC downstream, the `-methyl-sample-qc.parquet` output reports, for each sample, the fraction of probes with detection p-value > 0.01. Whole-sample exclusion decisions based on this metric are left to the consuming analysis, rather than applied in this harmonization step.
 
 ## Running the analysis
@@ -95,7 +97,7 @@ Per-array results are written as parquet files using this pattern:
 <output_prefix>-<array_type>-methyl-<measurement>.parquet
 ```
 
-`<measurement>` is one of `beta-values-masked`, `m-values-unmasked`, `m-values-masked`, `cn-values`, `p-values`, `sample-qc`, `purity`, or `snps`. The supported array-type names are `IlluminaHumanMethylation450k`, `IlluminaHumanMethylationEPIC`, and `IlluminaHumanMethylationEPICv2`.
+`<measurement>` is one of `beta-values-masked`, `m-values-unmasked`, `m-values-masked`, `cn-values`, `p-values`, `sample-qc`, `purity`, `snps`, or `snp-p-values`. The supported array-type names are `IlluminaHumanMethylation450k`, `IlluminaHumanMethylationEPIC`, and `IlluminaHumanMethylationEPICv2`.
 
 When multiple array types are available, the merge step writes intersection matrices for beta values, masked and unmasked M values, and CN values. The filename records the participating array types, for example `<output_prefix>-IlluminaHumanMethylationEPICv1-EPICv2-methyl-beta-values-masked.parquet`. With all three present, both the EPICv1+EPICv2 and the three-array intersections are written. Merging several batches of a single array type instead yields `<output_prefix>-<array_type>-merged-methyl-<measurement>.parquet`; the `-merged` suffix keeps that output from being picked up as a per-array input on a rerun.
 
