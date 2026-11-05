@@ -78,6 +78,17 @@ Rscript --vanilla scripts/02-merge-methyl-matrices.R \
 
 `--input_prefix` takes a comma-separated list of prefixes to read from, and defaults to `--output_prefix`. Give it more than one prefix to combine separate preprocessing runs of the same arrays, which is useful when samples arrive in batches: probes are intersected across the batches as well as across array types, and every batch's samples are carried into the merged matrices. A sample name occurring in more than one batch is an error rather than something the merge resolves silently.
 
+Genotypes for the identity SNP probes are called from the `-methyl-snps.parquet` files with:
+
+```
+Rscript --vanilla scripts/03-call-snp-genotypes.R \
+  --output_dir <output_dir> \
+  --output_prefix <output_prefix> \
+  --vcf TRUE
+```
+
+`--input_prefix` behaves as it does for the merge step. `--het_min` and `--het_max` set the beta cut points either side of a heterozygous call, and default to 0.25 and 0.75. Widening that band is worth considering for tumor samples, where loss of heterozygosity and aneuploidy pull heterozygous betas away from 0.5 and can push a true heterozygote into a homozygous call. `--vcf` additionally writes one VCF per array type, and defaults to `FALSE`.
+
 ## Input datasets
 
 #### `Methylation arrays:`
@@ -102,6 +113,10 @@ Per-array results are written as parquet files using this pattern:
 When multiple array types are available, the merge step writes intersection matrices for beta values, masked and unmasked M values, and CN values. The filename records the participating array types, for example `<output_prefix>-IlluminaHumanMethylationEPICv1-EPICv2-methyl-beta-values-masked.parquet`. With all three present, both the EPICv1+EPICv2 and the three-array intersections are written. Merging several batches of a single array type instead yields `<output_prefix>-<array_type>-merged-methyl-<measurement>.parquet`; the `-merged` suffix keeps that output from being picked up as a per-array input on a rerun.
 
 Detection p-values are used to select among duplicated EPICv2 probes and, like the per-sample QC and purity files, are not merged. EPICv2 carries several probes for some CpG sites, distinguished by a `_` suffix; for a cross-array merge the probe with the lowest mean detection p-value across all EPICv2 samples is kept, ties broken on probe name, and the chosen probe is recorded in `<output_prefix>-EPICv2-unique-mapping.qs2`. With a single array type and a single batch, the merge script exits successfully after reporting that no intersection is needed and leaves the per-array outputs unchanged.
+
+`03-call-snp-genotypes.R` writes `<output_prefix>-methyl-snp-genotypes.tsv`, with one row per probe and sample and the columns `probe_id`, `rs_id`, `sample`, `array_type`, `beta` and `gt`. `rs_id` is `probe_id` with the EPICv2 replicate suffix removed, and is what joins the panel across array types. With `--vcf`, a VCF is written per array type rather than as one combined file, because the array types interrogate different probe sets and a combined file would have to invent missing calls for every probe absent from an array. Detection p-values are not applied to these calls: `minfi::detectionP()` covers only the Type I and Type II methylation probes, so the rs probes have no detection p-value to mask against.
+
+The `0/0` and `1/1` labels are arbitrary with respect to a reference genome. The array measures allele dosage but cannot say which homozygote carries the reference allele, so the VCF carries a placeholder `CHROM` and `POS` and an unknown `REF` and `ALT`, and is usable only by matching on the `ID` column; it will not support position-based or allele-based operations. Resolving that orientation per probe, and mapping the rs IDs to genomic coordinates, belongs to the analysis making the comparison against genomic data.
 
 ## High Performance Computing (HPC)
 
