@@ -1,0 +1,49 @@
+pathology_diagnosis	dx_group
+High-grade glioma/astrocytoma (WHO grade III/IV)	HGG
+Brainstem glioma- Diffuse intrinsic pontine glioma	HGG
+Gliomatosis Cerebri	HGG
+Low-grade glioma/astrocytoma (WHO grade I/II)	LGG
+Dysembryoplastic neuroepithelial tumor (DNET)	LGG
+Ganglioglioma	LGG
+Glial-neuronal tumor NOS	LGG
+Subependymal Giant Cell Astrocytoma (SEGA)	LGG
+Dysplasia/Gliosis	LGG
+Ependymoma	EPN
+Medulloblastoma	MB
+Atypical Teratoid Rhabdoid Tumor (ATRT)	ATRT
+Meningioma	MNG
+Craniopharyngioma	CRANIO
+Choroid plexus papilloma	CP
+Choroid plexus carcinoma	CP
+Schwannoma	NERVE
+Neurofibroma/Plexiform	NERVE
+Malignant peripheral nerve sheath tumor (MPNST)	NERVE
+Ewings Sarcoma	SARCOMA
+Rhabdomyosarcoma	SARCOMA
+Sarcoma	SARCOMA
+Pineoblastoma	PINEAL
+Supratentorial or Spinal Cord PNET	EMBRYONAL
+Embryonal Tumor with Multilayered Rosettes (ETMR)	EMBRYONAL
+Neuroblastoma	NBL
+Ganglioneuroblastoma	NBL
+Adenoma	SELLAR
+Teratoma	GCT
+Germinoma	GCT
+Mixed germ cell tumor	GCT
+Non-germinomatous germ cell tumor	GCT
+Neurocytoma	NEUROCYTOMA
+Hemangioblastoma	VASCULAR
+Chordoma	CHORDOMA
+Langerhans Cell histiocytosis	HISTIOCYTIC
+Primary CNS lymphoma	LYMPHOMA
+Metastatic secondary tumors	METASTATIC
+Other	UNINFORMATIVE
+Not Reported	UNINFORMATIVE
+Oligodendroglioma	LGG
+Oligoastrocytoma	LGG
+Astrocytoma	LGG
+Glioblastoma	HGG
+Cavernoma	VASCULAR
+Germ Cell Tumor	GCT
+Histiocytic Tumor	HISTIOCYTIC
+Osteosarcoma	SARCOMA

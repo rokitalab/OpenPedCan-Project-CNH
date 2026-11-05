@@ -43,6 +43,7 @@ Reads the TSV / RDS files in `data/v15/` and writes, to `data/v15/parquet/`:
 | `fusion-annoFuse`, `fusion-arriba`, `fusion-starfusion`, `fusion-dgd`, `fusion-putative-oncogenic` | fusion files | fusion name or sample |
 | `sv-manta` | `sv-manta.tsv.gz` | chromosome, start |
 | `gene-expression-rsem-tpm-collapsed`, `gene-counts-rsem-expected_count-collapsed` | `*.rds` | `gene_symbol` (a `gene_symbol` column and one column per biospecimen) |
+| `methyl-beta-values`, `methyl-m-values`, `methyl-cn-values` | `methyl-*.rds` | not sorted (probe order of the RDS; a `Probe_ID` column and one column per array, row groups of 10,000 probes) |
 
 How the tables are built:
 
@@ -51,8 +52,15 @@ How the tables are built:
 - The only value change is `status` in the consensus copy number table, lowercased (the v15 Control-FREEC tumor-only input had `Gain` / `Loss` / `Neutral`; fixed upstream in `analyses/focal-cn-file-preparation/04-prepare-cn-file.R`). The script marks this in a comment next to the table definition.
 - Row counts are compared with the source files and reported in `manifest.tsv`. Check that `row_count_matches` is `TRUE` for every table before uploading.
 
+The methylation matrices are read whole by `readRDS()` (tens of GB in memory), so convert them on a large-memory machine (`PARQUET_TABLES=methyl-beta-values`); the script compares 100 random values of each with the RDS and stops on a mismatch. In v15 the matrices stack the arrays of two array types (2,656 and 126 arrays in the beta matrix, with NA for the other type), so a probe has two rows and the parquet table has 1,702,675 rows for 867,251 probes. A query for some arrays then reads only their columns. Code that reads `methyl-beta-values.parquet` when it is in `data/parquet/` (and otherwise the RDS): `analyses/molecular-subtyping/09-plot-mb-methylation-umap.R`, `analyses/methylation-summary/02-calculate-methly-quantiles.R` (probes and independent-sample arrays only) and `analyses/data-pre-release-qc/01-data-harmonization-qc.Rmd` (probe and array IDs only). `analyses/methylation-summary/03-methyl-tpm-correlation.py` still reads the RDS.
+
 To run only some tables, set `PARQUET_TABLES` to a comma-separated list of table names; the manifest keeps the other rows. The conversion needs `duckdb` (and `dbplyr` 2.6.0 with `duckdb` 1.5.6, as in the Dockerfile) and about 10 GB of memory; larger-than-memory sorts spill to `scratch/parquet-duckdb-tmp/`.
 
 The parquet files are not listed in a release `md5sum.txt`, so `download-data.sh` does not download them; upload the folder to `<release>/parquet/` next to the release files, then users fetch them with `bash scripts/download-parquet.sh` (md5 check, links in `data/parquet/`). The TSV / RDS files stay the source of truth.
 
 Not converted: histologies, methylation beta values, TCGA and GTEx expression, rMATS splice events and isoform expression (to add for v16).
+
+## Testing copy of the beta values for CI
+
+`scripts/make-methyl-testing-parquet.R [source release] [testing release]` writes `data/testing/parquet/methyl-beta-values.parquet` (with `manifest.tsv` and `md5sum-parquet.txt`) from the release parquet: the arrays that the molecular subtyping investigates (all medulloblastoma arrays, all IDH-mutant astrocytoma arrays, a sample of each non-IDH glioma class and the tumors reviewed for G-CIMP) and the rows it uses (the 1,503 G-CIMP probes and the 20,000 most variable probes of the medulloblastoma arrays). Upload the folder to the `testing` release; the CI job sets `METHYL_PARQUET_RELEASE=testing`, so `run-molecular-subtyping.sh` (which downloads the beta values when the file is missing) fetches this small file instead of the 15 GB release file, while a CI step downloads the other parquet tables the module reads (copy number, fusion, SV, SNV, expression; about 1.9 GB) from the v15 release.
+

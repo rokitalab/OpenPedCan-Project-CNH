@@ -1,0 +1,46 @@
+Abbreviation_internal_NIHv2	OPC_molecular_subtype	expected_lesion	non_cns	rationale
+CPP_AD	CPP, adult	NA	FALSE	Choroid plexus papilloma, adult subtype (CPT_AD_A)
+CPP_INF	CPP, pediatric	NA	FALSE	Choroid plexus papilloma, pediatric subtype (CPT_PED_A)
+CPC	CPC, pediatric	TP53	FALSE	Choroid plexus carcinoma, pediatric subtype (CPT_PED_B); TP53 alteration expected and often germline (Li-Fraumeni)
+CPC_B	CPC, adult	NA	FALSE	Choroid plexus carcinoma, adult subtype
+SCHW	NST, Schwannoma	NF2	FALSE	Schwannoma; NF2 loss expected
+VGLL	NST, Schwannoma VGLL-fused	VGLL fusion	FALSE	CNS schwannoma, VGLL-fused (WHO CNS5 emerging subtype)
+NFIB_PLEX	NST, Plexiform neurofibroma	NF1	FALSE	Plexiform neurofibroma; NF1 loss expected
+MPNST	NST, MPNST typical	NF1/CDKN2A	FALSE	Malignant peripheral nerve sheath tumour, typical type
+MPNST_Spine	NST, MPNST spinal/atypical	NA	FALSE	Malignant peripheral nerve sheath tumour, spinal or atypical type
+MEL_SCHW	NST, MPNST melanotic	PRKAR1A	FALSE	Malignant melanotic nerve sheath tumour; PRKAR1A loss / Carney complex association
+GCT_GERM	GCT, Germinoma KIT wildtype	NA	FALSE	Germinoma, KIT wildtype (GCT_GERM_A)
+GCT_GERM_KIT	GCT, Germinoma KIT mutant	KIT	FALSE	Germinoma, KIT mutant
+GCT_TERA	GCT, Teratoma	NA	FALSE	Teratoma
+GCT_YOLKSAC	GCT, Yolk sac tumor	NA	FALSE	Yolk sac tumour
+PPTID_A	PB, PPTID	NA	FALSE	Pineal parenchymal tumour of intermediate differentiation, methylation subclass A; condensed with B into the existing PB, PPTID label (subclass kept in methyl_class)
+PPTID_B	PB, PPTID	NA	FALSE	Pineal parenchymal tumour of intermediate differentiation, methylation subclass B; condensed with A into the existing PB, PPTID label (subclass kept in methyl_class)
+PTPR_A	PTPR, A	NA	FALSE	Papillary tumour of the pineal region, methylation subclass A
+PTPR_B	PTPR, B	NA	FALSE	Papillary tumour of the pineal region, methylation subclass B
+Pin_Cyt	Pineocytoma	NA	FALSE	Pineocytoma
+RB	RB, RB1-altered	RB1	FALSE	Retinoblastoma (pineal/retinal RB1-related tumour)
+RB_MYCN	RB, MYCN-activated	MYCN amplification	FALSE	Retinoblastoma, MYCN-activated
+PITAD_ACTH	PITNET, ACTH	NA	FALSE	Pituitary neuroendocrine tumour (PitNET), ACTH-producing; WHO CNS5 / 2022 PitNET terminology
+PITAD_GON	PITNET, Gonadotroph	NA	FALSE	PitNET, gonadotrophin-producing
+PITAD_PRL	PITNET, PRL	NA	FALSE	PitNET, prolactin-producing
+PITAD_STH_DENSE1	PITNET, STH densely granulated A	NA	FALSE	PitNET, STH-producing, densely granulated A
+PITAD_STH_DENSE2	PITNET, STH densely granulated B	NA	FALSE	PitNET, STH-producing, densely granulated B
+PITAD_STH_SPARSE	PITNET, STH sparsely granulated	NA	FALSE	PitNET, STH-producing, sparsely granulated
+PITAD_TSH	PITNET, TSH	NA	FALSE	PitNET, TSH-producing
+PITUI	PITUI, Pituicytoma/GCTS/SCO	NA	FALSE	Pituicytoma, granular cell tumour of the sellar region, spindle-cell oncocytoma (single TTF1-positive family)
+PGG	PGG, non-CIMP	NA	FALSE	Cauda equina neuroendocrine tumour [paraganglioma], non-CIMP subtype
+CHD3V	CHGL, PRKCA-mutant	PRKCA D463H	FALSE	Chordoid glioma; PRKCA D463H hotspot expected
+LIPN	LIPN	NA	FALSE	Liponeurocytoma
+HMB	HMB	VHL	FALSE	Haemangioblastoma; VHL alteration expected
+MB_MYO	MB, Medullomyoblastoma	NA	FALSE	Medullomyoblastoma; reported as a medulloblastoma variant, confirm before merging with MB module
+MELN	MEL, Melanocytoma	GNAQ/GNA11	FALSE	Circumscribed meningeal melanocytic neoplasm (melanocytoma)
+MET_MEL	MEL, Metastatic melanoma	BRAF/NRAS	TRUE	Metastatic melanoma, not a primary CNS tumour; review
+IO_MEPL	MEPL, Intraocular medulloepithelioma	DICER1	FALSE	Intraocular medulloepithelioma; DICER1 alteration expected
+LCH	LCH	BRAF V600E	FALSE	Langerhans cell histiocytosis; BRAF V600E / MAPK pathway expected
+PCNSL_DLB	CNS lymphoma, DLBCL	NA	FALSE	Primary diffuse large B-cell lymphoma of the CNS
+PCNSL_PLAS	CNS plasmacytoma	NA	FALSE	Plasmacytoma of the CNS
+ENB	ONB	NA	FALSE	Olfactory neuroblastoma (esthesioneuroblastoma)
+ENB_IDH	SNUC, IDH2-mutant	IDH2 R172	TRUE	Sinonasal undifferentiated carcinoma, IDH2-mutant; not a primary CNS tumour, review
+HMPC_SFT	SFT	NAB2::STAT6	FALSE	Solitary fibrous tumour / haemangiopericytoma; NAB2::STAT6 fusion expected
+MYXGNT	GNT, Myxoid	PDGFRA	FALSE	Myxoid glioneuronal tumour, PDGFRA-mutant; lesion kept out of the label because the LGAT/GNT module's GNT, RTK group already includes PDGFRA alterations
+PGNT	GNT, Papillary	PRKCA::SLC44A1	FALSE	Papillary glioneuronal tumour; PRKCA::SLC44A1 fusion expected; lesion kept out of the label, matching GNT, Myxoid

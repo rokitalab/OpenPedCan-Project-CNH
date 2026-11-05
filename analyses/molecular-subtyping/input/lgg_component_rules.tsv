@@ -1,0 +1,17 @@
+component	assay	lesion_type	gene	pattern	variant_class	domain	note
+KIAA1549-BRAF	rna	fusion	BRAF	KIAA1549--BRAF			canonical LGG fusion
+other MAPK	rna	fusion	BRAF|RAF1	BRAF|RAF1			BRAF or RAF1 fusion other than KIAA1549--BRAF; not counted when the tumor has KIAA1549--BRAF
+RTK	rna	fusion	ALK|ROS1|NTRK1|NTRK2|NTRK3|PDGFRA	ALK|ROS1|NTRK2|NTRK1|NTRK3|PDGFRA			RTK fusion
+FGFR	rna	fusion	FGFR1|FGFR2	FGFR1|FGFR2			FGFR1 or FGFR2 fusion, including FGFR1--TACC1
+MYB/MYBL1	rna	fusion	MYB|MYBL1	MYB|MYBL1			MYB or MYBL1 fusion, including MYB--QKI
+NF1-somatic	dna	snv	NF1	.*	Missense_Mutation|Nonsense_Mutation|Splice_Site|Translation_Start_Site|Frame_Shift_Del|Frame_Shift_Ins|Splice_Region		somatic NF1 loss-of-function or missense
+BRAF V600E	dna	snv	BRAF	^p\.V600E$			canonical
+BRAF V600E	dna	snv	BRAF	599|600			hotspot codons 599 and 600
+BRAF V600E	dna	snv	BRAF	.*		PF07714	non-canonical variant in the kinase domain (PF07714)
+other MAPK	dna	snv	KRAS|ARAF|NRAS|HRAS|MAP2K1|MAP2K2|RAF1	.*			any coding variant
+RTK	dna	snv	KIT|MET|PDGFRA	.*			any coding variant
+FGFR	dna	snv	FGFR1	^p\.(N546K|K656E|K654D|K654E|N544K|V559M|R659L)$			canonical FGFR1 kinase-domain variants
+FGFR	dna	snv	FGFR1	577|687			hotspot codons 577 and 687
+IDH	dna	snv	IDH1	132			IDH1 R132
+H3	dna	snv	H3-3A|H3-3B	^p\.(K28M|G35R|G35V)$			H3.3 K28M or G35R/V
+H3	dna	snv	H3C2|H3C3|H3C14	^p\.K28M$			H3.1/H3.2 K28M

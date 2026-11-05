@@ -1,0 +1,170 @@
+rule_id	OPC_molecular_subtype	lesion_type	gene	pattern	use_as_fallback	fallback_requires_dx	definitive	lesion_overrides_methylation	and_group	note
+DMG_H3K28	DMG, H3 K28	snv	H3-3A|H3C2|H3C3|H3C14	^p\.K(27|28)[MI]$	TRUE	FALSE	FALSE	FALSE		H3 K27/K28 M or I
+DHG_H3G35	DHG, H3 G35	snv	H3-3A	^p\.G(34|35)[RV]$	TRUE	FALSE	FALSE	FALSE		H3 G34/G35 R or V
+HGG_IDH1	HGG, IDH	snv	IDH1	^p\.R132	TRUE	FALSE	FALSE	FALSE		IDH1 R132
+HGG_IDH2	HGG, IDH	snv	IDH2	^p\.R172	TRUE	FALSE	FALSE	FALSE		IDH2 R172
+EPN_ZFTA	EPN, ST ZFTA	fusion	ZFTA	(^|--)(ZFTA|C11orf95)(/|--|$)	TRUE	FALSE	FALSE	FALSE		ZFTA (C11orf95) fusion
+EPN_YAP1	EPN, ST YAP1	fusion	YAP1	(^|--)YAP1(/|--|$)	TRUE	FALSE	FALSE	FALSE		YAP1 fusion
+RARE_MN1_BEND2	Rare CNS, MN1::BEND2	fusion	MN1	(^|--)MN1(/|--|$).*BEND2|BEND2.*(^|--)MN1(/|--|$)	TRUE	FALSE	FALSE	FALSE		MN1::BEND2
+RARE_MN1_CXXC5	Rare CNS, MN1::CXXC5	fusion	MN1	(^|--)MN1(/|--|$).*CXXC5|CXXC5.*(^|--)MN1(/|--|$)	TRUE	FALSE	FALSE	FALSE		MN1::CXXC5
+RARE_FOXR2	Rare CNS, FOXR2 NBL	fusion	FOXR2	(^|--)FOXR2(/|--|$)	TRUE	TRUE	FALSE	FALSE		FOXR2 fusion; fallback only with a concordant diagnosis
+RARE_CIC	Rare CNS, CIC SARC	fusion	CIC	(^|--)CIC(/|--|$)	FALSE	FALSE	FALSE	FALSE		CIC fusion
+RARE_PLAGL1	Rare CNS, PLAGL1-fused	fusion	PLAGL1	(^|--)PLAGL1(/|--|$)	FALSE	FALSE	FALSE	FALSE		PLAGL1 fusion
+RARE_PATZ1	Rare CNS, PATZ1-fused	fusion	PATZ1	(^|--)PATZ1(/|--|$)	FALSE	FALSE	FALSE	FALSE		PATZ1 fusion
+RARE_BCOR_FUS	Rare CNS, BCOR-fused	fusion	BCOR	(^|--)BCOR(/|--|$)	FALSE	FALSE	FALSE	FALSE		BCOR fusion
+RARE_EWS	Rare CNS, EWS	fusion	EWSR1	(^|--)EWSR1(/|--|$)	FALSE	FALSE	FALSE	FALSE		EWSR1 fusion
+RARE_MYOD1	Rare CNS, MYOD1 RMS	snv	MYOD1	^p\.L122R$	FALSE	FALSE	FALSE	FALSE		MYOD1 L122R
+RARE_DICER1	Rare CNS, DICER1 SARC	snv	DICER1	^p\.(E1705|D1709|D1713|G1809|D1810|E1813)[A-Z]|\*|fs|_splice	FALSE	FALSE	FALSE	FALSE		DICER1 hotspot missense, nonsense, frameshift or splice; confirms a methylation call but does not subtype alone
+RARE_DICER1_HOTSPOT	Rare CNS, DICER1 SARC	snv	DICER1	^p\.(E1705|D1709|D1713|G1809|D1810|E1813)[A-Z]	TRUE	TRUE	FALSE	FALSE		DICER1 RNase IIIb hotspot missense (E1705, D1709, D1713, G1809, D1810, E1813); fallback only with a compatible diagnosis, and not in pineoblastoma (PB, miRNA processing)
+GCT_KIT	GCT, Germinoma KIT mutant	snv	KIT	.*	FALSE	FALSE	FALSE	FALSE		KIT variant
+GNT_PAP_PRKCA	GNT, Papillary	fusion	PRKCA	(^|--)PRKCA(/|--|$)	FALSE	FALSE	FALSE	FALSE		PRKCA::SLC44A1
+GNT_MYX_PDGFRA	GNT, Myxoid	snv	PDGFRA	.*	FALSE	FALSE	FALSE	FALSE		PDGFRA variant
+CHGL_PRKCA	CHGL, PRKCA-mutant	snv	PRKCA	^p\.D463H$	FALSE	FALSE	FALSE	FALSE		PRKCA D463H
+LCH_BRAF	LCH	snv	BRAF	^p\.V600E$	FALSE	FALSE	FALSE	FALSE		BRAF V600E
+SFT_NAB2	SFT	fusion	NAB2	(^|--)NAB2(/|--|$).*STAT6|STAT6.*(^|--)NAB2(/|--|$)	FALSE	FALSE	FALSE	FALSE		NAB2::STAT6
+HMB_VHL	HMB	snv	VHL	.*	FALSE	FALSE	FALSE	FALSE		VHL variant
+NST_SCHW_NF2	NST, Schwannoma	snv	NF2	.*	FALSE	FALSE	FALSE	FALSE		NF2 variant (loss may be CNV)
+NST_PNF_NF1	NST, Plexiform neurofibroma	snv	NF1	.*	FALSE	FALSE	FALSE	FALSE		NF1 variant (loss may be CNV)
+CPC_TP53	CPC, pediatric	snv	TP53	.*	FALSE	FALSE	FALSE	FALSE		TP53 variant
+RB_RB1	RB, RB1-altered	snv	RB1	.*	FALSE	FALSE	FALSE	FALSE		RB1 variant
+SNUC_IDH2	SNUC, IDH2-mutant	snv	IDH2	^p\.R172	FALSE	FALSE	FALSE	FALSE		IDH2 R172
+OLIGO_IDH1	Oligo, IDH	snv	IDH1	^p\.R132	FALSE	FALSE	FALSE	FALSE		IDH1 R132 (confirms O_IDH methylation class)
+OLIGO_IDH2	Oligo, IDH	snv	IDH2	^p\.R172	FALSE	FALSE	FALSE	FALSE		IDH2 R172 (confirms O_IDH methylation class)
+OLIGO_1P19Q	Oligo, IDH	arm	1p;19q	-0.5	FALSE	FALSE	FALSE	FALSE		1p and 19q both lost: GISTIC broad arm value <= cutoff (WGS only)
+PXA_BRAF_V600E	PXA	snv	BRAF	^p\.V600E$	TRUE	TRUE	FALSE	FALSE		splits PXA into BRAF V600E and BRAF V600E negative (issue 113); fallback only with a PXA diagnosis in the free text
+DMG_EGFR_H3K28	DMG, H3 K28-altered, EGFR	snv	H3-3A|H3C2|H3C3|H3C14	^p\.K(27|28)[MI]$	FALSE	FALSE	FALSE	FALSE		H3 K27M/I in a DMG_EGFR tumor; makes it DMG, H3 K28-mutant, EGFR
+MB_WNT_CTNNB1	MB, WNT	snv	CTNNB1	^p\.(D32|S33|G34|S37|T41|S45)|^p\.[A-Z]\d+_[A-Z]\d+del	FALSE	FALSE	TRUE	FALSE		CTNNB1 exon 3 hotspot or in-frame deletion
+MB_WNT_MONOSOMY6	MB, WNT	arm	6p;6q	-0.5	FALSE	FALSE	FALSE	FALSE		monosomy 6: 6p and 6q both lost (GISTIC broad arm value <= -0.5, WGS only); in 19 of 24 WNT and 4 of 244 other medulloblastoma biospecimens; confirms MB WNT, not a fallback
+MB_SHH_PTCH1	MB, SHH	snv	PTCH1	.*	FALSE	FALSE	FALSE	FALSE		PTCH1 variant
+MB_SHH_SMO	MB, SHH	snv	SMO	.*	FALSE	FALSE	FALSE	FALSE		SMO variant
+MB_SHH_SUFU	MB, SHH	snv	SUFU	.*	FALSE	FALSE	FALSE	FALSE		SUFU variant
+MB_SHH_GLI2_AMP	MB, SHH	cnv	GLI2	amplification	FALSE	FALSE	FALSE	FALSE		GLI2 amplification
+MB_G3_MYC_AMP	MB, Group3	cnv	MYC	amplification	FALSE	FALSE	FALSE	FALSE		MYC amplification
+CRANIO_ADAM_CTNNB1	CRANIO, ADAM	snv	CTNNB1	^p\.(D32|S33|G34|S37|T41|S45)|^p\.[A-Z]\d+_[A-Z]\d+del	TRUE	TRUE	TRUE	TRUE		CTNNB1 exon 3 hotspot or in-frame deletion; fallback only with a concordant diagnosis
+CRANIO_PAP_BRAF	CRANIO, PAP	snv	BRAF	^p\.V600E$	TRUE	TRUE	TRUE	TRUE		BRAF V600E; fallback only with a concordant diagnosis
+ATRT_MYC_SMARC_SNV	ATRT, MYC	snv	SMARCB1|SMARCA4	.*	FALSE	FALSE	FALSE	FALSE		SMARCB1 or SMARCA4 variant: the defining ATRT lesion; extra evidence for the methylation call (ATRT is subtyped by methylation only)
+ATRT_MYC_SMARCB1_CNV	ATRT, MYC	cnv	SMARCB1	loss|deep deletion	FALSE	FALSE	FALSE	FALSE		SMARCB1 loss (22q): extra evidence for the methylation call
+ATRT_SHH_SMARC_SNV	ATRT, SHH	snv	SMARCB1|SMARCA4	.*	FALSE	FALSE	FALSE	FALSE		SMARCB1 or SMARCA4 variant: the defining ATRT lesion; extra evidence for the methylation call (ATRT is subtyped by methylation only)
+ATRT_SHH_SMARCB1_CNV	ATRT, SHH	cnv	SMARCB1	loss|deep deletion	FALSE	FALSE	FALSE	FALSE		SMARCB1 loss (22q): extra evidence for the methylation call
+ATRT_TYR_SMARC_SNV	ATRT, TYR	snv	SMARCB1|SMARCA4	.*	FALSE	FALSE	FALSE	FALSE		SMARCB1 or SMARCA4 variant: the defining ATRT lesion; extra evidence for the methylation call (ATRT is subtyped by methylation only)
+ATRT_TYR_SMARCB1_CNV	ATRT, TYR	cnv	SMARCB1	loss|deep deletion	FALSE	FALSE	FALSE	FALSE		SMARCB1 loss (22q): extra evidence for the methylation call
+PB_G1_MIRNA	PB, Group 1	snv	DICER1|DROSHA|DGCR8	.*	FALSE	FALSE	FALSE	FALSE		miRNA-processing gene variant (DICER1, DROSHA, DGCR8): extra evidence for the pineoblastoma miRNA processing-altered groups
+PB_G2_MIRNA	PB, Group 2	snv	DICER1|DROSHA|DGCR8	.*	FALSE	FALSE	FALSE	FALSE		miRNA-processing gene variant (DICER1, DROSHA, DGCR8): extra evidence for the pineoblastoma miRNA processing-altered groups
+PB_RB1_SNV	PB, RB1	snv	RB1	.*	FALSE	FALSE	FALSE	FALSE		RB1 variant: extra evidence for the RB1-altered pineoblastoma group
+PB_RB1_CNV	PB, RB1	cnv	RB1	loss|deep deletion	FALSE	FALSE	FALSE	FALSE		RB1 loss: extra evidence for the RB1-altered pineoblastoma group
+PB_MYC_AMP	PB, MYC/FOXR2	cnv	MYC	amplification	FALSE	FALSE	FALSE	FALSE		MYC amplification: extra evidence for the MYC/FOXR2-activated pineoblastoma group
+PB_FOXR2_FUS	PB, MYC/FOXR2	fusion	FOXR2	(^|--)FOXR2(/|--|$)	FALSE	FALSE	FALSE	FALSE		FOXR2 fusion: extra evidence for the MYC/FOXR2-activated pineoblastoma group (FOXR2 overexpression is not checked)
+RARE_BCOR_ITD	Rare CNS, BCOR ITD	sv	BCOR	^<DUP:TANDEM> exon15	FALSE	FALSE	FALSE	FALSE		BCOR exon 15 internal tandem duplication (Manta tandem duplication in exon 15); the SNV callers miss it; extra evidence for the methylation call
+RARE_CIC_LIKE_ATXN1	Rare CNS, CIC SARC	fusion	ATXN1	^(ATXN1L?--(DUX4|NUTM1|NUTM2[A-G])|(DUX4|NUTM1|NUTM2[A-G])--ATXN1L?)($|[(/])	FALSE	FALSE	FALSE	FALSE		ATXN1 or ATXN1L fused to DUX4, NUTM1 or NUTM2: CIC-rearranged-like sarcoma (same methylation class as CIC SARC); extra evidence
+EPN_SPMYCN_AMP	EPN, SP-MYCN	cnv	MYCN	amplification	FALSE	FALSE	FALSE	FALSE		MYCN amplification in a spinal ependymoma (legacy EPN module); evidence for the methylation call
+EPN_SP_NF2	EPN, SP	snv	NF2	.*	FALSE	FALSE	FALSE	FALSE		NF2 variant in a spinal ependymoma (legacy EPN module); evidence for the methylation call
+EPN_SP_22Q	EPN, SP	arm	22q	-0.5	FALSE	FALSE	FALSE	FALSE		22q loss in a spinal ependymoma (legacy EPN module); evidence for the methylation call
+EPN_PFA_EZHIP	EPN, PF A	expr	EZHIP	3	FALSE	FALSE	FALSE	FALSE		EZHIP overexpression (z >= 3 within RNA library type, not assessable in exome capture; legacy EPN module); evidence for the methylation call
+RARE_ARMS_PAX_FUSION	Rare CNS, ARMS	fusion	PAX3|PAX7	^(PAX3|PAX7)--(FOXO1|NCOA1|NCOA2|INO80D)($|[(/])|^(FOXO1|NCOA1|NCOA2|INO80D)--(PAX3|PAX7)($|[(/])	FALSE	FALSE	FALSE	FALSE		PAX3 or PAX7 fused to FOXO1 (the classic alveolar rhabdomyosarcoma fusions) or to NCOA1, NCOA2 or INO80D (the variant fusions); evidence for the methylation call
+EPN_PFA_1Q	EPN, PF A	arm	1q	0.5	FALSE	FALSE	FALSE	FALSE	EPN_PFA_1Q_TKTL1	1q gain (legacy EPN module)
+EPN_PFA_TKTL1	EPN, PF A	expr	TKTL1	3	FALSE	FALSE	FALSE	FALSE	EPN_PFA_1Q_TKTL1	TKTL1 overexpression (z >= 3); with 1q gain it is the legacy EPN PF A rule
+EPN_PFB_6P	EPN, PF B	arm	6p	-0.5	FALSE	FALSE	FALSE	FALSE	EPN_PFB_6P_EXPR	6p loss (legacy EPN module)
+EPN_PFB_6P_GPBP1_IFT46	EPN, PF B	expr	GPBP1|IFT46	3	FALSE	FALSE	FALSE	FALSE	EPN_PFB_6P_EXPR	GPBP1 or IFT46 overexpression (z >= 3); with 6p or 6q loss it is the legacy EPN PF B rule
+EPN_PFB_6Q	EPN, PF B	arm	6q	-0.5	FALSE	FALSE	FALSE	FALSE	EPN_PFB_6Q_EXPR	6q loss (legacy EPN module)
+EPN_PFB_6Q_GPBP1_IFT46	EPN, PF B	expr	GPBP1|IFT46	3	FALSE	FALSE	FALSE	FALSE	EPN_PFB_6Q_EXPR	GPBP1 or IFT46 overexpression (z >= 3); with 6p or 6q loss it is the legacy EPN PF B rule
+MNG_BEN_NF2	MNG, Benign	snv	NF2	.*	FALSE	FALSE	FALSE	FALSE		NF2 variant: the most frequent meningioma lesion; evidence for the methylation call
+MNG_BEN_22Q	MNG, Benign	arm	22q	-0.5	FALSE	FALSE	FALSE	FALSE		22q loss (NF2 locus); evidence for the methylation call
+MNG_BEN_TRAF7	MNG, Benign	snv	TRAF7	.*	FALSE	FALSE	FALSE	FALSE		TRAF7 variant (NF2-wildtype meningioma); evidence for the methylation call
+MNG_BEN_HOTSPOT	MNG, Benign	snv	KLF4|AKT1|SMO|POLR2A	^p\.(K409Q|E17K|L412F|W535L|Q403K|L438_H439del)$	FALSE	FALSE	FALSE	FALSE		KLF4 K409Q, AKT1 E17K, SMO L412F/W535L or POLR2A Q403K/L438_H439del (NF2-wildtype meningioma hotspots); evidence for the methylation call
+MNG_INT_NF2	MNG, Intermediate	snv	NF2	.*	FALSE	FALSE	FALSE	FALSE		NF2 variant: the most frequent meningioma lesion; evidence for the methylation call
+MNG_INT_22Q	MNG, Intermediate	arm	22q	-0.5	FALSE	FALSE	FALSE	FALSE		22q loss (NF2 locus); evidence for the methylation call
+MNG_INT_TRAF7	MNG, Intermediate	snv	TRAF7	.*	FALSE	FALSE	FALSE	FALSE		TRAF7 variant (NF2-wildtype meningioma); evidence for the methylation call
+MNG_INT_HOTSPOT	MNG, Intermediate	snv	KLF4|AKT1|SMO|POLR2A	^p\.(K409Q|E17K|L412F|W535L|Q403K|L438_H439del)$	FALSE	FALSE	FALSE	FALSE		KLF4 K409Q, AKT1 E17K, SMO L412F/W535L or POLR2A Q403K/L438_H439del (NF2-wildtype meningioma hotspots); evidence for the methylation call
+MNG_INT_CDKN2A	MNG, Intermediate	cnv	CDKN2A	deep deletion	FALSE	FALSE	FALSE	FALSE		CDKN2A homozygous deletion (aggressive meningioma); evidence for the methylation call
+MNG_SMARCE1	MNG, SMARCE1-altered	snv	SMARCE1	.*	FALSE	FALSE	FALSE	FALSE		SMARCE1 variant (clear cell meningioma); evidence for the methylation call
+NST_SCHW_LZTR1_SMARCB1	NST, Schwannoma	snv	LZTR1|SMARCB1	.*	FALSE	FALSE	FALSE	FALSE		LZTR1 or SMARCB1 variant (schwannomatosis); evidence for the methylation call
+NST_SCHW_22Q	NST, Schwannoma	arm	22q	-0.5	FALSE	FALSE	FALSE	FALSE		22q loss (NF2 locus); evidence for the methylation call
+NST_PNF_NF1_CNV	NST, Plexiform neurofibroma	cnv	NF1	loss|deep deletion	FALSE	FALSE	FALSE	FALSE		NF1 loss; evidence for the methylation call
+MPNST_TYP_NF1	NST, MPNST typical	snv	NF1	.*	FALSE	FALSE	FALSE	FALSE		NF1 variant; evidence for the methylation call
+MPNST_TYP_NF1_CNV	NST, MPNST typical	cnv	NF1	loss|deep deletion	FALSE	FALSE	FALSE	FALSE		NF1 loss; evidence for the methylation call
+MPNST_TYP_PRC2	NST, MPNST typical	snv	SUZ12|EED	.*	FALSE	FALSE	FALSE	FALSE		SUZ12 or EED variant (PRC2 loss, H3K27me3 loss); evidence for the methylation call
+MPNST_TYP_CDKN2A	NST, MPNST typical	cnv	CDKN2A	deep deletion	FALSE	FALSE	FALSE	FALSE		CDKN2A homozygous deletion; evidence for the methylation call
+MPNST_ATYP_NF1	NST, MPNST spinal/atypical	snv	NF1	.*	FALSE	FALSE	FALSE	FALSE		NF1 variant; evidence for the methylation call
+MPNST_ATYP_NF1_CNV	NST, MPNST spinal/atypical	cnv	NF1	loss|deep deletion	FALSE	FALSE	FALSE	FALSE		NF1 loss; evidence for the methylation call
+MPNST_ATYP_PRC2	NST, MPNST spinal/atypical	snv	SUZ12|EED	.*	FALSE	FALSE	FALSE	FALSE		SUZ12 or EED variant (PRC2 loss, H3K27me3 loss); evidence for the methylation call
+MPNST_ATYP_CDKN2A	NST, MPNST spinal/atypical	cnv	CDKN2A	deep deletion	FALSE	FALSE	FALSE	FALSE		CDKN2A homozygous deletion; evidence for the methylation call
+MNG_BEN_NF2_GERM	MNG, Benign	germline	NF2	.*	FALSE	FALSE	FALSE	FALSE		germline NF2 (cancer predisposition or pathogenic germline variant); evidence for the methylation call
+MNG_INT_NF2_GERM	MNG, Intermediate	germline	NF2	.*	FALSE	FALSE	FALSE	FALSE		germline NF2 (cancer predisposition or pathogenic germline variant); evidence for the methylation call
+NST_SCHW_NF2_GERM	NST, Schwannoma	germline	NF2	.*	FALSE	FALSE	FALSE	FALSE		germline NF2 (cancer predisposition or pathogenic germline variant); evidence for the methylation call
+EPN_SP_NF2_GERM	EPN, SP	germline	NF2	.*	FALSE	FALSE	FALSE	FALSE		germline NF2 (cancer predisposition or pathogenic germline variant); evidence for the methylation call
+NST_SCHW_LZTR1_GERM	NST, Schwannoma	germline	LZTR1|SMARCB1	.*	FALSE	FALSE	FALSE	FALSE		germline LZTR1 or SMARCB1 (schwannomatosis); evidence for the methylation call
+MNG_SMARCE1_GERM	MNG, SMARCE1-altered	germline	SMARCE1	.*	FALSE	FALSE	FALSE	FALSE		germline SMARCE1 variant; evidence for the methylation call
+NST_PNF_NF1_GERM	NST, Plexiform neurofibroma	germline	NF1	.*	FALSE	FALSE	FALSE	FALSE		germline NF1 (cancer predisposition or variant); evidence for the methylation call
+MPNST_TYP_NF1_GERM	NST, MPNST typical	germline	NF1	.*	FALSE	FALSE	FALSE	FALSE		germline NF1; evidence for the methylation call
+MPNST_ATYP_NF1_GERM	NST, MPNST spinal/atypical	germline	NF1	.*	FALSE	FALSE	FALSE	FALSE		germline NF1; evidence for the methylation call
+ATRT_MYC_RTPS_GERM	ATRT, MYC	germline	SMARCB1|SMARCA4	.*	FALSE	FALSE	FALSE	FALSE		germline SMARCB1 or SMARCA4 (rhabdoid tumor predisposition); evidence for the methylation call
+ATRT_SHH_RTPS_GERM	ATRT, SHH	germline	SMARCB1|SMARCA4	.*	FALSE	FALSE	FALSE	FALSE		germline SMARCB1 or SMARCA4 (rhabdoid tumor predisposition); evidence for the methylation call
+ATRT_TYR_RTPS_GERM	ATRT, TYR	germline	SMARCB1|SMARCA4	.*	FALSE	FALSE	FALSE	FALSE		germline SMARCB1 or SMARCA4 (rhabdoid tumor predisposition); evidence for the methylation call
+SEGA_TSC_GERM	LGG, SEGA	germline	TSC1|TSC2	.*	FALSE	FALSE	FALSE	FALSE		germline TSC1 or TSC2 (tuberous sclerosis); evidence for the methylation call
+HMB_VHL_GERM	HMB	germline	VHL	.*	FALSE	FALSE	FALSE	FALSE		germline VHL (von Hippel-Lindau); evidence for the methylation call
+MB_SHH_GORLIN_GERM	MB, SHH	germline	PTCH1|SUFU	.*	FALSE	FALSE	FALSE	FALSE		germline PTCH1 or SUFU (Gorlin syndrome); evidence for the methylation call
+MNG_INT_TERT	MNG, Intermediate	snv	TERT	^promoter C(228|250)T$	FALSE	FALSE	FALSE	FALSE		TERT promoter C228T or C250T (aggressive, grade 3 meningioma); evidence for the methylation call
+OLIGO_TERT	Oligo, IDH	snv	TERT	^promoter C(228|250)T$	FALSE	FALSE	FALSE	FALSE		TERT promoter C228T or C250T (oligodendroglioma); evidence
+MB_SHH_TERT	MB, SHH	snv	TERT	^promoter C(228|250)T$	FALSE	FALSE	FALSE	FALSE		TERT promoter C228T or C250T (adult and older child SHH medulloblastoma); evidence for the methylation call
+MB_G3_MYCN_AMP	MB, Group3	cnv	MYCN	amplification	FALSE	FALSE	FALSE	FALSE		MYCN amplification; evidence for the methylation call
+MB_G3_OTX2_AMP	MB, Group3	cnv	OTX2	amplification	FALSE	FALSE	FALSE	FALSE		OTX2 amplification; evidence for the methylation call
+MB_G3_KBTBD4	MB, Group3	snv	KBTBD4	.*	FALSE	FALSE	FALSE	FALSE		KBTBD4 variant (in-frame indels of Group 3/4); evidence for the methylation call
+MB_G3_I17Q_17P	MB, Group3	arm	17p	-0.5	FALSE	FALSE	FALSE	FALSE	MB_G3_I17Q	17p loss; evidence for the methylation call
+MB_G3_I17Q_17Q	MB, Group3	arm	17q	0.5	FALSE	FALSE	FALSE	FALSE	MB_G3_I17Q	17q gain (isochromosome 17q); evidence for the methylation call
+MB_G4_MYCN_AMP	MB, Group4	cnv	MYCN	amplification	FALSE	FALSE	FALSE	FALSE		MYCN amplification; evidence for the methylation call
+MB_G4_OTX2_AMP	MB, Group4	cnv	OTX2	amplification	FALSE	FALSE	FALSE	FALSE		OTX2 amplification; evidence for the methylation call
+MB_G4_KBTBD4	MB, Group4	snv	KBTBD4	.*	FALSE	FALSE	FALSE	FALSE		KBTBD4 variant (in-frame indels of Group 3/4); evidence for the methylation call
+MB_G4_I17Q_17P	MB, Group4	arm	17p	-0.5	FALSE	FALSE	FALSE	FALSE	MB_G4_I17Q	17p loss; evidence for the methylation call
+MB_G4_I17Q_17Q	MB, Group4	arm	17q	0.5	FALSE	FALSE	FALSE	FALSE	MB_G4_I17Q	17q gain (isochromosome 17q); evidence for the methylation call
+MB_G3_SMARCA4	MB, Group3	snv	SMARCA4	.*	FALSE	FALSE	FALSE	FALSE		SMARCA4 variant; evidence for the methylation call
+MB_G4_CDK6_AMP	MB, Group4	cnv	CDK6	amplification	FALSE	FALSE	FALSE	FALSE		CDK6 amplification; evidence for the methylation call
+MB_G4_KDM6A	MB, Group4	snv	KDM6A	.*	FALSE	FALSE	FALSE	FALSE		KDM6A variant; evidence for the methylation call
+MB_G4_KMT2D	MB, Group4	snv	KMT2D	.*	FALSE	FALSE	FALSE	FALSE		KMT2D variant; evidence for the methylation call
+MB_SHH_MYCN_AMP	MB, SHH	cnv	MYCN	amplification	FALSE	FALSE	FALSE	FALSE		MYCN amplification; evidence for the methylation call
+MB_SHH_GLI1_AMP	MB, SHH	cnv	GLI1	amplification	FALSE	FALSE	FALSE	FALSE		GLI1 amplification; evidence for the methylation call
+MB_SHH_PTCH1_CNV	MB, SHH	cnv	PTCH1	loss|deep deletion	FALSE	FALSE	FALSE	FALSE		PTCH1 loss; evidence for the methylation call
+MB_SHH_DDX3X_KMT2D	MB, SHH	snv	DDX3X|KMT2D	.*	FALSE	FALSE	FALSE	FALSE		DDX3X or KMT2D variant; evidence for the methylation call
+MB_WNT_DDX3X_SMARCA4	MB, WNT	snv	DDX3X|SMARCA4	.*	FALSE	FALSE	FALSE	FALSE		DDX3X or SMARCA4 variant (WNT co-mutations); evidence for the methylation call
+HGG_RTK_PDGFRA_AMP	HGG, RTK	cnv	PDGFRA	amplification	FALSE	FALSE	FALSE	FALSE		PDGFRA amplification; evidence for the methylation call
+HGG_RTK_EGFR_AMP	HGG, RTK	cnv	EGFR	amplification	FALSE	FALSE	FALSE	FALSE		EGFR amplification; evidence for the methylation call
+HGG_RTK_MET_AMP	HGG, RTK	cnv	MET	amplification	FALSE	FALSE	FALSE	FALSE		MET amplification; evidence for the methylation call
+HGG_MYCN_AMP	HGG, MYCN	cnv	MYCN	amplification	FALSE	FALSE	FALSE	FALSE		MYCN amplification; evidence for the methylation call
+HGGPXA_CDKN2A	HGG, PXA BRAF V600E	cnv	CDKN2A	deep deletion	FALSE	FALSE	FALSE	FALSE		CDKN2A homozygous deletion; evidence for the methylation call
+LGGPXA_CDKN2A	LGG, PXA BRAF V600E	cnv	CDKN2A	deep deletion	FALSE	FALSE	FALSE	FALSE		CDKN2A homozygous deletion; evidence for the methylation call
+HGAP_CDKN2A	HGG, HGAP	cnv	CDKN2A	deep deletion	FALSE	FALSE	FALSE	FALSE		CDKN2A homozygous deletion (high-grade astrocytoma with piloid features); evidence for the methylation call
+HGAP_ATRX	HGG, HGAP	snv	ATRX	.*	FALSE	FALSE	FALSE	FALSE		ATRX variant (high-grade astrocytoma with piloid features); evidence for the methylation call
+HGAP_MAPK	HGG, HGAP	snv	NF1	.*	FALSE	FALSE	FALSE	FALSE		NF1 variant (high-grade astrocytoma with piloid features); evidence for the methylation call
+HGAP_BRAF	HGG, HGAP	snv	BRAF	^p\.V600E$	FALSE	FALSE	FALSE	FALSE		BRAF V600E (high-grade astrocytoma with piloid features); evidence for the methylation call
+OLIGO_CIC_FUBP1	Oligo, IDH	snv	CIC|FUBP1	.*	FALSE	FALSE	FALSE	FALSE		CIC or FUBP1 variant (oligodendroglioma); evidence for the methylation call
+LGGIDH_ATRX_TP53	LGG, IDH	snv	ATRX|TP53	.*	FALSE	FALSE	FALSE	FALSE		ATRX or TP53 variant (IDH-mutant astrocytoma); evidence for the methylation call
+HGGIDH_ATRX_TP53	HGG, IDH	snv	ATRX|TP53	.*	FALSE	FALSE	FALSE	FALSE		ATRX or TP53 variant (IDH-mutant astrocytoma); evidence for the methylation call
+HGGIDH_CDKN2A	HGG, IDH	cnv	CDKN2A	deep deletion	FALSE	FALSE	FALSE	FALSE		CDKN2A homozygous deletion (grade 4 IDH-mutant astrocytoma); evidence for the methylation call
+GERMKIT_RAS_CBL	GCT, Germinoma KIT mutant	snv	KRAS|NRAS|CBL	.*	FALSE	FALSE	FALSE	FALSE		KRAS, NRAS or CBL variant (germinoma MAPK/KIT pathway); evidence for the methylation call
+GERMWT_RAS_CBL	GCT, Germinoma KIT wildtype	snv	KRAS|NRAS|CBL	.*	FALSE	FALSE	FALSE	FALSE		KRAS, NRAS or CBL variant (germinoma MAPK/KIT pathway); evidence for the methylation call
+GERMKIT_12P	GCT, Germinoma KIT mutant	arm	12p	0.5	FALSE	FALSE	FALSE	FALSE		12p gain (isochromosome 12p of germ cell tumors); evidence for the methylation call
+GERMWT_12P	GCT, Germinoma KIT wildtype	arm	12p	0.5	FALSE	FALSE	FALSE	FALSE		12p gain (isochromosome 12p of germ cell tumors); evidence for the methylation call
+TER_12P	GCT, Teratoma	arm	12p	0.5	FALSE	FALSE	FALSE	FALSE		12p gain (isochromosome 12p of germ cell tumors); evidence for the methylation call
+YST_12P	GCT, Yolk sac tumor	arm	12p	0.5	FALSE	FALSE	FALSE	FALSE		12p gain (isochromosome 12p of germ cell tumors); evidence for the methylation call
+PLAG_AMP_PLAGL1	Rare CNS, PLAG AMP	cnv	PLAGL1|PLAGL2	amplification	FALSE	FALSE	FALSE	FALSE		PLAGL1 or PLAGL2 amplification; evidence for the methylation call
+PB_FOXR2_EXPR	PB, MYC/FOXR2	expr	FOXR2	3	FALSE	FALSE	FALSE	FALSE		FOXR2 overexpression (z >= 3); evidence for the methylation call
+CHDM_TBXT	CHDM	expr	TBXT	3	FALSE	FALSE	FALSE	FALSE		TBXT (brachyury) overexpression (z >= 3 within RNA library type); evidence for the methylation call
+CHDMC_TBXT	CHDM, conventional	expr	TBXT	3	FALSE	FALSE	FALSE	FALSE		TBXT (brachyury) overexpression (z >= 3 within RNA library type); evidence for the methylation call
+CHDMP_TBXT	CHDM, poorly differentiated	expr	TBXT	3	FALSE	FALSE	FALSE	FALSE		TBXT (brachyury) overexpression (z >= 3 within RNA library type); evidence for the methylation call
+SEGA_TSC_SNV	LGG, SEGA	snv	TSC1|TSC2	.*	FALSE	FALSE	FALSE	FALSE		somatic TSC1 or TSC2 variant (SEGA); evidence for the methylation call
+PB_RB1_MIR17HG	PB, RB1	cnv	MIR17HG	gain|amplification	FALSE	FALSE	FALSE	FALSE		MIR17HG (miR-17/92) gain or amplification: the RB1-altered pineoblastoma group has RB1 alteration or miR-17/92 gain; evidence for the methylation call
+MBWNT_WIF1_expr	MB, WNT	expr	WIF1	3	FALSE	FALSE	FALSE	FALSE		WIF1 overexpression (z >= 3 within RNA library type); a marker of WNT medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBWNT_NKD1_expr	MB, WNT	expr	NKD1	3	FALSE	FALSE	FALSE	FALSE		NKD1 overexpression (z >= 3 within RNA library type); a marker of WNT medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBWNT_DKK2_expr	MB, WNT	expr	DKK2	3	FALSE	FALSE	FALSE	FALSE		DKK2 overexpression (z >= 3 within RNA library type); a marker of WNT medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBWNT_EMX2_expr	MB, WNT	expr	EMX2	3	FALSE	FALSE	FALSE	FALSE		EMX2 overexpression (z >= 3 within RNA library type); a marker of WNT medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBWNT_GAD1_expr	MB, WNT	expr	GAD1	3	FALSE	FALSE	FALSE	FALSE		GAD1 overexpression (z >= 3 within RNA library type); a marker of WNT medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBSHH_GLI1_expr	MB, SHH	expr	GLI1	3	FALSE	FALSE	FALSE	FALSE		GLI1 overexpression (z >= 3 within RNA library type); a marker of SHH medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBSHH_SFRP1_expr	MB, SHH	expr	SFRP1	3	FALSE	FALSE	FALSE	FALSE		SFRP1 overexpression (z >= 3 within RNA library type); a marker of SHH medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBSHH_HHIP_expr	MB, SHH	expr	HHIP	3	FALSE	FALSE	FALSE	FALSE		HHIP overexpression (z >= 3 within RNA library type); a marker of SHH medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBSHH_ATOH1_expr	MB, SHH	expr	ATOH1	3	FALSE	FALSE	FALSE	FALSE		ATOH1 overexpression (z >= 3 within RNA library type); a marker of SHH medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBG3_NPR3_expr	MB, Group3	expr	NPR3	3	FALSE	FALSE	FALSE	FALSE		NPR3 overexpression (z >= 3 within RNA library type); a marker of Group3 medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBG3_IMPG2_expr	MB, Group3	expr	IMPG2	3	FALSE	FALSE	FALSE	FALSE		IMPG2 overexpression (z >= 3 within RNA library type); a marker of Group3 medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBG3_GABRA5_expr	MB, Group3	expr	GABRA5	3	FALSE	FALSE	FALSE	FALSE		GABRA5 overexpression (z >= 3 within RNA library type); a marker of Group3 medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBG4_EOMES_expr	MB, Group4	expr	EOMES	3	FALSE	FALSE	FALSE	FALSE		EOMES overexpression (z >= 3 within RNA library type); a marker of Group4 medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBG4_KCNA1_expr	MB, Group4	expr	KCNA1	3	FALSE	FALSE	FALSE	FALSE		KCNA1 overexpression (z >= 3 within RNA library type); a marker of Group4 medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBG4_UNC5D_expr	MB, Group4	expr	UNC5D	3	FALSE	FALSE	FALSE	FALSE		UNC5D overexpression (z >= 3 within RNA library type); a marker of Group4 medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call
+MBG4_LMX1A_expr	MB, Group4	expr	LMX1A	3	FALSE	FALSE	FALSE	FALSE		LMX1A overexpression (z >= 3 within RNA library type); a marker of Group4 medulloblastoma (median TPM in methylation-called medulloblastomas: high in this group, low in the others); evidence for the methylation or expression call

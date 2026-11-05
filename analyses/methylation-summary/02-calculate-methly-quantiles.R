@@ -67,9 +67,41 @@ lifted_probe_id <- readr::read_tsv(methyl_probe_annot) %>%
   dplyr::pull(Probe_ID) %>% 
   unique()
 
+# Read the methyl values of the samples in the independent sample list. The
+# parquet copy of the matrix (data/parquet/<matrix>.parquet, from
+# scripts/download-parquet.sh) is read when it exists, and only the columns of
+# these samples are loaded; otherwise the whole RDS is read.
+read_methyl_matrix <- function(rds_file, sample_ids) {
+  parquet_file <- file.path(dirname(rds_file), "parquet",
+                            sub("\\.rds$", ".parquet", basename(rds_file)))
+  if (file.exists(parquet_file)) {
+    message("Reading methyl values from ", parquet_file)
+    con <- DBI::dbConnect(duckdb::duckdb())
+    on.exit(DBI::dbDisconnect(con, shutdown = TRUE))
+    src <- sprintf("read_parquet('%s')", normalizePath(parquet_file))
+    available <- DBI::dbGetQuery(
+      con, sprintf("DESCRIBE SELECT * FROM %s", src))$column_name
+    keep <- c("Probe_ID", intersect(sample_ids, available))
+    df <- DBI::dbGetQuery(con, sprintf(
+      "SELECT %s FROM %s", paste(sprintf('"%s"', keep), collapse = ", "), src))
+  } else {
+    message("Reading methyl values from ", rds_file)
+    df <- readr::read_rds(rds_file) %>%
+      dplyr::select(tidyselect::any_of(c("Probe_ID", sample_ids)))
+  }
+  # matrices that stack the arrays of different array types have a second row
+  # per probe (NA for the other arrays): keep one row per probe, with the
+  # values of the rows
+  if (anyDuplicated(df$Probe_ID)) {
+    df <- data.table::as.data.table(df)[
+      , lapply(.SD, function(x) x[!is.na(x)][1]), by = Probe_ID] %>%
+      tibble::as_tibble()
+  }
+  df
+}
+
 # Get methyl values and only keep samples in independent sample list
-methyl_matrix_df <- readr::read_rds(methyl_matrix) %>%
-  dplyr::select(tidyselect::any_of(c("Probe_ID", independent_samples))) %>% 
+methyl_matrix_df <- read_methyl_matrix(methyl_matrix, independent_samples) %>%
   dplyr::filter(Probe_ID %in% lifted_probe_id)
 
 # Calculating probe-level methyl values quantiles for all pre-processed samples
