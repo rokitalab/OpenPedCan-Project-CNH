@@ -28,7 +28,8 @@ option_list <- list(
               metavar = "character"),
   make_option(opt_str = "--manifest_file", type = "character",
               help = "Input manifest file with 'file_name' and
-              'Bioassay_ID' columns"),
+              'Bioassay_ID' columns. An optional 'sample_type' column excludes
+              the samples it calls 'Normal' from tumor purity estimation."),
   make_option(
         opt_str = "--output_basename",
         type = "character", default = NULL,
@@ -66,9 +67,10 @@ n_cores <- opt$n_cores
 out_base <- opt$output_basename
 
 
-# read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
+# read manifest to obtain the IDAT prefix from the `file_name` and its matched
+# `Bioassay_ID` column, along with `sample_type` where the manifest carries it
 man_df <- read_tsv(file = manifest_file, show_col_types = FALSE) %>% 
-  dplyr::select(file_name, Bioassay_ID) %>%
+  dplyr::select(file_name, Bioassay_ID, dplyr::any_of("sample_type")) %>%
   dplyr::mutate(file_name = gsub("(_Red|_Grn).*", "", file_name)) %>%
   dplyr::mutate(file_name = basename(file_name)) %>%
   unique()
@@ -239,13 +241,38 @@ purity_array_types <- c("IlluminaHumanMethylation450k",
                         "IlluminaHumanMethylationEPIC")
 array_type <- minfi::annotation(RGset)[["array"]]
 
+# Both forests were trained on tumors, to estimate what fraction of a tumor
+# sample is tumor. A normal sample has no such fraction, but the forests still
+# return a plausible-looking number for one rather than refusing, so normals
+# are held out here and never reach the purity output. They are recognized by
+# the manifest's optional `sample_type` column; without it there is nothing to
+# exclude on and every sample is estimated, as before.
+normal_samples <- character(0)
+if ("sample_type" %in% names(man_df)) {
+  normal_samples <- man_df$file_name[
+    !is.na(man_df$sample_type) & tolower(man_df$sample_type) == "normal"
+  ]
+}
+purity_samples <- setdiff(colnames(RGset), normal_samples)
+
 if (!array_type %in% purity_array_types) {
   message("\nSkipping tumor purity estimation: RFpurify does not support ",
           array_type, ".\n")
 } else if (!requireNamespace("RFpurify", quietly = TRUE)) {
   warning("RFpurify is not installed; skipping tumor purity estimation.")
+} else if (length(purity_samples) == 0L) {
+  message("\nSkipping tumor purity estimation: the manifest calls every ",
+          dataset, " sample normal.\n")
 } else {
   message("\nEstimating tumor purity with RFpurify...\n")
+
+  if (!"sample_type" %in% names(man_df)) {
+    warning("Manifest has no 'sample_type' column; estimating purity for ",
+            "every sample, normal samples included.")
+  }
+  message("Samples for purity estimation: ", length(purity_samples), " of ",
+          ncol(RGset), " (", ncol(RGset) - length(purity_samples),
+          " normal excluded)")
 
   # The forests have to be attached, not merely loaded: predict_purity_betas()
   # refers to them by bare name, which does not reach the namespace's lazy-data
@@ -269,9 +296,10 @@ if (!array_type %in% purity_array_types) {
   # sample at a time, so chunking over samples returns identical values while
   # keeping those transient matrices proportional to the chunk rather than to
   # the whole batch.
+  purity_idx <- match(purity_samples, colnames(RGset))
   sample_chunks <- split(
-    seq_len(ncol(RGset)),
-    ceiling(seq_len(ncol(RGset)) / 50)
+    purity_idx,
+    ceiling(seq_along(purity_idx) / 50)
   )
   model_betas <- do.call(cbind, lapply(sample_chunks, function(idx) {
     m_set <- minfi::preprocessRaw(RGset[, idx])
