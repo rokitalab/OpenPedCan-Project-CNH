@@ -241,10 +241,14 @@ gc()
 # predict.randomForest() aborts on any NA in its input, so neither detection
 # p-value masking nor SNP filtering is applied to the purity matrix.
 #
-# Both forests are defined on 450k probes. EPICv2 carries only about 88% of
-# them, which would need imputing, so purity is skipped for EPICv2 here.
+# Both forests are defined on 450k probes, which 450k and EPICv1 carry in
+# full. EPICv2 carries 1483 of the 1674 and is included anyway: blanking the
+# missing 191 in 450k and EPICv1 samples, where the true value is known, moves
+# ABSOLUTE by at most 0.014 and ESTIMATE by at most 0.043, at correlations of
+# 0.998 and 0.983. n_probes_imputed records how much was filled per run.
 purity_array_types <- c("IlluminaHumanMethylation450k",
-                        "IlluminaHumanMethylationEPIC")
+                        "IlluminaHumanMethylationEPIC",
+                        "IlluminaHumanMethylationEPICv2")
 array_type <- minfi::annotation(RGset)[["array"]]
 
 # Both forests were trained on tumors, to estimate what fraction of a tumor
@@ -307,10 +311,19 @@ if (!array_type %in% purity_array_types) {
     purity_idx,
     ceiling(seq_along(purity_idx) / 50)
   )
+  # EPICv2 names every probe for its replicate, as cg00000029_TC21, so the
+  # model probe names match nothing until the suffix is stripped. Stripping is
+  # a no-op on 450k and EPICv1, whose locus names carry no suffix. 33 model
+  # probes have more than one EPICv2 replicate; their betas are averaged,
+  # since the replicates measure the same CpG and the forests take one value
+  # per locus. The merge step picks a single replicate on detection p-value
+  # instead, which is not available this early in the script.
   model_betas <- do.call(cbind, lapply(sample_chunks, function(idx) {
     m_set <- minfi::preprocessRaw(RGset[, idx])
-    minfi::getBeta(m_set[rownames(m_set) %in% model_probes, ],
-                   type = "Illumina")
+    locus <- sub("_.*$", "", rownames(m_set))
+    keep <- locus %in% model_probes
+    betas <- minfi::getBeta(m_set[keep, ], type = "Illumina")
+    rowsum(betas, locus[keep]) / as.vector(table(locus[keep]))
   }))
   gc()
 
