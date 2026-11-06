@@ -135,3 +135,10 @@ printf "\ncombining array types...\n"
 Rscript --vanilla "$SCRIPT_DIR/scripts/02-merge-methyl-matrices.R" \
     --output_dir "$OUTPUT_DIR" \
     --output_prefix "$OUTPUT_PREFIX"
+
+printf "\ncalling identity SNP genotypes...\n"
+
+Rscript --vanilla "$SCRIPT_DIR/scripts/03-call-snp-genotypes.R" \
+    --output_dir "$OUTPUT_DIR" \
+    --output_prefix "$OUTPUT_PREFIX" \
+    --vcf TRUE
