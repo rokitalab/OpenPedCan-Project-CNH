@@ -189,9 +189,19 @@ if (opt$vcf) {
       filter(array_type == !!array_type) %>%
       arrange(probe_id, sample)
     samples <- sort(unique(rows$sample))
+    # DETP is emitted only when the p-values were read, so that a run with
+    # --min_detp 1 does not carry a column of missing values. %.3g keeps the
+    # exponent on the small p-values a passing probe produces.
+    format_field <- if (mask_detp) "GT:BT:DETP" else "GT:BT"
     wide <- rows %>%
       mutate(field = paste0(gt, ":",
-                            ifelse(is.na(beta), ".", sprintf("%.4f", beta)))) %>%
+                            ifelse(is.na(beta), ".", sprintf("%.4f", beta)),
+                            if (mask_detp) {
+                              paste0(":", ifelse(is.na(detp), ".",
+                                                 sprintf("%.3g", detp)))
+                            } else {
+                              ""
+                            })) %>%
       select(probe_id, sample, field) %>%
       pivot_wider(names_from = sample, values_from = field) %>%
       arrange(probe_id)
@@ -207,11 +217,15 @@ if (opt$vcf) {
               opt$het_min, opt$het_max, opt$min_detp),
       '##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">',
       '##FORMAT=<ID=BT,Number=1,Type=Float,Description="Methylation beta">',
+      if (mask_detp) {
+        '##FORMAT=<ID=DETP,Number=1,Type=Float,Description="Detection p-value; GT is ./. above min_detp">'
+      },
       paste(c("#CHROM", "POS", "ID", "REF", "ALT", "QUAL", "FILTER", "INFO",
               "FORMAT", samples), collapse = "\t")
     )
     body <- paste(
-      ".", seq_len(nrow(wide)), wide$probe_id, "N", "A", ".", ".", ".", "GT:BT",
+      ".", seq_len(nrow(wide)), wide$probe_id, "N", "A", ".", ".", ".",
+      format_field,
       apply(as.matrix(wide[, samples, drop = FALSE]), 1, paste, collapse = "\t"),
       sep = "\t"
     )
