@@ -173,6 +173,11 @@ write_parquet(snp_betas, snp_file, compression = "zstd")
 # probes measure one address across both. This reproduces that calculation for
 # the Snp addresses, and agrees with detectionP() to floating-point precision
 # when run against the Type I and Type II probes instead.
+# It mirrors the matrix method of minfi:::.detectionP(), which is where
+# detectionP() does its arithmetic, with the Snp probe tables in place of the
+# Type I and Type II ones. The upper tail is taken with lower.tail = FALSE
+# rather than as 1 - pnorm(), which underflows to exactly 0 for a strong
+# probe instead of returning the small p-value.
 snp_detection_p <- function(RGset) {
   controls <- minfi::getProbeInfo(RGset, type = "Control")
   red <- minfi::getRed(RGset)
@@ -195,19 +200,20 @@ snp_detection_p <- function(RGset) {
   for (i in seq_len(ncol(RGset))) {
     if (nrow(i_red) > 0L) {
       intensity <- red[i_red$AddressA, i] + red[i_red$AddressB, i]
-      detP[i_red$Name, i] <- 1 - pnorm(intensity, mean = red_mu[i] * 2,
-                                       sd = red_sd[i] * 2)
+      detP[i_red$Name, i] <- pnorm(q = intensity, mean = red_mu[i] * 2,
+                                   sd = red_sd[i] * 2, lower.tail = FALSE)
     }
     if (nrow(i_green) > 0L) {
       intensity <- green[i_green$AddressA, i] + green[i_green$AddressB, i]
-      detP[i_green$Name, i] <- 1 - pnorm(intensity, mean = green_mu[i] * 2,
-                                         sd = green_sd[i] * 2)
+      detP[i_green$Name, i] <- pnorm(q = intensity, mean = green_mu[i] * 2,
+                                     sd = green_sd[i] * 2, lower.tail = FALSE)
     }
     if (nrow(snp_ii) > 0L) {
       intensity <- red[snp_ii$AddressA, i] + green[snp_ii$AddressA, i]
-      detP[snp_ii$Name, i] <- 1 - pnorm(intensity,
-                                        mean = red_mu[i] + green_mu[i],
-                                        sd = red_sd[i] + green_sd[i])
+      detP[snp_ii$Name, i] <- pnorm(q = intensity,
+                                    mean = red_mu[i] + green_mu[i],
+                                    sd = red_sd[i] + green_sd[i],
+                                    lower.tail = FALSE)
     }
   }
   detP
