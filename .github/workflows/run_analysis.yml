@@ -110,9 +110,24 @@ jobs:
           for pattern in 'IlluminaHumanMethylation450k-methyl-beta-values-masked' \
                          'IlluminaHumanMethylationEPIC-methyl-beta-values-masked' \
                          'IlluminaHumanMethylationEPICv2-methyl-beta-values-masked' \
-                         'methyl-sample-qc'; do
+                         'methyl-sample-qc' \
+                         'methyl-snps' \
+                         'methyl-snp-p-values' \
+                         'methyl-purity'; do
             ls methylation-test-out/*"$pattern"*.parquet > /dev/null
           done
+          # the testing manifest covers all three array types, so the merge step
+          # must write both the EPICv1+EPICv2 and the three-array intersections
+          # for every merged measurement
+          for measurement in 'beta-values-masked' 'm-values-masked' \
+                             'm-values-unmasked' 'cn-values'; do
+            for arrays in 'EPICv1-EPICv2' 'EPICv1-EPICv2-450k'; do
+              ls "methylation-test-out/test-IlluminaHumanMethylation${arrays}-methyl-${measurement}.parquet" > /dev/null
+            done
+          done
+          # EPICv2 duplicate probes are resolved by detection p-value; the
+          # retained probe per CpG site is recorded here
+          ls methylation-test-out/test-EPICv2-unique-mapping.qs2 > /dev/null
       # CNV calling needs the QC-filtered RGsets written by preprocessing above.
       # Reference (control) samples are the sample_type == 'Normal' rows of the
       # testing manifest, matched to each array by the manifest platform column.

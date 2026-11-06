@@ -28,6 +28,12 @@ The [Children's Brain Tumor Network (CBTN)](https://cbtn.org/) `Infinium HumanMe
 
 - In order to do funnorm normalization, a set of control probes must be correctly identified, and Median Absolute Deviation must be above 0 across these control probes. We had been seeing some errors for EPICv2 probes where MAD = 0, causing funnorm to fail, and have added an inspection and filtering step to check for MAD > 0 on the control probes, and skip and print out samples where MAD = 0. This array-level QC filtering step is applied before either normalization method.
 
+- Tumor purity is estimated for each sample with [RFpurify](https://github.com/mwsill/RFpurify), which predicts the ABSOLUTE and ESTIMATE purity of a sample from two random forests trained on TCGA 450k array data. Both forests are predicted from raw (`preprocessRaw`) beta values rather than the normalized matrices, because that is how the forests were trained, and because `predict.randomForest()` aborts on any `NA` and so cannot take detection p-value-masked or SNP-filtered values. The `-methyl-purity.parquet` output reports both estimates per sample, alongside the number of model probes that had to be imputed. Each forest uses 856 probes and the two share 38, so 1674 probes are read in total; all 1674 are present on both 450k and EPICv1, and nothing is imputed for those arrays in practice. Any that are missing are filled with 0.5 and counted in `n_probes_imputed`. EPICv2 carries 1483 of the 1674, so 191 are imputed there. That was measured rather than assumed: blanking those same 191 probes in the 450k and EPICv1 samples, where the true value is known, shifts ABSOLUTE by at most 0.014 and ESTIMATE by at most 0.043, at correlations of 0.998 and 0.983 against the full-probe estimate. EPICv2 probe names carry a replicate suffix, as `cg00000029_TC21`, and are matched on the stripped name; without that nothing matches and every probe would be imputed. 33 model probes have more than one EPICv2 replicate, and their betas are averaged, since the replicates measure the same CpG and the forests take one value per locus. Both forests were trained on tumors and estimate what fraction of a tumor sample is tumor, which a normal sample does not have; the forests nonetheless return a plausible-looking number for one rather than refusing. Normal samples are therefore held out of the prediction and do not appear in the purity output. They are recognized by an optional `sample_type` column in the manifest, and are the rows it calls `Normal`, matched case-insensitively. A manifest without that column is estimated in full, as before, with a warning; if every sample on an array is normal, no purity file is written for that array.
+
+- Each array carries a panel of `rs` probes that genotype common SNPs rather than measuring methylation, and these are written to `-methyl-snps.parquet` for checking sample identity against genomic data. They are taken from the raw `RGChannelSet` before normalization, because they have no entry in the array annotation and so are absent from the `GenomicRatioSet` the other measurements are derived from; this is unrelated to the `--snp_filter` option, which drops CpG probes that overlap a SNP. The panel is 65 probes on 450k, 59 on EPICv1 and 65 on EPICv2, of which 57 are shared across all three. Beta values are saved rather than genotype calls, so that the calling thresholds stay with the analysis making the comparison. EPICv2 probe names keep their replicate suffix, so the shared panel is found by stripping it. Like the per-sample QC and purity files, this output is not merged across array types.
+
+- Detection p-values for those `rs` probes are written separately, to `-methyl-snp-p-values.parquet`. `minfi::detectionP()` iterates over the Type I and Type II probe tables only and so returns nothing for the `rs` probes, but the background model it uses applies to them unchanged, since the `Snp` probes share the structure of the ordinary ones. The calculation is reproduced here for the `Snp` addresses, and agrees with `detectionP()` to floating-point precision when run against the Type I and Type II probes instead. The betas themselves are left unmasked, so that the masking threshold stays with the analysis making the identity comparison.
+
 - Detection p-values are used to mask individual failed probes (setting them to `NA`), not to exclude entire failed samples. To support sample-level QC downstream, the `-methyl-sample-qc.parquet` output reports, for each sample, the fraction of probes with detection p-value > 0.01. Whole-sample exclusion decisions based on this metric are left to the consuming analysis, rather than applied in this harmonization step.
 
 ## Running the analysis
@@ -60,7 +66,7 @@ Rscript --vanilla scripts/01-preprocess-illumina-arrays.R \
   --n_cores 4
 ```
 
-`--funnorm` and `--snp_filter` accept `TRUE` or `FALSE`; both default to `TRUE`. The script writes a `*-zero-mad.txt` file only when samples are excluded for zero median absolute deviation in a control-probe channel.
+`--funnorm` and `--snp_filter` accept `TRUE` or `FALSE`; both default to `TRUE`. The manifest needs `file_name` and `Bioassay_ID`; a `sample_type` column is optional and excludes normal samples from purity estimation. The script writes a `*-zero-mad.txt` file only when samples are excluded for zero median absolute deviation in a control-probe channel.
 
 After preprocessing two or more array types, intersect their probe sets and write the combined matrices with:
 
@@ -69,6 +75,8 @@ Rscript --vanilla scripts/02-merge-methyl-matrices.R \
   --output_dir <output_dir> \
   --output_prefix <output_prefix>
 ```
+
+`--input_prefix` takes a comma-separated list of prefixes to read from, and defaults to `--output_prefix`. Give it more than one prefix to combine separate preprocessing runs of the same arrays, which is useful when samples arrive in batches: probes are intersected across the batches as well as across array types, and every batch's samples are carried into the merged matrices. A sample name occurring in more than one batch is an error rather than something the merge resolves silently.
 
 ## Input datasets
 
@@ -89,34 +97,21 @@ Per-array results are written as parquet files using this pattern:
 <output_prefix>-<array_type>-methyl-<measurement>.parquet
 ```
 
-`<measurement>` is one of `beta-values-masked`, `m-values-unmasked`, `m-values-masked`, `cn-values`, `p-values`, or `sample-qc`. The supported array-type names are `IlluminaHumanMethylation450k`, `IlluminaHumanMethylationEPIC`, and `IlluminaHumanMethylationEPICv2`.
+`<measurement>` is one of `beta-values-masked`, `m-values-unmasked`, `m-values-masked`, `cn-values`, `p-values`, `sample-qc`, `purity`, `snps`, or `snp-p-values`. The supported array-type names are `IlluminaHumanMethylation450k`, `IlluminaHumanMethylationEPIC`, and `IlluminaHumanMethylationEPICv2`.
 
-When multiple array types are available, the merge step writes intersection matrices for beta values, masked and unmasked M values, and CN values. The filename records the participating array types, for example `<output_prefix>-IlluminaHumanMethylationEPICv1-EPICv2-methyl-beta-values-masked.parquet`. Detection p-values are used to select among duplicated EPICv2 probes and, like the per-sample QC file, are not merged. With one array type, the merge script exits successfully after reporting that no intersection is needed and leaves the per-array outputs unchanged.
+When multiple array types are available, the merge step writes intersection matrices for beta values, masked and unmasked M values, and CN values. The filename records the participating array types, for example `<output_prefix>-IlluminaHumanMethylationEPICv1-EPICv2-methyl-beta-values-masked.parquet`. With all three present, both the EPICv1+EPICv2 and the three-array intersections are written. Merging several batches of a single array type instead yields `<output_prefix>-<array_type>-merged-methyl-<measurement>.parquet`; the `-merged` suffix keeps that output from being picked up as a per-array input on a rerun.
 
+Detection p-values are used to select among duplicated EPICv2 probes and, like the per-sample QC and purity files, are not merged. EPICv2 carries several probes for some CpG sites, distinguished by a `_` suffix; for a cross-array merge the probe with the lowest mean detection p-value across all EPICv2 samples is kept, ties broken on probe name, and the chosen probe is recorded in `<output_prefix>-EPICv2-unique-mapping.qs2`. With a single array type and a single batch, the merge script exits successfully after reporting that no intersection is needed and leaves the per-array outputs unchanged.
 
 ## High Performance Computing (HPC)
 
-In addition to the base scripts, this module contains the necessary components
-to perform the more resource intensive steps remotely using Docker, Common
-Workflow Language (CWL), and CAVATICA.
+The preprocessing steps are memory intensive and are usually run remotely
+rather than locally.
 
 ### Docker
 
-This module contains a Dockerfile. That Dockerfile is used for running pieces
-of this module in a CWL environment. The image generated by the Dockerfile is
-stored on DockerHub, and it is provided here for reference. If you wish to
-build the Dockerfile yourself, use the following command substituting in your
+These scripts run in the image built from the Dockerfile at the root of this
+repository, which is stored on DockerHub. If you wish to build it yourself,
+run the following command from the repository root, substituting in your
 desired `image_name` and `image_version`:
 `docker build -t <image_name>:<image_version> .`
-
-### Common Workflow Language (CWL)
-
-The CWL definitions are in `tools/` and `workflow/`. `workflow/methylation-preprocessing.cwl` runs sorting and scatters preprocessing over detected array types. Set the optional `merge_array_types` input to `true` to then run `merge_methyl_matrices.cwl` and return merged intersection matrices; it defaults to `false`. The workflow always returns the per-array parquet files, detection p-values, and per-sample QC metrics.
-
-### CAVATICA
-
-To use the above tools or workflow(s), the user must upload them to CAVATICA.
-To do that, the user must download scripts and publish an application.
-Following command can be used to publish an application on CAVATICA:
-`sbpack <sbg profile>  <user>/<projectname>/<workflowname> <path/to/workflow.cwl>`
-Refer to this link for instructions on setting up [sbpack](https://docs.cavatica.org/docs/maintaining-and-versioning-cwl-on-external-tool-repositories).

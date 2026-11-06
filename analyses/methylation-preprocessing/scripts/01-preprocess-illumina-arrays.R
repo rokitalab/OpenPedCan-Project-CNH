@@ -28,7 +28,8 @@ option_list <- list(
               metavar = "character"),
   make_option(opt_str = "--manifest_file", type = "character",
               help = "Input manifest file with 'file_name' and
-              'Bioassay_ID' columns"),
+              'Bioassay_ID' columns. An optional 'sample_type' column excludes
+              the samples it calls 'Normal' from tumor purity estimation."),
   make_option(
         opt_str = "--output_basename",
         type = "character", default = NULL,
@@ -66,9 +67,10 @@ n_cores <- opt$n_cores
 out_base <- opt$output_basename
 
 
-# read manifest to obtain the IDAT prefix from the `file_name` and its matched `Bioassay_ID` column
+# read manifest to obtain the IDAT prefix from the `file_name` and its matched
+# `Bioassay_ID` column, along with `sample_type` where the manifest carries it
 man_df <- read_tsv(file = manifest_file, show_col_types = FALSE) %>% 
-  dplyr::select(file_name, Bioassay_ID) %>%
+  dplyr::select(file_name, Bioassay_ID, dplyr::any_of("sample_type")) %>%
   dplyr::mutate(file_name = gsub("(_Red|_Grn).*", "", file_name)) %>%
   dplyr::mutate(file_name = basename(file_name)) %>%
   unique()
@@ -124,7 +126,7 @@ bad_samples <- sample_names[bad_sample_idx]
 
 if (length(bad_samples) > 0) {
   message("Samples with MAD = 0 in at least one control channel (will be skipped):")
-  zero_mad_samples <- paste0(out_base, "-", dataset, "zero-mad.txt")
+  zero_mad_samples <- paste0(out_base, "-", dataset, "-zero-mad.txt")
   fileConn <- file(zero_mad_samples)
   writeLines(bad_samples, fileConn)
   close(fileConn)
@@ -144,6 +146,227 @@ if (length(bad_samples) > 0) {
 rg_set_file <- paste0(out_base, "-", dataset, "-rg-set.qs2")
 qs_save(RGset, rg_set_file)
 
+######################### Extract identity SNP probes #########################
+# The arrays carry a small panel of rs probes that genotype common SNPs rather
+# than measure methylation, for checking sample identity against genomic data.
+# They are read straight off the RGChannelSet because they have no annotation
+# entry, and so never reach the GenomicRatioSet the measurements below come
+# from. This is unrelated to --snp_filter, which drops CpG probes overlapping a
+# SNP. Betas are saved rather than genotype calls so the calling thresholds
+# stay with the analysis making the comparison.
+message("\nExtracting identity SNP probes...\n")
+
+snp_file <- paste0(out_base, "-", dataset, "-methyl-snps.parquet")
+
+snp_betas <- minfi::getSnpBeta(RGset) %>%
+  as_tibble(rownames = "ProbeID") %>%
+  rename_with(~ recode(.x, !!!setNames(man_df$Bioassay_ID, man_df$file_name)))
+
+message("Identity SNP probes on ", dataset, ": ", nrow(snp_betas))
+
+write_parquet(snp_betas, snp_file, compression = "zstd")
+
+# minfi::detectionP() iterates over the Type I and Type II probe tables only,
+# so it returns nothing at all for the rs probes. The background model it uses
+# applies to them unchanged, because the Snp probes share the structure of the
+# ordinary probes: SnpI probes measure both alleles in one channel, SnpII
+# probes measure one address across both. This reproduces that calculation for
+# the Snp addresses, and agrees with detectionP() to floating-point precision
+# when run against the Type I and Type II probes instead.
+# It mirrors the matrix method of minfi:::.detectionP(), which is where
+# detectionP() does its arithmetic, with the Snp probe tables in place of the
+# Type I and Type II ones. The upper tail is taken with lower.tail = FALSE
+# rather than as 1 - pnorm(), which underflows to exactly 0 for a strong
+# probe instead of returning the small p-value.
+snp_detection_p <- function(RGset) {
+  controls <- minfi::getProbeInfo(RGset, type = "Control")
+  red <- minfi::getRed(RGset)
+  green <- minfi::getGreen(RGset)
+  negative <- intersect(controls$Address[controls$Type == "NEGATIVE"],
+                        rownames(red))
+  red_mu <- matrixStats::colMedians(red[negative, , drop = FALSE])
+  red_sd <- matrixStats::colMads(red[negative, , drop = FALSE])
+  green_mu <- matrixStats::colMedians(green[negative, , drop = FALSE])
+  green_sd <- matrixStats::colMads(green[negative, , drop = FALSE])
+
+  snp_i <- minfi::getProbeInfo(RGset, type = "SnpI")
+  snp_ii <- minfi::getProbeInfo(RGset, type = "SnpII")
+  i_red <- snp_i[snp_i$Color == "Red", ]
+  i_green <- snp_i[snp_i$Color == "Grn", ]
+
+  probe_names <- c(i_red$Name, i_green$Name, snp_ii$Name)
+  detP <- matrix(NA_real_, nrow = length(probe_names), ncol = ncol(RGset),
+                 dimnames = list(probe_names, colnames(RGset)))
+  for (i in seq_len(ncol(RGset))) {
+    if (nrow(i_red) > 0L) {
+      intensity <- red[i_red$AddressA, i] + red[i_red$AddressB, i]
+      detP[i_red$Name, i] <- pnorm(q = intensity, mean = red_mu[i] * 2,
+                                   sd = red_sd[i] * 2, lower.tail = FALSE)
+    }
+    if (nrow(i_green) > 0L) {
+      intensity <- green[i_green$AddressA, i] + green[i_green$AddressB, i]
+      detP[i_green$Name, i] <- pnorm(q = intensity, mean = green_mu[i] * 2,
+                                     sd = green_sd[i] * 2, lower.tail = FALSE)
+    }
+    if (nrow(snp_ii) > 0L) {
+      intensity <- red[snp_ii$AddressA, i] + green[snp_ii$AddressA, i]
+      detP[snp_ii$Name, i] <- pnorm(q = intensity,
+                                    mean = red_mu[i] + green_mu[i],
+                                    sd = red_sd[i] + green_sd[i],
+                                    lower.tail = FALSE)
+    }
+  }
+  detP
+}
+
+snp_p_file <- paste0(out_base, "-", dataset, "-methyl-snp-p-values.parquet")
+
+snp_detP <- snp_detection_p(RGset) %>%
+  as_tibble(rownames = "ProbeID") %>%
+  rename_with(~ recode(.x, !!!setNames(man_df$Bioassay_ID, man_df$file_name)))
+
+message("Identity SNP probe measurements with detection p > 0.01: ",
+        sum(snp_detP[, -1] > 0.01, na.rm = TRUE), " of ",
+        nrow(snp_detP) * (ncol(snp_detP) - 1))
+
+write_parquet(snp_detP, snp_p_file, compression = "zstd")
+
+rm(snp_betas, snp_detP)
+gc()
+
+########################## Estimate tumor purity ##############################
+# RFpurify's ABSOLUTE and ESTIMATE random forests were trained on TCGA 450k
+# betas computed with minfi's Illumina offset, so purity is predicted from a
+# raw MethylSet rather than from the normalized values generated below.
+# predict.randomForest() aborts on any NA in its input, so neither detection
+# p-value masking nor SNP filtering is applied to the purity matrix.
+#
+# Both forests are defined on 450k probes, which 450k and EPICv1 carry in
+# full. EPICv2 carries 1483 of the 1674 and is included anyway: blanking the
+# missing 191 in 450k and EPICv1 samples, where the true value is known, moves
+# ABSOLUTE by at most 0.014 and ESTIMATE by at most 0.043, at correlations of
+# 0.998 and 0.983. n_probes_imputed records how much was filled per run.
+purity_array_types <- c("IlluminaHumanMethylation450k",
+                        "IlluminaHumanMethylationEPIC",
+                        "IlluminaHumanMethylationEPICv2")
+array_type <- minfi::annotation(RGset)[["array"]]
+
+# Both forests were trained on tumors, to estimate what fraction of a tumor
+# sample is tumor. A normal sample has no such fraction, but the forests still
+# return a plausible-looking number for one rather than refusing, so normals
+# are held out here and never reach the purity output. They are recognized by
+# the manifest's optional `sample_type` column; without it there is nothing to
+# exclude on and every sample is estimated, as before.
+normal_samples <- character(0)
+if ("sample_type" %in% names(man_df)) {
+  normal_samples <- man_df$file_name[
+    !is.na(man_df$sample_type) & tolower(man_df$sample_type) == "normal"
+  ]
+}
+purity_samples <- setdiff(colnames(RGset), normal_samples)
+
+if (!array_type %in% purity_array_types) {
+  message("\nSkipping tumor purity estimation: RFpurify does not support ",
+          array_type, ".\n")
+} else if (!requireNamespace("RFpurify", quietly = TRUE)) {
+  warning("RFpurify is not installed; skipping tumor purity estimation.")
+} else if (length(purity_samples) == 0L) {
+  message("\nSkipping tumor purity estimation: the manifest calls every ",
+          dataset, " sample normal.\n")
+} else {
+  message("\nEstimating tumor purity with RFpurify...\n")
+
+  if (!"sample_type" %in% names(man_df)) {
+    warning("Manifest has no 'sample_type' column; estimating purity for ",
+            "every sample, normal samples included.")
+  }
+  message("Samples for purity estimation: ", length(purity_samples), " of ",
+          ncol(RGset), " (", ncol(RGset) - length(purity_samples),
+          " normal excluded)")
+
+  # The forests have to be attached, not merely loaded: predict_purity_betas()
+  # refers to them by bare name, which does not reach the namespace's lazy-data
+  # environment that `RFpurify::` resolves against. Attaching also masks
+  # minfi::combine with randomForest::combine, which this script never calls.
+  suppressWarnings(
+    suppressPackageStartupMessages(library(RFpurify))
+  )
+
+  purity_file <- paste0(out_base, "-", dataset, "-methyl-purity.parquet")
+
+  # The two forests use 856 probes each and share only 38 of them, so taking
+  # the union lets one matrix serve both.
+  model_probes <- unique(c(
+    rownames(RFpurify::RFpurify_ABSOLUTE$importance),
+    rownames(RFpurify::RFpurify_ESTIMATE$importance)
+  ))
+
+  # preprocessRaw() builds full Meth and Unmeth matrices covering every probe
+  # on the array, of which only the model probes are wanted. It works one
+  # sample at a time, so chunking over samples returns identical values while
+  # keeping those transient matrices proportional to the chunk rather than to
+  # the whole batch.
+  purity_idx <- match(purity_samples, colnames(RGset))
+  sample_chunks <- split(
+    purity_idx,
+    ceiling(seq_along(purity_idx) / 50)
+  )
+  # EPICv2 names every probe for its replicate, as cg00000029_TC21, so the
+  # model probe names match nothing until the suffix is stripped. Stripping is
+  # a no-op on 450k and EPICv1, whose locus names carry no suffix. 33 model
+  # probes have more than one EPICv2 replicate; their betas are averaged,
+  # since the replicates measure the same CpG and the forests take one value
+  # per locus. The merge step picks a single replicate on detection p-value
+  # instead, which is not available this early in the script.
+  model_betas <- do.call(cbind, lapply(sample_chunks, function(idx) {
+    m_set <- minfi::preprocessRaw(RGset[, idx])
+    locus <- sub("_.*$", "", rownames(m_set))
+    keep <- locus %in% model_probes
+    betas <- minfi::getBeta(m_set[keep, ], type = "Illumina")
+    rowsum(betas, locus[keep]) / as.vector(table(locus[keep]))
+  }))
+  gc()
+
+  # predict_purity_betas() looks probes up by name and returns an all-NA row
+  # for any it cannot find, which would abort the prediction. Give every model
+  # probe a row, fill the ones this array lacks with 0.5, and report the count
+  # so the estimates can be judged against how much was imputed.
+  purity_betas <- matrix(
+    NA_real_,
+    nrow = length(model_probes), ncol = ncol(model_betas),
+    dimnames = list(model_probes, colnames(model_betas))
+  )
+  purity_betas[rownames(model_betas), ] <- model_betas
+
+  n_probes_imputed <- sum(!complete.cases(purity_betas))
+  message("RFpurify model probes missing from ", array_type, ": ",
+          n_probes_imputed, " of ", length(model_probes))
+  purity_betas[is.na(purity_betas)] <- 0.5
+
+  purity_values <- tibble(
+    file_name = colnames(purity_betas),
+    purity_absolute = as.numeric(
+      RFpurify::predict_purity_betas(purity_betas, method = "ABSOLUTE")
+    ),
+    purity_estimate = as.numeric(
+      RFpurify::predict_purity_betas(purity_betas, method = "ESTIMATE")
+    ),
+    array_type = array_type,
+    n_model_probes = length(model_probes),
+    n_probes_imputed = n_probes_imputed
+  ) %>%
+    mutate(Bioassay_ID = dplyr::recode(
+      file_name, !!!setNames(man_df$Bioassay_ID, man_df$file_name)
+    )) %>%
+    select(Bioassay_ID, purity_absolute, purity_estimate, array_type,
+           n_model_probes, n_probes_imputed)
+
+  write_parquet(purity_values, purity_file, compression = "zstd")
+
+  rm(model_betas, purity_betas, purity_values)
+  gc()
+}
+
 ######################## Calculate detection p-values #########################
 message("\nsetting parallel processing options...\n")
 library(BiocParallel)
@@ -156,17 +379,16 @@ message("\nCalculating detection p-values...\n")
 if (n_cores > 1) {
   message(sprintf("Running detectionP in parallel with %d cores...", n_cores))
   
-  # register parallel backend
-  register(MulticoreParam(workers = n_cores))
-  
   # split sample indices into chunks
   n <- ncol(RGset)
   chunks <- split(seq_len(n), ceiling(seq_len(n)/500))
   
-  # run detectionP in parallel on each chunk
-  det_list <- bplapply(chunks, function(idx) {
-    message(sprintf("Processing chunk %d / %d ", idx, length(chunks)))
-    minfi::detectionP(RGset[, idx])
+  # Run detectionP in parallel on each chunk. Iterate over chunk positions
+  # rather than over the chunks themselves, so the progress message reports the
+  # chunk number instead of being vectorised over every sample index in it.
+  det_list <- bplapply(seq_along(chunks), function(i) {
+    message(sprintf("Processing chunk %d / %d", i, length(chunks)))
+    minfi::detectionP(RGset[, chunks[[i]]])
   }, BPPARAM = MulticoreParam(n_cores))
   
   # combine results

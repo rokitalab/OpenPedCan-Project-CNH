@@ -157,25 +157,34 @@ message("Unzipping IDAT files")
 BPREDO <- list()
 BPPARAM <- SerialParam()
 
-idat_files <- bplapply(idat_files, function(xx) {
-    if (grepl(".gz$", xx)) {
-        message("Unzipping ", xx)
-        gunzip(xx, overwrite = TRUE)
-        xx <- gsub(".gz$", "", xx)
+# Decompress into a staging directory rather than in place. gunzip() defaults
+# to removing its input, which would delete the caller's original .idat.gz
+# files from base_dir.
+unzip_dir <- file.path(out_dir, "unzipped")
+dir.create(unzip_dir, showWarnings = FALSE)
+
+idat_files <- unlist(bplapply(idat_files, function(xx) {
+    if (grepl("\\.gz$", xx)) {
+        dest <- file.path(unzip_dir, sub("\\.gz$", "", basename(xx)))
+        message("Unzipping ", xx, " to ", dest)
+        gunzip(xx, destname = dest, remove = FALSE, overwrite = TRUE)
+        xx <- dest
     }
     xx
-}, BPREDO = BPREDO, BPPARAM = BPPARAM)
+}, BPREDO = BPREDO, BPPARAM = BPPARAM))
 
 message(idat_files)
 
+# Only the probe count of each IDAT is needed, so read them one at a time and
+# let each Quants matrix be freed immediately. Holding all of them costs about
+# 13 MB per EPICv2 IDAT.
 message("Reading IDAT files")
-all_quants <- bplapply(idat_files, function(xx) {
+all_n_probes <- vapply(idat_files, function(xx) {
     message("Reading ", xx)
-    quants <- readIDAT(xx)[["Quants"]]
-}, BPREDO = BPREDO, BPPARAM = BPPARAM)
+    nrow(readIDAT(xx)[["Quants"]])
+}, integer(1L), USE.NAMES = FALSE)
 
 message("Sorting IDAT files into array type folders")
-all_n_probes <- vapply(all_quants, nrow, integer(1L))
 array_types <- cbind(do.call(rbind, lapply(all_n_probes, .guessArrayTypes)),
     size = all_n_probes
 )
@@ -192,3 +201,8 @@ for (array_type in unique_array_types) {
         file.copy(file.path(file), array_type_dir)
     }
 }
+
+# Every decompressed file now has a copy in its array type folder, so the
+# staging copies are redundant. The compressed originals in base_dir are
+# untouched either way.
+unlink(unzip_dir, recursive = TRUE)
