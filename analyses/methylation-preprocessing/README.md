@@ -40,7 +40,7 @@ The [Children's Brain Tumor Network (CBTN)](https://cbtn.org/) `Infinium HumanMe
 
 ### Recommended: shell wrapper
 
-`run-preprocess-illumina-arrays.sh` validates its inputs, sorts mixed array types, preprocesses each detected supported array type, and intersects probe sets when two or more array types are present. Supply all run-specific paths on the command line; relative paths are resolved from the directory in which the wrapper is invoked.
+`run-preprocess-illumina-arrays.sh` validates its inputs, sorts mixed array types, preprocesses each detected supported array type, intersects probe sets when two or more array types are present, and calls genotypes from the identity SNP probes, writing a VCF per array type. Supply all run-specific paths on the command line; relative paths are resolved from the directory in which the wrapper is invoked.
 
 ```
 bash run-preprocess-illumina-arrays.sh \
@@ -78,7 +78,7 @@ Rscript --vanilla scripts/02-merge-methyl-matrices.R \
 
 `--input_prefix` takes a comma-separated list of prefixes to read from, and defaults to `--output_prefix`. Give it more than one prefix to combine separate preprocessing runs of the same arrays, which is useful when samples arrive in batches: probes are intersected across the batches as well as across array types, and every batch's samples are carried into the merged matrices. A sample name occurring in more than one batch is an error rather than something the merge resolves silently.
 
-Genotypes for the identity SNP probes are called from the `-methyl-snps.parquet` files with:
+The wrapper runs this step with the default thresholds and `--vcf TRUE`. To call again with different cut points, or to call from an output directory produced by the individual scripts, run it directly against the `-methyl-snps.parquet` files:
 
 ```
 Rscript --vanilla scripts/03-call-snp-genotypes.R \
