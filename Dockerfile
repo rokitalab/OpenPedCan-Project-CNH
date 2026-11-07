@@ -34,3 +34,12 @@ RUN R -e "install.packages('remotes', repos = 'https://cloud.r-project.org'); \
   remotes::install_version('dbplyr', version = '2.6.0', repos = 'https://cloud.r-project.org'); \
   remotes::install_version('duckdb', version = '1.5.6', repos = 'https://cloud.r-project.org'); \
   remotes::install_version('duckplyr', version = '1.2.1', repos = 'https://cloud.r-project.org')"
+
+# RFpurify for methylation-based tumor purity estimation (ABSOLUTE/ESTIMATE
+# random forest models). minfi and the 450k/EPIC manifests it depends on are
+# already in the base image. R_REMOTES_NO_ERRORS_FROM_WARNINGS keeps the
+# install from failing on warnings, per the package README.
+RUN R -e "withr::with_envvar(c(R_REMOTES_NO_ERRORS_FROM_WARNINGS='true'), \
+  remotes::install_github('mwsill/RFpurify', \
+  ref = '81db9a15a51419790e3a09e04e6dd77af6a11615', \
+  dependencies = TRUE))"
