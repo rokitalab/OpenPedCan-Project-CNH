@@ -108,6 +108,13 @@ manual_review <- read_manual_review(module_dir)
 # match_id for each reviewed sample (tumor rows of histologies-base)
 tumor_ids <- reviewed_tumor_ids(manual_review, root_dir)
 
+# sample and participant of each tumor, for the rows that came in without them (a
+# manual review is attached by sample_id)
+tumor_names <- hist_base %>%
+  filter(sample_type == "Tumor", !is.na(match_id)) %>%
+  distinct(match_id, sample_id, Kids_First_Participant_ID) %>%
+  distinct(match_id, .keep_all = TRUE)
+
 # umbrella groups for subtypes (input/subtype_groups.tsv)
 subtype_groups <- read_tsv(file.path(module_dir, "input", "subtype_groups.tsv"),
                            show_col_types = FALSE)
@@ -240,9 +247,11 @@ compiled <- bind_rows(
   full_join(smarcb1, by = "match_id") %>%
   left_join(free_text_conflicts, by = "match_id") %>%
   mutate(
-    sample_id = coalesce(sample_id, mb_sample_id, smarcb1_sample_id),
-    Kids_First_Participant_ID = coalesce(Kids_First_Participant_ID,
-                                         smarcb1_participant),
+    sample_id = coalesce(sample_id, mb_sample_id, smarcb1_sample_id,
+                         tumor_names$sample_id[match(match_id, tumor_names$match_id)]),
+    Kids_First_Participant_ID = coalesce(
+      Kids_First_Participant_ID, smarcb1_participant,
+      tumor_names$Kids_First_Participant_ID[match(match_id, tumor_names$match_id)]),
     # the LGG lesion call is the subtype only for the LGG cohort, and only when
     # nothing else assigned one
     # expression classifier group, when it names a single group
@@ -460,7 +469,7 @@ compiled <- bind_rows(
                                         sep = ";"),
       TRUE ~ subtype_review_flag
     ),
-    Notes = subtype_notes(subtype_source, molecular_subtype)
+    Notes = subtype_notes(subtype_source, molecular_subtype, manual_source)
   ) %>%
   # tumors whose methylation conflicts with the diagnosis: `likely` where the
   # genomics supports the diagnosis (the methylation array is probably from
@@ -516,11 +525,62 @@ compiled <- bind_rows(
       if (length(x) == 0) NA_character_ else paste(x, collapse = "; ")
     }))
 
+# default subtype of the tumors no evidence subtyped (input/default_subtype_rules.tsv).
+# The label depends on the diagnosis and on the assays the tumor has: where a negative
+# result is informative (LGG, GNG, GNT, SEGA, HGG) a tumor with DNA and RNA and no lesion
+# is "<family>, wildtype" ("HGG, H3 wildtype"); any other tumor of the diagnosis
+# (a missing assay, or a family that needs a lesion or a methylation class to be named)
+# is "<family>, To be classified". Tumors of the other diagnoses stay without a subtype.
+default_rules <- read_tsv(file.path(module_dir, "input", "default_subtype_rules.tsv"),
+                          show_col_types = FALSE, na = character())
+dx_groups <- read_tsv(file.path(module_dir, "input", "pathology_dx_groups.tsv"),
+                      show_col_types = FALSE)
+stopifnot(!anyDuplicated(default_rules$pathology_diagnosis),
+          all(default_rules$pathology_diagnosis %in% dx_groups$pathology_diagnosis))
+default_subtypes <- hist_base %>%
+  filter(sample_type == "Tumor", !is.na(match_id)) %>%
+  group_by(match_id) %>%
+  summarise(
+    Kids_First_Participant_ID = first(Kids_First_Participant_ID),
+    sample_id = first(sample_id),
+    pathology_diagnosis = first(pathology_diagnosis),
+    has_dna = any(experimental_strategy %in% c("WGS", "WXS", "Targeted Sequencing") &
+                    is.na(RNA_library)),
+    has_rna = any(experimental_strategy == "RNA-Seq" |
+                    (experimental_strategy == "Targeted Sequencing" & !is.na(RNA_library))),
+    .groups = "drop") %>%
+  inner_join(default_rules, by = "pathology_diagnosis") %>%
+  filter(!match_id %in% compiled$match_id[!is.na(compiled$molecular_subtype)]) %>%
+  mutate(
+    wildtype = wildtype_term != "" & has_dna & has_rna,
+    default_subtype = paste0(family, ", ",
+                             if_else(wildtype, wildtype_term, "To be classified")),
+    default_source = if_else(wildtype, "no lesion (DNA and RNA)", "incomplete evidence"),
+    dx_group = dx_groups$dx_group[match(pathology_diagnosis, dx_groups$pathology_diagnosis)])
+compiled <- compiled %>%
+  left_join(default_subtypes %>% select(match_id, default_subtype, default_source),
+            by = "match_id") %>%
+  mutate(subtype_source = if_else(is.na(molecular_subtype) & !is.na(default_subtype),
+                                  default_source, subtype_source),
+         evidence_level = if_else(subtype_source %in% c("no lesion (DNA and RNA)",
+                                                         "incomplete evidence"),
+                                  "default", evidence_level),
+         molecular_subtype = coalesce(molecular_subtype, default_subtype)) %>%
+  select(-default_subtype, -default_source) %>%
+  bind_rows(default_subtypes %>%
+              filter(!match_id %in% compiled$match_id) %>%
+              transmute(match_id, Kids_First_Participant_ID, sample_id,
+                        molecular_subtype = default_subtype,
+                        subtype_source = default_source, evidence_level = "default",
+                        pathology_diagnosis, dx_group))
+message("Default subtypes: ", nrow(default_subtypes))
+print(count(default_subtypes, default_subtype, sort = TRUE), n = 40)
+
 stopifnot(!anyDuplicated(compiled$match_id))
 
 # the tumors with a likely methylation mismatch and their methylation arrays, to
 # remove from the cohort. Built from the mismatch calls, not from the subtype table:
-# a tumor with no other evidence (no DNA, no free text rule) has no subtype row but
+# a tumor with no other evidence can have only the default subtype (or no row) but
 # its arrays are still to be removed
 methyl_specimens <- hist_base %>%
   filter(experimental_strategy == "Methylation") %>%

@@ -40,10 +40,19 @@ stopifnot(!is.null(m), !is.null(calls))
 
 ### Methylation inputs -------------------------------------------------------------
 
-add_check("methylation", "calls come only from DKFZ v12.8 and NIH v3.1",
-          !all(na.omit(calls$methyl_source) %in% c("dkfz_v12.8", "nih_v3.1")),
-          sum(!na.omit(calls$methyl_source) %in% c("dkfz_v12.8", "nih_v3.1")),
-          examples_of(setdiff(na.omit(calls$methyl_source), c("dkfz_v12.8", "nih_v3.1"))))
+methyl_sources <- c("dkfz_v12.8", "nih_v3.1", "chop_dgd")
+add_check("methylation", "calls come only from DKFZ v12.8, NIH v3.1 and the CHOP DGD classifier of the cell lines",
+          !all(na.omit(calls$methyl_source) %in% methyl_sources),
+          sum(!na.omit(calls$methyl_source) %in% methyl_sources),
+          examples_of(setdiff(na.omit(calls$methyl_source), methyl_sources)))
+
+# CHOP DGD classes (serum-free cell lines) that no serum-free line of the histologies takes
+chop_dgd <- read_result(file.path(results_dir, "chop_dgd_cell_line_calls.tsv"))
+if (!is.null(chop_dgd)) {
+  chop_unmatched <- chop_dgd %>% filter(is.na(match_id)) %>% distinct(sample_id)
+  add_check("methylation", "CHOP DGD classes of samples with no serum-free cell line in the histologies",
+            nrow(chop_unmatched) > 0, nrow(chop_unmatched), examples_of(chop_unmatched$sample_id))
+}
 
 # old classifier versions must not be read anywhere in the module code
 code_files <- list.files(module_dir, pattern = "\\.(R|Rmd)$", full.names = TRUE)
@@ -124,7 +133,7 @@ add_check("subtype", "possible methylation mismatches still to investigate (inpu
 # every tumor with a mismatch call is in the subtype table
 if (!is.null(mismatch)) {
   # a likely mismatch has its array excluded (01-build-methylation-calls.R); a tumor with
-  # no other evidence (no DNA, no free text rule) has no subtype row
+  # no other evidence has only a default subtype or no row
   not_found <- setdiff(mismatch$sample_id[mismatch$mismatch_call != "likely"], m$sample_id)
   add_check("subtype", "every sample of the mismatch table is in the subtype table",
             length(not_found) > 0, length(not_found), examples_of(not_found))

@@ -37,8 +37,12 @@ reviewed_tumor_ids <- function(manual_review, root_dir) {
 #' @param subtype_source The coded source.
 #' @param molecular_subtype The subtype label (used to tell ETMR from the other
 #'   embryonal rules).
-subtype_notes <- function(subtype_source, molecular_subtype) {
+#' @param manual_source The source of a manual review (the free-text review has its
+#'   own wording).
+subtype_notes <- function(subtype_source, molecular_subtype, manual_source = NA_character_) {
   case_when(
+    subtype_source == "manual review" & manual_source %in% "pathology free text" ~
+      "Subtype from manual review of pathology free text diagnosis",
     subtype_source == "manual review" ~
       "Subtype from manual review of pathology report",
     subtype_source == "methylation" ~ "Subtype from methylation",

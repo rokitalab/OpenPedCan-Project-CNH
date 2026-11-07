@@ -470,7 +470,13 @@ support_hits <- lesion_hits %>%
             .groups = "drop") %>%
   rename(lesion_subtype = OPC_molecular_subtype)
 
+# a mismatch is an array that probably belongs to another specimen: the CHOP DGD class
+# of a derived cell line (01-build-methylation-calls.R) is not an array and is left out
+# of the mismatch calls (a real array of a cell line is not)
+chop_dgd_ids <- calls$Kids_First_Biospecimen_ID[calls$methyl_source %in% "chop_dgd"]
+
 auto_mismatch <- validated %>%
+  filter(!Kids_First_Biospecimen_ID %in% chop_dgd_ids) %>%
   filter(dx_concordance == "discordant", lesion_status != "confirmed") %>%
   inner_join(support_hits, by = "match_id", relationship = "many-to-many") %>%
   mutate(lesion_dx = dx_concordance(lesion_subtype, dx_group, family_compat)) %>%
@@ -494,7 +500,8 @@ auto_mismatch <- validated %>%
 # An IDH-mutant glioma methylation class with an H3 K27 or G34 variant: the two are
 # mutually exclusive, so one of the two calls is from another specimen
 idh_h3_mismatch <- validated %>%
-  filter(str_detect(OPC_molecular_subtype, ", IDH"), match_id %in% h3_hits$match_id) %>%
+  filter(str_detect(OPC_molecular_subtype, ", IDH"), match_id %in% h3_hits$match_id,
+         !Kids_First_Biospecimen_ID %in% chop_dgd_ids) %>%
   inner_join(h3_hits %>% group_by(match_id) %>%
                summarise(h3_evidence = paste(sort(unique(evidence)), collapse = "; "),
                          .groups = "drop"),
@@ -541,6 +548,7 @@ methylation_arrays <- calls %>%
   filter(methyl_confidence == "high") %>%
   inner_join(select(hist, Kids_First_Biospecimen_ID, sample_id, match_id),
              by = "Kids_First_Biospecimen_ID") %>%
+  filter(!Kids_First_Biospecimen_ID %in% chop_dgd_ids) %>%
   group_by(sample_id) %>%
   summarise(methylation_biospecimen_ids = paste(Kids_First_Biospecimen_ID, collapse = "; "),
             .groups = "drop")
@@ -569,6 +577,22 @@ message("Methylation mismatches: ",
 likely_arrays <- likely_mismatch_arrays(results_dir)
 calls <- exclude_mismatched_arrays(calls, results_dir)
 validated <- validated %>% filter(!Kids_First_Biospecimen_ID %in% likely_arrays)
+
+# the CHOP DGD class of a derived cell line is not an array of a specimen, so it is not a
+# mismatch to remove; an IDH-mutant glioma class on a line with an H3 K27 or G34 variant
+# is contradicted by the line's own lesion and is set aside (the lesion fallback
+# subtypes the line)
+cell_line_set_aside <- validated %>%
+  filter(Kids_First_Biospecimen_ID %in% chop_dgd_ids,
+         str_detect(OPC_molecular_subtype, ", IDH"), match_id %in% h3_hits$match_id) %>%
+  transmute(Kids_First_Biospecimen_ID, sample_id, match_id, methyl_source, methyl_class,
+            methyl_score, reason = "IDH-mutant glioma class with an H3 K27 or G34 variant in the cell line")
+write_tsv(cell_line_set_aside, file.path(results_dir, "cell_line_calls_set_aside.tsv"))
+calls$methyl_confidence[calls$Kids_First_Biospecimen_ID %in%
+                          cell_line_set_aside$Kids_First_Biospecimen_ID] <-
+  "excluded (cell line lesion contradicts class)"
+validated <- validated %>%
+  filter(!Kids_First_Biospecimen_ID %in% cell_line_set_aside$Kids_First_Biospecimen_ID)
 
 ### ETMR evidence (for the methylation calls here and the embryonal rules below)
 # a focal chr19 amplification overlapping the C19MC miRNA cluster (hg38)

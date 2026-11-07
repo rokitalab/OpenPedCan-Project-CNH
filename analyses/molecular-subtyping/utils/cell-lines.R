@@ -57,7 +57,9 @@ add_cell_line_comparison <- function(compiled, root_dir, results_dir) {
                              NA_character_),
       tumor_fidelity = case_when(
         !is_cell_line ~ NA_character_,
-        is.na(molecular_subtype) | is.na(tumor_subtype) ~ "no subtype to compare",
+        # a default "To be classified" (no evidence for a subtype) is not a subtype of the line
+        is.na(molecular_subtype) | is.na(tumor_subtype) |
+          subtype_source %in% "incomplete evidence" ~ "no subtype to compare",
         molecular_subtype == tumor_subtype ~ "same",
         subtype_group == tumor_group ~ "same group",
         TRUE ~ "different"
@@ -109,9 +111,12 @@ add_cell_line_comparison <- function(compiled, root_dir, results_dir) {
     shared <- w %>% filter(status == "shared") %>% pull(alts) %>% unique()
     adopt <- NA_character_
     subtypes <- unique(w$tumor_subtype[w$status == "shared"])
-    # not the umbrella wildtype or an annotation-only item such as TP53
+    # not the umbrella wildtype or an annotation-only item such as TP53; a line whose
+    # subtype is a default (no lesion, or incomplete evidence) can take it as well
     if (length(subtypes) == 1 && length(shared) > 0 &&
-        (is.na(line_subtype) || line_source %in% "lesion negative")) {
+        (is.na(line_subtype) ||
+           line_source %in% c("lesion negative", "incomplete evidence",
+                              "no lesion (DNA and RNA)"))) {
       adopt <- subtypes
       # EZHIP is part of the label only when the line overexpresses it
       if (str_detect(adopt, ", EZHIP") && !"EZHIP overexpression" %in% shared) {
