@@ -28,6 +28,7 @@ Oligo	Oligodendroglioma	Diffuse astrocytic and oligodendroglial tumor	Oligodendr
 PB	Pineoblastoma	Pineal tumor	Pineoblastoma	
 PITNET	Pituitary neuroendocrine tumor	Benign tumor	Adenoma	
 PITUI	Pituicytoma, granular cell tumor of the sellar region, spindle cell oncocytoma			
+SEGA	Subependymal Giant Cell Astrocytoma	Low-grade astrocytic tumor	LGG	legacy: Subependymal Giant Cell Astrocytoma, wildtype; same short histology as the LGG, SEGA override
 Rare CNS	Rare CNS	Mixed or indeterminate tumor	Rare CNS	legacy keeps the label
 NBL	Neuroblastoma	Peripheral neuroblastic tumor	Neuroblastoma	legacy; the per-tumor diagnosis uses the pathology diagnosis name
 EWS	Ewing sarcoma	Mesenchymal non-meningothelial tumor	EWS	extracranial xenograft models

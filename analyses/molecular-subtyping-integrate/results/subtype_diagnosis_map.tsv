@@ -64,7 +64,7 @@ GNG, RTK, BRAF V600E	1	family	Ganglioglioma, RTK, BRAF V600E	Low-grade astrocyti
 GNG, RTK, FGFR	1	family	Ganglioglioma, RTK, FGFR	Low-grade astrocytic tumor	Ganglioglioma
 GNG, To be classified	20	family	Ganglioglioma, To be classified	Low-grade astrocytic tumor	Ganglioglioma
 GNG, other MAPK	4	family	Ganglioglioma, other MAPK	Low-grade astrocytic tumor	Ganglioglioma
-GNG, wildtype	19	family	Ganglioglioma, wildtype	Low-grade astrocytic tumor	Ganglioglioma
+GNG, wildtype	20	family	Ganglioglioma, wildtype	Low-grade astrocytic tumor	Ganglioglioma
 GNT, BRAF V600E	6	family	Glial-neuronal tumor, BRAF V600E	Glioneuronal and neuronal tumor	GNT
 GNT, DGONC	2	override	Diffuse glioneuronal tumor with oligodendroglioma-like features and nuclear clusters	Glioneuronal and neuronal tumor	GNT
 GNT, DIG/DIA	1	override	Desmoplastic infantile ganglioglioma/astrocytoma	Glioneuronal and neuronal tumor	GNT
@@ -197,4 +197,4 @@ Rare CNS, PATZ1-fused	3	family	Rare CNS, PATZ1-fused	Mixed or indeterminate tumo
 Rare CNS, PLAG AMP	3	family	Rare CNS, PLAG AMP	Mixed or indeterminate tumor	Rare CNS
 Rare CNS, PLAGL1-fused	5	family	Rare CNS, PLAGL1-fused	Mixed or indeterminate tumor	Rare CNS
 Rare CNS, TMM POS NBL	2	family	Rare CNS, TMM POS NBL	Mixed or indeterminate tumor	Rare CNS
-SEGA, wildtype	5	none	NA	NA	NA
+SEGA, wildtype	5	family	Subependymal Giant Cell Astrocytoma, wildtype	Low-grade astrocytic tumor	LGG

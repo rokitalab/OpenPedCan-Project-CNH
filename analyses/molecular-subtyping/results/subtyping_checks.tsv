@@ -21,7 +21,7 @@ integrate	every tumor has short_histology	pass	0	NA
 integrate	every subtyped tumor (specific subtype) has an integrated diagnosis	pass	0	NA
 integrate	'To be classified' labels have an integrated diagnosis (the harmonized diagnosis)	pass	0	NA
 integrate	subtype labels without a derived broad or short histology (the old diagnosis' value is kept; see results/subtype_histology_gaps.tsv)	pass	0	NA
-integrate	every tumor diagnosis is in input/cancer_group_table.tsv (results/cancer_group_unmapped.tsv)	pass	0	NA
+integrate	every tumor diagnosis is in input/cancer_group_table.tsv (results/cancer_group_unmapped.tsv)	FLAG	1	Embryonal Tumor NOS
 integrate	every cohort, broad histology and cancer group has a plot group (figures/palettes/plot-mapping.tsv; add rows with figures/scripts/extend-plot-mapping.R)	pass	0	NA
 integrate	plot-mapping rows added automatically and still to review (status column)	FLAG	38	NA
 integrate	every subtype label has a diagnosis rule	pass	0	NA
@@ -29,6 +29,6 @@ integrate	all biospecimens of a tumor share the integrated diagnosis	pass	0	NA
 reviews	every reviewed sample_id exists in the histologies	pass	0	NA
 reviews	every review has a source and a note that says what was found	pass	0	NA
 reviews	every manual subtype is a label used by the module	pass	0	NA
-reviews	manual reviews that the automated subtype now agrees with (can be retired)	FLAG	20	7316-272; 7316-3220; A09410; 7316-4463; 7316-8972; 7316-1748; ...
+reviews	manual reviews that the automated subtype now agrees with (can be retired)	FLAG	21	7316-272; 7316-3220; A09410; 7316-70; 7316-4463; 7316-8972; ...
 reviews	mix-up rows whose methylation class differs from the current call	pass	0	NA
 reviews	the input files are those of the committed results (results/run_provenance.tsv)	pass	0	NA

@@ -1487,7 +1487,7 @@ PT_NJQ26FHN_7316-7451_Solid Tissue_Deceased	EPN, ST ZFTA	EPN	7316-7451	EPN, ST Z
 PT_D9H1C43M_CH22-CL_Derived Cell Line_Metastatic	CHDM, To be classified	CHDM	CH22-CL	CHDM, To be classified	incomplete evidence	NA	FALSE	same	NA	NA
 PT_4XB3YTJM_7316-388_Solid Tissue_Initial CNS Tumor	DMG, H3 K28	DMG	7316-388	DMG, H3 K28	methylation	NA	TRUE	same	NA	NA
 PT_CQ7EGCMB_7316-3809_Solid Tissue_Initial CNS Tumor	MB, SHH	MB	7316-3809	MB, SHH	methylation	NA	TRUE	same	NA	NA
-PT_3WA1XB8G_7316-70_Solid Tissue_Initial CNS Tumor	LGG, wildtype	LGG	7316-70	NA	NA	NA	FALSE	legacy only (unassigned)	NA	NA
+PT_3WA1XB8G_7316-70_Solid Tissue_Initial CNS Tumor	LGG, wildtype	LGG	7316-70	GNG, wildtype	manual review	NA	FALSE	newly assigned	NA	NA
 PT_75HRTX4S_7316-5485_Solid Tissue_Initial CNS Tumor	CHDM, To be classified	CHDM	7316-5485	CHDM, To be classified	incomplete evidence	NA	FALSE	same	NA	NA
 PT_EVQZ62SE_7316-7924_Derived Cell Line_Initial CNS Tumor_Serum-based_6	CRANIO, ADAM	CRANIO	7316-7924	CRANIO, ADAM	pathology free text	NA	TRUE	same	NA	NA
 PT_8YBC9VPV_7316-6518_Solid Tissue_Recurrence	HGG, To be classified	HGG	7316-6518	NST, MPNST spinal/atypical	methylation	NA	FALSE	newly assigned	NA	NA
