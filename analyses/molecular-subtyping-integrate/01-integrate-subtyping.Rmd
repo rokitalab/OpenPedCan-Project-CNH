@@ -81,38 +81,69 @@ diagnosis_rules <- read_tsv(file.path("input", "diagnosis_rules.tsv"),
   mutate(stage = as.integer(stage), order = as.integer(order))
 ```
 
+### Map the pathology diagnoses
+
+The broad and short histologies, and the harmonized diagnosis of the tumors with a
+free-text diagnosis, are mapped by the tables of the `opc-histologies-qc` submodule
+(`opc-histologies-qc/input/`, pinned to a commit; update it with
+`git submodule update --remote`): `pathology_diagnosis_mapping.csv` (the pathology
+diagnosis to the broad and short histology) and
+`pathology_free_text_diagnosis_mapping_with_harm_dx.csv` (a pathology diagnosis with
+its free-text diagnosis to the broad and short histology, the harmonized diagnosis
+and a note). The free-text table is the more specific, so it has precedence.
+
+```{r}
+mapping_dir <- file.path("opc-histologies-qc", "input")
+stopifnot(dir.exists(mapping_dir))
+
+dx_map <- read_csv(file.path(mapping_dir, "pathology_diagnosis_mapping.csv"),
+                   col_types = cols(.default = col_character())) %>%
+  select(pathology_diagnosis, dx_broad_histology = broad_histology,
+         dx_short_histology = short_histology)
+ft_map <- read_csv(file.path(mapping_dir,
+                             "pathology_free_text_diagnosis_mapping_with_harm_dx.csv"),
+                   col_types = cols(.default = col_character())) %>%
+  select(pathology_diagnosis, pathology_free_text_diagnosis,
+         ft_broad_histology = broad_histology, ft_short_histology = short_histology,
+         ft_harmonized_diagnosis = harmonized_diagnosis, ft_Notes = Notes)
+stopifnot(!anyDuplicated(dx_map$pathology_diagnosis),
+          !anyDuplicated(ft_map[c("pathology_diagnosis", "pathology_free_text_diagnosis")]))
+```
+
 ### Add the subtypes to the histologies
 
 We will add molecular_subtype, integrated_diagnosis and Notes from `compiled_subtyping`
 
-short_histology and broad_histology will be added from base histology for samples that `molecular-subtyping` does not subtype
+short_histology and broad_histology will be added from the mapping above (then the base histology) for samples that `molecular-subtyping` does not subtype
 
 ```{r}
 
-# the base harmonized_diagnosis (the pathology_diagnosis "Other" tumors come from a
-# manual review of WHO terms, opc-histologies-qc) is kept when the module gave no
-# diagnosis
+# the base harmonized_diagnosis is kept when the module and the free-text mapping gave
+# no diagnosis
 histology <- base_histology %>% 
   rename(harmonized_diagnosis_base = harmonized_diagnosis, Notes_base = Notes) %>%
   select(-c(molecular_subtype, integrated_diagnosis)) %>%
   left_join(compiled_subtyping,by=c("Kids_First_Participant_ID", "Kids_First_Biospecimen_ID", "match_id", "sample_id"), suffix=c(".base",".subtyped")) %>%
   unique() %>%
+  left_join(dx_map, by = "pathology_diagnosis", na_matches = "never") %>%
+  left_join(ft_map, by = c("pathology_diagnosis", "pathology_free_text_diagnosis"),
+            na_matches = "never") %>%
   dplyr::mutate(
-    broad_histology = if_else(!is.na(broad_histology.subtyped),
-                              broad_histology.subtyped,
-                              broad_histology.base),
-    short_histology = if_else(!is.na(short_histology.subtyped),
-                              short_histology.subtyped,
-                              short_histology.base),
+    broad_histology = coalesce(broad_histology.subtyped, ft_broad_histology,
+                               dx_broad_histology, broad_histology.base),
+    short_histology = coalesce(short_histology.subtyped, ft_short_histology,
+                               dx_short_histology, short_histology.base),
     harmonized_diagnosis = case_when(
       !is.na(integrated_diagnosis) ~ integrated_diagnosis,
+      !is.na(ft_harmonized_diagnosis) ~ ft_harmonized_diagnosis,
       !is.na(harmonized_diagnosis_base) ~ harmonized_diagnosis_base,
       !is.na(pathology_diagnosis) ~ pathology_diagnosis
     )) %>%
-  # the base Notes ("Updated by manual curation of pathology_free_text_diagnosis")
-  # stay when no subtyping step wrote one
-  mutate(Notes = coalesce(Notes, Notes_base)) %>%
-  select(-harmonized_diagnosis_base, -Notes_base) %>%
+  # the note of the free-text mapping, then the base Notes, stay when no subtyping
+  # step wrote one
+  mutate(Notes = coalesce(Notes, ft_Notes, Notes_base)) %>%
+  select(-harmonized_diagnosis_base, -Notes_base, -starts_with("dx_"),
+         -starts_with("ft_")) %>%
   unique() %>%
   # harmonize some diagnoses that will become cancer groups (stage 0 of the
   # rules in input/diagnosis_rules.tsv)

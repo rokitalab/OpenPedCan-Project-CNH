@@ -190,11 +190,12 @@ Medulloblastoma	Recurrence	42
 Medulloblastoma	Relapse	2
 Medulloblastoma	NA	2
 Medulloblastoma with myogenic differentiation	Initial CNS Tumor	3
-Melanocytic tumor	Initial CNS Tumor	3
+Melanocytic tumor	Initial CNS Tumor	5
+Melanocytic tumor	Progressive	1
 Melanoma	Primary Tumor	1
 Melanoma	Progressive	1
-Meningioma	Initial CNS Tumor	117
-Meningioma	Progressive	32
+Meningioma	Initial CNS Tumor	100
+Meningioma	Progressive	31
 Meningioma	Recurrence	28
 Meningioma	Second Malignancy	27
 Mesenchymal tumor	Recurrence	2
@@ -288,6 +289,7 @@ Schwannoma	Recurrence	7
 Schwannoma	Unknown	2
 Small Cell Carcinoma	Primary Tumor	1
 Small Cell Carcinoma	Relapse	1
+Spindle cell neoplasm	Initial CNS Tumor	2
 Spindle cell neoplasm	Primary Tumor	7
 Spindle cell neoplasm	Progressive	2
 Subependymal Giant Cell Astrocytoma	Initial CNS Tumor	44

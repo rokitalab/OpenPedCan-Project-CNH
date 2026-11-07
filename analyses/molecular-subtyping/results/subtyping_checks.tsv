@@ -23,7 +23,7 @@ integrate	'To be classified' labels have an integrated diagnosis (the harmonized
 integrate	subtype labels without a derived broad or short histology (the old diagnosis' value is kept; see results/subtype_histology_gaps.tsv)	pass	0	NA
 integrate	every tumor diagnosis is in input/cancer_group_table.tsv (results/cancer_group_unmapped.tsv)	FLAG	1	Embryonal Tumor NOS
 integrate	every cohort, broad histology and cancer group has a plot group (figures/palettes/plot-mapping.tsv; add rows with figures/scripts/extend-plot-mapping.R)	pass	0	NA
-integrate	plot-mapping rows added automatically and still to review (status column)	FLAG	38	NA
+integrate	plot-mapping rows added automatically and still to review (status column)	FLAG	39	NA
 integrate	every subtype label has a diagnosis rule	pass	0	NA
 integrate	all biospecimens of a tumor share the integrated diagnosis	pass	0	NA
 reviews	every reviewed sample_id exists in the histologies	pass	0	NA

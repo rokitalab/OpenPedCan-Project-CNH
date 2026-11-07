@@ -255,9 +255,9 @@ PPTC	Medulloblastoma, WNT-activated	Medulloblastoma	Yes	No
 PBTA	Medulloblastoma with myogenic differentiation	Medulloblastoma with myogenic differentiation	No	No
 PBTA	Melanocytoma	Melanocytic tumor	No	Yes
 DGD	Melanoma	Melanoma	No	No
-PBTA	Meningioma	Meningioma	No	No
 PBTA	Meningioma, benign	Meningioma	Yes	No
 PBTA	Meningioma, SMARCE1-altered	Meningioma	Yes	No
+PBTA	Meningioma	Meningioma	No	No
 PBTA	Meningioma, intermediate	Meningioma	Yes	No
 PBTA	Mesenchymal tumor	Mesenchymal tumor	No	No
 TCGA	Mesothelioma	Mesothelioma	No	No
@@ -388,6 +388,7 @@ TCGA	Sarcoma	Sarcoma	No	No
 PBTA	Schwannoma	Schwannoma	No	No
 PPTC	Small Cell Carcinoma	Small Cell Carcinoma	No	No
 DGD	Spindle cell neoplasm	Spindle cell neoplasm	No	No
+PBTA	Spindle cell neoplasm	Spindle cell neoplasm	No	No
 TCGA	Stomach Adenocarcinoma	Stomach Adenocarcinoma	No	No
 PBTA	Subependymal Giant Cell Astrocytoma	Subependymal Giant Cell Astrocytoma	No	No
 PBTA	Subependymal Giant Cell Astrocytoma, wildtype	Subependymal Giant Cell Astrocytoma	Yes	No
@@ -407,6 +408,7 @@ DGD	Wilms tumor	Wilms tumor	No	No
 PPTC	Wilms tumor	Wilms tumor	No	No
 TARGET	Wilms tumor	Wilms tumor	No	No
 PBTA	Yolk sac tumor	Yolk sac tumor	No	No
+PBTA	Meningioangiomatosis	NA	No	Yes
 PBTA	Dysplasia/Gliosis	NA	No	Yes
 PBTA	Osteoblastoma	NA	No	Yes
 DGD	Non-cancer diagnosis	NA	No	Yes
