@@ -26,9 +26,8 @@ root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
 module_dir <- file.path(root_dir, "analyses", "molecular-subtyping-integrate")
 cns_file <- file.path(root_dir, "analyses", "molecular-subtyping", "results",
                       "molecular_subtype.tsv")
-legacy_file <- file.path(root_dir, "analyses", "archive", "molecular-subtyping-pathology",
-                         "results",
-                         "compiled_molecular_subtypes_with_clinical_pathology_feedback_and_report_info.tsv")
+dlgnt_file <- file.path(root_dir, "analyses", "molecular-subtyping", "results",
+                        "dlgnt_lesions.tsv")
 results_dir <- file.path(module_dir, "results")
 dir.create(results_dir, showWarnings = FALSE)
 
@@ -67,28 +66,16 @@ labels <- cns %>%
   select(molecular_subtype, tumors, rule, integrated_diagnosis,
          broad_histology, short_histology)
 
-# compare with the legacy pathology table (most frequent pair per label)
-legacy <- read_tsv(legacy_file, show_col_types = FALSE, guess_max = 100000) %>%
-  filter(!is.na(molecular_subtype), molecular_subtype != "NA") %>%
-  count(molecular_subtype, integrated_diagnosis, broad_histology, short_histology) %>%
-  group_by(molecular_subtype) %>%
-  slice_max(n, n = 1, with_ties = FALSE) %>%
-  ungroup() %>%
-  select(molecular_subtype = molecular_subtype,
-         legacy_integrated_diagnosis = integrated_diagnosis,
-         legacy_broad_histology = broad_histology,
-         legacy_short_histology = short_histology)
-
 map <- labels %>%
-  left_join(legacy, by = "molecular_subtype") %>%
-  mutate(differs_from_legacy = !is.na(legacy_integrated_diagnosis) &
-           integrated_diagnosis != legacy_integrated_diagnosis) %>%
   arrange(molecular_subtype)
 write_tsv(map, file.path(results_dir, "subtype_diagnosis_map.tsv"))
 
 # per tumor: the label's diagnosis, except that the neuroblastic tumors take
 # the diagnosis name of the tumor (neuroblastoma, ganglioneuroblastoma,
-# ganglioneuroma) with the MYCN status, as in the legacy module
+# ganglioneuroma) with the MYCN status, and the diffuse leptomeningeal glioneuronal
+# tumors (the module lists them in results/dlgnt_lesions.tsv) take that diagnosis name
+# with the rest of the label
+dlgnt_match_ids <- read_tsv(dlgnt_file, show_col_types = FALSE)$match_id
 per_tumor <- cns %>%
   filter(!is.na(molecular_subtype)) %>%
   select(match_id, Kids_First_Participant_ID, sample_id, molecular_subtype,
@@ -108,13 +95,17 @@ per_tumor <- cns %>%
                      "MYCN non-amplified", "MYCN-amplified")),
       integrated_diagnosis
     ),
+    integrated_diagnosis = if_else(
+      match_id %in% dlgnt_match_ids,
+      paste0("Diffuse leptomeningeal glioneuronal tumor, ",
+             str_trim(str_remove(molecular_subtype, "^[^,]*,?"))),
+      integrated_diagnosis
+    ),
     short_histology = if_else(is_nbl, nbl_name, short_histology)
   ) %>%
   select(-nbl_name, -is_nbl, -pathology_diagnosis)
 write_tsv(per_tumor, file.path(results_dir, "integrated_diagnosis.tsv"))
 
-message("Labels: ", nrow(map), "; no rule: ", sum(map$rule == "none"),
-        "; differ from legacy: ", sum(map$differs_from_legacy))
-print(map %>% filter(rule == "none" | differs_from_legacy) %>%
-        select(molecular_subtype, tumors, rule, integrated_diagnosis,
-               legacy_integrated_diagnosis), n = 100)
+message("Labels: ", nrow(map), "; no rule: ", sum(map$rule == "none"))
+print(map %>% filter(rule == "none") %>%
+        select(molecular_subtype, tumors, rule, integrated_diagnosis), n = 100)

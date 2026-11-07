@@ -32,12 +32,9 @@ Congenital malignant brain tumor	NA	NA	NA
 Craniopharyngioma	EFO_1000209	MONDO_0002787	NCIT_C2964
 Cutaneous Melanoma	EFO_0000389	MONDO_0005012	NCIT_C3510
 Desmoid-type fibromatosis	EFO_0009907	Orphanet_873	NCIT_C9182
-Desmoplastic infantile astrocytoma and ganglioglioma	MONDO_0016731	MONDO_0016731	NCIT_C4747
 Desmoplastic infantile ganglioglioma/astrocytoma	NA	NA	NA
-Diffuse fibrillary astrocytoma	MONDO_0016688	MONDO_0016688	NCIT_C4322
 Diffuse glioneuronal tumor with oligodendroglioma-like features and nuclear clusters	NA	NA	NA
 Diffuse hemispheric glioma	MONDO_0016680	MONDO_0016680	NA
-Diffuse intrinsic pontine glioma	EFO_1000026	MONDO_0006033	NCIT_C94764
 Diffuse leptomeningeal glioneuronal tumor	MONDO_0016745	MONDO_0016745	NCIT_C129424
 Diffuse midline glioma	EFO_1000026	MONDO_0006033	NCIT_C129309
 Dysembryoplastic neuroepithelial tumor	EFO_0005551	MONDO_0005505	NCIT_C9505
@@ -104,7 +101,6 @@ Pancreatoblastoma	NA	NA	NA
 Papillary Carcinoma	NA	NA	NA
 Papillary glioneuronal tumor	NA	NA	NA
 Pheochromocytoma and Paraganglioma	EFO_0020005	MONDO_0035540	NA
-Pilocytic astrocytoma	Orphanet_251612	MONDO_0016691	NCIT_C4047
 Pineoblastoma	EFO_1000475	MONDO_0016722	NCIT_C9344
 Pituicytoma	NA	NA	NA
 Pleomorphic xanthoastrocytoma	MONDO_0016690	MONDO_0016690	NCIT_C4323

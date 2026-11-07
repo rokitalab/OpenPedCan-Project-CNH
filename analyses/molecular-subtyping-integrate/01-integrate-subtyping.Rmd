@@ -12,12 +12,9 @@ The purpose of this notebook is to integrate the molecular subtyping results of
 `molecular-subtyping` (CNS and solid tumors, with diagnoses derived by
 `00-derive-integrated-diagnosis.R`) with `histologies-base.tsv`.
 
-Tumors that `molecular-subtyping` does not label keep the result of the legacy
-subtyping modules (archived in `analyses/archive/`, frozen as of the last run of
-`molecular-subtyping-pathology`): HGG, EPN, ATRT, PB, Rare-CNS, LGAT, CRANIO,
-embryonal, EWS, NBL, neurocytoma, MB and chordoma, and the pathology free-text
-and clinical feedback steps. Those results are read from
-`analyses/archive/molecular-subtyping-pathology/results/compiled_molecular_subtypes_with_clinical_pathology_feedback_and_report_info.tsv`.
+Every subtype comes from `molecular-subtyping`: a tumor it does not subtype has
+the default of its diagnosis (`<family>, wildtype` or `<family>, To be classified`)
+or no subtype. No archived module or result is read here.
 
 In adddition, for samples that where pathology_diagnosis is "Other" we also update the file broad_histology and short_histology from a manual review of WHO terms.
 
@@ -43,41 +40,20 @@ col_order <- read_lines(file.path("input", "column_order.txt"))
 
 ```
 
-### Read molecular-subtyping-pathology results
-
-Reading molecular_subtype, integrated_diagnosis, short_histology, broad_histology and Notes from `compiled_molecular_subtypes_with_clinical_pathology_feedback_and_report_info.tsv` 
-
-```{r}
-
-compiled_subtyping<-read_tsv(file.path("..", "archive", "molecular-subtyping-pathology", "results", "compiled_molecular_subtypes_with_clinical_pathology_feedback_and_report_info.tsv")) %>%
-  select(-tumor_descriptor)
-
-```
-
 ### Add molecular-subtyping results
 
 The tumors of the `molecular-subtyping` module (CNS and solid tumors, with
 `integrated_diagnosis`, `broad_histology` and `short_histology` derived from the
 subtype by `00-derive-integrated-diagnosis.R`) take their subtype and diagnosis
-from `results/integrated_diagnosis.tsv`. The diffuse leptomeningeal glioneuronal
-tumor diagnosis from the glioneuronal free-text step stays as it is. Every other
-tumor keeps the compiled `molecular-subtyping-pathology` result (non-CNS tumors
-and the pathology free-text diagnoses).
+from `results/integrated_diagnosis.tsv`. The other tumors have no subtype; their
+histologies and diagnosis come from the base histologies.
 
 ```{r}
 new_subtyping <- read_tsv(file.path("results", "integrated_diagnosis.tsv"),
                           show_col_types = FALSE, guess_max = 100000)
 
-# DLGNT, from the glioneuronal free-text step, is kept
-dlgnt_match_ids <- compiled_subtyping %>%
-  filter(str_detect(replace_na(integrated_diagnosis, ""),
-                    "leptomeningeal glioneuronal")) %>%
-  pull(match_id) %>%
-  unique()
-
-new_rows <- base_histology %>%
-  filter(sample_type == "Tumor", match_id %in% new_subtyping$match_id,
-         !match_id %in% dlgnt_match_ids) %>%
+compiled_subtyping <- base_histology %>%
+  filter(sample_type == "Tumor", match_id %in% new_subtyping$match_id) %>%
   distinct(Kids_First_Participant_ID, Kids_First_Biospecimen_ID, match_id,
            sample_id) %>%
   left_join(new_subtyping %>%
@@ -87,15 +63,6 @@ new_rows <- base_histology %>%
                      alteration_confirmed,
                      molecular_subtype_methyl = methyl_class),
             by = "match_id")
-
-compiled_subtyping <- bind_rows(
-  new_rows,
-  # a biospecimen whose match_id changed since the archived compile (a new
-  # release) is taken from the new rows only
-  compiled_subtyping %>%
-    filter(!match_id %in% new_rows$match_id,
-           !Kids_First_Biospecimen_ID %in% new_rows$Kids_First_Biospecimen_ID)
-)
 
 # one row per biospecimen
 stopifnot(!anyDuplicated(compiled_subtyping$Kids_First_Biospecimen_ID))
@@ -114,17 +81,17 @@ diagnosis_rules <- read_tsv(file.path("input", "diagnosis_rules.tsv"),
   mutate(stage = as.integer(stage), order = as.integer(order))
 ```
 
-### Add molecular-subtyping-pathology results
+### Add the subtypes to the histologies
 
 We will add molecular_subtype, integrated_diagnosis and Notes from `compiled_subtyping`
 
-short_histology and broad_histology will be added from base histology for samples that are not subtyped as part of `molecular-subtype-pathology`
+short_histology and broad_histology will be added from base histology for samples that `molecular-subtyping` does not subtype
 
 ```{r}
 
-# the base harmonized_diagnosis of the pathology_diagnosis "Other" tumors comes
-# from a manual review of WHO terms (opc-histologies-qc); it is kept for them
-# when no subtyping step gave a diagnosis
+# the base harmonized_diagnosis (the pathology_diagnosis "Other" tumors come from a
+# manual review of WHO terms, opc-histologies-qc) is kept when the module gave no
+# diagnosis
 histology <- base_histology %>% 
   rename(harmonized_diagnosis_base = harmonized_diagnosis, Notes_base = Notes) %>%
   select(-c(molecular_subtype, integrated_diagnosis)) %>%
@@ -139,9 +106,7 @@ histology <- base_histology %>%
                               short_histology.base),
     harmonized_diagnosis = case_when(
       !is.na(integrated_diagnosis) ~ integrated_diagnosis,
-      !is.na(harmonized_diagnosis) ~ harmonized_diagnosis,
-      pathology_diagnosis %in% "Other" & !is.na(harmonized_diagnosis_base) ~
-        harmonized_diagnosis_base,
+      !is.na(harmonized_diagnosis_base) ~ harmonized_diagnosis_base,
       !is.na(pathology_diagnosis) ~ pathology_diagnosis
     )) %>%
   # the base Notes ("Updated by manual curation of pathology_free_text_diagnosis")
@@ -303,7 +268,7 @@ diff_broad_histology
 
 #### Check differences in short_histology
 Here we want to check for short_histology changes not part of `Check differences in broad_histology` chunk.
-This will help us check what string assignment path_dx to short_histology mapping has changed from `molecular-subtyping-pathology`
+This will help us check what string assignment path_dx to short_histology mapping has changed from the base histologies by the subtype of `molecular-subtyping`
 
 ```{r}
 
