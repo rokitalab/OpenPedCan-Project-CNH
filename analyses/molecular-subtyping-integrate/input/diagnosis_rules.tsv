@@ -9,8 +9,6 @@ stage	order	target	cancer_group	cancer_group_regex	cancer_group_na	harmonized_di
 3	52	broad_histology	Glial-neuronal tumor														Glioneuronal and neuronal tumor	
 3	53	broad_histology	Cavernoma														Benign tumor	
 3	54	broad_histology				Transient Abnormal Myelopoiesis Associated with Down Syndrome											Non-tumor	transient abnormal myelopoiesis is not a tumor
-3	55	short_histology						LGAT									LGG	LGG and HGG are the short histologies (Low-grade astrocytic tumor and High-grade astrocytic tumor are not CNS5 families); remove when the base histology file has them
-3	56	short_histology						HGAT									HGG	LGG and HGG are the short histologies (Low-grade astrocytic tumor and High-grade astrocytic tumor are not CNS5 families); remove when the base histology file has them
 3	57	broad_histology	Neuroblastoma|Ganglioneuroblastoma|Ganglioneuroma				Embryonal tumor										Peripheral neuroblastic tumor	the neuroblastic tumors are not CNS embryonal tumors; remove when the base histology file has the new broad histology
 3	58	broad_histology					Neuronal and mixed neuronal-glial tumor										Glioneuronal and neuronal tumor	CNS5 name of the broad histology; remove when the base histology file has it
 3	59	broad_histology					Tumors of sellar region										Sellar region tumor	CNS5 name of the broad histology; remove when the base histology file has it
