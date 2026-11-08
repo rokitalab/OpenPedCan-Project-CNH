@@ -274,7 +274,7 @@ jobs:
           client-id: ${{ vars.OPC_APP_CLIENT_ID }}
           private-key: ${{ secrets.OPC_APP_PRIVATE_KEY }}
           repositories: |
-            OpenPedCan-Project
+            OpenPedCan-Project-CNH
             opc-histologies-qc
           permission-contents: read
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
