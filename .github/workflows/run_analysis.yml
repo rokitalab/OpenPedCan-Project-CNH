@@ -266,11 +266,21 @@ jobs:
           #  entrypoint: rnaseq-batch-correct/run_ruvseq.sh
 
     steps:
+      # molecular-subtyping-integrate reads the private opc-histologies-qc submodule
+      - name: Create GitHub App token for the submodule
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 #v3.3.0
+        with:
+          client-id: ${{ vars.OPC_APP_CLIENT_ID }}
+          private-key: ${{ secrets.OPC_APP_PRIVATE_KEY }}
+          repositories: |
+            OpenPedCan-Project
+            opc-histologies-qc
+          permission-contents: read
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
         with:
-          # molecular-subtyping-integrate reads the private opc-histologies-qc submodule
           submodules: true
-          token: ${{ secrets.OPC_SUBMODULE_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
       - name: free disk space
         run: |
           echo "Disk usage before cleanup:" && df -h
