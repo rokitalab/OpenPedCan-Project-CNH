@@ -5,7 +5,7 @@ library(openxlsx)
 root_dir <- rprojroot::find_root(rprojroot::has_dir(".git"))
 input_dir <- file.path(root_dir, "data")
 output_dir <- file.path(root_dir, "tables", "results")
-mb_dir <- file.path(root_dir, "analyses", "molecular-subtyping-MB", "results")
+mb_dir <- file.path(root_dir, "analyses", "molecular-subtyping", "results")
 
 ## read file
 hist <- read_tsv(file.path(input_dir, "histologies.tsv"))

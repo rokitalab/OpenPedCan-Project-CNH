@@ -1,0 +1,250 @@
+change_type	old_subtype	new_subtype	supported	review	supported, diagnosis uninformative	no change in meaning	tumors
+newly subtyped	NBL, To be classified	NBL, MYCN non-amplified	422	0	0	0	422
+vocabulary	DMG, H3 K28, TP53	DMG, H3 K28-mutant	0	0	0	158	158
+newly subtyped	NBL, To be classified	NBL, MYCN amplified	133	0	0	0	133
+refined	NBL, MYCN amplified	NBL, MYCN non-amplified	116	1	10	0	127
+vocabulary	DMG, H3 K28	DMG, H3 K28-mutant	0	0	0	102	102
+vocabulary	HGG, H3 wildtype, TP53	HGG, H3 wildtype	0	0	0	51	51
+newly subtyped	NA	Oligo, IDH	0	0	46	0	46
+newly subtyped	NA	MNG, Benign	36	2	0	0	38
+vocabulary	EWS	Rare CNS, EWS	0	0	0	35	35
+newly subtyped	NA	GNT, DNET	27	0	0	0	27
+vocabulary	DHG, H3 G35, TP53	DHG, H3 G35-mutant	0	0	0	27	27
+newly subtyped	NA	NST, Schwannoma	23	2	1	0	26
+newly subtyped	HGG, To be classified	DMG, H3 K28	3	0	22	0	25
+newly subtyped	NA	CPC, pediatric	23	0	0	0	23
+refined	HGG, H3 wildtype	HGG, RTK	23	0	0	0	23
+newly subtyped	EPN, To be classified	EPN, PF A	16	2	0	0	18
+newly subtyped	NA	CPP, pediatric	16	0	1	0	17
+newly subtyped	NA	NST, Plexiform neurofibroma	11	0	3	0	14
+vocabulary	HGG, IDH, TP53	HGG, IDH	0	0	0	14	14
+newly subtyped	NA	MNG, Intermediate	12	0	0	0	12
+refined	DMG, H3 K28, TP53	DMG, H3 K28-mutant, EGFR	1	0	10	0	11
+refined	HGG, H3 wildtype, TP53	HGG, RTK	11	0	0	0	11
+newly subtyped	SEGA, To be classified	LGG, SEGA	9	0	0	0	9
+reclassified	LGG, BRAF V600E, CDKN2A/B	LGG, PXA BRAF V600E	5	0	4	0	9
+newly subtyped	NA	CPP, adult	8	0	0	0	8
+refined	HGG, PXA	HGG, PXA BRAF V600E	6	0	2	0	8
+refined	NBL, MYCN non-amplified	NBL, MYCN amplified	4	0	4	0	8
+newly subtyped	HGG, To be classified	LGG, IDH	7	0	0	0	7
+newly subtyped	NA	GCT, Teratoma	6	0	0	0	6
+newly subtyped	NA	GNG, MAPK	6	0	0	0	6
+reclassified	LGG, BRAF V600E	LGG, PXA BRAF V600E	2	0	4	0	6
+newly subtyped	EPN, To be classified	EPN, ST ZFTA	2	2	1	0	5
+reclassified	HGG, H3 wildtype, TP53	DMG, H3 wildtype	5	0	0	0	5
+refined	HGG, H3 wildtype	HGG, MES	5	0	0	0	5
+refined	HGG, H3 wildtype	HGG, MYCN	4	1	0	0	5
+refined	HGG, H3 wildtype, TP53	HGG, MYCN	5	0	0	0	5
+vocabulary	DMG, H3 K28, TP53	DMG, H3 K28	0	0	0	5	5
+newly subtyped	CRANIO, To be classified	LGG, MAPK	0	4	0	0	4
+newly subtyped	NA	GCT, Germinoma KIT mutant	0	4	0	0	4
+refined	ETMR, NOS	ETMR, C19MC-altered	0	0	4	0	4
+refined	LGG, BRAF V600E	LGG, PA ST, BRAF V600E	4	0	0	0	4
+refined	MB, Group3	MB, Group4	3	1	0	0	4
+vocabulary	CNS NB-FOXR2	Rare CNS, FOXR2 NBL	0	0	0	4	4
+vocabulary	DHG, H3 G35	DHG, H3 G35-mutant	0	0	0	4	4
+vocabulary	IHG, NTRK-altered	HGG, IHG, NTRK-altered	0	0	0	4	4
+newly subtyped	CHDM, To be classified	CHDM, poorly differentiated	0	0	3	0	3
+newly subtyped	EPN, To be classified	Rare CNS, BCOR ITD	3	0	0	0	3
+newly subtyped	MB, To be classified	MB, Group4	3	0	0	0	3
+newly subtyped	SEGA, wildtype	LGG, SEGA	3	0	0	0	3
+newly subtyped	NA	MNG, SMARCE1-altered	3	0	0	0	3
+newly subtyped	NA	NST, MPNST spinal/atypical	3	0	0	0	3
+reclassified	EWS	Rare CNS, BCOR ITD	3	0	0	0	3
+reclassified	GNT, RTK	HGG, IHG, ROS1-altered	3	0	0	0	3
+reclassified	HGG, H3 wildtype	DMG, H3 K28	0	0	3	0	3
+reclassified	HGG, H3 wildtype	DMG, H3 wildtype	3	0	0	0	3
+reclassified	HGG, H3 wildtype, TP53	Rare CNS, DICER1 SARC	1	0	2	0	3
+reclassified	HGG, IDH, TP53	LGG, IDH	3	0	0	0	3
+reclassified	LGG, BRAF V600E	GNG, BRAF V600E	3	0	0	0	3
+refined	DMG, H3 K28	DMG, H3 K28-altered, EGFR	2	1	0	0	3
+refined	DMG, H3 K28	DMG, H3 K28-mutant, EGFR	0	1	2	0	3
+refined	GNG, BRAF V600E	GNG, PA ST, BRAF V600E	3	0	0	0	3
+refined	GNG, other MAPK	GNG, PA ST, other MAPK	3	0	0	0	3
+refined	HGG, H3 wildtype	HGG, HGNET	3	0	0	0	3
+refined	HGG, H3 wildtype, TP53	HGG, HGNET	3	0	0	0	3
+vocabulary	IHG, ROS1-altered	HGG, IHG, ROS1-altered	0	0	0	3	3
+newly subtyped	ATRT, To be classified	ATRT, TYR	2	0	0	0	2
+newly subtyped	CNS Embryonal, NOS	EPN, ST ZFTA	1	0	1	0	2
+newly subtyped	CNS Embryonal, NOS	Rare CNS, PLAG AMP	2	0	0	0	2
+newly subtyped	HGG, To be classified	HGG, MYCN	2	0	0	0	2
+newly subtyped	HGG, To be classified	LGG, BRAF/MAPK	2	0	0	0	2
+newly subtyped	HGG, To be classified	Rare CNS, CIC SARC	2	0	0	0	2
+newly subtyped	LGG, To be classified	GNG, MAPK	2	0	0	0	2
+newly subtyped	MB, To be classified	MB, SHH	2	0	0	0	2
+newly subtyped	NBL, To be classified	NST, Schwannoma	0	2	0	0	2
+newly subtyped	NBL, To be classified	Rare CNS, TMM POS NBL	2	0	0	0	2
+newly subtyped	NA	GCT, Yolk sac tumor	2	0	0	0	2
+newly subtyped	NA	GNG, FGFR	2	0	0	0	2
+newly subtyped	NA	GNT, PA ST, FGFR	2	0	0	0	2
+newly subtyped	NA	HMB	2	0	0	0	2
+newly subtyped	NA	PITNET, TSH	2	0	0	0	2
+newly subtyped	NA	Rare CNS, ARMS	2	0	0	0	2
+newly subtyped	NA	Rare CNS, CIC SARC	2	0	0	0	2
+newly subtyped	NA	Rare CNS, PLAGL1-fused	2	0	0	0	2
+reclassified	GNG, IDH	LGG, IDH	1	0	1	0	2
+reclassified	GNT, BRAF V600E	LGG, BRAF V600E	2	0	0	0	2
+reclassified	GNT, RTK	LGG, RTK	2	0	0	0	2
+reclassified	HGG, H3 wildtype	HGG, HGAP	2	0	0	0	2
+reclassified	HGG, H3 wildtype	HGG, IHG, MET-altered	1	0	1	0	2
+reclassified	HGG, H3 wildtype, TP53	DMG, H3 K28-altered, EGFR	0	0	2	0	2
+reclassified	HGG, H3 wildtype, TP53	DMG, H3 K28-altered, EGFR, EZHIP	1	0	1	0	2
+reclassified	HGG, H3 wildtype, TP53	HGG, HGAP	2	0	0	0	2
+reclassified	LGG, NF1-germline, FGFR	GNT, FGFR	2	0	0	0	2
+reclassified	MB, SHH	ETMR, NOS	2	0	0	0	2
+refined	DMG, H3 K28, TP53	DMG, H3 K28-mutant, EZHIP	2	0	0	0	2
+refined	GNG, KIAA1549-BRAF	GNG, PA ST, KIAA1549-BRAF	2	0	0	0	2
+refined	GNT, other MAPK	GNT, PA ST, other MAPK	2	0	0	0	2
+refined	HGG, H3 wildtype	HGG, chr6 CTX	2	0	0	0	2
+refined	HGG, H3 wildtype, TP53	HGG, chr6 CTX	2	0	0	0	2
+refined	HGG, PXA, TP53	HGG, PXA BRAF V600E	0	0	2	0	2
+refined	LGG, other MAPK	LGG, PA ST, other MAPK	2	0	0	0	2
+refined	MB, SHH	MB, Group3	2	0	0	0	2
+vocabulary	IHG, ALK-altered	HGG, IHG, ALK-altered	0	0	0	2	2
+newly subtyped	ATRT, To be classified	ATRT, SHH	1	0	0	0	1
+newly subtyped	ATRT, To be classified	CHDM	0	1	0	0	1
+newly subtyped	ATRT, To be classified	Rare CNS, CIC SARC	1	0	0	0	1
+newly subtyped	ATRT, To be classified	Rare CNS, CRINET	1	0	0	0	1
+newly subtyped	CNS Embryonal, NOS	GNT, DGONC	1	0	0	0	1
+newly subtyped	CNS Embryonal, NOS	HGG, MYCN	1	0	0	0	1
+newly subtyped	CNS Embryonal, NOS	HGG, RTK	0	0	1	0	1
+newly subtyped	CNS Embryonal, NOS	PB, RB1	1	0	0	0	1
+newly subtyped	CNS Embryonal, NOS	Rare CNS, PLAGL1-fused	1	0	0	0	1
+newly subtyped	EPN, To be classified	DMG, H3 K28	0	1	0	0	1
+newly subtyped	EPN, To be classified	EPN, PF B	1	0	0	0	1
+newly subtyped	EPN, To be classified	EPN, ST YAP1	1	0	0	0	1
+newly subtyped	EPN, To be classified	GNG, MAPK	0	1	0	0	1
+newly subtyped	EPN, To be classified	HGG, HGNET	0	1	0	0	1
+newly subtyped	EPN, To be classified	LGG, BRAF/MAPK	0	1	0	0	1
+newly subtyped	EPN, To be classified	LGG, MYB/MYBL1	1	0	0	0	1
+newly subtyped	EPN, To be classified	Rare CNS, BCOR-fused	1	0	0	0	1
+newly subtyped	EPN, To be classified	Rare CNS, PLAGL1-fused	1	0	0	0	1
+newly subtyped	GNG, wildtype	GNG, MAPK	1	0	0	0	1
+newly subtyped	GNG, wildtype	Rare CNS, PLAGL1-fused	1	0	0	0	1
+newly subtyped	GNT, To be classified	GNT, MAPK	1	0	0	0	1
+newly subtyped	GNT, To be classified	GNT, PA ST	1	0	0	0	1
+newly subtyped	GNT, To be classified	GNT, Papillary	1	0	0	0	1
+newly subtyped	GNT, To be classified	MB, WNT	0	1	0	0	1
+newly subtyped	GNT, To be classified	Rare CNS, BCOR ITD	1	0	0	0	1
+newly subtyped	GNT, wildtype	EPN, ST ZFTA	0	0	1	0	1
+newly subtyped	GNT, wildtype	GNT, Papillary	1	0	0	0	1
+newly subtyped	GNT, wildtype	Rare CNS, MN1::BEND2	1	0	0	0	1
+newly subtyped	HGG, To be classified	EPN, PF A	1	0	0	0	1
+newly subtyped	HGG, To be classified	EPN, ST YAP1	0	0	1	0	1
+newly subtyped	HGG, To be classified	EPN, ST ZFTA	1	0	0	0	1
+newly subtyped	HGG, To be classified	HGG, IHG	1	0	0	0	1
+newly subtyped	HGG, To be classified	HGG, IHG, NTRK-altered	1	0	0	0	1
+newly subtyped	HGG, To be classified	HGG, PXA	1	0	0	0	1
+newly subtyped	HGG, To be classified	LGG, PA ST	1	0	0	0	1
+newly subtyped	HGG, To be classified	NST, MPNST spinal/atypical	0	1	0	0	1
+newly subtyped	HGG, To be classified	Rare CNS, MN1::BEND2	1	0	0	0	1
+newly subtyped	HGG, To be classified	Rare CNS, PATZ1-fused	1	0	0	0	1
+newly subtyped	IHG, To be classified	HGG, IHG	1	0	0	0	1
+newly subtyped	LGG, To be classified	DMG, H3 K28	1	0	0	0	1
+newly subtyped	LGG, To be classified	HGG, IHG	1	0	0	0	1
+newly subtyped	LGG, To be classified	Oligo, IDH	0	0	1	0	1
+newly subtyped	LGG, wildtype	EPN, ST YAP1	0	0	1	0	1
+newly subtyped	LGG, wildtype	LGG, BRAF/MAPK	1	0	0	0	1
+newly subtyped	LGG, wildtype	LGG, MAPK	1	0	0	0	1
+newly subtyped	LGG, wildtype	Rare CNS, PATZ1-fused	1	0	0	0	1
+newly subtyped	MB, To be classified	MB, Group3	1	0	0	0	1
+newly subtyped	MB, To be classified	Rare CNS, EWS	0	1	0	0	1
+newly subtyped	NBL, To be classified	NST, Plexiform neurofibroma	0	1	0	0	1
+newly subtyped	PB, To be classified	MB, WNT	1	0	0	0	1
+newly subtyped	NA	CNS lymphoma, DLBCL	1	0	0	0	1
+newly subtyped	NA	EPN, PF B	0	1	0	0	1
+newly subtyped	NA	EPN, ST YAP1	0	0	1	0	1
+newly subtyped	NA	ETMR, C19MC-altered	0	1	0	0	1
+newly subtyped	NA	GNG, RTK	1	0	0	0	1
+newly subtyped	NA	GNT, Myxoid	1	0	0	0	1
+newly subtyped	NA	GNT, PA ST	1	0	0	0	1
+newly subtyped	NA	GNT, PA ST, other MAPK	1	0	0	0	1
+newly subtyped	NA	HGG, IDH	0	0	1	0	1
+newly subtyped	NA	LCH	1	0	0	0	1
+newly subtyped	NA	LGG, FGFR	0	0	1	0	1
+newly subtyped	NA	MEL, Melanocytoma	0	0	1	0	1
+newly subtyped	NA	NST, MPNST typical	1	0	0	0	1
+newly subtyped	NA	PITNET, ACTH	1	0	0	0	1
+newly subtyped	NA	PITNET, PRL	1	0	0	0	1
+newly subtyped	NA	PITNET, STH densely granulated A	1	0	0	0	1
+newly subtyped	NA	Rare CNS, BCOR ITD	1	0	0	0	1
+newly subtyped	NA	Rare CNS, MN1::BEND2	0	0	1	0	1
+reclassified	CNS HGNET-MN1	Rare CNS, MN1::BEND2	0	0	1	0	1
+reclassified	CNS HGNET-MN1	Rare CNS, MN1::CXXC5	1	0	0	0	1
+reclassified	CRANIO, ADAM	LGG, MAPK	0	1	0	0	1
+reclassified	CRANIO, ADAM	PITUI, Pituicytoma/GCTS/SCO	0	1	0	0	1
+reclassified	ETMR, NOS	MEPL, Intraocular medulloepithelioma	1	0	0	0	1
+reclassified	GNG, BRAF V600E, CDKN2A/B	LGG, PXA BRAF V600E	1	0	0	0	1
+reclassified	GNG, FGFR	GNT, DNET	1	0	0	0	1
+reclassified	GNG, MYB/MYBL1	LGG, MYB/MYBL1	1	0	0	0	1
+reclassified	GNG, RTK	LGG, PXA BRAF V600E negative	1	0	0	0	1
+reclassified	GNT, BRAF V600E	GNG, BRAF V600E	1	0	0	0	1
+reclassified	GNT, FGFR	GNG, FGFR	1	0	0	0	1
+reclassified	GNT, H3	DMG, H3 K28-mutant	1	0	0	0	1
+reclassified	GNT, RTK, CDKN2A/B	Rare CNS, ANTCON	1	0	0	0	1
+reclassified	GNT, other MAPK	LGG, PA ST, other MAPK	1	0	0	0	1
+reclassified	GNT, other MAPK, CDKN2A/B	LGG, PXA BRAF V600E negative	1	0	0	0	1
+reclassified	GNT, other MAPK, FGFR	LGG, other MAPK, FGFR	1	0	0	0	1
+reclassified	HGG, H3 wildtype	EPN, SP-MYCN	1	0	0	0	1
+reclassified	HGG, H3 wildtype	GNG, BRAF V600E	1	0	0	0	1
+reclassified	HGG, H3 wildtype	GNT, DGONC	1	0	0	0	1
+reclassified	HGG, H3 wildtype	GNT, DIG/DIA	1	0	0	0	1
+reclassified	HGG, H3 wildtype	GNT, FGFR	1	0	0	0	1
+reclassified	HGG, H3 wildtype	HGG, IHG	1	0	0	0	1
+reclassified	HGG, H3 wildtype	HGG, PXA BRAF V600E negative	1	0	0	0	1
+reclassified	HGG, H3 wildtype	LGG, FGFR	1	0	0	0	1
+reclassified	HGG, H3 wildtype	LGG, KIAA1549-BRAF	1	0	0	0	1
+reclassified	HGG, H3 wildtype	LGG, PA ST	1	0	0	0	1
+reclassified	HGG, H3 wildtype	LGG, PA ST, FGFR	1	0	0	0	1
+reclassified	HGG, H3 wildtype	LGG, RTK	1	0	0	0	1
+reclassified	HGG, H3 wildtype	MB, Group4	0	1	0	0	1
+reclassified	HGG, H3 wildtype	Rare CNS, BCOR ITD	1	0	0	0	1
+reclassified	HGG, H3 wildtype	Rare CNS, CIC SARC	1	0	0	0	1
+reclassified	HGG, H3 wildtype	Rare CNS, PATZ1-fused	1	0	0	0	1
+reclassified	HGG, H3 wildtype	Rare CNS, PLAG AMP	1	0	0	0	1
+reclassified	HGG, H3 wildtype, TP53	DHG, H3 G35	1	0	0	0	1
+reclassified	HGG, H3 wildtype, TP53	DMG, H3 K28	0	0	1	0	1
+reclassified	HGG, H3 wildtype, TP53	DMG, H3 K28-altered, EZHIP	1	0	0	0	1
+reclassified	HGG, H3 wildtype, TP53	HGG, PXA BRAF V600E	1	0	0	0	1
+reclassified	HGG, IDH	Oligo, IDH	0	0	1	0	1
+reclassified	HGG, PXA	LGG, PA ST, BRAF V600E	1	0	0	0	1
+reclassified	LGG, BRAF V600E	GNT, MAPK	1	0	0	0	1
+reclassified	LGG, BRAF V600E, CDKN2A/B	GNG, BRAF V600E, CDKN2A/B	0	1	0	0	1
+reclassified	LGG, BRAF V600E, other MAPK	LGG, PXA BRAF V600E	0	0	1	0	1
+reclassified	LGG, FGFR	GNT, DNET	1	0	0	0	1
+reclassified	LGG, FGFR	GNT, FGFR	1	0	0	0	1
+reclassified	LGG, IDH	Oligo, IDH	0	0	1	0	1
+reclassified	LGG, KIAA1549-BRAF	GNG, KIAA1549-BRAF	1	0	0	0	1
+reclassified	LGG, NF1-germline	DMG, H3 K28	0	0	1	0	1
+reclassified	LGG, NF1-somatic, FGFR	GNT, FGFR	1	0	0	0	1
+reclassified	LGG, RTK	GNT, DNET	1	0	0	0	1
+reclassified	LGG, RTK	HGG, RTK	1	0	0	0	1
+reclassified	LGG, other MAPK	GNG, other MAPK	1	0	0	0	1
+reclassified	LGG, other MAPK, H3	DMG, H3 K28-mutant	1	0	0	0	1
+reclassified	MB, Group3	MB, Medullomyoblastoma	1	0	0	0	1
+reclassified	MB, SHH	Rare CNS, ARMS	1	0	0	0	1
+reclassified	MB, SHH	Rare CNS, CIC SARC	1	0	0	0	1
+reclassified	NBL, To be classified	CNS NBL, NOS	0	0	1	0	1
+reclassified	SEGA, RTK	LGG, PXA BRAF V600E negative	1	0	0	0	1
+reclassified	NA	GCT, Germinoma KIT wildtype	1	0	0	0	1
+refined	DMG, H3 K28	DMG, H3 K28-altered, EGFR, EZHIP	1	0	0	0	1
+refined	EPN, ST ZFTA	EPN, MPE	1	0	0	0	1
+refined	GNG, NF1-germline	GNG, PA ST, NF1-germline	1	0	0	0	1
+refined	GNG, other MAPK, BRAF V600E	GNG, PA ST, other MAPK, BRAF V600E	1	0	0	0	1
+refined	GNG, other MAPK, IDH	GNG, PA ST, other MAPK, IDH	1	0	0	0	1
+refined	GNT, FGFR	GNT, MAPK	1	0	0	0	1
+refined	GNT, To be classified	GNT, NOS	1	0	0	0	1
+refined	HGG, H3 wildtype	LGG, NF1-somatic, NF1-germline, CDKN2A/B	1	0	0	0	1
+refined	HGG, H3 wildtype, TP53	HGG, MES	1	0	0	0	1
+refined	LGG, BRAF/MAPK	LGG, NF1-germline	1	0	0	0	1
+refined	LGG, KIAA1549-BRAF	LGG, FGFR	0	1	0	0	1
+refined	LGG, KIAA1549-BRAF	LGG, PA ST, KIAA1549-BRAF	1	0	0	0	1
+refined	LGG, NF1-germline	LGG, PA ST, NF1-germline	1	0	0	0	1
+refined	LGG, NF1-germline, CDKN2A/B	LGG, PA ST, NF1-germline, CDKN2A/B	1	0	0	0	1
+refined	LGG, NF1-somatic	LGG, PA ST, NF1-somatic	1	0	0	0	1
+refined	LGG, NF1-somatic, IDH	LGG, IDH	0	0	1	0	1
+refined	LGG, NF1-somatic, NF1-germline, FGFR	LGG, NF1-somatic, NF1-germline	0	0	1	0	1
+refined	LGG, RTK	LGG, PA ST, RTK, NF1-germline	1	0	0	0	1
+refined	LGG, other MAPK, IDH	LGG, IDH	0	0	1	0	1
+vocabulary	IHG, NTRK-altered, TP53	HGG, IHG, NTRK-altered	0	0	0	1	1
+vocabulary	IHG, ROS1-altered, TP53	HGG, IHG, ROS1-altered	0	0	0	1	1

@@ -37,10 +37,6 @@ Pre-release files:
 - `../../data/consensus_wgs_plus_cnvkit_wxs_x_and_y.tsv.gz`
 - `../tmb-calculation/results/snv-mutation-tmb-all.tsv`
 - `../tmb-calculation/results/snv-mutation-tmb-coding.tsv`
-- `../fusion-summary/results/fusion_summary_embryonal_foi.tsv`
-- `../fusion-summary/results/fusion_summary_ependymoma_foi.tsv`
-- `../fusion-summary/results/fusion_summary_lgat_foi.tsv`
-- `../fusion-summary/results/fusion_summary_ewings_foi.tsv`
 - `../../data/biospecimen_id_to_bed_map.txt`
 
 

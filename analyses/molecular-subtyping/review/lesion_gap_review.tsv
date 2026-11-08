@@ -1,0 +1,4 @@
+priority	subtype	missing_lesion	type	use	basis	verified
+low	LGG, MYB/MYBL1 and angiocentric glioma	MYB::QKI fusion, MYB amplification	fusion/cnv	confirm	present in lgg_component_rules (QKI); not checked as a subtype lesion rule	repo grep
+low	GNT, DLGNT	KIAA1549::BRAF with 1p deletion	fusion/cnv	confirm	DLGNT keeps the free-text call; the 1p deletion is not checked	knowledge
+low	Rare CNS, ARMS	none found: 3 tumors, no PAX3/PAX7::FOXO1 fusion in the RNA	-	-	PAX3/PAX7::FOXO1 rule added; 3 not detected, so check these three (a diagnosis other than alveolar RMS, or no fusion call)	fusion table check

@@ -1,0 +1,15 @@
+pathology_diagnosis	family	wildtype_term
+Atypical Teratoid Rhabdoid Tumor (ATRT)	ATRT	
+Chordoma	CHDM	
+Craniopharyngioma	CRANIO	
+Ependymoma	EPN	
+Medulloblastoma	MB	
+Neuroblastoma	NBL	
+Ganglioneuroblastoma	NBL	
+Pineoblastoma	PB	
+Brainstem glioma- Diffuse intrinsic pontine glioma	HGG	H3 wildtype
+High-grade glioma/astrocytoma (WHO grade III/IV)	HGG	H3 wildtype
+Low-grade glioma/astrocytoma (WHO grade I/II)	LGG	wildtype
+Ganglioglioma	GNG	wildtype
+Glial-neuronal tumor NOS	GNT	wildtype
+Subependymal Giant Cell Astrocytoma (SEGA)	SEGA	wildtype

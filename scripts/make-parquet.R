@@ -68,6 +68,17 @@ rds_tables <- list(
        "gene-counts-rsem-expected_count-collapsed.rds")
 )
 
+# probes x arrays methylation matrices (beta, M and copy number values from
+# analyses/methylation-preprocessing): a Probe_ID column and one column per
+# array. They are not sorted (the probe order of the RDS is kept) and have small
+# row groups, so a query for some arrays reads only those columns. Run on a
+# machine with enough memory for the RDS (the matrices are tens of GB in memory).
+methyl_tables <- list(
+  list("methyl-beta-values", "methyl-beta-values.rds"),
+  list("methyl-m-values", "methyl-m-values.rds"),
+  list("methyl-cn-values", "methyl-cn-values.rds")
+)
+
 only <- Sys.getenv("PARQUET_TABLES", "")
 keep <- function(name) only == "" || name %in% strsplit(only, ",")[[1]]
 
@@ -138,6 +149,54 @@ for (t in rds_tables) {
   duckdb_unregister(con, "mat")
   record(name, t[[2]], out, nrow(mat))
   rm(mat, df); invisible(gc())
+}
+
+for (t in methyl_tables) {
+  name <- t[[1]]
+  if (!keep(name)) next
+  src <- file.path(data_dir, t[[2]])
+  out <- file.path(out_dir, paste0(name, ".parquet"))
+  if (!file.exists(src)) { message("Skipping ", name, ": ", src, " not found"); next }
+  message("Converting ", name)
+  mat <- readRDS(src)
+  if (!"Probe_ID" %in% colnames(mat)) {
+    # a matrix with the probes as row names
+    mat <- data.frame(Probe_ID = rownames(mat), mat, check.names = FALSE,
+                      stringsAsFactors = FALSE)
+    rownames(mat) <- NULL
+  }
+  mat <- as.data.frame(mat, check.names = FALSE)
+  stopifnot(!anyDuplicated(colnames(mat)))
+  n_probes <- nrow(mat)
+  # a few cells to compare with the parquet file afterwards
+  set.seed(1)
+  check_rows <- sort(sample(n_probes, 20))
+  check_cols <- sample(setdiff(colnames(mat), "Probe_ID"), 5)
+  expected <- mat[check_rows, c("Probe_ID", check_cols)]
+  duckdb_register(con, "mat", mat)
+  invisible(dbExecute(con, sprintf(
+    "COPY (SELECT * FROM mat)
+     TO '%s' (FORMAT parquet, COMPRESSION zstd, ROW_GROUP_SIZE 10000)", out)))
+  duckdb_unregister(con, "mat")
+  rm(mat); invisible(gc())
+  record(name, t[[2]], out, n_probes)
+  got <- dbGetQuery(con, sprintf(
+    "SELECT %s FROM read_parquet('%s') WHERE Probe_ID IN (%s)",
+    paste(sprintf('"%s"', c("Probe_ID", check_cols)), collapse = ", "), out,
+    paste(sprintf("'%s'", unique(expected$Probe_ID)), collapse = ", ")))
+  # a probe can have several rows (the v15 matrices stack the arrays of
+  # different array types, with NA for the other type), so each expected row
+  # must equal one of the rows of its probe
+  for (i in seq_len(nrow(expected))) {
+    candidates <- got[got$Probe_ID == expected$Probe_ID[i], check_cols, drop = FALSE]
+    ok <- any(vapply(seq_len(nrow(candidates)), function(j) {
+      isTRUE(all.equal(unlist(candidates[j, ]), unlist(expected[i, check_cols]),
+                       check.attributes = FALSE))
+    }, logical(1)))
+    stopifnot(ok)
+  }
+  message("  spot check of ", length(check_rows) * length(check_cols),
+          " values matches the RDS")
 }
 
 manifest_df <- do.call(rbind, manifest)

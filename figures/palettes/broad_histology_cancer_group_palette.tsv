@@ -43,20 +43,20 @@ Mesenchymal non-meningothelial tumor	Fibromyxoid lesion	Mesenchymal non-meningot
 Mesenchymal non-meningothelial tumor	Cavernoma	Mesenchymal non-meningothelial tumor	Other	#7fbf00	NA	#b5b5b5	9	Other CNS	FALSE
 Mesenchymal non-meningothelial tumor	Myofibroblastoma	Mesenchymal non-meningothelial tumor	Other	#7fbf00	NA	#b5b5b5	9	Other CNS	FALSE
 Metastatic tumors	Metastatic secondary tumors	Other	Other	#808080	NA	#b5b5b5	12	Other CNS	FALSE
-Neuronal and mixed neuronal-glial tumor	Diffuse leptomeningeal glioneuronal tumor	Neuronal and mixed neuronal-glial tumor	Other	#685815	NA	#b5b5b5	6	Other CNS	FALSE
-Neuronal and mixed neuronal-glial tumor	Dysembryoplastic neuroepithelial tumor	Neuronal and mixed neuronal-glial tumor	Dysembryoplastic neuroepithelial tumor	#685815	DNET	#614e01	6	Other CNS	TRUE
-Neuronal and mixed neuronal-glial tumor	Rosette-forming glioneuronal tumor	Neuronal and mixed neuronal-glial tumor	Other	#685815	NA	#b5b5b5	6	Other CNS	FALSE
-Neuronal and mixed neuronal-glial tumor	Glial-neuronal tumor NOS	Neuronal and mixed neuronal-glial tumor	Other	#685815	NA	#b5b5b5	6	Other CNS	FALSE
-Neuronal and mixed neuronal-glial tumor	Neurocytoma	Neuronal and mixed neuronal-glial tumor	Other	#685815	NA	#b5b5b5	6	Other CNS	FALSE
-Neuronal and mixed neuronal-glial tumor	Desmoplastic infantile astrocytoma and ganglioglioma	Neuronal and mixed neuronal-glial tumor	Other	#685815	NA	#b5b5b5	6	Other CNS	FALSE
+Glioneuronal and neuronal tumor	Diffuse leptomeningeal glioneuronal tumor	Glioneuronal and neuronal tumor	Other	#685815	NA	#b5b5b5	6	Other CNS	FALSE
+Glioneuronal and neuronal tumor	Dysembryoplastic neuroepithelial tumor	Glioneuronal and neuronal tumor	Dysembryoplastic neuroepithelial tumor	#685815	DNET	#614e01	6	Other CNS	TRUE
+Glioneuronal and neuronal tumor	Rosette-forming glioneuronal tumor	Glioneuronal and neuronal tumor	Other	#685815	NA	#b5b5b5	6	Other CNS	FALSE
+Glioneuronal and neuronal tumor	Glial-neuronal tumor NOS	Glioneuronal and neuronal tumor	Other	#685815	NA	#b5b5b5	6	Other CNS	FALSE
+Glioneuronal and neuronal tumor	Neurocytoma	Glioneuronal and neuronal tumor	Other	#685815	NA	#b5b5b5	6	Other CNS	FALSE
+Glioneuronal and neuronal tumor	Desmoplastic infantile astrocytoma and ganglioglioma	Glioneuronal and neuronal tumor	Other	#685815	NA	#b5b5b5	6	Other CNS	FALSE
 Non-CNS tumor	Myxoid spindle cell tumor	Other	Other	#808080	NA	#b5b5b5	12	NA	NA
 Non-tumor	Epilepsy	Other	Other	#808080	NA	#b5b5b5	12	NA	NA
 Non-tumor	Arteriovenous malformation	Other	Other	#808080	NA	#b5b5b5	12	NA	NA
 Non-tumor	Reactive connective tissue	Other	Other	#808080	NA	#b5b5b5	12	NA	NA
 Other tumor	Ganglioneuroma	Other	Other	#808080	NA	#b5b5b5	12	Other CNS	FALSE
 Pre-cancerous lesion	NA	Other	NA	#808080	NA	NA	12	NA	NA
-Tumor of cranial and paraspinal nerves	Schwannoma	Tumor of cranial and paraspinal nerves	Schwannoma	#ffaa00	Schwannoma	#ab7200	5	Other CNS	TRUE
-Tumor of cranial and paraspinal nerves	Neurofibroma Plexiform	Tumor of cranial and paraspinal nerves	Neurofibroma Plexiform	#ffaa00	PNF	#e6ac39	5	Other CNS	TRUE
-Tumor of cranial and paraspinal nerves	Malignant peripheral nerve sheath tumor	Tumor of cranial and paraspinal nerves	Other	#ffaa00	NA	#b5b5b5	5	Other CNS	FALSE
-Tumor of pineal region	Pineoblastoma	Other	Other	#808080	NA	#b5b5b5	12	Other CNS	FALSE
-Tumors of sellar region	Craniopharyngioma	Tumor of sellar region	Craniopharyngioma	#b2502d	CRANIO	#b33000	7	Other CNS	TRUE
+Cranial and paraspinal nerve tumor	Schwannoma	Cranial and paraspinal nerve tumor	Schwannoma	#ffaa00	Schwannoma	#ab7200	5	Other CNS	TRUE
+Cranial and paraspinal nerve tumor	Neurofibroma Plexiform	Cranial and paraspinal nerve tumor	Neurofibroma Plexiform	#ffaa00	PNF	#e6ac39	5	Other CNS	TRUE
+Cranial and paraspinal nerve tumor	Malignant peripheral nerve sheath tumor	Cranial and paraspinal nerve tumor	Other	#ffaa00	NA	#b5b5b5	5	Other CNS	FALSE
+Pineal tumor	Pineoblastoma	Other	Other	#808080	NA	#b5b5b5	12	Other CNS	FALSE
+Sellar region tumor	Craniopharyngioma	Sellar region tumor	Craniopharyngioma	#b2502d	CRANIO	#b33000	7	Other CNS	TRUE
