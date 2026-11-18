@@ -304,7 +304,7 @@ for (gene in c("CREBBP", "DDX3X", "KMT2D", "PTCH1", "SMO", "SUFU", "TERT", "TP53
     
   } 
   
-  if (grepl("RN*U1-*", gene)){
+  else if (gene %in% u1_genes){
     
     mutation_gene <- mutations %>% filter(Hugo_Symbol == gene & 
                                             HGVSc %in% c("n.3A>G", "n.5A>G")) %>%

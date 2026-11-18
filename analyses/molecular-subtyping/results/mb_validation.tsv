@@ -242,7 +242,7 @@ PT_M91MGM4K_7316-8938_Solid Tissue_Initial CNS Tumor	7316-8938	NA	NA	NA	NA	NA	NA
 PT_MCC2RZ5H_7316-6823_Solid Tissue_Initial CNS Tumor	7316-6823	NA	NA	NA	NA	NA	NA	MB, Group4	1.905620262302967e-5	NA	NA	expression only	MB, Group4	expression classifier	FALSE
 PT_MSWWCWZP_C4120869-Tumor_Solid Tissue_Recurrence	C4120869-Tumor	NA	NA	NA	NA	NA	NA	MB, SHH	6.680401168252389e-36	MB, SHH	NA	expression only	MB, SHH	expression classifier	FALSE
 PT_MYNKT1TK_7316-9075_Solid Tissue_Deceased	7316-9075	NA	NA	NA	NA	NA	NA	MB, SHH	0.10610089701755601	MB, SHH beta	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
-PT_NF6R6YHR_7316-7064_Solid Tissue_Initial CNS Tumor	7316-7064	NA	NA	NA	NA	NA	NA	MB, SHH	0.06424700885766398	MB, SHH	NA	expression only	MB, SHH	expression classifier	FALSE
+PT_NF6R6YHR_7316-7064_Solid Tissue_Initial CNS Tumor	7316-7064	NA	NA	NA	NA	NA	NA	MB, SHH	0.06424700885766398	MB, SHH delta	Genomic/Expression	expression only	MB, SHH	expression classifier	FALSE
 PT_NWQHHDD0_C4124805-Tumor_Solid Tissue_Initial CNS Tumor	C4124805-Tumor	NA	NA	NA	NA	NA	NA	MB, Group4	3.2203765690895717e-9	NA	NA	expression only	MB, Group4	expression classifier	FALSE
 PT_RFGZ2JGP_7316-135_Solid Tissue_Initial CNS Tumor	7316-135	NA	NA	NA	NA	NA	NA	MB, WNT	1.0847992830795116e-20	NA	NA	expression only	MB, WNT	expression classifier	FALSE
 PT_RT1J9P8J_7316-307_Solid Tissue_Initial CNS Tumor	7316-307	NA	NA	NA	NA	NA	NA	MB, Group4	5.248010897282708e-5	NA	NA	expression only	MB, Group4	expression classifier	FALSE
