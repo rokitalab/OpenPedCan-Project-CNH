@@ -1,5 +1,6 @@
-change_type	review	supported	supported, diagnosis uninformative	no change in meaning	total
-newly subtyped	29	855	88	0	972
-reclassified	4	90	25	0	119
-refined	6	225	37	0	268
-vocabulary	0	0	0	411	411
+change_type	supported	supported, diagnosis uninformative	review	no change in meaning	total
+lost	1	10	0	0	11
+newly subtyped	859	86	29	0	974
+reclassified	93	34	4	0	131
+refined	225	43	8	0	276
+vocabulary	0	0	0	415	415
