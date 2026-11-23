@@ -56,7 +56,8 @@ OPENPBTA_BASE_SUBTYPING=1 bash run-independent-samples.sh
 cp ${analyses_dir}/independent-samples/results/*pre-release.tsv ${release_dir}
 cp ${analyses_dir}/independent-samples/results/*pre-release.tsv ${data_dir}
 
-# Run fusion filtering
+# Run fusion filtering; the putative oncogenic file only needs the base histologies
+# and is an input to molecular subtyping, so it must be made before subtyping
 echo "Create fusion filtered list"
 cd ${analyses_dir}/fusion_filtering
 OPENPBTA_BASE_SUBTYPING=1 bash run_fusion_merged.sh
@@ -98,15 +99,6 @@ if [ "$RUN_LOCAL" -lt "1" ]; then
   cp ${analyses_dir}/focal-cn-file-preparation/results/cnvkit_with_status.tsv ${data_dir}
 
 fi
-
-# Run fusion summary
-echo "Run fusion summary for subtypes"
-cd ${analyses_dir}/fusion-summary
-bash run-new-analysis.sh
-
-# Copy over fusion summary
-cp ${analyses_dir}/fusion-summary/results/*_foi.tsv ${release_dir}
-cp ${analyses_dir}/fusion-summary/results/*_foi.tsv ${data_dir}
 
 # Run TMB
 echo "Create TMB results"

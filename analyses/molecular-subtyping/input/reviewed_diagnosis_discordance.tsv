@@ -1,0 +1,14 @@
+sample_id	decision	source	note
+7316-5105	methylation accepted	pathology report	Report: cortical ependymoma with pilocytic astrocytoma and angiocentric glioma as differentials; methylation AG_MYB (MYB fusion in the RNA) fits the angiocentric glioma differential
+7316-505	methylation accepted	obsolete diagnosis	Supratentorial or spinal cord PNET is a diagnosis no longer used; methylation EPN ST ZFTA with a ZFTA::RELA fusion
+7316-155	methylation accepted	obsolete diagnosis	Supratentorial or spinal cord PNET is a diagnosis no longer used (as for 7316-505); methylation DGONC
+7316-3072	methylation accepted	pathology report	Report: embryonal tumor with pineoblastoma as a differential; methylation MB WNT with CTNNB1 p.S33F (48%) and monosomy 6, so it is a WNT medulloblastoma; the pathology diagnosis will be updated in v16
+7316-685	methylation accepted	differential	ATRT and CIC-rearranged sarcoma are differentials (CNS sarcoma, CIC); methylation CNS_SARC_CIC 0.99
+7316-2613	methylation accepted	differential	ATRT and CRINET are differentials; methylation CRINET 0.98
+7316-185	methylation accepted	reviewed	Ewing sarcoma diagnosis, BCOR ITD methylation: in the rare / indeterminate broad class
+7316-3775	methylation accepted	reviewed	Ewing sarcoma diagnosis, BCOR ITD methylation: in the rare / indeterminate broad class
+7316-4768	methylation accepted	reviewed	Ewing sarcoma diagnosis, BCOR ITD methylation: in the rare / indeterminate broad class
+7316-9842	methylation mismatch	reviewed	Pathology diagnosis DMG H3 K27M; the genomics (H3 K28M, PPM1D, ATRX, TP53, no IDH variant) supports DMG and not the A_IDH_HG methylation: likely mismatch, DMG, H3 K28-mutant
+7316-96	methylation accepted	reviewed	methylation MB with myogenic differentiation is still a medulloblastoma
+7316-375	methylation accepted	reviewed	ganglioglioma methylation for a low-grade glioma diagnosis
+7316-2658	methylation accepted	pathology report	The diagnosis is ETMR; the report suggests medulloepithelioma, which agrees with the IO_MEPL methylation class (0.86): MEPL, intraocular medulloepithelioma

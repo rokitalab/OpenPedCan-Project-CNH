@@ -1,0 +1,6 @@
+file	md5	release
+data/histologies-base.tsv	a3d23b76a6d38808e6c30432568ccbfc	v15
+data/histologies.tsv	faa5a934d0e518ec755d7d66f4cec190	v15
+data/fusion-putative-oncogenic.tsv	defadc535f83bac2640d58281317c592	v15
+analyses/molecular-subtyping/input/bti_methylation_classifications.tsv	f746319adc28913f4686f3055eb017cb	v15
+analyses/molecular-subtyping/input/subtype_lesion_rules.tsv	03fc9979bd458e35083799b7ffe912a1	v15

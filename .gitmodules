@@ -1,0 +1,3 @@
+[submodule "analyses/molecular-subtyping-integrate/opc-histologies-qc"]
+	path = analyses/molecular-subtyping-integrate/opc-histologies-qc
+	url = https://github.com/rokitalab/opc-histologies-qc.git

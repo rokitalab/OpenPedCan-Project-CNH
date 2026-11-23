@@ -192,54 +192,9 @@ jobs:
       matrix:
         include:
           # Molecular subtyping modules
-          - name: Molecular Subtyping - MB
-            entrypoint: molecular-subtyping-MB/run-molecular-subtyping-mb.sh
+          - name: Molecular Subtyping
+            entrypoint: molecular-subtyping/run-molecular-subtyping.sh
             openpbta_subset: 0
-
-          - name: Molecular Subtyping - CRANIO
-            entrypoint: molecular-subtyping-CRANIO/run-molecular-subtyping-cranio.sh
-            openpbta_subset: 0
-
-          - name: Molecular Subtyping - EPN
-            entrypoint: molecular-subtyping-EPN/run-molecular-subtyping-EPN.sh
-
-          - name: Molecular Subtyping - EMBRYONAL
-            entrypoint: molecular-subtyping-embryonal/run-embryonal-subtyping.sh
-            openpbta_testing: 1
-
-          - name: Molecular Subtyping - CHORDOMA
-            entrypoint: molecular-subtyping-chordoma/run-molecular-subtyping-chordoma.sh
-            openpbta_subset: 0
-
-          - name: Molecular Subtyping - EWS
-            entrypoint: molecular-subtyping-EWS/run_subtyping.sh
-
-          - name: Molecular Subtyping - NEUROCYTOMA
-            entrypoint: molecular-subtyping-neurocytoma/run_subtyping.sh
-
-          - name: Molecular Subtyping - HGG
-            entrypoint: molecular-subtyping-HGG/run-molecular-subtyping-HGG.sh
-
-          - name: Molecular Subtyping - LGG
-            entrypoint: molecular-subtyping-LGAT/run_subtyping.sh
-            openpbta_subset: 0
-            
-          - name: Molecular Subtyping - ATRT
-            entrypoint: molecular-subtyping-ATRT/run-molecular-subtyping-ATRT.sh
-            
-          - name: Molecular Subtyping - PB
-            entrypoint: molecular-subtyping-PB/run-molecular-subtyping-PB.sh
-            openpbta_subset: 0
-            
-          - name: Molecular Subtyping - Rare CNS
-            entrypoint: molecular-subtyping-Rare-CNS/run-molecular-subtyping-rare-cns.sh
-            
-          - name: Molecular Subtyping - NBL
-            entrypoint: molecular-subtyping-NBL/run-molecular-subtyping-NBL.sh
-
-          - name: Molecular Subtyping - PATHOLOGY/COMPILE
-            entrypoint: molecular-subtyping-pathology/run-subtyping-aggregation.sh
-            openpbta_testing: 1
 
           - name: Molecular Subtyping - INTEGRATE (+ add cancer groups)
             entrypoint: molecular-subtyping-integrate/run-subtyping-integrate.sh
@@ -264,10 +219,6 @@ jobs:
 
           - name: Fusion filtering
             entrypoint: fusion_filtering/run_fusion_merged.sh
-
-          - name: Fusion summary
-            entrypoint: fusion-summary/run-new-analysis.sh
-            openpbta_subset: 0
 
           - name: Consensus CN Manta
             entrypoint: copy_number_consensus_call_manta/run_consensus_call.sh
@@ -315,7 +266,21 @@ jobs:
           #  entrypoint: rnaseq-batch-correct/run_ruvseq.sh
 
     steps:
+      # molecular-subtyping-integrate reads the private opc-histologies-qc submodule
+      - name: Create GitHub App token for the submodule
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 #v3.3.0
+        with:
+          client-id: ${{ vars.OPC_APP_CLIENT_ID }}
+          private-key: ${{ secrets.OPC_APP_PRIVATE_KEY }}
+          repositories: |
+            OpenPedCan-Project-CNH
+            opc-histologies-qc
+          permission-contents: read
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
+        with:
+          submodules: true
+          token: ${{ steps.app-token.outputs.token }}
       - name: free disk space
         run: |
           echo "Disk usage before cleanup:" && df -h
@@ -340,6 +305,21 @@ jobs:
           OPENPEDCAN_URL: https://s3.amazonaws.com/bti-openaccess-us-east-1-prd-opc
           OPENPEDCAN_RELEASE: testing
 
+      - name: Download the parquet tables of the molecular subtyping (v15; only the beta values have a testing copy)
+        if: matrix.name == 'Molecular Subtyping'
+        uses: docker://pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
+        with:
+          entrypoint: bash
+          args: >-
+            scripts/download-parquet.sh
+            consensus_wgs_plus_cnvkit_wxs_plus_freec_tumor_only
+            consensus_seg_with_status cnvkit_with_status
+            fusion-annoFuse fusion-dgd snv-consensus-plus-hotspots sv-manta
+            gene-expression-rsem-tpm-collapsed
+        env:
+          OPENPEDCAN_URL: https://s3.amazonaws.com/bti-openaccess-us-east-1-prd-opc
+          OPENPEDCAN_RELEASE: v15
+
       - name: Run Analysis
         uses: docker://pgc-images.sbgenomics.com/rokita-lab/openpedcanverse:latest
         with:
@@ -349,4 +329,7 @@ jobs:
           OPENPBTA_TESTING: ${{ matrix.openpbta_testing }}
           RUN_FOR_SUBTYPING: ${{ matrix.run_for_subtyping }}
           OPENPEDCAN_POLYA_STRAND: ${{ matrix.openpedcan_polya_strand }}
+          # the beta values of the molecular subtyping have a small testing copy
+          OPENPEDCAN_URL: https://s3.amazonaws.com/bti-openaccess-us-east-1-prd-opc
+          METHYL_PARQUET_RELEASE: testing
           

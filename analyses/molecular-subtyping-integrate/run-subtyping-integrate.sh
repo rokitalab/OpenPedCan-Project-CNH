@@ -13,4 +13,8 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 # Add molecular_subtype,	integrated_diagnosis, short_histology,	
 # broad_histology and	Notes from `compiled_molecular_subtypes_with_clinical_pathology_feedback.tsv`.
 # Check for changes and duplicates and save a final file
+# Derive integrated_diagnosis, broad_histology and short_histology from the
+# subtype of the molecular-subtyping module
+Rscript --vanilla 00-derive-integrated-diagnosis.R
+
 Rscript -e "rmarkdown::render('01-integrate-subtyping.Rmd',clean = TRUE)"

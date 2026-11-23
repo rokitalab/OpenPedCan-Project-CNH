@@ -1,0 +1,17 @@
+biospecimen_id	sample_id	participant_id	case_id	aliquot_id	pathology_diagnosis_simplified	superfamily	superfamily_mean_score	superfamily_consistency_score	class	class_mean_score	class_consistency_score	mgmt_status	mgmt_estimated
+bs-b986we6mfb	7316-2141	PT_WG2Z95B5	C466293	1977531	ATRT	SMARC_altered_tumors	0.991	1	Methylation_class_ATRT_MYC	0.999	1	unmethylated	0.0623
+bs-rnjrjyg47b	7316-3058	PT_JNEV57VK	C714384	1977534	HGG	Diffuse_midline_glioma_H3K27_altered	0.967	1	Methylation_class_DMG_K27	1	1	unmethylated	0.0358
+bs-tnr62r2mkp	7316-195	PT_Y5KY6KN9	C56826	1977530	HGG	IDH_glioma	0.774	0.9	Methylation_class_A_IDH_HG	0.997	0.9	unmethylated	0.066
+bs-3nepyyfcm2	7316-388	PT_4XB3YTJM	C340710	1977576	HGG	IDH_glioma	0.331	0.8	Methylation_class_O_SARC_IDH	0.778	0.5	unmethylated	0.1138
+bs-r6z3kytxe4	7316-11086	PT_V4P1SVGT	C5489490	1984810	Ependymoma	Ependymal_tumors	0.949	1	Methylation_class_EPN_ST_ZFTA_RELA_A	0.996	1	unmethylated	0.0551
+bs-64c3zdbw3i	7316-445	PT_89XRZBSG	C94956	1977588	HGG	Mesenchymal_tumors	0.991	1	Methylation_class_CHORDM	0.216	0.6	unmethylated	0.0367
+bs-27cbmbextd	7316-913	PT_4347ZBEX	C216603	1977565	HGG	IDH_glioma	0.634	0.8	Methylation_class_A_IDH_HG	0.972	0.8	methylated	0.9978
+bs-wkmyc6mhh6	7316-406	PT_41BCPB7R	C94095	1984808	Choroid Plexus	Choroid_plexus_tumors	0.656	0.5	Methylation_class_CPC_PED	0.999	0.5	unmethylated	0.0739
+bs-g2td3f439m	7316-2187	PT_HVZTF42R	C626193	1977543	ATRT	SMARC_altered_tumors	0.989	1	Methylation_class_ATRT_SHH	0.999	1	unmethylated	0.0253
+bs-w3jgkct32m	7316-24	PT_TGQY3X3W	C22878	1977589	HGG	Pediatric_type_high_grade_gliomas	0.546	0.7	Methylation_class_pedHGG_RTK1C	0.998	0.7	methylated	0.9997
+bs-9xcyxgnhfb	7316-9440	PT_8K0AE74P	C2488044	1984809	CNS Sarcoma	Mesenchymal_tumors	0.992	1	Methylation_class_CHORDM	0.286	0.8	unmethylated	0.0306
+bs-2ttca86wfy	7316-1746	PT_C2D4JXS1	C337143	1977546	HGG	Mesenchymal_tumors	0.991	1	Methylation_class_MPNST	0.689	0.7	unmethylated	0.0255
+bs-kepyghrd2z	7316-1763	PT_Z4PJA6KT	C377856	1977569	HGG	Diffuse_midline_glioma_H3K27_altered	0.633	0.8	Methylation_class_DMG_K27	0.999	0.8	unmethylated	0.0497
+bs-2i4iep4w2e	7316-1769	PT_JSFBMK5V	C88806	1977542	HGG	Diffuse_midline_glioma_H3K27_altered	0.397	0.6	Methylation_class_DMG_K27	0.986	0.6	methylated	0.859
+bs-riywgafxap	7316-85	PT_3AWKWXEV	C28290	1977544	HGG	Intermediate_grade_IDH_wildtype_gliomas	0.985	1	Methylation_class_PXA	0.992	1	methylated	0.606
+bs-nyhe9ictjk	7316-5335	PT_Z4BF2NSB	C34809	1977532	HGG	Neuroblastic_embryonal_tumors	0.764	0.8	Methylation_class_EWS	0.26	0.8	unmethylated	0.0703

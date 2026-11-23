@@ -1,0 +1,24 @@
+sample_id	match_id	Kids_First_Biospecimen_ID	cell_line_composition	cell_line_passage	chop_dgd_class	class_mean_score	class_consistency_score	result	methyl_subtype
+7316-2141	PT_WG2Z95B5_7316-2141_Derived Cell Line_Initial CNS Tumor_Serum-free_9	BS_Q9MAXZF6	Serum-free	9	ATRT_MYC	0.999	1	subtype from methylation	ATRT, MYC
+7316-3058	PT_JNEV57VK_7316-3058_Derived Cell Line_Progressive_Serum-free_0	BS_HM5GFJN8	Serum-free	0	DMG_K27	1	1	subtype from methylation	DMG, H3 K28
+7316-3058	PT_JNEV57VK_7316-3058_Derived Cell Line_Progressive_Serum-free_8	BS_8Q7NWJ22	Serum-free	8	DMG_K27	1	1	subtype from methylation	DMG, H3 K28
+7316-195	PT_Y5KY6KN9_7316-195_Derived Cell Line_Initial CNS Tumor_Serum-free_14	BS_B5S27A0B	Serum-free	14	A_IDH_HG	0.997	0.9	subtype from methylation	HGG, IDH
+7316-195	PT_Y5KY6KN9_7316-195_Derived Cell Line_Initial CNS Tumor_Serum-free_8	BS_JGKRN7NA	Serum-free	8	A_IDH_HG	0.997	0.9	subtype from methylation	HGG, IDH
+7316-388	PT_4XB3YTJM_7316-388_Derived Cell Line_Initial CNS Tumor_Serum-free_21	BS_AZD61W93	Serum-free	21	O_SARC_IDH	0.778	0.5	class mean score below 0.8	NA
+7316-11086	NA	NA	NA	NA	EPN_ST_ZFTA_RELA_A	0.996	1	no serum-free cell line in the histologies	NA
+7316-445	PT_89XRZBSG_7316-445_Derived Cell Line_Initial CNS Tumor_Serum-free_12	BS_A3S28ANC	Serum-free	12	CHORDM	0.216	0.6	class mean score below 0.8	NA
+7316-913	PT_4347ZBEX_7316-913_Derived Cell Line_Progressive_Serum-free_11	BS_S4P7XKFK	Serum-free	11	A_IDH_HG	0.972	0.8	subtype from methylation	HGG, IDH
+7316-913	PT_4347ZBEX_7316-913_Derived Cell Line_Progressive_Serum-free_13	BS_FJEZ3ASV	Serum-free	13	A_IDH_HG	0.972	0.8	subtype from methylation	HGG, IDH
+7316-406	PT_41BCPB7R_7316-406_Derived Cell Line_Initial CNS Tumor_Serum-free_9	BS_YTTPJ4RX	Serum-free	9	CPC_PED	0.999	0.5	subtype from methylation	CPC, pediatric
+7316-2187	PT_HVZTF42R_7316-2187_Derived Cell Line_Initial CNS Tumor_Serum-free_10	BS_9VJ3VV46	Serum-free	10	ATRT_SHH	0.999	1	subtype from methylation	ATRT, SHH
+7316-24	NA	NA	NA	NA	pedHGG_RTK1C	0.998	0.7	no serum-free cell line in the histologies	NA
+7316-9440	NA	NA	NA	NA	CHORDM	0.286	0.8	no serum-free cell line in the histologies	NA
+7316-1746	PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-free_10	BS_AFBPM6CN	Serum-free	10	MPNST	0.689	0.7	class mean score below 0.8	NA
+7316-1746	PT_C2D4JXS1_7316-1746_Derived Cell Line_Initial CNS Tumor_Serum-free_14	BS_V27ABVGT	Serum-free	14	MPNST	0.689	0.7	class mean score below 0.8	NA
+7316-1763	PT_Z4PJA6KT_7316-1763_Derived Cell Line_Initial CNS Tumor_Serum-free_8	BS_GW7MKKP9	Serum-free	8	DMG_K27	0.999	0.8	subtype from methylation	DMG, H3 K28
+7316-1763	PT_Z4PJA6KT_7316-1763_Derived Cell Line_Initial CNS Tumor_Serum-free_9	BS_TF5TTEXH	Serum-free	9	DMG_K27	0.999	0.8	subtype from methylation	DMG, H3 K28
+7316-1769	PT_JSFBMK5V_7316-1769_Derived Cell Line_Progressive_Serum-free_11	BS_RXP2ZRQT	Serum-free	11	DMG_K27	0.986	0.6	subtype from methylation	DMG, H3 K28
+7316-85	PT_3AWKWXEV_7316-85_Derived Cell Line_Initial CNS Tumor_Serum-free_0	BS_ERAWW3H7	Serum-free	0	PXA	0.992	1	subtype from methylation	PXA
+7316-85	PT_3AWKWXEV_7316-85_Derived Cell Line_Initial CNS Tumor_Serum-free_14	BS_AHW1VXPG	Serum-free	14	PXA	0.992	1	subtype from methylation	PXA
+7316-5335	PT_Z4BF2NSB_7316-5335_Derived Cell Line_Recurrence_Serum-free-1_7	BS_E3N4JN0X	Serum-free-1	7	EWS	0.26	0.8	class mean score below 0.8	NA
+7316-5335	PT_Z4BF2NSB_7316-5335_Derived Cell Line_Recurrence_Serum-free-2_7	BS_ANZMQ09Q	Serum-free-2	7	EWS	0.26	0.8	class mean score below 0.8	NA

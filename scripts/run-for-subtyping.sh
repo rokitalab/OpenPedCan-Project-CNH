@@ -28,70 +28,12 @@ mkdir -p ${release_dir}
 
 ## Run subtyping modules
 
-# Run MB subtyping
-echo "Run MB subtyping"
-cd ${analyses_dir}/molecular-subtyping-MB
-bash run-molecular-subtyping-mb.sh
-
-# Run CRANIO subtyping
-echo "Run CRANIO subtyping"
-cd ${analyses_dir}/molecular-subtyping-CRANIO
-bash run-molecular-subtyping-cranio.sh
-
-# Run EPN subtyping
-echo "Run EPN subtyping"
-cd ${analyses_dir}/molecular-subtyping-EPN
-bash run-molecular-subtyping-EPN.sh
-
-# Run Embryonal subtyping
-echo "Run Embryonal subtyping"
-cd ${analyses_dir}/molecular-subtyping-embryonal
-bash run-embryonal-subtyping.sh
-
-# Run chordoma subtyping
-echo "Run chordoma subtyping"
-cd ${analyses_dir}/molecular-subtyping-chordoma
-bash run-molecular-subtyping-chordoma.sh
-
-# Run EWS subtyping
-echo "Run EWS subtyping"
-cd ${analyses_dir}/molecular-subtyping-EWS
-bash run_subtyping.sh
-
-# Run neurocytoma subtyping
-echo "Run neurocytoma subtyping"
-cd ${analyses_dir}/molecular-subtyping-neurocytoma
-bash run_subtyping.sh
-
-# Run ATRT subtyping
-echo "Run ATRT subtyping"
-cd ${analyses_dir}/molecular-subtyping-ATRT
-bash run-molecular-subtyping-ATRT.sh
-
-# Run PB subtyping
-echo "Run PB subtyping"
-cd ${analyses_dir}/molecular-subtyping-PB
-bash run-molecular-subtyping-PB.sh
-
-# Run HGG subtyping
-echo "Run HGG subtyping"
-cd ${analyses_dir}/molecular-subtyping-HGG
-bash run-molecular-subtyping-HGG.sh
-
-# Run LGAT subtyping
-echo "Run LGAT subtyping"
-cd ${analyses_dir}/molecular-subtyping-LGAT
-bash run_subtyping.sh
-
-# Run NBL subtyping
-echo "Run NBL subtyping"
-cd ${analyses_dir}/molecular-subtyping-NBL
-bash run-molecular-subtyping-NBL.sh
-
-# Run compile subtyping
-echo "Run compile subtyping"
-cd ${analyses_dir}/molecular-subtyping-pathology
-bash run-subtyping-aggregation.sh
+# Run molecular subtyping (methylation-first; includes the MB expression
+# classifier and SHH subtyping, and the chordoma SMARCB1 status). The legacy
+# per-diagnosis modules are archived in analyses/archive.
+echo "Run molecular subtyping"
+cd ${analyses_dir}/molecular-subtyping
+bash run-molecular-subtyping.sh
 
 # Run integrate subtyping
 echo "Run integrate subtyping"

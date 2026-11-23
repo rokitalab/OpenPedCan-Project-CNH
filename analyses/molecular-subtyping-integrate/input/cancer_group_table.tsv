@@ -1,0 +1,260 @@
+harmonized_diagnosis	diagnosis_token	cancer_group	note
+	Abdominal inflammatory myofibroblastic tumor	Other tumor	
+	Acute Lymphoblastic Leukemia	Acute Lymphoblastic Leukemia	
+	Acute Myeloid Leukemia	Acute Myeloid Leukemia	
+	Acute Promyelocytic Leukemia	Acute Myeloid Leukemia	
+	Adamantinomatous craniopharyngioma	Adamantinomatous Craniopharyngioma	
+	Adenocarcinoma	Adenocarcinoma	
+	Adenoma		
+	Adrenal mass	Other tumor	
+	Adrenocortical Carcinoma	Adrenocortical Carcinoma	
+	Alveolar soft part sarcoma	Alveolar soft part sarcoma	
+	Aneurismal bone cyst	Other tumor	
+	Aneurysmal bone cyst	Other tumor	
+	Angiosarcoma	Angiosarcoma	
+	Aplastic anemia		
+	Arteriovenous malformation		
+	Astrocytoma	Astrocytoma	
+	Atypical Lymph Node		
+	Atypical Neurofibromatous Neoplasm of Uncertain Biologic Potential	Atypical neurofibromatous neoplasm	a nerve sheath tumor (neurofibroma family); 2 DGD tumors
+	Atypical Spitz Nevus	Other tumor	
+	Atypical Teratoid Rhabdoid Tumor	Atypical Teratoid Rhabdoid Tumor	
+	Atypical choroid plexus papilloma	Choroid plexus tumor	
+	Atypical lymphoid infiltrate		
+	Atypical meningioma	Meningioma	
+	Atypical vascular lesion	Other tumor	
+	B Acute Lymphoblastic Leukemia/Lymphoma	B Acute Lymphoblastic Leukemia/Lymphoma	
+	Benign Neoplasm		
+	Bladder Urothelial Carcinoma	Bladder Urothelial Carcinoma	
+	Bone marrow cellularity	Other tumor	
+	Bone marrow failure	Other tumor	
+	Brain Lower Grade Glioma	Low-grade glioma	
+	Brainstem glioma- Diffuse intrinsic pontine glioma	Diffuse intrinsic pontine glioma	
+	Breast Invasive Carcinoma	Breast Invasive Carcinoma	
+	Burkitt Leukemia/Lymphoma	Burkitt Leukemia/Lymphoma	
+	CNS Embryonal tumor	CNS Embryonal tumor	
+	CNS Ewing sarcoma	Rare CNS tumor	
+	CNS Melanoma	CNS Melanoma	
+	CNS lymphoma	CNS lymphoma	
+	Cavernoma		
+	Cellular Congenital Mesoblastic Nephroma	Other tumor	
+	Central neurocytoma	Central neurocytoma	
+	Cerebral ventriculomegaly	Other tumor	
+	Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma	Cervical Squamous Cell Carcinoma and Endocervical Adenocarcinoma	
+	Childhood Astrocytic Tumor	Other tumor	
+	Cholangiocarcinoma	Cholangiocarcinoma	
+	Cholesterol granuloma		
+	Chondroma		
+	Chordoma	Chordoma	
+	Choroid plexus carcinoma	Choroid plexus tumor	
+	Choroid plexus papilloma	Choroid plexus tumor	
+	Chronic Myelogenous Leukemia	Chronic Myelogenous Leukemia	
+	Chronic myeloid leukemia pathway	Other tumor	
+	Clear Cell Sarcoma of the Kidney	Clear cell sarcoma of the kidney	
+	Colon Adenocarcinoma	Colon Adenocarcinoma	
+	Colon Carcinoma	Colon Carcinoma	
+	Congenital Mesoblastic Nephroma	Other tumor	
+	Congenital malignant brain tumor	Congenital malignant brain tumor	
+	Cranial fasciitis		
+	Craniopharyngioma	Craniopharyngioma	
+	Cutaneous Melanoma	Cutaneous Melanoma	
+	Cyst	Other tumor	
+	Dermoid cyst		
+	Desmoid-type fibromatosis	Desmoid-type fibromatosis	
+	Desmoplastic infantile astrocytoma and ganglioglioma	Desmoplastic infantile astrocytoma and ganglioglioma	
+	Desmoplastic infantile ganglioglioma/astrocytoma	Desmoplastic infantile ganglioglioma/astrocytoma	
+	Diffuse fibrillary astrocytoma	Diffuse fibrillary astrocytoma	
+	Diffuse glioneuronal tumor with oligodendroglioma-like features and nuclear clusters	Diffuse glioneuronal tumor with oligodendroglioma-like features and nuclear clusters	
+	Diffuse hemispheric glioma	Diffuse hemispheric glioma	
+	Diffuse leptomeningeal glioneuronal tumor	Diffuse leptomeningeal glioneuronal tumor	
+	Diffuse midline glioma	Diffuse midline glioma	
+	Dysembryoplastic neuroepithelial tumor	Dysembryoplastic neuroepithelial tumor	
+	Dysplasia/Gliosis		
+	EBV-Positive Diffuse Large B-Cell Lymphoma	EBV-Positive Diffuse Large B-Cell Lymphoma	
+	Embryonal tumor with multilayer rosettes	Embryonal tumor with multilayer rosettes	
+	Ependymoma	Ependymoma	
+	Epidermoid cyst		
+	Epilepsy		
+	Epstein-Barr virus-related tumor	Epstein-Barr virus-related tumor	
+	Esophageal Carcinoma	Esophageal Carcinoma	
+	Ewing sarcoma	Ewing sarcoma	
+	Extraventricular neurocytoma	Extraventricular neurocytoma	
+	Familial adenomatous polyposis	Other tumor	
+	Fibroma		
+	Fibromixoid lesion	Fibromyxoid lesion	
+	Follicular Variant Thyroid Gland Papillary Carcinoma	Follicular Variant Thyroid Gland Papillary Carcinoma	
+	Ganglioglioma	Ganglioglioma	
+	Ganglioneuroblastoma	Ganglioneuroblastoma	
+	Ganglioneuroma	Ganglioneuroma	
+	Germ Cell Tumor	Germ Cell Tumor	
+	Germinoma	Germinoma	
+	Giant Cell Granuloma		
+	Giant cell tumor of bone		
+	Glial-neuronal tumor	Glial-neuronal tumor NOS	
+	Glioblastoma	Glioblastoma	
+	Glioblastoma Multiforme	Glioblastoma Multiforme	
+	Glioblastoma Multiforme Pathway		
+	Glioma	Other tumor	
+	Gliomatosis Cerebri;High-grade glioma/astrocytoma	High-grade glioma	
+	Gliosis	Other tumor	
+	Granular Cell Tumor	Other tumor	
+	Hamartoma		
+	Head and Neck Squamous Cell Carcinoma	Head and Neck Squamous Cell Carcinoma	
+	Hemangioblastoma	Hemangioblastoma	
+	Hemangioma		
+	Hematoma		
+	Hepatoblastoma	Hepatoblastoma	
+	Hepatocellular Carcinoma	Hepatocellular Carcinoma	
+	Hepatocellular neoplasm NOS	Hepatocellular neoplasm NOS	
+	High-grade astrocytoma with piloid features	High-grade astrocytoma with piloid features	
+	High-grade glioma	High-grade glioma	
+	High-grade glioma/astrocytoma	High-grade glioma	
+	Histiocytic Tumor	Histiocytic tumor	
+	Histiocytic tumor	Histiocytic tumor	
+	Hodgkin's lymphoma	Hodgkin's lymphoma	
+	Hypocellular bone marrow	Other tumor	
+	Hypophyseal stalk thickening	Other tumor	
+	Inclusion cyst		
+	Infant-type hemispheric glioma	Infant-type hemispheric glioma	
+	Inflammatory Myofibroblastic Tumor	Other tumor	
+	Inflammatory lesion		
+	Intraocular medulloepithelioma	Intraocular medulloepithelioma	
+	Juvenile xanthogranuloma	Juvenile xanthogranuloma	
+	Kidney Chromophobe	Chromophobe renal cell carcinoma	
+	Kidney Renal Clear Cell Carcinoma	Renal Clear Cell Carcinoma	
+	Kidney Renal Papillary Cell Carcinoma	Renal Papillary Cell Carcinoma	
+	Langerhans Cell histiocytosis	Langerhans Cell histiocytosis	
+	Langerhans cell histiocytosis	Langerhans cell histiocytosis	
+	Lipoblastoma		
+	Lipoma		
+	Lipomyelomeningocele	Other tumor	
+	Low-grade glioma	Low-grade glioma	
+	Low-grade glioma/astrocytoma	Low-grade glioma	
+	Lung Adenocarcinoma	Lung Adenocarcinoma	
+	Lung Squamous Cell Carcinoma	Lung Squamous Cell Carcinoma	
+	Lymphadenitis		
+	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma	Lymphoid Neoplasm Diffuse Large B-cell Lymphoma	
+	Malignant PEComa	Other tumor	
+	Malignant peripheral nerve sheath tumor	Malignant peripheral nerve sheath tumor	MPNST subtypes had no cancer group
+	Medulloblastoma	Medulloblastoma	
+	Medulloblastoma with myogenic differentiation	Medulloblastoma with myogenic differentiation	
+	Melanocytoma	Melanocytic tumor	
+	Melanoma	Melanoma	
+	Meningioma	Meningioma	
+	Meningioma;Schwannoma		kept without a cancer group (plotted with Schwannoma/MPNST in figures/palettes/plot-mapping.tsv): meningioma and schwannoma (3 tumors) cannot be separated by lesions (chr22 loss and NF2 loss are in both); needs pathology review or methylation
+	Mesenchymal tumor	Mesenchymal tumor	
+	Mesothelioma	Mesothelioma	
+	Metastatic secondary tumors	Metastatic secondary tumors	
+	Microcytic Anemia		
+	Mixed Lineage Leukemia	Acute Lymphoblastic Leukemia	
+	Mixed germ cell tumor	Mixed germ cell tumor	
+	Monomorphic Post-Transplant Lymphoproliferative Disorder	Other tumor	
+	Mucoepidermoid Carcinoma	Other tumor	
+	Myelodysplastic syndrome	Other tumor	
+	Myeloid Leukemia Associated with Down Syndrome	Myeloid Leukemia Associated with Down Syndrome	
+	Myeloid Sarcoma	Myeloid Sarcoma	
+	Myofibroblastic tumor	Inflammatory Myofibroblastic Tumor	
+	Myofibroma		
+	Myxoid glioneuronal tumor	Myxoid glioneuronal tumor	
+	Myxoid spindle cell tumor	Other tumor	
+	Myxopapillary ependymoma	Ependymoma	
+	Necrotizing myelopathy		
+	Neoplasm of unspecified behavior of endocrine glands	Other tumor	
+	Neuroblastic tumor	Other tumor	
+	Neuroblastoma	Neuroblastoma	
+	Neuroendocrine carcinoma	Other tumor	
+	Neurofibroma/Plexiform	Neurofibroma/Plexiform	
+	Neurofibroma/Plexiform;Schwannoma		
+	Neutropenia	Other tumor	
+	Nodular fasciitis	Other tumor	
+	Non-Cancer Diagnosis		
+	Non-Hodgkin Lymphoma	Non-Hodgkin Lymphoma	
+	Non-cancer diagnosis		
+	Non-germinomatous germ cell tumor	Non-germinomatous germ cell tumor	a cancer group of its own
+	Nonintractable epilepsy without status epilepticus		
+	Noonan syndrome	Other tumor	
+	Not Reported	Other tumor	
+	Oligodendroglioma	Oligodendroglioma	
+	Ossifying fibroma		
+	Osteoblastoma		
+	Osteoma		
+	Osteosarcoma	Osteosarcoma	
+	Ovarian Serous Cystadenocarcinoma	Ovarian Serous Cystadenocarcinoma	
+	Pancreatic Adenocarcinoma	Pancreatic Adenocarcinoma	
+	Pancreatoblastoma	Pancreatoblastoma	
+	Papillary Carcinoma	Papillary Carcinoma	
+	Papillary Thyroid Carcinoma Pathway	Other tumor	
+	Papillary glioneuronal tumor	Papillary glioneuronal tumor	
+	Pheochromocytoma and Paraganglioma	Pheochromocytoma and Paraganglioma	
+	Pilocytic astrocytoma	Pilocytic astrocytoma	
+	Pilomatricoma		
+	Pineoblastoma	Pineoblastoma	
+	Pituicytoma	Pituicytoma	
+	Pituitary neuroendocrine tumor		benign tumor: no cancer group
+	Pleomorphic xanthoastrocytoma	Pleomorphic xanthoastrocytoma	
+	Pleuropulmonary blastoma	Other tumor	
+	Portions of white matter with a few reactive astrocytes and rare cells with mild atypia	Other tumor	
+	Post-Transplant Lymphoproliferative Disorder		
+	Posterior fossa group A	Ependymoma	
+	Posterior fossa group B	Ependymoma	
+	Posterior fossa subependymoma	Ependymoma	
+	Primary mediastinal large B cell lymphoma	Primary mediastinal large B cell lymphoma	
+	Primary myelofibrosis	Other tumor	
+	Prostate Adenocarcinoma	Prostate Adenocarcinoma	
+	Rare CNS	Rare CNS tumor	
+	Reactive connective tissue	Other tumor	
+	Rectum Adenocarcinoma	Rectum Adenocarcinoma	
+	Recurrent Acute Leukemia	Acute leukemia	lineage (AML or ALL) not stated and not determinable from the DGD panel (ETV6::TAF8 fusion only, no coding variants); one tumor
+	Recurrent Glioma	Other tumor	
+	Retinoblastoma	Retinoblastoma	
+	Rhabdoid tumor of the kidney	Rhabdoid tumor of the kidney	
+	Rhabdomyosarcoma	Rhabdomyosarcoma	
+	Rosai-dorfman	Rosai-Dorfman disease	
+	Sarcoma	Sarcoma	
+	Schwannoma	Schwannoma	
+	Shwachman-diamond syndrome	Other tumor	
+	Small Cell Carcinoma	Small Cell Carcinoma	
+	Solid pseudopapillary neoplasm of the pancreas	Other tumor	
+	Spinal Cord Neoplasm	Other tumor	
+	Spinal ependymoma	Ependymoma	
+	Spinal subependymoma	Ependymoma	
+	Spindle cell neoplasm	Spindle cell neoplasm	
+	Spinocerebellar ataxia type 7		
+	Stomach Adenocarcinoma	Stomach Adenocarcinoma	
+	Subependymal Giant Cell Astrocytoma	Subependymal Giant Cell Astrocytoma	
+	Supratentorial ependymoma	Ependymoma	
+	T Acute Lymphoblastic Leukemia/Lymphoma	T Acute Lymphoblastic Leukemia/Lymphoma	
+	Teratoma	Teratoma	
+	Testicular Germ Cell Tumor	Testicular Germ Cell Tumor	
+	Thrombocytopenia	Other tumor	
+	Thrombocytosis	Other tumor	
+	Thymoma	Thymoma	
+	Thyroid Carcinoma	Thyroid Carcinoma	
+	Thyroid Gland Papillary Carcinoma	Thyroid Gland Papillary Carcinoma	
+	Thyroid gland neoplasm	Thyroid gland neoplasm	
+	Transient Abnormal Myelopoiesis Associated with Down Syndrome		transient abnormal myelopoiesis: a clonal (GATA1-mutated) myeloproliferative disorder of newborns with Down syndrome or mosaic trisomy 21 that usually regresses; kept as a non-tumor with no cancer group by decision, to be confirmed
+	Type I Pleuropulmonary Blastoma	Type I Pleuropulmonary Blastoma	
+	Type ii pleuropulmonary blastoma	Other tumor	
+	Undifferentiated malignant neoplasm	Other tumor	
+	Uterine Carcinosarcoma	Uterine Carcinosarcoma	
+	Uterine Corpus Endometrial Carcinoma	Uterine Corpus Endometrial Carcinoma	
+	Uveal Melanoma	Uveal Melanoma	
+	Vascular malformation	Other tumor	
+	Wilms tumor	Wilms tumor	
+	Yolk sac tumor	Yolk sac tumor	
+	Hybrid nerve sheath tumor	Hybrid nerve sheath tumor	neurofibroma and schwannoma in one tumor; the plot group is Schwannoma/MPNST
+Dysembryoplastic neuroepithelial tumor (DNET);Dysplasia/Gliosis;Ganglioglioma		Dysembryoplastic neuroepithelial tumor	DNET with gliosis and ganglioglioma; the neoplasm is the DNET
+Germinoma, KIT mutant		Germinoma	tumors had several groups: Germinoma 9 | Meningioma 3; the most frequent is kept
+High-grade astrocytoma with piloid features		High-grade astrocytoma with piloid features	tumors had several groups: High-grade astrocytoma with piloid features 15 | High-grade glioma 6; the most frequent is kept
+Inflammatory lesion			tumors had several groups: (none) 4 | Other tumor 1; the most frequent is kept
+Low-grade glioma, BRAF/MAPK		Low-grade glioma	tumors had several groups: Ependymoma 1 | Low-grade glioma 27; the most frequent is kept
+Low-grade glioma, NF1-somatic, NF1-germline, CDKN2A/B		High-grade glioma	tumors had several groups: High-grade glioma 5 | Low-grade glioma 3; the most frequent is kept
+Rare CNS, MN1::BEND2		Rare CNS tumor	tumors had several groups: Astroblastoma 3 | Rare CNS tumor 8; the most frequent is kept
+Schwannoma		Schwannoma	tumors had several groups: Neurofibroma/Plexiform 3 | Other tumor 1 | Schwannoma 136; the most frequent is kept
+Spindle cell neoplasm		Spindle cell neoplasm	tumors had several groups: Other tumor 4 | Spindle cell neoplasm 5; the most frequent is kept
+	Choroid plexus cyst		a cyst, not a neoplasm (the corrected upstream mapping makes it a non-tumor)
+	Cortical tubers		a tuberous sclerosis lesion, not a neoplasm (the corrected upstream mapping makes it a non-tumor)
+	Astroblastoma	Astroblastoma	astroblastoma (MN1-altered in CNS5); in the plot group Rare CNS tumor
+	Paraganglioma	Paraganglioma	a cranial and paraspinal nerve tumor in CNS5 (the corrected upstream mapping)
+	Meningioangiomatosis		a hamartomatous lesion, not a neoplasm (the corrected upstream mapping makes it a non-tumor)
+	CNS neuroblastoma	CNS neuroblastoma	CNS neuroblastoma, FOXR2-activated or NOS (the CNS5 entity; the cancer group of v15)
